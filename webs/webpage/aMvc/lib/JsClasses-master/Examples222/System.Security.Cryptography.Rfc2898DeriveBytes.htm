@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<title>System.Security.Cryptography.Rfc2898DeriveBytes</title>
+
+    <link type="text/css" rel="stylesheet" href="../System.Web.UI.Interface.debug.css" />
+
+	<script type="text/javascript" src="../System.debug.js"></script>
+
+	<script type="text/javascript" src="../System.BitConverter.debug.js"></script>
+
+	<script type="text/javascript" src="../System.Text.debug.js"></script>
+
+	<script type="text/javascript" src="../System.Convert.debug.js"></script>
+
+	<script type="text/javascript" src="../System.Security.Cryptography.debug.js"></script>
+
+	<script type="text/javascript" src="../System.Security.Cryptography.SHA1.debug.js"></script>
+
+	<script type="text/javascript" src="../System.Security.Cryptography.HMACSHA1.debug.js"></script>
+
+	<script type="text/javascript">
+
+
+		// You can remove Trace.Write lines.
+		// Note: 'byte' is number from 0 to 256;
+		// Note: 'bytes' is array of 'bytes'. It is same as bytes[] in C#
+		window.onload = function(){
+			Trace.IsEnabled = true;
+			Trace.Write("Start Demo");
+			var p = "password";
+			var s = "saltsalt";
+			// Use salt to make it harder to guess key by using a dictionary attack.
+			var password = System.Text.Encoding.UTF8.GetBytes(p);
+			var salt = System.Text.Encoding.UTF8.GetBytes(s);
+			Trace.Write("// Rfc2898DeriveBytes: Generate Secret Key from the password and salt.");
+			var secretKey = new System.Security.Cryptography.Rfc2898DeriveBytes(password, salt, 100);
+			// Create a decryptor from the existing SecretKey bytes by using
+			// 32 bytes (256 bits) for the secret key and
+			// 16 bytes (128 bits) for the initialization vector (IV).
+			var key = secretKey.GetBytes(32);
+			var iv = secretKey.GetBytes(16);
+			//Trace.Write("Hash: "+secretKey.HashName);
+			Trace.Write("IterationCount: " + secretKey.IterationCount);
+			Trace.Write("Key = "+System.BitConverter.ToString(key));
+			Trace.Write("IV = "+System.BitConverter.ToString(iv));
+		}
+
+
+	</script>
+
+</head>
+<body>
+	<div id="TraceLog" style="width: 100%; height: 400px;"></div>
+</body>
+</html>

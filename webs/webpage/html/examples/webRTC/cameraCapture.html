@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container">
+        <video id="gum" playsinline autoplay muted></video>
+        <video id="recorded" playsinline></video>
+
+        <div>
+            <button id="start">Start camera</button>
+            <button id="record" disabled>Start Recording</button>
+            <button id="pause" disabled>Pause</button>
+            <button id="play" disabled>Play</button>
+        </div>
+
+        <div>
+            <canvas></canvas>
+        </div>
+        <div>
+            <span id="errorMsg"></span>
+        </div>
+        <div>
+            <textarea id='log' rows=15 cols=300></textarea>
+        </div>
+    </div>
+
+    <script>
+        // based on https://webrtc.github.io/samples/src/content/getusermedia/record/
+
+        if (navigator.platform === "Windows") {
+            
+            console.log('// 웹 페이지가 Windows에서 실행됩니다.');
+        }
+        console.log(navigator.platform);
+        if (navigator.userAgent.indexOf("Chrome") !== -1 && navigator.platform === "Windows") {
+            // 웹 페이지가 Chrome과 Windows에서 실행됩니다.
+            console.log('// 웹 페이지가 Chrome과 Windows에서 실행됩니다.');
+        }
+        console.log(navigator.userAgent);
+        let mediaRecorder;
+        let recordedBlobs;
+
+        const BLOB_DURATION_MS = 10 * 1000
+        
+        const recordButton = document.querySelector('button#record');
+        const pauseButton = document.querySelector('button#pause');
+        const playButton = document.querySelector('button#play');
+        const recordedVideo = document.querySelector('video#recorded');
+        const errorMsgElement = document.querySelector('span#errorMsg');
+        const logMsgElement = document.querySelector('textarea#log');
+
+        function log(text) {
+            logMsgElement.append(text);
+        }
+
+        function handleSuccess(stream) {
+            recordButton.disabled = false;
+            log('getUserMedia() got stream:', stream);
+            window.stream = stream;
+
+            const gumVideo = document.querySelector('video#gum');
+            gumVideo.srcObject = stream;
+        }
+
+        async function init(constraints) {
+            try {
+                console.log('navigator.permissions.request');
+                navigator.permissions.request({
+                    name: 'camera',
+                    name: 'microphone',
+                });
+                console.log('navigator.permissions.request222');
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                handleSuccess(stream);
+            } catch (e) {
+                console.error('navigator.getUserMedia error:', e);
+                errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+            }
+        }
+
+        document.querySelector('button#start').addEventListener('click', async () => {
+            const constraints = {
+                video: {
+                    width: 1280, height: 720
+                }
+            };
+            log('Using media constraints:', constraints);
+            await init(constraints);
+        });
+
+        function handleDataAvailable(event) {
+            log('handleDataAvailable', event);
+            if (event.data && event.data.size > 0) {
+                recordedBlobs.push(event.data);
+            }
+        }
+
+        /////////////////////////////////////////////////////////////
+        function startRecording() {
+            recordedBlobs = [];
+            let options = { mimeType: 'video/webm;codecs=vp9' };
+            if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+                console.error(`${options.mimeType} is not Supported`);
+                errorMsgElement.innerHTML = `${options.mimeType} is not Supported`;
+                options = { mimeType: 'video/webm;codecs=vp8' };
+                if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+                    console.error(`${options.mimeType} is not Supported`);
+                    errorMsgElement.innerHTML = `${options.mimeType} is not Supported`;
+                    options = { mimeType: 'video/webm' };
+                    if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+                        console.error(`${options.mimeType} is not Supported`);
+                        errorMsgElement.innerHTML = `${options.mimeType} is not Supported`;
+                        options = { mimeType: '' };
+                    }
+                }
+            }
+
+            try {
+                mediaRecorder = new MediaRecorder(window.stream, options);
+            } catch (e) {
+                console.error('Exception while creating MediaRecorder:', e);
+                errorMsgElement.innerHTML = `Exception while creating MediaRecorder: ${JSON.stringify(e)}`;
+                return;
+            }
+
+            console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
+            recordButton.textContent = 'Stop Recording';
+            pauseButton.disabled = false;
+            playButton.disabled = true;
+            mediaRecorder.onstop = (event) => {
+                log('Recorder stopped: ', event);
+                log('Recorded Blobs: ', recordedBlobs);
+            };
+            mediaRecorder.ondataavailable = handleDataAvailable;
+            mediaRecorder.start(BLOB_DURATION_MS);
+            log('MediaRecorder started', mediaRecorder);
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+        }
+
+        recordButton.addEventListener('click', () => {
+            if (recordButton.textContent === 'Start Recording') {
+                startRecording();
+            } else {
+                stopRecording();
+                recordButton.textContent = 'Start Recording';
+                playButton.disabled = false;
+                downloadButton.disabled = false;
+            }
+        });
+
+        /////////////////////////////////////////////////////////////
+        function pauseRecording() {
+            mediaRecorder.pause();
+        }
+
+        function resumeRecording() {
+            mediaRecorder.resume();
+        }
+
+        pauseButton.addEventListener('click', () => {
+            if (pauseButton.textContent === 'Pause') {
+                pauseRecording();
+                pauseButton.textContent = 'Resume';
+            } else {
+                resumeRecording();
+                pauseButton.textContent = 'Pause';
+            }
+        });
+
+        /////////////////////////////////////////////////////////////
+        playButton.addEventListener('click', () => {
+            const superBuffer = new Blob(recordedBlobs, { type: 'video/webm' });
+            recordedVideo.src = null;
+            recordedVideo.srcObject = null;
+            recordedVideo.src = window.URL.createObjectURL(superBuffer);
+            recordedVideo.controls = true;
+            recordedVideo.play();
+        });
+    </script>
+</body>
+</html>

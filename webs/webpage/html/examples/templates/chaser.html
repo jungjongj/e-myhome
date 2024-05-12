@@ -1,0 +1,664 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test Mvc</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?5"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?10"></script>
+    <script src="/aMvc/base/viewLibBase.js?34"></script>
+    <script src="/aMvc/base/templateBase.js?1"></script>
+
+    <script type="text/javascript">
+        document.title = '추적자들';
+        var _dbpath = "example.dadb", _code = "da_board", _kcode, _kname;
+
+        class ChaserTemp {
+            constructor(arg) {
+                this.arg = arg;
+            }
+
+            eventHandler(e) {
+                //console.log("eventHandler(e) type =33333333333= ");
+                var info = e.data.info;
+                var arg = e.data.arg;
+                var self = arg.self;
+                var type = e.data.type;
+
+                //console.log('type*****=' + type);
+                if (type == 'boardrecord') {
+                    //console.log("eventHandler(e)============= str == " + str);
+                    //__fullscreenView.setContent(arg.elem);
+                    //__fullscreenView.fullscreen('fullscreenwin');
+                    var str = "/view.board?code=" + arg.code + "&page=" + arg.page + "&uid=" + info.uid + "&fid=" + info.fid + "&dbpath=" + arg.dbpath + "&brdid=" + arg.brdid + "&utf8=ok&";
+                    //console.log("eventHandler(e) boardlist ============= str == " + str);
+                    //console.log('eventHandler(e) arg.renderinfo 222====' + arg.renderinfo);
+                    //var arg2 = { path: str, type: "viewbody", dbpath: arg.dbpath, code: arg.code, brdid: arg.brdid, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.path = str;
+                    arg.type = "viewbody";
+                    arg.self.listAjax(arg);
+                    //alert("item[j]==code==" + e.data.code + " boardid==" + e.data.boardid + "  boardtype==" + e.data.boardtype);
+                } else if (type == 'boardlist' || type == 'more' || type == 'menuclick') {
+                    //console.log("eventHandler type  == " + type);
+                    var str = "/list.board?code=" + arg.code + "&brdid=" + info.brdid + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    //console.log("morelist str info.brdid == " + info.brdid);
+                    //var arg2 = { path: str, type: "boardlist", dbpath: arg.dbpath, code: arg.code, brdid: arg.brdid, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.path = str;
+                    arg.type = "boardlist";
+                    arg.self.listAjax(arg);
+                } else if (type == 'boardmodify') {
+                    str = "/view.board?posttype=modify&code=" + e.data.code + "&dbpath=" + e.data.dbpath + "&brdid=" + e.data.brdid + "&uid=" + e.data.uid + "&datuid=" + e.data.datuid + "&utf8=ok&";
+                } else if (type == 'boarddelete') {
+                    if (!confirm("글을 삭제합니다 ")) {
+                        return;
+                    }
+                    str = "/list.board?posttype=delete&code=" + arg.code + "&dbpath=" + arg.dbpath + "&brdid=" + arg.brdid + "&uid=" + e.data.uid + "&datuid=" + e.data.datuid + "&utf8=ok&";
+                    arg.path = str;
+                    arg.type = 'boardlist';
+                    arg.self.postAjax(arg);
+                } else if (type == 'list') {
+
+                } else if (type == 'boardpost') {
+                    var form = document.getElementById(e.data.formid);
+                    //console.log('arg.renderinfo.tabthread*************=' + arg.renderinfo.tabthread);
+                    //console.log('info.key**=' + info.key);
+                    if (arg.renderinfo.tabthread) {
+                        form.thread.value = arg.renderinfo.thread;
+                    }
+                    arg.type = 'boardlist';
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+                    //var b64 = Base64.encode($("#summernote").val());
+                    //alert("Base64.encode formid==222222" + formid);
+                    //formData = self.changeSerialize(formData, 'comment', b64);
+                    //console.log("form.subject.value=======" + form.subject.value);
+                    //b64 = Base64.encode(form.subject.value);
+                    //formData = self.changeSerialize(formData, 'subject', b64);
+                    arg.formData = formData;
+
+                    arg.path = "/list.board?posttype=post&code=" + arg.code + "&dbpath=" + arg.dbpath + "&brdid=" + arg.brdid + "&uid=" + arg.uid + "&datuid=" + arg.datuid + "&utf8=ok&";
+                    arg.self.postAjax(arg);
+                    //console.log("eventHandler(e) type33 == " + type);
+                } else if (type == 'boardwrite') {
+                    if (arg.renderinfo.viewtype == 'paintthumbnail') {
+                        location.href = `/html/admin/edit/da-paintForm.html?dbpath=${arg.dbpath}&code=${arg.code}&brdid=${arg.brdid}&utf8=ok`;
+                        return;
+                    } else if (arg.renderinfo.viewtype == 'homemake') {
+                        location.href = `/html/admin/edit/homemakeForm.html?dbpath=${arg.dbpath}&code=${arg.code}&brdid=${arg.brdid}&utf8=ok`;
+                        return;
+                    } else {
+                        window._fullscreen = new FullScreenView();
+                        window._fullscreen.setContent(`글쓰기`, e.data.self.createBoardFormView(info, arg, e.data.self.eventHandler));
+                        //__modal.show('글쓰기', e.data.self.createBoardFormView(info, arg, e.data.self.eventHandler));
+                        new SummerNoteSet('summernote');
+                    }
+                    console.log('글쓰기**=');
+                    new SummerNoteSet('summernote');
+                } else if (type == 'addpoint' || type == "minuspoint") {
+                    var str = "/view.board?posttype=addpoint&code=" + arg.code + "&point=" + e.data.point + "&uid=" + e.data.uid + "&fid=" + e.data.fid + "&dbpath=" + arg.dbpath + "&brdid=" + e.data.brdid + "&";
+                    console.log(` handle addpoint str=${str}********=`);
+                    //var arg2 = { path: str, type: "viewbody", dbpath: arg.dbpath, code: arg.code, brdid: arg.brdid, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.path = str;
+                    arg.type = 'viewbody';
+                    arg.self.listAjax(arg);
+                } else if (type == 'adddatpoint' || type == "minusdatpoint") {
+                    var str = "/view.board?posttype=addpoint&addtype=dat&code=" + arg.code + "&point=" + e.data.point + "&uid=" + e.data.uid + "&datuid=" + e.data.datuid + "&fid=" + e.data.fid + "&dbpath=" + arg.dbpath + "&brdid=" + e.data.brdid + "&";
+                    //console.log(` handle addpoint str=${str}********=`);
+                    //var arg2 = { path: str, type: "viewbody", dbpath: arg.dbpath, code: arg.code, brdid: arg.brdid, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.path = str;
+                    arg.type = 'viewbody';
+                    arg.self.listAjax(arg2);
+                } else if (type == 'login') {
+                    var form = document.getElementById(e.data.formid);
+                    arg.type = type;
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+                    arg.formData = formData;
+                    arg.path = "/login.member?logtype=login&utf8=ok&";
+                    arg.self.postAjax(arg);
+                } else if (type == 'datdelete') {
+                    if (!confirm("댓글을 삭제합니다 ")) {
+                        return;
+                    }
+                    str = "/view.board?posttype=datdelete&code=" + arg.code + "&dbpath=" + arg.dbpath + "&brdid=" + arg.brdid + "&uid=" + e.data.uid + "&datuid=" + e.data.datuid + "&fid=" + e.data.fid + "&utf8=ok&";
+                    arg.path = str;
+                    arg.self.postAjax(arg);
+                } else if (type == 'datpost' || type == "datmodify") {
+                    var form = document.getElementById(e.data.formid);
+                    //console.log('form^********************************=' + form);
+                    form.code.value = arg.code;
+                    form.dbpath.value = arg.dbpath;
+                    form.uid.value = arg.uid;
+                    arg.type = 'viewbody';
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+                    //var b64 = Base64.encode($("#summernote").val());
+                    //alert("Base64.encode formid==222222" + formid);
+                    //formData = self.changeSerialize(formData, 'comment', b64);
+                    //console.log("form.subject.value=======" + form.subject.value);
+                    //b64 = Base64.encode(form.subject.value);
+                    //formData = self.changeSerialize(formData, 'subject', b64);
+                    arg.formData = formData;
+
+                    arg.path = "/view.board?posttype=" + type + "&code=" + arg.code + "&dbpath=" + arg.dbpath + "&brdid=" + arg.brdid + "&uid=" + info.uid + "&fid=" + info.fid + "&datuid=" + arg.datuid + "&utf8=ok&";
+                    //console.log(` handle datpost arg.path=${arg.path}**** arg.type=${arg.type}****************************=`);
+                    arg.self.postAjax(arg);
+                } else if (type == 'boardfind') {
+                    var keyfield = $("#findform option:selected").val();
+                    var key = $("#findform input[name=key]").val();
+                    //if (keyfield == "subject" || keyfield == "comment")
+                    //key = Base64.encode(key);
+
+                    var str = "/list.board?code=" + arg.code + "&page=1&uid=" + arg.uid + "&dbpath=" + arg.dbpath + "&brdid=" + arg.brdid + "&keyfield=" + keyfield + "&key=" + key + "&";
+                    //console.log(' handle find str********************************=' + str);
+                    //var arg2 = { path: str, type: "boardlist", dbpath: arg.dbpath, code: arg.code, brdid: arg.brdid, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.path = str;
+                    arg.type = 'boardlist';
+                    arg.self.listAjax(arg);
+                } else if (type == 'boardpage') {
+                    //console.log(` handle page arg.page=${arg.page}**** e.data.page=${e.data.page}****************************=`);
+                    var str = "/list.board?code=" + arg.code + "&page=" + e.data.page + "&uid=" + arg.uid + "&dbpath=" + arg.dbpath + "&brdid=" + arg.brdid + "&";
+                    //var arg2 = { path: str, type: "boardlist", dbpath: arg.dbpath, code: arg.code, brdid: arg.brdid, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.path = str;
+                    arg.type = 'boardlist';
+                    //console.log(' handle page str********************************=' + str);
+                    arg.self.listAjax(arg);
+                } else if (type == 'jjocjyformSubmit') {
+                    //alert('jjocjyformSubmit');
+                    var form = document.getElementById("jjocjyForm");
+                    form.sendid.value = e.data.sendid;
+                    form.receiveid.value = e.data.receiveid;
+
+                    //console.log('form^********************************=' + form);
+                    var arg2 = { type: "jjocjylist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+
+                    arg2.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg2.formData = formData;
+                    var str = "/jjocjy.member?jjocjytype=add&code=" + e.data.code + "&dbpath=" + e.data.dbpath + "&utf8=ok&";
+                    arg2.path = str;
+                    //console.log('jjocjyformSubmit arg2.path=' + arg2.path);
+                    arg.self.postAjax(arg2);
+                } else if (type == 'jjocjyformSubmit') {
+
+                    var form = document.getElementById("jjocjyForm");
+                    form.sendid.value = e.data.sendid;
+                    form.receiveid.value = e.data.receiveid;
+
+                    //console.log('form^********************************=' + form);
+                    var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+
+                    arg2.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg2.formData = formData;
+                    var str = "/jjocjy.member?jjocjytype=add&code=" + e.data.code + "&dbpath=" + e.data.dbpath + "&utf8=ok&";
+                    arg2.path = str;
+                    //console.log('jjocjyformSubmit arg2.path=' + arg2.path);
+                    arg.self.postAjax(arg2);
+                } else if (type == 'jjocjyviewbody') {
+
+
+
+                } else if (type == 'pollwrite') {
+                    __modal.show('설문만들기', e.data.self.createPollMakeView(info, arg, arg.self.eventHandler));
+                }
+            }
+
+            createBoardFormView(info, arg, eventHandler) {
+
+                var writeinfo = {};
+                //writeinfo.rendertype = "general";
+                writeinfo.boxtype = "box-success box-solid";
+                writeinfo.titleicon = "";
+                writeinfo.title = arg.type;
+                writeinfo.collapse_btn = "ok";
+
+                var $writebox = $('<div>');
+
+                var $writeForm = $('<form id="boardpostform" action="post.board" method="post" class="form-horizontal">');
+
+                $writeForm.append('<input type="hidden" name="code" value="' + arg.code + '"  />');
+                $writeForm.append('<input type="hidden" name="dbpath" value="' + arg.dbpath + '"  />');
+                $writeForm.append('<input type="hidden" name="posttype" value="post"  />');
+                $writeForm.append('<input type="hidden" name="brdid" value="' + arg.brdid + '"  />');
+                $writeForm.append('<input type="hidden" name="uid" value="' + arg.uid + '"  />');
+                $writeForm.append('<input type="hidden" name="fid" value="' + arg.fid + '"  />');
+                $writeForm.append('<input type="hidden" name="thread" />');
+
+                var $writeLabel = $('<label for="subject" class="col-sm-2 control-label">제목</label>');
+                var $writeInput = $('<input type="text" name="subject" class="form-control" placeholder="subject">').val(arg.subject);
+                var $formGroup = $('<div class="form-group">').append($writeLabel).append($writeInput);
+                $writeForm.append($formGroup);
+
+                $writeLabel = $('<label for="subject" class="col-sm-2 control-label">요약</label>');
+                $writeInput = $('<textarea type="text" name="summary" class="form-control" placeholder="summary">').val(arg.summary);
+                $formGroup = $('<div class="form-group">').append($writeLabel).append($writeInput);
+                $writeForm.append($formGroup);
+
+                $writeLabel = $('<label for="comment" class="col-sm-4 control-label"></label>').text('내용');
+                $writeInput = $('<textarea cols="40" rows="18" name="comment" id="summernote" class="form-control summernote" placeholder="내 용..." required="" autofocus="" type="text">').val(arg.comment);
+                $formGroup = $('<div class="form-group">').append($writeLabel).append($writeInput);
+                $writeForm.append($formGroup);
+
+                var $writeLabel = $('<label for="subject" class="col-sm-2 control-label">날짜</label>');
+                var $writeInput = $('<input type="date" name="time" class="form-control" placeholder="subject">').val(arg.subject);
+                var $formGroup = $('<div class="form-group">').append($writeLabel).append($writeInput);
+                $writeForm.append($formGroup);
+
+                var $writeLabel = $('<label for="subject" class="col-sm-2 control-label">간편설문</label>');
+                var $writeInput = $('<input type="text" name="com" class="form-control" placeholder="subject">').val(arg.subject);
+                var btn1 = $('<button type="button" class="btn btn-light brdupdate" >설문작성</button>');
+                $(btn1).bind("click", { type: 'pollwrite', formid: 'boardpostform', self: this, info: info, arg: arg }, this.eventHandler);
+                var $formGroup = $('<div class="form-group">').append($writeLabel).append($writeInput).append(btn1);
+                $writeForm.append($formGroup);
+
+                var btn1 = $('<button type="button" class="btn btn-info brdupdate" >전송</button>');
+                $(btn1).bind("click", { type: 'boardpost', formid: 'boardpostform', info: info, arg: arg }, this.eventHandler);
+                var $formitem = $('<div class="form-group">').append($(btn1));
+                $writeForm.append($formitem);
+                $writebox.append($writeForm);
+
+                writeinfo.comment = $writebox;
+                var b = new CardItem();
+                var $box = b.createCardItem(writeinfo);
+
+                //this.summernoteSetting(arg.comment);
+                return $writebox;
+                //return $box;
+            };
+
+            insertItem(title, boxnum) {
+                this.itemcount++;
+
+                var $row = $('<div class="row">');
+                var $col1 = $('<label class="col-2">').append("설문항목:");
+                var $col2 = $('<input type="text" name="q" tip="q" class="col-8">').attr("box-num", boxnum);
+
+                var $col6 = $('<button class="col-1 btn btn-outline-info home-make-btns" id="itemdel" class="col-1" >x</button>').attr("box-num", boxnum);
+                $row.append($col1).append($col2).append($col6);
+                return $row;
+            }
+
+            boxCalculate(boxnum) {
+                var qsize = 0;
+                $('#pollmake-body').children().each(function () {
+                    $(this).find('[tip=q]').attr('name', 'q' + qsize);
+                    //$("#pollForm input[name=q_num]").val(qsize);
+                    //console.log($(this).html());
+
+                    qsize++;
+                });
+                //alert("boxSum = " + boxSum);
+                $("#pollmakeForm input[name=q_size]").val(qsize);
+                //$('#box-input-sum-' + boxnum).val(boxSum);
+            }
+
+            createPollMakeEvent(info2, arg, eventHandler) {
+                var self = this;
+
+                $(document).on("click", ".home-make-btns", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var btnid = $(this).attr("id");
+                    if (btnid == "addItem") {
+                        var tit = $(this).prev().val();
+                        $('#pollmake-body').append(self.insertItem(tit, 1));
+                        //$(this).prev().val("");
+                    } else if (btnid == "boxdel") {
+                        $(this).parent().parent().parent().parent().remove();
+                        //self.allCalculate();
+                    } else if (btnid == "itemdel") {
+                        $(this).parent().remove();
+                        var box_num = $(this).attr("box-num");
+                        self.boxCalculate(box_num);
+                        //self.allCalculate();
+                    } else if (btnid == "pollmakesubmit") {
+                        console.log("pollmakesubmit");
+                        self.boxCalculate(box_num);
+                        var form = document.getElementById("pollmakeForm");
+                        var v = '', q = '';
+                        var qsize = form.q_size.value;
+                        for (var i = 0; i < qsize; i++) {
+                            var text = $('#pollmakeForm').find(`input[name="q${i}"]`).val();
+                            v = v + '0:';
+                            q = q + text + ';';
+                        }
+
+                        var form2 = document.getElementById("boardpostform");
+                        console.log('q=', q);
+                        form2.com.value = v + ';subject:' + form.subject.value + ';' + q;
+
+                        __modal.hide();
+                    } else {
+                        var box_num = $(this).attr("box-num");
+                        var tit = $(this).prev().val();
+                        $('#boxbody-' + box_num).append(self.insertItem(tit, box_num));
+                        $(this).prev().val("");
+                    }
+
+                });
+
+            }
+
+            createPollMakeView(info2, arg, eventHandler) {
+                this.boxcount = 0, this.itemcount = 0;
+
+                var pv = `<form id="pollmakeForm" method="post" onsubmit="return OnSubmit(this)">
+                    <input type="hidden" name="code" id="code" value="poll" />
+                    <input type="hidden" name="dbpath" id="dbpath" />
+                    <input type="hidden" name="brdid" id="brdid" value="1" />
+                    <input type="hidden" name="posttype" id="posttype" value="post" />
+                    <input type="hidden" name="q_size" id="q_size" />
+
+                    <div class="card-header">
+                        설문만들기
+                        <div class="pull-right form-inline">
+                            <button class="btn btn-outline-info home-make-btns" id="addItem">설문항목추가</button>
+                        </div>
+                    </div>
+                    <div class="card-body" id="pollmake-body">
+
+                    </div>
+                    <div class="card-footer">
+                        
+                        <label for="sum" class="control-label">제목</label>
+                        <input type="text" class="form-control mb-auto" name="subject" value="" placeholder="설문제목..." required />
+                        <div class="pull-right">
+                            <input class="home-make-btns" type="submit" id="pollmakesubmit" placeholder="설문전송" value="전송">
+                        </div>
+                    </div>
+                </form>`;
+
+                this.createPollMakeEvent(info2, arg, eventHandler);
+
+                return pv;
+            }
+
+            createPollView(info, arg, eventHandler) {
+                var arrarr = info.com.split(';');
+                var v = arrarr[0].split(':');
+                var subjects = arrarr[1].split(':');
+                var pollelem = $('<div>');
+                var totalv = 0;
+                for (var i = 0; i < v.length; i++) {
+
+                    var p = v[i] ? v[i] : 0;
+                    totalv = totalv + parseInt(p);
+                    console.log('v[i]=', v[i]);
+                    console.log('totalv=', totalv);
+                }
+
+                //console.log(`createPollView arg.self.startBoardRequest==${arg.self.startBoardRequest}`);
+                var $temp = $("<div>");
+                var $title = $("<h4>");
+                var $formE = $('<form id="pollForm" method="post" onsubmit="return OnPollUpdateSubmit(this)">');
+
+                $formE.append('<input type="hidden" name="code" id="code" value=' + arg.code + ' />');
+                $formE.append('<input type="hidden" name="dbpath" id="dbpath" value=' + arg.dbpath + ' />');
+                $formE.append('<input type="hidden" name="fid" value=' + arg.fid + ' />');
+
+                //$(arg.boardid).append(tableE);
+                $temp.append($title).append($formE);
+
+                var $listE = $('<ul class="list-group">');
+                $formE.append($listE);
+
+                var count = 0;
+                if (arrarr && arrarr.length >= 0) {
+
+                    for (var i = 0; i < arrarr.length - 2; i++) {
+                        //cnt++;
+
+                        var $listItemE = $('<li class="list-group-item">');
+
+                        var $radioE = $('<div class="radio">');
+                        var $radioLabelE = $('<label>');
+                        var $radioInputE = $('<input type="radio" name="q_num">').attr('value', i);
+                        //console.log(`info.q_num=${info.q_num}`);
+                        var intv = parseInt(v[i] = v[i] ? v[i] : 0);
+                        console.log(`totalv=${totalv}`);
+
+                        $radioLabelE.append($radioInputE).append(arrarr[i + 2] + ' (' + intv + '명)');
+                        $radioE.append($radioLabelE);
+
+                        var pecent = intv === 0 && totalv === 0 ? "0" : (intv / totalv * 100).toFixed(2);
+                        console.log(`pecent=${pecent}`);
+                        var $progressDivE = $('<div class="progress">');
+                        var $progressE = $('<div class="progress-bar" role="progressbar" style="width: ' + pecent + '%;" aria-valuenow="' + pecent + '" aria-valuemin="0" aria-valuemax="100">').text(pecent + "%");
+                        $progressDivE.append($progressE);
+
+                        $listItemE.append($radioE).append($progressDivE);
+
+                        $listE.append($listItemE);
+
+
+                    }
+                }
+
+                var $submitBtnE = $('<button type="button" class="btn btn-info brdupdate" >투표</button>');
+                $submitBtnE.bind("click", { type: 'pollupdate', info: info, self: this, arg: arg }, this.eventHandler);
+                $formE.append($submitBtnE);
+
+                $title.text(subjects[1]);
+                console.log(`subjects[1]=${subjects}`);
+                return $temp;
+            };
+
+            createMediaItem(info) {
+                var strTag;
+
+                var $media_box = $('<div class="d-flex border p-3">');
+                var $img = null;
+                if (info.img) {
+                    $img = info.img;
+                } else {
+                    //console.log(info.imgsrc);
+                    if (info.imgsrc) {
+                        $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+                    } else if (info.iconclass) {
+                        $img = $(`<i class="${info.iconclass}">`);
+                    } else {
+                        $img = $(`<img src="..." onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+                    }
+                }
+
+                var $boxBody = $('<div class="media-body">');
+                //alert('info.subject=' + info.subject);
+                if (info.subject) {
+                    var $bodyHead = $('<div class="body-head list-inline">');
+
+                    var $bodySubject = $('<h5 class="list-inline-item">').append(info.subject);
+                    $bodyHead.append($bodySubject);
+                    $boxBody.append($bodyHead);
+
+                    if (info.headappend) {
+                        var $headappend = $('<div class="list-inline-item pull-right">').append('headappend' + info.headappend);
+                        $bodyHead.append($headappend);
+                    }
+                }
+                if (info.comment) {
+                    var $bodyComment = $('<p>').append(info.comment);
+                    $boxBody.append($bodyComment);
+                }
+                if (info.bodyappend) {
+                    var $bodyAppend = $('<p>');
+                    var $bodyAppendSmall = $('<small>').append(info.bodyappend);
+                    $bodyAppend.append($bodyAppendSmall);
+                    $boxBody.append($bodyAppend);
+                }
+
+                $media_box.append($img).append($boxBody);
+
+                return $media_box;
+            }
+
+            createList(info2, arg, eventHandler) {
+                var loginfo = info2.loginfo;
+                var arrarr = info2.arrarr;
+                var grouparr = info2.grouparr;
+                //console.log(arg);
+                var mediaE = $(`<div class="card-deck">
+                        </div>`);
+
+                if (arrarr && arrarr.length >= 0) {
+                    for (var i = 0; i < arrarr.length; i++) {
+                        var info = arrarr[i];
+
+                        var meItem = this.createMediaItem(info);
+                        mediaE.append(meItem);
+                        $(meItem).bind("click", { type: 'boardrecord', info: info, loginfo: loginfo, self: this, arg: arg }, this.eventHandler);
+                        $(meItem).attr('style', 'cursor:pointer;cursor: hand;');
+                    }
+                }
+
+                $(arg.elem).empty();
+                $(arg.elem).append($(mediaE));
+
+                var $buttonE = $("<input type='button' class='btn btn-info'>");
+                $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;').css("float", "right");
+                $buttonE.val("글쓰기");
+                $buttonE.bind("click", { type: 'boardwrite', self: this, info: info, arg: arg }, this.eventHandler);
+                var $writeDiv = $('<div>');
+                $($writeDiv).append($buttonE);
+                $(arg.elem).append($writeDiv);
+
+                var $page = $("<div>");
+                $(arg.elem).append($page);
+                var p = new PageNavView();
+                arg.pageelem = $page;
+                p.createPageNavView(info2, arg, this.eventHandler);
+
+                var $find = $("<div>");
+                $(arg.elem).append($find);
+                arg.findelem = $find;
+                var f = new BoardFindView();
+                f.createFindView(info2, arg, this.eventHandler);
+
+                //console.log($(arg.elem).html());
+                return $(mediaE);
+            }
+
+            createViewbody(info2, arg, eventHandler) {
+                var loginfo = info2.loginfo;
+                //var pageinfo = info2.pageinfo;
+                var arrarr = info2.arrarr;
+                var datarr = info2.datarr;
+                var info = arrarr[0];
+                console.log('createList arg.renderinfo.viewbody====' + arg.renderinfo.viewbody, 'info.uid', info.uid);
+
+                var main = new MainLayout();
+                var ver = new VerticalLayout();
+                var mafiahor = new HorizontalLayout();
+                var twohor = new HorizontalLayout();
+
+                main.addControl(ver);
+                main.addControl(twohor);
+                main.addControl(mafiahor);
+
+                if (info.com) {
+                    var pollelem = this.createPollView(info, arg, this.eventHandler);
+                    ver.addControl(pollelem);
+                }
+
+                var alert = `<div class="alert alert-dark" role="alert">
+                       alert
+                      ${info.comment ?? info.comment}
+                    </div>`;
+                ver.addControl(alert);
+
+                var alert = `<div class="alert alert-dark" role="alert">
+                      ${arg.title ?? 'title'}
+                    </div>`;
+                ver.addControl(alert);
+
+                var plusBrdid = 1;
+                var brdid = Number(info.uid.toString().padEnd(6, "0"));
+                var conf = {
+                    type: 'boardlist',
+                    dbpath: arg.dbpath,
+                    code: "da_employee",
+                    brdid: brdid + plusBrdid++,
+                    renderview: 'BoardView',
+                    rendertype: 'timeline',
+
+                };
+                var board1 = new BoardController(conf);
+                var conf = {
+                    type: 'boardlist',
+                    dbpath: arg.dbpath,
+                    code: "da_employee",
+                    brdid: brdid + plusBrdid++,
+                    renderview: 'BoardView',
+                    rendertype: 'timeline',
+
+                };
+                var board2 = new BoardController(conf);
+                twohor.setControl([board1, 6], [board2, 6]);
+
+
+                var erp = new ErpController({ type: 'erplist', dbpath: arg.dbpath, code: 'employee', title: '마피아후보', renderview: 'EmployeeView', rendertype: 'media', tag: 'board-' + info.uid, viewbody: 'EmployeeViewbodyTemplate' });
+
+                //var d = new KeyvalueController({ settype: 'setting', dbpath: "config.dadb", kcode: "bookmark", kname: "aaa", rendertype: 'list', renderview: "ListTreeView"});
+                //ver.addControl(d);
+
+                console.log('arg.elem=' + arg.elem);
+                var conf = {
+                    type: 'boardlist',
+                    dbpath: arg.dbpath,
+                    code: "da_employee",
+                    brdid: brdid + plusBrdid++,
+                    renderview: 'BoardView',
+                    rendertype: 'table',
+
+                };
+                var board = new BoardController(conf);
+                mafiahor.setControl([erp, 4], [board, 8]);
+
+                //$(arg.elem).empty();
+                var elem = $('<div>');
+
+                $(arg.elem).empty();
+                $(arg.elem).append(elem);
+                main.renderController(elem);
+                console.log('arg.elem=' + arg.elem);
+                //alert("$box.html()" + $box.html());
+                //return $box;
+            }
+        }
+
+
+        $(document).ready(function () {
+            
+            var elem = document.getElementById('mafiagame');
+            var c = new BoardController({ type: 'boardlist', dbpath: _dbpath, code: _code, brdid: 3, renderview: 'ChaserTemp', rendertype: 'selectlist_h' });
+
+            c.renderController(elem);
+        });
+
+
+    </script>
+</head>
+<body>
+    <da include="/html/module/navbarIndex.html"></da>
+
+    <div id="mafiagame"></div>
+
+    <da include="/html/module/footer.html"></da>
+</body>
+</html>

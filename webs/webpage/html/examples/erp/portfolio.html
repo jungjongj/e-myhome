@@ -1,0 +1,1691 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transitions - jQuery Mobile Demos</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?12"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?19"></script>
+    <script src="/aMvc/base/erpBase.js?910"></script>
+    <script src="/aMvc/base/templateBase.js?1"></script>
+
+    <script type="text/javascript">
+
+        var _code = "", _dbpath = "erp.dadb", _empcode = '', _companycode = '';
+        function urlsplit() {
+            var dec = decodeURI(location.href);
+            var url = unescape(dec);
+            var pm = url.split('?');
+            console.log(url);
+            if (pm && pm[1]) {
+                var params = pm[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var param = params[i].split('=');
+                    if (param && param[1]) {
+                        if (param[0] == "dbpath")
+                            _dbpath = param[1];
+                        else if (param[0] == "code")
+                            _code = param[1];
+                        else if (param[0] == "empcode")
+                            _empcode = param[1];
+                        else if (param[0] == "companycode")
+                            _companycode = param[1];
+                    }
+                }
+            }
+        }
+
+        class PortFolioView extends ViewBase {
+            constructor() {
+                super();
+            }
+
+            eventHandler(e) {
+                var info = e.data.info;
+                var arg = e.data.arg;
+                var type = e.data.type;
+                var self = e.data.self;
+                console.log('type**=' + type);
+                if (type == 'erpwrite') {
+                    __modal.show('입 력', self.createErpFormView());
+
+                    var form = document.getElementById("empViewForm");
+
+                    form.dbpath.value = arg.dbpath;
+                    $('#empdelSubmit').remove();
+                    $('#empmodifySubmit').remove();
+                    $('#empaddSubmit').bind("click", { type: 'empaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+                    //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+                } else if (type == 'empaddSubmit') {
+
+                    var form = document.getElementById("empViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    if (arg.renderinfo.tag)
+                        form.tag.value = arg.renderinfo.tag;
+                    console.log('form.tag.value********=' + form.tag.value);
+                    //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erplist";
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg.formData = formData;
+                    var str = "/list.erp?posttype=post&code=" + arg.code + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    arg.path = str;
+                    console.log('EmployeeView arg2.path=' + arg.path);
+                    arg.self.postAjax(arg);
+                } else if (type == 'empdelSubmit') {
+
+                    if (!confirm(`내용을 삭제합니다`)) {
+                        // 취소(아니오) 버튼 클릭 시 이벤트
+                        return;
+                    }
+
+                    var form = document.getElementById("empViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    //console.log('form^********************************=' + form);
+                    //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erplist";
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg.formData = formData;
+                    var str = "/list.erp?posttype=delete&code=" + arg.code + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    arg.path = str;
+                    console.log('EmployeeView arg2.path=' + arg.path);
+                    arg.self.postAjax(arg);
+
+                } else if (type == 'empmodifySubmit') {
+
+                    if (!confirm(`내용을 수정합니다`)) {
+                        // 취소(아니오) 버튼 클릭 시 이벤트
+                        return;
+                    }
+
+                    var form = document.getElementById("empViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    form.addtype.value = 'modify';
+                    //console.log('form^********************************=' + form);
+                    //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erplist";
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg.formData = formData;
+                    var str = "/list.erp?posttype=post&code=" + arg.code + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    arg.path = str;
+                    console.log('EmployeeView arg.path=' + arg.path);
+                    arg.self.postAjax(arg);
+
+                } else if (type == 'empviewbody') {
+
+                    var str = "/view.erp?code=" + arg.code + "&page=" + arg.page + "&uid=" + info.uid + "&fid=" + info.fid + "&dbpath=" + arg.dbpath + "&empcode=" + info.empcode + "&utf8=ok&";
+                    //console.log("eventHandler(e) boardlist ============= str == " + str);
+                    console.log('eventHandler(e) arg.renderinfo 222====' + arg.renderinfo);
+                    //var arg2 = { path: str, type: "viewbody", dbpath: arg.dbpath, code: arg.code, brdid: arg.brdid, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.path = str;
+                    arg.type = "erpview";
+                    arg.self.listAjax(arg);
+                    return;
+
+                    self.createViewbody(info, arg, e.data.self.eventHandler);
+                    var form = document.getElementById("empViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    /***
+                    form.uid.value = info.uid;
+                    console.log(`info.uid 7777777**info.buse=${info.buse}  info.englishname=${info.englishname} info.email=${info.email}`);
+                    form.empcode.value = info.empcode;
+                    form.empname.value = info.empname;
+                    form.nation.value = info.nation;
+                    form.englishname.value = info.englishname;
+                    form.email.value = info.email;
+                    form.postnum.value = info.postnum;
+                    form.addr.value = info.addr;
+                    form.buse.value = info.buse;
+                    form.jicchakcode.value = info.jicchakcode;
+                    form.jicchak.value = info.jicchak;
+                    form.jicgub.value = info.jicgub;
+                    form.jicjong.value = info.jicjong;
+                    form.jicmugubun.value = info.jicmugubun;
+                    form.hobong.value = info.hobong;
+                    form.ibsadate.value = info.ibsadate;
+                    form.ibsagubun.value = info.ibsagubun;
+                    form.enddate.value = info.enddate;
+                    form.returndate.value = info.returndate;
+                    form.huyjikdate.value = info.huyjikdate;
+                    form.gbyutype.value = info.gbyutype;
+                    form.yungm_gb.value = info.yungm_gb;
+                    form.bohum_gb.value = info.bohum_gb;
+                    form.bohum_num.value = info.bohum_num;
+                    form.bankcode.value = info.bankcode;
+                    form.gyejoa_num.value = info.gyejoa_num;
+                    form.chulcard_num.value = info.chulcard_num;
+                    //form.history.value = info.history;
+                    //form.register.value = info.register;
+                    $('#empaddSubmit').remove();
+                    form.dbpath.value = arg.dbpath;
+                    $('#empdelSubmit').bind("click", { type: 'empdelSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+                    form.dbpath.value = arg.dbpath;
+                    $('#empmodifySubmit').bind("click", { type: 'empmodifySubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+                     */
+                } else if (type == 'personalwrite') {
+                    __modal.show('입 력', self.createEmppersonalFormView());
+
+                    var form = document.getElementById("emppersonalViewForm");
+                    form.empcode.value = info.empcode;
+                    form.dbpath.value = arg.dbpath;
+                    $('#emppersonaldelSubmit').remove();
+                    $('#emppersonalmodifySubmit').remove();
+                    $('#emppersonaladdSubmit').bind("click", { type: 'emppersonaladdSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+                    console.log(`form.empcode.value==${form.empcode.value} info.empcode=${info.empcode}`);
+                } else if (type == 'emppersonaladdSubmit') {
+
+                    var form = document.getElementById("emppersonalViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    //form.empcode.value = info.empcode;
+                    console.log('form^********************************=' + form);
+                    //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erpview";
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg.formData = formData;
+                    var str = "/list.erp?posttype=post&code=" + arg.code + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    arg.path = str;
+                    console.log('EmployeeView arg.path=' + arg.path);
+                    arg.self.postAjax(arg);
+                } else if (type == 'emppersonaldelSubmit') {
+
+                    if (!confirm(`내용을 삭제합니다`)) {
+                        // 취소(아니오) 버튼 클릭 시 이벤트
+                        return;
+                    }
+
+                    var form = document.getElementById("emppersonalViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    form.empcode.value = info.empcode;
+                    //console.log('form^********************************=' + form);
+                    //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erplist";
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg.formData = formData;
+                    var str = "/list.erp?posttype=delete&code=" + arg.code + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    arg.path = str;
+                    console.log('EmployeeView arg.path=' + arg.path);
+                    arg.self.postAjax(arg);
+
+                } else if (type == 'emppersonalmodifySubmit') {
+
+                    if (!confirm(`내용을 수정합니다`)) {
+                        // 취소(아니오) 버튼 클릭 시 이벤트
+                        return;
+                    }
+
+                    var form = document.getElementById("emppersonalViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    form.addtype.value = 'modify';
+                    form.empcode.value = info.empcode;
+                    //console.log('form^********************************=' + form);
+                    //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erplist";
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg.formData = formData;
+                    var str = "/list.erp?posttype=post&code=" + arg.code + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    arg.path = str;
+                    console.log('EmployeeView arg.path=' + arg.path);
+                    arg.self.postAjax(arg);
+
+                } else if (type == 'emppersonalviewbody') {
+
+                    //__fullscreenView.setContent(`보기`, self.createErpFormView());
+                    //__fullscreenView.fullscreen('fullscreenwin');
+                    var f = new FullScreenView();
+                    f.setContent(`보기`, self.createEmppersonalFormView());
+
+                    var form = document.getElementById("emppersonalViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    form.uid.value = info.uid;
+                    form.empcode.value = info.empcode;
+                    form.empname.value = info.empname;
+                    form.sex.value = info.sex;
+                    form.bonjuk.value = info.bonjuk;
+                    form.birthday.value = info.birthday;
+                    form.birthdaygubun.value = info.birthdaygubun;
+                    form.bloodtype.value = info.bloodtype;
+                    form.marrydate.value = info.marrydate;
+                    form.tel.value = info.tel;
+                    form.handtel.value = info.handtel;
+                    form.jonggyo.value = info.jonggyo;
+                    form.chuymi.value = info.chuymi;
+                    form.speciality.value = info.speciality;
+                    form.hoju.value = info.hoju;
+                    form.sedaeju.value = info.sedaeju;
+
+                    form.jugutype.value = info.jugutype;
+                    form.postnum.value = info.postnum;
+                    form.addr.value = info.addr;
+                    form.bonjugpostnum.value = info.bonjugpostnum;
+                    form.bonjug.value = info.bonjug;
+                    form.region.value = info.region;
+                    form.register.value = info.register;
+
+                    //form.register.value = info.register;
+                    $('emppersonaladdSubmit').remove();
+                    form.dbpath.value = arg.dbpath;
+                    $('#emppersonaldelSubmit').bind("click", { type: 'emppersonaldelSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+                    form.dbpath.value = arg.dbpath;
+                    $('#emppersonalmodifySubmit').bind("click", { type: 'emppersonalmodifySubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+
+                } else if (type == 'familywrite') {
+                    __modal.show('입 력', self.createEmpfamilyFormView());
+
+                    var form = document.getElementById("empfamilyViewForm");
+
+                    form.dbpath.value = arg.dbpath;
+                    form.empcode.value = e.data.empcode;
+                    $('#empfamilydelSubmit').remove();
+                    $('#empfamilymodifySubmit').remove();
+                    $('#empfamilyaddSubmit').bind("click", { type: 'empfamilyaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+                    //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+                } else if (type == 'empfamilyaddSubmit') {
+
+                    var form = document.getElementById("empfamilyViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    //console.log('form^********************************=' + form);
+                    //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erpview";
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg.formData = formData;
+                    var str = "/view.erp?posttype=post&code=" + arg.code + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    arg.path = str;
+                    console.log('EmployeeView arg.path=' + arg.path);
+                    arg.self.postAjax(arg);
+                } else if (type == 'empfamilydelSubmit') {
+
+                    if (!confirm(`내용을 삭제합니다`)) {
+                        // 취소(아니오) 버튼 클릭 시 이벤트
+                        return;
+                    }
+
+                    var form = document.getElementById("empfamilyViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    //console.log('form^********************************=' + form);
+                    //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erpview";
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg.formData = formData;
+                    var str = "/view.erp?posttype=delete&code=" + arg.code + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    arg.path = str;
+                    console.log('EmployeeView arg.path=' + arg.path);
+                    arg.self.postAjax(arg);
+
+                } else if (type == 'empfamilymodifySubmit') {
+
+                    if (!confirm(`내용을 수정합니다`)) {
+                        // 취소(아니오) 버튼 클릭 시 이벤트
+                        return;
+                    }
+
+                    var form = document.getElementById("empfamilyViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    form.addtype.value = 'modify';
+                    //console.log('form^********************************=' + form);
+                    //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erpview";
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg.formData = formData;
+                    var str = "/view.erp?posttype=post&code=" + arg.code + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    arg.path = str;
+                    console.log('EmployeeView arg.path=' + arg.path);
+                    arg.self.postAjax(arg);
+
+                } else if (type == 'empfamilyviewbody') {
+
+                    //__fullscreenView.setContent(`보기`, self.createErpFormView());
+                    //__fullscreenView.fullscreen('fullscreenwin');
+                    var f = new FullScreenView();
+                    f.setContent(`보기`, self.createEmppersonalFormView());
+
+                    var form = document.getElementById("empfamilyViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    form.uid.value = info.uid;
+                    console.log(`info.uid 7777777**info.buse=${info.buse}  info.englishname=${info.englishname} info.email=${info.email}`);
+                    form.empcode.value = info.empcode;
+                    form.empname.value = info.empname;
+                    form.relation.value = info.relation;
+                    form.name.value = info.name;
+                    form.telphone.value = info.telphone;
+                    form.addr.value = info.addr;
+                    form.school.value = info.school;
+                    form.job.value = info.job;
+                    form.samehouse.value = info.samehouse;
+                    form.register.value = info.register;
+
+                    //form.register.value = info.register;
+                    $('empfamilyaddSubmit').remove();
+                    form.dbpath.value = arg.dbpath;
+                    $('#empfamilydelSubmit').bind("click", { type: 'empfamilydelSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+                    form.dbpath.value = arg.dbpath;
+                    $('#empfamilymodifySubmit').bind("click", { type: 'empfamilymodifySubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+
+                } else if (type == 'careerwrite') {
+                    __modal.show('입 력', self.createEmpcareerFormView());
+
+                    var form = document.getElementById("empcareerViewForm");
+
+                    form.dbpath.value = arg.dbpath;
+                    form.empcode.value = e.data.empcode;
+                    $('#empcareerdelSubmit').remove();
+                    $('#empcareermodifySubmit').remove();
+                    $('#empcareeraddSubmit').bind("click", { type: 'empcareeraddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+                    //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+                } else if (type == 'empcareeraddSubmit') {
+
+                    var form = document.getElementById("empcareerViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    //console.log('form^********************************=' + form);
+                    //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erpview";
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg.formData = formData;
+                    var str = "/view.erp?posttype=post&code=" + arg.code + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    arg.path = str;
+                    console.log('EmployeeView arg.path=' + arg.path);
+                    arg.self.postAjax(arg);
+                } else if (type == 'empcareerdelSubmit') {
+
+                    if (!confirm(`내용을 삭제합니다`)) {
+                        // 취소(아니오) 버튼 클릭 시 이벤트
+                        return;
+                    }
+
+                    var form = document.getElementById("empcareerViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    //console.log('form^********************************=' + form);
+                    //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erpview";
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg.formData = formData;
+                    var str = "/view.erp?posttype=delete&code=" + arg.code + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    arg.path = str;
+                    console.log('EmployeeView arg.path=' + arg.path);
+                    arg.self.postAjax(arg);
+
+                } else if (type == 'empcareermodifySubmit') {
+
+                    if (!confirm(`내용을 수정합니다`)) {
+                        // 취소(아니오) 버튼 클릭 시 이벤트
+                        return;
+                    }
+
+                    var form = document.getElementById("empcareerViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    form.addtype.value = 'modify';
+                    //console.log('form^********************************=' + form);
+                    //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erpview";
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+
+                    arg.formData = formData;
+                    var str = "/view.erp?posttype=post&code=" + arg.code + "&dbpath=" + arg.dbpath + "&utf8=ok&";
+                    arg.path = str;
+                    console.log('EmployeeView arg.path=' + arg.path);
+                    arg.self.postAjax(arg2);
+
+                } else if (type == 'empcareerviewbody') {
+
+                    //__fullscreenView.setContent(`보기`, self.createErpFormView());
+                    //__fullscreenView.fullscreen('fullscreenwin');
+                    var f = new FullScreenView();
+                    f.setContent(`보기`, self.createEmppersonalFormView());
+
+                    var form = document.getElementById("empcareerViewForm");
+                    form.dbpath.value = arg.dbpath;
+                    form.uid.value = info.uid;
+                    console.log(`info.uid 7777777**info.buse=${info.buse}  info.englishname=${info.englishname} info.email=${info.email}`);
+                    form.empcode.value = info.empcode;
+                    form.type.value = info.type;
+                    form.name.value = info.name;
+                    form.skill.value = info.skill;
+                    form.work.value = info.work;
+                    form.school.value = info.school;
+                    form.job.value = info.job;
+                    form.award.value = info.award;
+                    form.starttime.value = info.starttime;
+                    form.endtime.value = info.endtime;
+                    form.info.value = info.info;
+                    form.register.value = info.register;
+
+                    //form.register.value = info.register;
+                    $('empcareeraddSubmit').remove();
+                    form.dbpath.value = arg.dbpath;
+                    $('#empcareerdelSubmit').bind("click", { type: 'empcareerdelSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+                    form.dbpath.value = arg.dbpath;
+                    $('#empcareermodifySubmit').bind("click", { type: 'empcareermodifySubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+
+                } else if (type == 'erppage') {
+                    var str = "/list.erp?code=" + arg.code + "&page=" + e.data.page + "&uid=" + arg.uid + "&dbpath=" + arg.dbpath + "&";
+                    console.log('ErpController erppage=========== str=' + str);
+                    //var arg2 = { path: str, type: "erplist", dbpath: arg.dbpath, code: arg.code, brdid: arg.brdid, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erplist";
+                    arg.path = str;
+                    arg.self.listAjax(arg);
+                } else if (type == 'erpfind') {
+                    var keyfield = $("#findform option:selected").val();
+                    var key = $("#findform input[name=key]").val();
+                    if (keyfield == "subject" || keyfield == "comment")
+                        key = Base64.encode(key);
+
+                    var str = "/list.erp?code=" + arg.code + "&dbpath=" + arg.dbpath + "&keyfield=" + keyfield + "&key=" + key + "&";
+                    console.log(`ErpController erpfind str=${str}  self=${self}`);
+                    //var arg2 = { path: str, type: 'erplist', dbpath: arg.dbpath, code: arg.code, brdid: arg.brdid, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
+                    arg.type = "erplist";
+                    arg.path = str;
+                    arg.self.listAjax(arg);
+                }
+            }
+
+            createWorkItem(info, arg, eventHandler) {
+
+                var strTag;
+                var $boxcol = $('<div class="col mb-8">');
+                var $box = $('<div class="card">');  //ex: box-default box-danger box-warning box-success box-solid
+                $boxcol.append($box);
+                if (info.cls) {
+
+                    $box.addClass(cls);
+                }
+                var $boxBody = null;
+                var $img = null;
+                if (info.img) {
+                    $img = info.img;
+                } else {
+                    //console.log(info.imgsrc);
+                    if (info.imgsrc) {
+                        $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+                    } else if (info.iconclass) {
+                        $img = $(`<i class="${info.iconclass}">`);
+                    } else {
+                        $img = $(`<img src="..." onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+                    }
+                }
+                //alert("icon" + $boxHeader.html());
+                $boxBody = $('<div class="card-body" style="overflow:auto">').css("display", info.display).attr("id", info.boxbodyid);
+
+                if (info.key) {
+                    var $bodySubject = $('<h4 class="card-title">').append(info.key);
+                    $boxBody.append($bodySubject);
+                }
+
+                if (info.append) {
+                    var $bodyAppend = $('<p>');
+                    var $bodyAppendSmall = $('<small>').append(info.append);
+                    $bodyAppend.append($bodyAppendSmall);
+                    $boxBody.append($bodyAppend);
+                }
+
+                $box.append($img).append($boxBody);
+
+                //alert("$box.html()" + $box.html());
+                return $boxcol;
+
+            }
+
+            createWorkList(info2, arg, eventHandler) {
+
+                var loginfo = info2.loginfo;
+                var arrarr = info2.arrarr;
+                var grouparr = info2.grouparr;
+
+                var $temp = $("<div>");
+
+                var head = `<div class="alert alert-dark" role="alert">
+                      Work
+                    </div>`;
+                $temp.append(head);
+
+                var thumbnailE = $(`<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                        </div>`);
+                $temp.append(thumbnailE);
+
+                if (arrarr && arrarr.length >= 0) {
+                    console.log('work arrarr.length=', arrarr.length);
+                    for (var i = 0; i < arrarr.length; i++) {
+                        var info = arrarr[i];
+                        var ele = null;
+                        ele = this.createThumbnailItemR(info, arg, eventHandler);
+                        $(thumbnailE).append(ele);
+
+                        $(ele).bind("click", { type: 'empviewbody', self: this, info: info, arg: arg }, this.eventHandler);
+                        $(ele).attr('style', 'cursor:pointer;cursor: hand;');
+
+                    }
+                }
+
+                //$(arg.elem).empty();
+                //$(arg.elem).append($temp);
+
+                //console.log($(arg.elem).html());
+                return $temp;
+            }
+
+            createSkillItem(info) {
+                var strTag;
+
+                var $card = $('<div class="card">').addClass(`col-md-6`);
+                var $cardContent = $('<div class="card-content">');
+                var $cardBody = $('<div class="card-body">');
+                var $media_box = $('<div class="media d-flex">');
+                var $mediaBody = $('<div class="media-body text-left">');
+                //var $mediaT = $('<h5 class="danger">423</h5>');
+                var $mediaS = $('<span></span>').text(info.key);
+                var v;
+                if (isNaN(info.value)) {
+                    var p = Number(info.value);
+                    v = info.key + '(' + p + '%)';
+                } else
+                    v = info.key;
+                $mediaS.text(v);
+
+                $card.append($cardContent);
+                $cardContent.append($cardBody);
+                $cardBody.append($media_box);
+                $media_box.append($mediaBody);
+                $mediaBody.append($mediaS);
+
+                var $progressBox = $('<div class="progress mt-1 mb-0" style="height: 7px;">');
+                var $progress = $(`<div class="progress-bar bg-danger" role="progressbar" style="width: ${info.value}%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>`);
+                $progressBox.append($progress);
+                $cardBody.append($progressBox);
+
+                console.log(info.skill);
+                if (info.skill) {
+
+                }
+
+                return $card;
+            }
+
+            createSkillList(arrarr, arg, eventHandler) {
+
+                var $temp = $("<div>");
+
+                var head = `<div class="alert alert-dark" role="alert">
+                      ${arg.renderinfo.title ?? 'skill'}
+                    </div>`;
+                $temp.append(head);
+
+                var divElem = $(`<div>`).addClass(`row`);
+                $temp.append(divElem);
+
+                if (arrarr && arrarr.length >= 0) {
+                    for (var i = 0; i < arrarr.length; i++) {
+                        //cnt++;
+                        var info = arrarr[i];
+                        var arr = arrarr[i].arr;
+
+                        var mediabox = this.createSkillItem(info);
+                        divElem.append(mediabox);
+
+                        $(mediabox).bind("click", { type: 'empviewbody', self: this, info: info, arg: arg }, this.eventHandler);
+                        $(mediabox).attr('style', 'cursor:pointer;cursor: hand;');
+                    }
+                }
+
+                return $temp;
+            }
+
+            createSchoolList(info2, arg, eventHandler) {
+                var info = info2.loginfo;
+                var pageinfo = info2.pageinfo;
+                var arrarr = info2.arrarr;
+
+                var $temp = $("<div>");
+
+                var head = `<div class="alert alert-dark" role="alert">
+                      ${arg.renderinfo.title ?? 'title'}
+                    </div>`;
+                $temp.append(head);
+
+                //console.log(`arg.renderinfo.rendertype=${arg.renderinfo.rendertype}`)
+                if (arg.renderinfo.rendertype == 'media') {
+                    if (arrarr && arrarr.length >= 0) {
+                        for (var i = 0; i < arrarr.length; i++) {
+                            //cnt++;
+                            var info = arrarr[i];
+                            var arr = arrarr[i].arr;
+
+                            var mediabox = this.createSkillItem(info);
+                            $temp.append(mediabox);
+
+                            $(mediabox).bind("click", { type: 'empviewbody', self: this, info: info, arg: arg }, this.eventHandler);
+                            $(mediabox).attr('style', 'cursor:pointer;cursor: hand;');
+                        }
+                    }
+
+                    $(arg.elem).empty();
+                    $(arg.elem).append($temp);
+
+                    return $temp;
+                }
+
+            }
+
+            createAwardList(info2, arg, eventHandler) {
+                var info = info2.loginfo;
+                var pageinfo = info2.pageinfo;
+                var arrarr = info2.arrarr;
+
+                var $temp = $("<div>");
+
+                var head = `<div class="alert alert-dark" role="alert">
+                      ${arg.renderinfo.title ?? 'title'}
+                    </div>`;
+                $temp.append(head);
+
+                //console.log(`arg.renderinfo.rendertype=${arg.renderinfo.rendertype}`)
+                if (arg.renderinfo.rendertype == 'media') {
+                    if (arrarr && arrarr.length >= 0) {
+                        for (var i = 0; i < arrarr.length; i++) {
+                            //cnt++;
+                            var info = arrarr[i];
+                            var arr = arrarr[i].arr;
+
+                            var mediabox = this.createSkillItem(info);
+                            $temp.append(mediabox);
+
+                            $(mediabox).bind("click", { type: 'empviewbody', self: this, info: info, arg: arg }, this.eventHandler);
+                            $(mediabox).attr('style', 'cursor:pointer;cursor: hand;');
+                        }
+                    }
+
+                    $(arg.elem).empty();
+                    $(arg.elem).append($temp);
+
+                    return $temp;
+                }
+
+            }
+
+            createJobList(info2, arg, eventHandler) {
+                var info = info2.loginfo;
+                var pageinfo = info2.pageinfo;
+                var arrarr = info2.arrarr;
+
+                var $temp = $("<div>");
+
+                var head = `<div class="alert alert-dark" role="alert">
+                      Job
+                    </div>`;
+                $temp.append(head);
+
+                if (arrarr && arrarr.length >= 0) {
+                    for (var i = 0; i < arrarr.length; i++) {
+                        //cnt++;
+                        var info = arrarr[i];
+                        var arr = arrarr[i].arr;
+
+                        var mediabox = this.createMediaItem(info);
+                        $temp.append(mediabox);
+
+                        $(mediabox).bind("click", { type: 'empviewbody', self: this, info: info, arg: arg }, this.eventHandler);
+                        $(mediabox).attr('style', 'cursor:pointer;cursor: hand;');
+                    }
+                }
+
+                return $temp;
+            }
+
+            createThumbnailItem(info, arg, eventHandler) {
+                var strTag;
+                var $boxcol = $('<div class="col mb-8">');
+                var $box = $('<div class="card">');  //ex: box-default box-danger box-warning box-success box-solid
+                $boxcol.append($box);
+                if (info.cls) {
+
+                    $box.addClass(cls);
+                }
+                var $boxBody = null;
+                var $img = null;
+                if (info.img) {
+                    $img = info.img;
+                } else {
+                    //console.log(info.imgsrc);
+                    if (info.imgsrc) {
+                        $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+                    } else if (info.iconclass) {
+                        $img = $(`<i class="${info.iconclass}">`);
+                    } else {
+                        $img = $(`<img src="..." onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+                    }
+                }
+                //alert("icon" + $boxHeader.html());
+                $boxBody = $('<div class="card-body" style="overflow:auto">').css("display", info.display).attr("id", info.boxbodyid);
+
+                if (info.subject) {
+                    var $bodySubject = $('<h4 class="card-title">').append(info.subject);
+                    $boxBody.append($bodySubject);
+                }
+
+                if (info.append) {
+                    var $bodyAppend = $('<p>');
+                    var $bodyAppendSmall = $('<small>').append(info.append);
+                    $bodyAppend.append($bodyAppendSmall);
+                    $boxBody.append($bodyAppend);
+                }
+
+                $box.append($img).append($boxBody);
+
+                //alert("$box.html()" + $box.html());
+                return $boxcol;
+            }
+
+            createThumbnailItemR = function (info, arg, eventHandler) {
+                var strTag;
+                var $boxcol = $('<div class="col mb-8">');
+
+                var $imageflip = $('<div class="drag image-flip" ontouchstart="this.classList.toggle(\'hover\');">');
+                $boxcol.append($imageflip);
+
+                var $mainflip = $('<div class="mainflip">');
+                var $frontside = $('<div class="frontside">');
+                var $backside = $('<div class="backside">');
+
+                var $box = $('<div class="card">');  //ex: box-default box-danger box-warning box-success box-solid
+                if (info.cls) {
+
+                    $box.addClass(cls);
+                }
+                var $boxBody = null;
+                var $img = null;
+                if (info.img) {
+                    $img = info.img;
+                } else {
+                    //console.log(info.imgsrc);
+                    if (info.imgsrc) {
+                        $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+                    } else if (info.iconclass) {
+                        $img = $(`<i class="${info.iconclass}">`);
+                    } else {
+                        $img = $(`<img src="..." onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+                    }
+                }
+                //alert("icon" + $boxHeader.html());
+                $boxBody = $('<div class="card-body" style="overflow:auto">').css("display", info.display).attr("id", info.boxbodyid);
+
+                if (info.subject) {
+                    var $bodySubject = $('<h4 class="card-title">').append(info.subject);
+                    $boxBody.append($bodySubject);
+                }
+
+                if (info.append) {
+                    var $bodyAppend = $('<p>');
+                    var $bodyAppendSmall = $('<small>').append(info.append);
+                    $bodyAppend.append($bodyAppendSmall);
+                    $boxBody.append($bodyAppend);
+                }
+
+                $box.append($img).append($boxBody);
+                $frontside.append($box);
+
+
+                var $box = $('<div class="card">');  //ex: box-default box-danger box-warning box-success box-solid
+                if (info.cls) {
+                    var cls = info.cls;
+                    if (cls === 'warning' || cls === 'info' || cls === 'light') {
+                        cls = 'text-dark bg-' + cls;
+                    } else {
+                        cls = 'text-white bg-' + cls;
+                    }
+                    $box.addClass(cls);
+                }
+                var $boxBody = null;
+
+                //alert("icon" + $boxHeader.html());
+                $boxBody = $('<div class="card-body" style="overflow:auto">');
+
+                if (info.subject) {
+                    var $bodySubject = $('<h4 class="card-title">').append(info.subject);
+                    $boxBody.append($bodySubject);
+                }
+
+                if (info.summary) {
+                    var $bodysummary = $('<h4 class="card-title">').append(info.summary);
+                    $boxBody.append($bodysummary);
+                }
+
+                if (info.append) {
+                    var $bodyAppend = $('<p>');
+                    var $bodyAppendSmall = $('<small>').append(info.append);
+                    $bodyAppend.append($bodyAppendSmall);
+                    $boxBody.append($bodyAppend);
+                }
+
+                $box.append($boxBody);
+                $backside.append($box);
+
+                $mainflip.append($frontside).append($backside);
+                $imageflip.append($mainflip);
+                //alert("$box.html()" + $box.html());
+                return $boxcol;
+            }
+
+            createThumbnailList(info2, arg, eventHandler) {
+
+                var loginfo = info2.loginfo;
+                var arrarr = info2.arrarr;
+                var grouparr = info2.grouparr;
+
+                var $temp = $("<div>");
+
+                var head = `<div class="alert alert-dark" role="alert">
+                      ${arg.renderinfo.title ?? 'title'}
+                    </div>`;
+                $temp.append(head);
+
+                var thumbnailE = $(`<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                        </div>`);
+                $temp.append(thumbnailE);
+
+                if (arrarr && arrarr.length >= 0) {
+                    for (var i = 0; i < arrarr.length; i++) {
+                        var info = arrarr[i];
+                        var ele = null;
+                        if (arg.renderinfo.rendertype == 'thumbnail')
+                            ele = this.createThumbnailItem(info, arg, eventHandler);
+                        else
+                            ele = this.createThumbnailItemR(info, arg, eventHandler);
+                        $(thumbnailE).append(ele);
+
+                        $(ele).bind("click", { type: 'empviewbody', info: info, loginfo: loginfo, self: this, arg: arg }, this.eventHandler);
+                        $(ele).attr('style', 'cursor:pointer;cursor: hand;');
+
+                    }
+                }
+
+                $(arg.elem).empty();
+                $(arg.elem).append($temp);
+
+                var $write = $("<div>");
+                $temp.append($write);
+                var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
+                $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;').css("float", "right");
+                $buttonE.val("글작성");
+                $buttonE.bind("click", { type: 'erpwrite', self: this, info: info, arg: arg }, this.eventHandler);
+                $write.append($buttonE);
+
+
+                var $page = $("<div>");
+                $temp.append($page);
+                var p = new PageNavView();
+                arg.pageelem = $page;
+                p.createPageNavView(info2, arg, this.eventHandler);
+
+                var $find = $("<div>");
+                $temp.append($find);
+                arg.findelem = $find;
+                var f = new ErpFindView();
+                f.createFindView(info2, arg, this.eventHandler);
+
+                //console.log($(arg.elem).html());
+                return $(thumbnailE);
+            }
+
+            createMediaItem(info, arg, eventHandler) {
+                var strTag;
+
+                var $media_box = $('<div class="list-group-item list-group-item-action ">');
+                var $media_box_item = $('<div class="d-flex w-100 justify-content-between">');
+                $media_box.append($media_box_item);
+                var $img = null;
+                if (info.img) {
+                    $img = info.img;
+                } else {
+                    //console.log(info.imgsrc);
+                    if (info.imgsrc) {
+                        $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+                    } else if (info.iconclass) {
+                        $img = $(`<i class="${info.iconclass}">`);
+                    } else {
+                        $img = $(`<img src="..." onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+                    }
+                }
+
+                var $boxBody = $('<div class="media-body">');
+                //alert('info.subject=' + info.subject);
+                if (info.subject) {
+
+                    var $bodyHead = $('<div class="body-head list-inline">');
+
+                    var $bodySubject = $('<h5 class="list-inline-item">').append(info.subject);
+                    $bodyHead.append($bodySubject);
+                    $boxBody.append($bodyHead);
+
+                    if (info.headappend) {
+                        var $headappend = $('<div class="list-inline-item pull-right">').append('headappend' + info.headappend);
+                        $bodyHead.append($headappend);
+                    }
+                }
+                if (info.summary) {
+                    var $bodyComment = $('<p>').append(info.summary);
+                    $boxBody.append($bodyComment);
+                }
+                if (info.bodyappend) {
+                    var $bodyAppend = $('<p>');
+                    var $bodyAppendSmall = $('<small>').append(info.bodyappend);
+                    $bodyAppend.append($bodyAppendSmall);
+                    $boxBody.append($bodyAppend);
+                }
+
+                $media_box_item.append($img).append($boxBody);
+
+                return $media_box;
+            }
+
+            createMediaList(info2, arg, eventHandler) {
+                var loginfo = info2.loginfo;
+                var arrarr = info2.arrarr;
+                var grouparr = info2.grouparr;
+
+                var $temp = $("<div>");
+
+                var head = `<div class="alert alert-dark" role="alert">
+                      ${arg.renderinfo.title ?? 'title'}
+                    </div>`;
+                $temp.append(head);
+
+                var mediaE = $(`<div class="list-group">
+                        </div>`);
+
+                $temp.append(mediaE);
+
+                if (arrarr && arrarr.length >= 0) {
+                    for (var i = 0; i < arrarr.length; i++) {
+                        var info = arrarr[i];
+                        var meItem = this.createMediaItem(info, arg, eventHandler);
+
+                        $(meItem).bind("click", { type: 'empviewbody', self: this, info: info, arg: arg }, this.eventHandler);
+                        $(meItem).attr('style', 'cursor:pointer;cursor: hand;');
+
+                        mediaE.append(meItem);
+                    }
+                }
+
+                $(arg.elem).empty();
+                $(arg.elem).append($temp);
+
+                var $write = $("<div>");
+                $temp.append($write);
+                var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
+                $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;').css("float", "right");
+                $buttonE.val("글작성");
+                $buttonE.bind("click", { type: 'erpwrite', self: this, info: info, arg: arg }, this.eventHandler);
+                $write.append($buttonE);
+
+
+                var $page = $("<div>");
+                $temp.append($page);
+                var p = new PageNavView();
+                arg.pageelem = $page;
+                p.createPageNavView(info2, arg, this.eventHandler);
+
+                var $find = $("<div>");
+                $temp.append($find);
+                arg.findelem = $find;
+                var f = new ErpFindView();
+                f.createFindView(info2, arg, this.eventHandler);
+
+                //console.log($(arg.elem).html());
+                return $temp;
+            }
+
+            createList(info2, arg, eventHandler) {
+                var info = info2.loginfo;
+                var pageinfo = info2.pageinfo;
+                var arrarr = info2.arrarr;
+
+                if (!this.topmenu) {
+                    if (arg && arg.renderinfo.tabthread) {
+                        var $tabelem = $('<div>');
+
+                        $(arg.elem).before($tabelem);
+                        arg.$tabelem = $tabelem;
+                        this.topmenu = new TabMenuView();
+                        this.topmenu.createThreadTabMenu(info2, arg, eventHandler);
+                        console.log('arg.renderinfo.rendertype3332====' + arg.renderinfo.rendertype);
+                    }
+                }
+
+                var $temp = $("<div>");
+
+                var head = `<div class="alert alert-dark" role="alert">
+                      ${arg.renderinfo.title ?? 'title'}
+                    </div>`;
+                $temp.append(head);
+
+                if (arg && arg.renderinfo) {
+                    //console.log('arg.renderinfo.rendertype3332====' + arg.renderinfo.rendertype);
+                    if (arg.renderinfo.rendertype == 'table') {
+                        this.createTableList(info2, arg, eventHandler);
+                    } else if (arg.renderinfo.rendertype == 'thumbnail' || arg.renderinfo.rendertype == 'thumbnailR') {
+                        this.createThumbnailList(info2, arg, eventHandler);
+                    } else if (arg.renderinfo.rendertype == 'media') {
+                        this.createMediaList(info2, arg, eventHandler);
+                    } else if (arg.renderinfo.rendertype == 'selectlist_h' || arg.renderinfo.rendertype == 'selectlist_v') {
+                        this.createSelectList(info2, arg, eventHandler);
+                    } else if (arg.renderinfo.rendertype == 'list') {
+                        //this.createSelectList(info, arg, eventHandler);
+                    } else {
+                        this.createTableList(info2, arg, eventHandler);
+                    }
+                }
+
+                return $temp;
+            }
+
+            createFamilyList(info2, arg, eventHandler) {
+
+                var info = info2.loginfo;
+                var arr = info2.arrarr;
+                var empinfo = arr[0];
+                var pageinfo = info2.pageinfo;
+                var arrarr = info2.empfamilyarr;
+
+                var $temp = $("<div>");
+
+                var head = `<div class="alert alert-dark" role="alert">
+                      가족정보
+                    </div>`;
+                $temp.append(head);
+
+                var $tableE = $(`<table class="table table-hover table-striped ${arg.cls}">`);
+
+                var tHeadE = $("<thead>");
+                var tFootE = $("<tfoot>");
+                var tBodyE = $("<tbody>");
+
+                $tableE.append(tHeadE);
+                $tableE.append(tBodyE);
+                $tableE.append(tFootE);
+                //$(tableE).attr("data-roll", "table");
+                //$(tableE).addClass("table no-margin");
+                //$(arg.boardid).append(tableE);
+                $temp.append($tableE);
+
+                var trE = $("<tr>");
+
+                var thE1 = $("<th style='width: 5%'>").text("번호");
+                var thE2 = $("<th style='width: 10%'>").text("이름");
+                var thE3 = $("<th style='width: 10%'>").text("관계");
+                var thE4 = $("<th style='width: 10%'>").text("주소");
+                var thE5 = $("<th style='width: 35%'>").text("직업");
+                $(trE).append(thE1).append(thE2).append(thE3).append(thE4).append(thE5);
+
+                $(tHeadE).append(trE);
+
+                var trE = $("<tr>");
+                var tdE = $("<td>").attr("colspan", "6");
+                $(trE).append(tdE);
+                $(tFootE).append(trE);
+                var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
+                $buttonE.attr("type", "button").attr('style', 'cursor:pointer;cursor: hand;').css("float", "right");
+                $buttonE.val("글작성");
+                $buttonE.bind("click", { type: 'familywrite', self: this, info: info, empcode: empinfo.empcode, arg: arg }, this.eventHandler);
+                $(tdE).append($buttonE);
+                console.log('createEmployeeView erpwrite arg.dbpath=' + arg.dbpath);
+                var p = new PageNavView();
+                arg.pageelem = tdE;
+                p.createPageNavView(info2, arg, this.eventHandler);
+
+                var trE = $("<tr>");
+                var tdE = $("<td>").attr("colspan", "6");
+                $(trE).append(tdE);
+                $(tFootE).append(trE);
+                arg.findelem = tdE;
+                var f = new ErpFindView();
+                f.createFindView(info2, arg, this.eventHandler);
+
+                if (arrarr && arrarr.length >= 0) {
+                    for (var i = 0; i < arrarr.length; i++) {
+                        //cnt++;
+                        var info = arrarr[i];
+                        var arr = arrarr[i].arr;
+
+                        var trE = $("<tr>");
+
+                        var tdE1 = $("<td>").text(info.article_num);
+                        var tdE2 = $("<td>").text(info.name).css("text-overflow", "ellipsis");
+                        var tdE3 = $("<td>").text(info.relation);
+                        var tdE4 = $("<td>").text(info.addr);
+                        var tdE5 = $("<td>").text(info.job);
+
+                        $(trE).append(tdE1).append(tdE2).append(tdE3).append(tdE4).append(tdE5);
+
+                        $(tBodyE).append(trE);
+
+                        $(trE).bind("click", { type: 'empfamilyviewbody', self: this, info: info, arg: arg }, this.eventHandler);
+                        $(trE).attr('style', 'cursor:pointer;cursor: hand;');
+                    }
+                }
+
+                //$(arg.elem).empty();
+                //$(arg.elem).append($temp);
+
+                return $temp;
+            }
+
+            createCareerList(info2, arg, eventHandler) {
+
+                var info = info2.loginfo;
+                var arr = info2.arrarr;
+                var empinfo = arr[0];
+                var pageinfo = info2.pageinfo;
+                var arrarr = info2.careerarr;
+
+                var $temp = $("<div>");
+
+                var head = `<div class="alert alert-dark" role="alert">
+                      커리어
+                    </div>`;
+                $temp.append(head);
+
+                var $tableE = $(`<table class="table table-hover table-striped ${arg.cls}">`);
+
+                var tHeadE = $("<thead>");
+                var tFootE = $("<tfoot>");
+                var tBodyE = $("<tbody>");
+
+                $tableE.append(tHeadE);
+                $tableE.append(tBodyE);
+                $tableE.append(tFootE);
+                //$(tableE).attr("data-roll", "table");
+                //$(tableE).addClass("table no-margin");
+                //$(arg.boardid).append(tableE);
+                $temp.append($tableE);
+
+                var trE = $("<tr>");
+
+                var thE1 = $("<th style='width: 5%'>").text("번호");
+                var thE2 = $("<th style='width: 10%'>").text("타입");
+                var thE3 = $("<th style='width: 10%'>").text("키");
+                var thE4 = $("<th style='width: 10%'>").text("값");
+                var thE5 = $("<th style='width: 35%'>").text("날짜");
+                $(trE).append(thE1).append(thE2).append(thE3).append(thE4).append(thE5);
+
+                $(tHeadE).append(trE);
+
+                var trE = $("<tr>");
+                var tdE = $("<td>").attr("colspan", "6");
+                $(trE).append(tdE);
+                $(tFootE).append(trE);
+                var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
+                $buttonE.attr("type", "button").attr('style', 'cursor:pointer;cursor: hand;').css("float", "right");
+                $buttonE.val("글작성");
+                $buttonE.bind("click", { type: 'careerwrite', self: this, info: info, empcode: empinfo.empcode, arg: arg }, this.eventHandler);
+                $(tdE).append($buttonE);
+                console.log('createEmployeeView careerwrite arg.dbpath=' + arg.dbpath);
+                var p = new PageNavView();
+                arg.pageelem = tdE;
+                p.createPageNavView(info2, arg, this.eventHandler);
+
+                var trE = $("<tr>");
+                var tdE = $("<td>").attr("colspan", "6");
+                $(trE).append(tdE);
+                $(tFootE).append(trE);
+                arg.findelem = tdE;
+                var f = new ErpFindView();
+                f.createFindView(info2, arg, this.eventHandler);
+
+                if (arrarr && arrarr.length >= 0) {
+                    for (var i = 0; i < arrarr.length; i++) {
+                        //cnt++;
+                        var info = arrarr[i];
+                        var arr = arrarr[i].arr;
+
+                        var trE = $("<tr>");
+                        console.log('info.key=', info.key);
+                        var tdE1 = $("<td>").text(info.article_num);
+                        var tdE2 = $("<td>").text(info.type);
+                        var tdE3 = $("<td>").text(info.key);
+                        var tdE4 = $("<td>").text(info.value);
+                        var tdE5 = $("<td>").text(info.starttime);
+
+                        $(trE).append(tdE1).append(tdE2).append(tdE3).append(tdE4).append(tdE5);
+
+                        $(tBodyE).append(trE);
+
+                        $(trE).bind("click", { type: 'empfamilyviewbody', self: this, info: info, arg: arg }, this.eventHandler);
+                        $(trE).attr('style', 'cursor:pointer;cursor: hand;');
+                    }
+                }
+
+                return $temp;
+            }
+
+            createProfile(info2, arg, eventHandler) {
+
+                var arrarr = info2.arrarr;
+                var info = arrarr[0];
+                var personalarr = info2.personalarr;
+                var personalInfo = personalarr[0];
+
+                var $temp = $("<div>");
+
+                var head = `<div class="alert alert-dark" role="alert">
+                      프로필
+                    </div>`;
+
+                var strTag;
+                var $boxcol = $('<div class="col mb-8">');
+                var $box = $('<div class="card">');  //ex: box-default box-danger box-warning box-success box-solid
+                $boxcol.append(head).append($box);
+
+                var $boxBody = null;
+                var $img = null;
+                if (info.img) {
+                    $img = info.img;
+                } else {
+                    //console.log(info.imgsrc);
+                    if (info.imgsrc) {
+                        $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+                    } else if (info.iconclass) {
+                        $img = $(`<i class="${info.iconclass}">`);
+                    } else {
+                        $img = $(`<img src="..." onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+                    }
+                }
+                //alert("icon" + $boxHeader.html());
+                $boxBody = $('<div class="card-body" style="overflow:auto">');
+
+                if (info.empname) {
+                    var $bodySubject = $('<h4 class="card-title">').append(info.empname);
+                    $boxBody.append($bodySubject);
+                }
+
+                if (info.email) {
+                    var $bodySubject = $('<div class="card-title">').append(info.email);
+                    $boxBody.append($bodySubject);
+                }
+
+                if (info.tel) {
+                    var $bodySubject = $('<div class="card-title">').append(info.tel);
+                    $boxBody.append($bodySubject);
+                }
+
+                if (info.append) {
+                    var $bodyAppend = $('<p>');
+                    var $bodyAppendSmall = $('<small>').append(info.append);
+                    $bodyAppend.append($bodyAppendSmall);
+                    $boxBody.append($bodyAppend);
+                }
+
+                $box.append($img).append($boxBody);
+
+                var head = `<div class="alert alert-dark" role="alert">
+                      개인정보
+                    </div>`;
+                var $box = $('<div class="card">');  //ex: box-default box-danger box-warning box-success box-solid
+                $boxcol.append(head).append($box);
+
+                $boxBody = $('<div class="card-body" style="overflow:auto">');
+
+                if (personalInfo && personalInfo.birthday) {
+                    var $bodySubject = $('<h4 class="card-title">').append(personalInfo.birthday);
+                    $boxBody.append($bodySubject);
+                }
+
+                if (personalInfo && personalInfo.bloodtype) {
+                    var $bodySubject = $('<div class="card-title">').append(personalInfo.bloodtype);
+                    $boxBody.append($bodySubject);
+                }
+                if (personalInfo && personalInfo.jonggyo) {
+                    var $bodySubject = $('<div class="card-title">').append(personalInfo.jonggyo);
+                    $boxBody.append($bodySubject);
+                }
+                if (personalInfo && personalInfo.chuymi) {
+                    var $bodySubject = $('<div class="card-title">').append(personalInfo.chuymi);
+                    $boxBody.append($bodySubject);
+                }
+                if (personalInfo && personalInfo.speciality) {
+                    var $bodySubject = $('<div class="card-title">').append(personalInfo.speciality);
+                    $boxBody.append($bodySubject);
+                }
+
+                if (personalInfo && personalInfo.append) {
+                    var $bodyAppend = $('<p>');
+                    var $bodyAppendSmall = $('<small>').append(personalInfo.append);
+                    $bodyAppend.append($bodyAppendSmall);
+                    $boxBody.append($bodyAppend);
+                }
+
+                $box.append($boxBody);
+
+                var $write = $("<div>");
+                $box.append($write);
+                var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
+                $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;').css("float", "right");
+                $buttonE.val("개인정보");
+                $buttonE.bind("click", { type: 'personalwrite', self: this, info: info, arg: arg }, this.eventHandler);
+                $write.append($buttonE);
+                //alert("$box.html()" + $box.html());
+                return $boxcol;
+            }
+
+            createPortFolio(info2, arg, eventHandler) {
+                var info = info2.loginfo;
+                var pageinfo = info2.pageinfo;
+                var arrarr = info2.arrarr;
+                var skillarr = info2.skillarr;
+                var personalarr = info2.personalarr;
+                var empfamilyarr = info2.empfamilyarr;
+                var careerarr = info2.careerarr;
+                var uid;
+                if (arrarr && arrarr[0])
+                    uid = arrarr[0].uid;
+
+                var p = $('<div>');
+                var profile = this.createProfile(info2, arg, eventHandler);
+                var family = this.createFamilyList(info2, arg, eventHandler);
+                var career = this.createCareerList(info2, arg, eventHandler);
+                p.append(profile).append(family).append(career);
+
+                var main = new MainLayout();
+                var ver = new VerticalLayout();
+                var ver2 = new VerticalLayout();
+                var hor = new HorizontalLayout();
+                var mdiv = document.createElement('div');
+                var mo = new ModuleLoader({ elem: mdiv });
+
+                main.addControl(ver);
+                main.addControl(hor);
+
+                var skillArr = [], workArr = [], schoolArr = [], jobArr = [], awardArr = [];
+                if (careerarr && careerarr.length >= 0) {
+                    for (var i = 0; i < careerarr.length; i++) {
+                        //cnt++;
+                        var info = careerarr[i];
+                        var arr = careerarr[i].arr;
+
+                        if (info.type == 'skill') {
+                            skillArr.push(info);
+                        } else if (info.type == 'work') {
+                            workArr.push(info);
+                        } else if (info.type == 'school') {
+                            schoolArr.push(info);
+                        } else if (info.type == 'job') {
+                            jobArr.push(info);
+                        } else if (info.type == 'award') {
+                            jobArr.push(info);
+                        }
+                    }
+                }
+                var careerelem = $('<div>');
+                var elem;
+                if (skillArr.length > 0) {
+
+                    elem = this.createSkillList(skillArr, arg, eventHandler);
+                    careerelem.append(elem);
+                }
+                if (workArr.length > 0) {
+                    info2.arrarr = workArr;
+                    elem = this.createWorkList(info2, arg, eventHandler);
+                    careerelem.append(elem);
+                    console.log('elem.html()=', elem.html());
+                }
+                if (jobArr.length > 0) {
+                    info2.arrarr = jobArr;
+                    elem = this.createJobList(info2, arg, eventHandler);
+                    careerelem.append(elem);
+                }
+                if (schoolArr.length > 0) {
+                    info2.arrarr = schoolArr;
+                    elem = this.createSchoolList(info2, arg, eventHandler);
+                    careerelem.append(elem);
+                }
+                if (awardArr.length > 0) {
+                    info2.arrarr = awardArr;
+                    elem = this.createAwardList(info2, arg, eventHandler);
+                    careerelem.append(elem);
+                }
+                mo.setModuleData(careerelem.html());
+                console.log('uid=', uid);
+                if (uid == -1)
+                    return;
+                var brdid = Number(uid.toString().padEnd(6, "0"));
+                console.log(brdid);
+
+                var conf = {
+                    type: 'boardlist',
+                    dbpath: arg.dbpath,
+                    code: "da_employee",
+                    brdid: brdid + 1,
+                    renderview: 'BoardView',
+                    rendertype: 'table',
+                    tabthread: [{
+                        key: 'aaa',
+                        brdid: brdid + 1,
+                        value: 'alink'
+                    },
+                    {
+                        key: 'bbb',
+                        brdid: brdid + 2,
+                        value: 'blink'
+                    }]
+                };
+                var board = new BoardController(conf);
+                ver2.addControl(mo);
+                ver2.addControl(board);
+                //var erp = new ErpController('erplist', info.dbpath, 'employee', new EmployeeView(), {} , '');
+                hor.setControl([p, 4], [ver2, 8]);
+                //main.addControl(ver2);
+                var $page = $("<div>");
+                //$(arg.elem).empty();
+                main.renderController($page);
+
+                if (arg.viewelem) {
+                    $(arg.viewelem).empty();
+                    $(arg.viewelem).append($page);
+                } else {
+                    $(arg.elem).empty();
+                    $(arg.elem).append($page);
+
+                }
+                //console.log($(arg.elem).html());
+            }
+
+            createViewbody(info2, arg, eventHandler) {
+
+                console.log('arg.renderinfo.viewbody= ', arg.renderinfo.viewbody);
+                if (arg.renderinfo.viewbody) {
+                    if (typeof arg.renderinfo.viewbody === "string") {
+                        arg.renderinfo.viewbody = eval("new " + arg.renderinfo.viewbody + "()");
+                        arg.renderinfo.viewbody.createViewbody(info2, arg, eventHandler);
+                    } else if (typeof arg.renderinfo.viewbody === "object")
+                        arg.renderinfo.viewbody.createViewbody(info2, arg, eventHandler);
+                }
+                else {
+
+                    this.createPortFolio(info2, arg, eventHandler);
+
+                    return;
+                    var info = info2.loginfo;
+                    var pageinfo = info2.pageinfo;
+                    var arrarr = info2.arrarr;
+                    var skillarr = info2.skillarr;
+                    var personalarr = info2.personalarr;
+                    var empfamilyarr = info2.empfamilyarr;
+                    var careerarr = info2.careerarr;
+                    var uid = -1;
+                    console.log('arrarr && arrarr.length=', arrarr.length);
+                    var p = $('<div>');
+                    var profile = this.createProfile(info2, arg, eventHandler);
+                    var family = this.createFamilyList(info2, arg, eventHandler);
+                    var career = this.createCareerList(info2, arg, eventHandler);
+                    p.append(profile).append(family).append(career);
+
+                    var main = new MainLayout();
+                    var ver = new VerticalLayout();
+                    var hor = new HorizontalLayout();
+
+                    main.addControl(ver);
+                    main.addControl(hor);
+
+
+
+                    //if (uid == -1)
+                    //return;
+                    var brdid = Number(uid.toString().padEnd(6, "0"));
+                    //console.log(brdid);
+
+                    var conf = {
+                        type: 'boardlist',
+                        dbpath: arg.dbpath,
+                        code: "da_employee",
+                        brdid: brdid + 1,
+                        renderview: 'BoardView',
+                        rendertype: 'table',
+                        tabthread: [{
+                            key: 'aaa',
+                            brdid: brdid + 1,
+                            value: 'alink'
+                        },
+                        {
+                            key: 'bbb',
+                            brdid: brdid + 2,
+                            value: 'blink'
+                        }]
+                    };
+                    var board = new BoardController(conf);
+                    //var erp = new ErpController('erplist', info.dbpath, 'employee', new EmployeeView(), {} , '');
+                    hor.setControl([p, 4], [board, 8]);
+
+                    var $page = $("<div>");
+                    //$(arg.elem).empty();
+                    main.renderController($page);
+
+                    console.log('arg.viewelem=', arg.viewelem);
+                    if (arg.viewelem) {
+                        $(arg.viewelem).empty();
+                        $(arg.viewelem).append($page);
+                    } else {
+                        $(arg.elem).empty();
+                        $(arg.elem).append($page);
+
+                    }
+
+                    return $page;
+
+                    //__fullscreenView.setContent(`보기`, this.createErpFormView());
+                    //__fullscreenView.fullscreen('fullscreenwin');
+                    var f = new FullScreenView();
+                    f.setContent(`보기`, this.createErpFormView());
+
+                    var form = document.getElementById("empViewForm");
+
+                    form.uid.value = info.uid;
+                    //console.log(`info.uid 7777777**info.buse=${info.buse}  info.englishname=${info.englishname} info.email=${info.email}`);
+                    form.empcode.value = info.empcode;
+                    form.empname.value = info.empname;
+                    form.nation.value = info.nation;
+                    form.englishname.value = info.englishname;
+                    form.email.value = info.email;
+                    form.postnum.value = info.postnum;
+                    form.addr.value = info.addr;
+                    form.buse.value = info.buse;
+                    form.jicchakcode.value = info.jicchakcode;
+                    form.jicchak.value = info.jicchak;
+                    form.jicgub.value = info.jicgub;
+                    form.jicjong.value = info.jicjong;
+                    form.jicmugubun.value = info.jicmugubun;
+                    form.hobong.value = info.hobong;
+                    form.ibsadate.value = info.ibsadate;
+                    form.ibsagubun.value = info.ibsagubun;
+                    form.enddate.value = info.enddate;
+                    form.returndate.value = info.returndate;
+                    form.huyjikdate.value = info.huyjikdate;
+                    form.gbyutype.value = info.gbyutype;
+                    form.yungm_gb.value = info.yungm_gb;
+                    form.bohum_gb.value = info.bohum_gb;
+                    form.bohum_num.value = info.bohum_num;
+                    form.bankcode.value = info.bankcode;
+                    form.gyejoa_num.value = info.gyejoa_num;
+                    form.chulcard_num.value = info.chulcard_num;
+                    //form.history.value = info.history;
+                    //form.register.value = info.register;
+                    $('#empaddSubmit').remove();
+                    form.dbpath.value = arg.dbpath;
+                    $('#empdelSubmit').bind("click", { type: 'empdelSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+                    form.dbpath.value = arg.dbpath;
+                    $('#empmodifySubmit').bind("click", { type: 'empmodifySubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+
+                }
+
+                return arg.viewelem;
+            }
+        }
+
+
+        window.onload = function () {
+            
+        }
+
+        var elem = null;
+        var empCon = null, workCon = null, maeibCon = null, customerCon = null, rentalCon = null, goodsCon = null;
+        $(document).ready(function () {
+            urlsplit();
+
+            var main = new MainLayout();
+            var ver = new VerticalLayout();
+            var hor = new HorizontalLayout();
+
+            main.addControl(ver);
+            main.addControl(hor);
+
+            empCon = new ErpController({ type: 'erpview', dbpath: _dbpath, code: 'employee', empcode: _empcode, renderview: 'PortFolioView', rendertype: 'selectlist' });
+            ver.addControl(empCon);
+
+            empCon = new ErpController({ type: 'erpview', dbpath: _dbpath, code: 'company', companycode: _companycode, renderview: 'CompanyView', rendertype: 'selectlist' });
+            ver.addControl(empCon);
+            
+            main.renderController(document.getElementById('script'));
+
+        });
+    </script>
+
+</head>
+<body class="">
+    <da include="/html/module/navbarAdmin.html?"></da>
+
+    <div id="script"></div>
+
+    <da include="/html/module/footer.html"></da>
+</body>
+</html>

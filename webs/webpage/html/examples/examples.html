@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?83"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?78"></script>
+    <script src="/aMvc/base/viewLibBase.js?1234"></script>
+    <script src="/aMvc/base/templateBase.js?123"></script>
+
+    <script type="text/javascript">
+
+
+        window.onload = function () {
+            
+        };
+
+    </script>
+</head>
+<body>
+    <da include="/html/module/navbarIndex.html"></da>
+
+    <div class="row">
+        <div class="col-3">
+            <div id="main-logform"></div>
+
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button class="nav-link active" id="v-pills-home-tab" data-toggle="pill" data-target="#v-board" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">게시판</button>
+                <button class="nav-link" id="v-pills-profile-tab" data-toggle="pill" data-target="#v-boardconfig" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">게시판설정</button>
+                <button class="nav-link" id="v-pills-messages-tab" data-toggle="pill" data-target="#v-poll" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">설문조사</button>
+                <button class="nav-link" id="v-pills-messages-tab" data-toggle="pill" data-target="#v-erp1" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">사원관리</button>
+                <button class="nav-link" id="v-pills-settings-tab" data-toggle="pill" data-target="#v-erp2" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">업체관리</button>
+                <button class="nav-link" id="v-pills-settings-tab" data-toggle="pill" data-target="#v-chat" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">채팅</button>
+                <button class="nav-link" id="v-pills-messages-tab" data-toggle="pill" data-target="#v-erp1" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">사원관리</button>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-board" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <div class="alert alert-info" role="alert">
+                        태그 <br />
+                        &lt;da include="boardlist.board" type="boardlist" dbpath="daboard.dadb" code="da_board" brdid="3" renderview="BoardView" rendertype="table" &gt; &lt;/da &gt;
+                        <br /><br />
+                        include = 포함할 url <br />
+                        type = 타입 <br />
+                        dbpath = 데이타베이스 패스 <br />
+                        code = 테이블 이름 <br />
+                        brdid = 게시판 설정에서 만들어진 게시판 아이디 <br />
+                        renderview = 게시판을 렌드링하는 코드 클래스 <br />
+                        rendertype = 게시판 렌더링 타입 <br />
+
+                    </div>
+                    <da include="boardlist.board" type="boardlist" dbpath="daboard.dadb" code="da_board" brdid="3" renderview="BoardView" rendertype="table" > </da >
+                </div>
+                <div class="tab-pane fade" id="v-boardconfig" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <div class="alert alert-info" role="alert">
+                        게시판 태그 <br />
+                        &lt;da include="boardlist.board" type="boardlist" dbpath="daboard.dadb" code="da_board" brdid="3" renderview="BoardView" rendertype="table" &gt; &lt;/da &gt;
+                        <br /><br />
+                        include = 포함할 url <br />
+                        type = 타입 <br />
+                        dbpath = 데이타베이스 패스 <br />
+                        code = 테이블 이름 <br />
+                        brdid = 게시판 설정에서 만들어진 게시판 아이디 <br />
+                        renderview = 게시판을 렌드링하는 코드 클래스 <br />
+                        rendertype = 게시판 렌더링 타입 <br />
+
+                    </div>
+                    <da include="boardlist.board" type="boardconfig" dbpath="daboard.dadb" code="da_board" renderview="BoardConfigView"></da>
+                </div>
+                <div class="tab-pane fade" id="v-poll" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <div class="alert alert-info" role="alert">
+                        게시판 설정 태그 <br />
+                        &lt;da include="boardlist.board" type="boardlist" dbpath="daboard.dadb" code="da_board" brdid="3" renderview="BoardView" rendertype="table" &gt; &lt;/da &gt;
+                        <br /><br />
+                        include = 포함할 url <br />
+                        type = 타입 <br />
+                        dbpath = 데이타베이스 패스 <br />
+                        code = 테이블 이름 <br />
+                        brdid = 게시판 설정에서 만들어진 게시판 아이디 <br />
+                        renderview = 게시판을 렌드링하는 코드 클래스 <br />
+                        rendertype = 게시판 렌더링 타입 <br />
+
+                    </div>
+                    <da include="polllist.poll" type="polllist" dbpath="board.dadb" code="da_board" renderview="PollView"></da>
+                </div>
+                <div class="tab-pane fade" id="v-erp1" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <da include="erplist.erp" type="erplist" dbpath="daboard.dadb" code="employee" renderview="EmployeeView" viewbody="EmployeeViewbodyTemplate"></da>
+                </div>
+                <div class="tab-pane fade" id="v-erp2" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <da include="erplist.erp" type="erplist" id="erp2" dbpath="daboard.dadb" code="company" renderview="CompanyView" viewbody="CompanyViewbodyTemplate"></da>
+                </div>
+                <div class="tab-pane fade" id="v-chat" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <div class="alert alert-info" role="alert">
+                        채팅 태그 <br />
+                        &lt;da include="chat" type="chat" serverip="" &gt; &lt;/da &gt;
+                        <br /><br />
+                        include = 포함할 url <br />
+                        type = 타입 <br />
+                        dbpath = 데이타베이스 패스 <br />
+                        code = 테이블 이름 <br />
+                        brdid = 게시판 설정에서 만들어진 게시판 아이디 <br />
+                        renderview = 게시판을 렌드링하는 코드 클래스 <br />
+                        rendertype = 게시판 렌더링 타입 <br />
+
+                    </div>
+                    <da include="chat" type="chat" serverip=""></da>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <da include="/html/module/footer.html"></da>
+</body>
+</html>

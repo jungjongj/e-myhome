@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?1"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?71"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script type="text/javascript">
+        
+        var _dbpath = 'example.dadb', _code = 'da_board';
+        var newWindow;
+
+        function openNewWindow(target) {
+
+            newWindow = window.open(target, "OpenToolWindow", "height=800, width=600, scrollbars=yes, resizable=yes");
+            newWindow.focus();
+
+        }
+
+        function getReturnValue() {
+            var type, value;
+            var arg = Array.prototype.slice.call(arguments);
+            if (arg && arg[0])
+                type = arg[0];
+            else
+                return;
+            if (arg && arg[1])
+                value = arg[1];
+            //console.log(`getReturnValue ()==${type}`);
+            //_tempCount++;
+            var info = {};
+            if (type == 'dbset') {
+                _dbpath = arg[1];
+                _code = arg[2];
+                __modal.hide();
+                $('#dbsetBtn').text(_dbpath);
+                renderPage();
+            } else if (type == 'tablename') {
+                _code = value;
+                document.getElementById('tableInput').value = _code;
+            } else if (type == 'filepath') {
+                var arr = value.split('/');
+                var str = "/filelist.file?code=" + arr[2] + "&filetype=open&filename=" + arr[1] + "&filepath=" + arr[0] + "&utf8=ok&";
+                //alert(arr + str);
+                FileAjax('fileopen', str);
+
+            } else if (type == 'icon') {
+                $('#iconchange_input').val(value);
+                //alert(value);
+            }
+        }
+
+        window.onload = function () {
+
+        };
+
+        $(document).ready(function () {
+
+            var f = document.createElement('div');
+            f.setAttribute('id', 'f');
+            $('#main').append(f);
+
+            var e = document.createElement('div');
+            e.setAttribute('id', 'd');
+            $('#main').append(e);
+
+            
+
+            var e = document.createElement('div');
+            e.setAttribute('id', 'a');
+            $('#main').append(e);
+            var e = document.createElement('div');
+            e.setAttribute('id', 'b');
+            $('#main').append(e);
+            var e = document.createElement('div');
+            e.setAttribute('id', 'c');
+            $('#main').append(e);
+
+            var elem = document.getElementById('a');
+            var c = new BoardConfigController({ type: 'boardconfig', dbpath: _dbpath, code: _code, brdid: 3, renderview: new BoardConfigView() });
+            c.renderController(elem);
+
+            var elem = document.getElementById('d');
+            var c = new BoardController({ type: 'grouplist', dbpath: _dbpath, code: _code, brdid: 1, renderview: new BoardView(), rendertype: 'table' });
+            c.renderController(elem);
+
+            var elem = document.getElementById('b');
+            //var c = new BoardController({ type: 'boardlist', dbpath: _dbpath, code: _code, brdid: 3, renderview: new BoardView(), rendertype: 'table' });
+            var c = new BoardController({ type: 'boardlist', dbpath: _dbpath, code: _code, brdid: 3, renderview: 'BoardView', rendertype: 'thumbnailR' });
+            
+            c.renderController(elem);
+        });
+    </script>
+</head>
+<body onfocus="newWindow.close()">
+    <div id="main-logform"></div>
+    <div class="row">
+        <div class="col-md-4">
+            4444444444
+        </div>
+        <div class="col-md-8">
+            <div id="main"></div>
+        </div>
+    </div>
+    
+    <da include="/html/module/footer.html"></da>
+</body>
+</html>

@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test Mvc</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3510"></script>
+    <script src="/aMvc/base/viewLibBase.js?213"></script>
+    <script src="/aMvc/base/templateBase.js?34"></script>
+
+    <script type="text/javascript">
+        document.title = '강좌';
+        var _dbpath = "daboard.dadb", _code = "da_board", _topmenu, _sidemenu, _carousel;
+
+        function urlsplit() {
+            var dec = decodeURI(location.href);
+            var url = unescape(dec);
+            var pm = url.split('?');
+            console.log(url);
+            if (pm && pm[1]) {
+                var params = pm[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var param = params[i].split('=');
+                    if (param && param[1]) {
+                        if (param[0] == "dbpath")
+                            _dbpath = param[1];
+                        else if (param[0] == "code")
+                            _code = param[1];
+                        else if (param[0] == "topmenu") 
+                            _topmenu = param[1];
+                        else if (param[0] == "sidemenu")
+                            _sidemenu = param[1];
+                        else if (param[0] == "carousel")
+                            _carousel = param[1];
+                    }
+                }
+            }
+        }
+
+        class BlogTemp {
+            constructor(info) {
+                this.info = info;
+                this.init();
+            }
+
+            init() {
+                var main = new MainLayout();
+                var ver = new VerticalLayout();
+                var hor = new HorizontalLayout();
+
+                main.addControl(ver);
+                main.addControl(hor);
+
+                var config = {
+                    dbpath: 'config.dadb',
+                    kcode: '_topmenu',
+                    kname: 'ㅁㅁㅁㅁ',
+                    rendertype: '_topmenu'
+                }
+
+                console.log(`dbpath=`);
+                //console.log(`kcode=`, kcode);
+                //console.log(`kname=`, kname);
+                var returnElem = new KeyvalueController(config);
+                ver.addControl(returnElem);
+                /*** 
+                var arg = {
+                    type: 'boardlist',
+                    dbpath: this.info.dbpath,
+                    code: this.info.code,
+                    brdid: 3,
+                    renderview: new BoardView(),
+                    rendertype: 'selectlist_v'
+                }
+                var board = new BoardController(arg);
+                //var board = new BoardController({ type: 'boardlist', dbpath: this.info.dbpath, code: this.info.code, brdid: 3, renderview: new BoardView(), rendertype: 'table' });
+                ver.addControl(board);
+                ***/
+                main.renderController(document.body);
+            }
+        }
+
+        $(document).ready(function () {
+
+            var lecture = new BlogTemp({ dbpath: _dbpath, code: _code });
+        });
+
+
+    </script>
+</head>
+<body>
+    <da include="/html/module/navbarIndex.html"></da>
+    
+    <da include="/html/module/footer.html"></da>
+</body>
+</html>

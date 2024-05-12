@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<title>System.Security.Cryptography.MD5</title>
+
+    <link type="text/css" rel="stylesheet" href="../System.Web.UI.Interface.debug.css" />
+
+	<script type="text/javascript" src="../System.debug.js"></script>
+
+	<script type="text/javascript" src="../System.BitConverter.debug.js"></script>
+
+	<script type="text/javascript" src="../System.Text.debug.js"></script>
+
+	<script type="text/javascript" src="../System.Security.Cryptography.MD5.debug.js"></script>
+
+	<script type="text/javascript" src="../System.Security.Cryptography.HMACMD5.debug.js"></script>
+
+	<script type="text/javascript">
+
+		// You can remove Trace.Write lines.
+		// Note: 'byte' is number from 0 to 256;
+		// Note: 'bytes' is array of 'bytes'. It is same as bytes[] in C#
+		window.onload = function(){
+			// Define key and data string.
+			var k = "test key";
+			var s = "Encoding-编码-암호화-表現形式";
+			var kb = System.Text.Encoding.UTF8.GetBytes(k);
+			var sb = System.Text.Encoding.UTF8.GetBytes(s);
+			Trace.IsEnabled = true;
+			Trace.Write("Start Demo");
+			// Test MD5.
+			Trace.Write("// Create MD5 Algorithm. Expected HEX: 97C28DD6229E8C3A236B5A0E91761361");
+			var md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+			Trace.Write("md5.ComputeHashAsHex('" + s + "') = " + md5.ComputeHashAsHex(sb));
+			Trace.Write("md5.ComputeHashAsGuid('"+s+"') = "+md5.ComputeHashAsGuid(sb).ToString("B"));
+			// Test HMAC-MD5.
+			Trace.Write("// Create HMAC-MD5 Algorithm. Expected HEX: D7F8EE92DA8163933637AEDB02B8D828");
+			var hmac = new System.Security.Cryptography.HMACMD5();
+			Trace.Write("hmac.ComputeHashAsHex('" + k + "','" + s + "') = " + hmac.ComputeHashAsHex(kb, sb));
+			Trace.Write("hmac.ComputeHashAsGuid('"+k+"','"+s+"') = "+hmac.ComputeHashAsGuid(kb, sb).ToString("B"));
+		}
+
+	</script>
+
+</head>
+<body>
+	<div id="TraceLog" style="width: 100%; height: 200px;"></div>
+</body>
+</html>

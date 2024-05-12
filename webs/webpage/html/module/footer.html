@@ -1,0 +1,130 @@
+﻿
+<!-- Footer -->
+<section id="footer" style="background-color: rgba( 255, 255, 255, 0 ); border: 1px solid">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+            <p>
+                is a Registered MSP/ISO of Elavon, Inc. Georgia [a wholly owned subsidiary of U.S. Bancorp, Minneapolis, MN]
+                <a href="mailto:jjjjrr1@gmail.com"><i class="fa fa-envelope-o"></i></a>
+            </p>
+            <p class="h6">
+                &copy All right Reversed.
+                <a class="text-green ml-2" href="http://jabbu.net:7777" target="_blank">jabbu.net</a>
+                <a href="#" id="jjocjy"><i class="fa fa-envelope-o"></i></a>
+            </p>
+        </div>
+        <hr>
+    </div>
+    <div class="row text-center text-white">
+
+        <div class="col-xs-12 col-sm-4 col-md-4">
+            <ul class="list-unstyled quick-links">
+                <li><a href="/html/admin/Admin.html"><i class="fa fa-angle-double-right"></i>Admin</a></li>
+                <li><a href="/html/admin/config/DbandFile.html"><i class="fa fa-angle-double-right"></i>File</a></li>
+
+            </ul>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 col-md-4">
+            <ul class="list-unstyled quick-links">
+                <li><a href="/html/admin/config/Config.html"><i class="fa fa-angle-double-right"></i>Config</a></li>
+                <li><a href="/html/admin/config/BoardSetting.html"><i class="fa fa-angle-double-right"></i>BoardSet</a></li>
+            </ul>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 col-md-4">
+            <ul class="list-unstyled quick-links">
+                <li><a href="/html/admin/edit/homeMaker.html"><i class="fa fa-angle-double-right"></i>홈메이커</a></li>
+                <li><a href="/html/admin/edit/moduleSetting.html"><i class="fa fa-angle-double-right"></i>모듈셋팅</a></li>
+
+            </ul>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    function createJjocjyFormView() {
+        var mo = `<form id="jjocjyForm" method="post" class="form-horizontal">
+                            <input type="hidden" name="code">
+                            <input type="hidden" name="dbpath">
+                            <input type="hidden" name="uid">
+                            <input type="hidden" name="getid" value="admin">
+                            <input type="hidden" name="jjocjytype" value="add">
+                            <div class="form-group">
+                                <label>보내는사람</label>
+                                <input type="text" name="sendid" id="sendid" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="subject" id="subject" class="form-control" placeholder="제목">
+                            </div>
+                            <div class="form-group">
+                                <textarea cols="40" rows="7" name="memo1" id="summernote" class="form-control jqte-edit" placeholder="내 용..." required="" autofocus="" type="text"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-info brdupdate" id="adminJjocjyformSubmit">쪽지전송</button>
+                            </div>
+                        </form>`;
+        return mo;
+    }
+    $(document).on('click', '#jjocjy', function () {
+        var sid = null;
+        var log = document.getElementById('main-logform');
+        if (log) {
+            sid = log.getAttribute('sid');
+            if (sid) {
+
+            } else {
+                alert('no login');
+                return;
+            }
+            console.log('log.sid=', log.getAttribute('sid'));
+        } else {
+            //console.log('log.sid=', log.getAttribute('sid'));
+            alert('no login');
+            return;
+        }
+
+        var formview = createJjocjyFormView();
+        __modal.show('관리자에게 쪽지보내기', formview);
+
+        const el = document.getElementById("adminJjocjyformSubmit");
+
+        var form = document.getElementById("jjocjyForm");
+        form.sendid.value = sid;
+        el.addEventListener("click", function (e) {
+            console.log('str=');
+            //el.removeEventListener("click", arguments.callee);
+            //form.receiveid.value = e.data.receiveid;
+
+            var str = "/jjocjy.member?jjocjytype=add&posttype=post&code=jjocjy&dbpath=config.dadb&utf8=ok&";
+            console.log('str=', str);
+            var formdata = $(form).serializeArray();
+
+            $.ajax({
+                url: str,
+                async: false,
+                type: "POST",
+                // if(e.type != "open")
+                data: formdata,
+                success: function (data) {
+
+                    // var xmlDoc = $.parseXML(data);
+                    // var err = $(xmlDoc).find('Msg').attr('error');
+                    //console.log(`postAjax err====${err}`);
+
+                },
+                complete: function (data) {
+                    // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+                },
+                error: function (xhr, status, error) {
+                    alert("에러발생");
+                },
+                cache: false
+            });
+
+            __modal.hide();
+        });
+    });
+
+</script>
+<!-- ./Footer -->

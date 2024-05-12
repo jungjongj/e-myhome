@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <style>
+    </style>
+
+    <script>
+
+</script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar scroll</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <select id="audioSource"></select>
+                        <select id="audioOutput"></select>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-info" id="start-record">녹화시작</button>
+                    </li>
+                    <li class="nav-item">
+                        <button id="stop-record" disabled>녹화끝</button>
+                    </li>
+                    <li class="nav-item">
+                        <button id="pause-record" disabled>일시중지</button>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+    </nav>
+    <iframe src="http://daum.net" style="width:100%; height: 100%">
+
+    </iframe>
+    <video id="video" autoplay controls></video>
+
+    <script>
+
+    let mediaRecorder = null;
+    const audioInputSelect = document.getElementById('audioSource');
+    const audioOutputSelect = document.getElementById('audioOutput');
+    const audioElement = document.createElement('audio');
+        document.body.appendChild(audioElement);
+        audioOutputSelect.onchange = changeAudioDestination;
+    function pauseRecording() {
+        mediaRecorder.pause();
+    }
+
+    function resumeRecording() {
+        mediaRecorder.resume();
+    }
+
+    function gotDevices(deviceInfos) {
+        // Handles being called several times to update labels. Preserve values.
+        while (audioInputSelect.options.length > 0) {
+            audioInputSelect.remove(0);
+        }   
+        for (let i = 0; i !== deviceInfos.length; ++i) {
+            const deviceInfo = deviceInfos[i];
+            const option = document.createElement('option');
+            option.value = deviceInfo.deviceId;
+
+            if (deviceInfo.kind === 'audioinput') {
+                option.text = deviceInfo.label || `microphone ${audioInputSelect.length + 1}`;
+                audioInputSelect.appendChild(option);
+                //console.log(`audioinput deviceInfo.deviceId=${deviceInfo.deviceId}`);
+            } else if (deviceInfo.kind === 'audiooutput') {
+                option.text = deviceInfo.label || `microphone ${audioOutputSelect.length + 1}`;
+                audioOutputSelect.appendChild(option);
+                //console.log(`audiooutput deviceInfo.label=${deviceInfo.label}`);
+                //console.log(`audiooutput deviceInfo.deviceId=${deviceInfo.deviceId}`);
+                //console.log(`audiooutput deviceInfo.groupId=${deviceInfo.groupId}`);
+                //console.log(`audiooutput deviceInfo.kind=${deviceInfo.kind}`);
+            } else {
+                //console.log('Some other kind of source/device: ', deviceInfo);
+            }
+        }
+        selectors.forEach((select, selectorIndex) => {
+            if (Array.prototype.slice.call(select.childNodes).some(n => n.value === values[selectorIndex])) {
+                select.value = values[selectorIndex];
+            }
+        });
+    }
+    function handleError(error) {
+    console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
+    }
+    // Attach audio output device to video element using device/sink ID.
+    function attachSinkId(element, sinkId) {
+        
+        if (typeof element.sinkId !== 'undefined') {
+            console.log(`typeof element.sinkId: ${typeof element.sinkId}`);
+            element.setSinkId(sinkId)
+                .then(() => {
+                    console.log(`Success, audio output device attached: ${sinkId}`);
+                })
+                .catch(error => {
+                    let errorMessage = error;
+                    if (error.name === 'SecurityError') {
+                        errorMessage = `You need to use HTTPS for selecting audio output device: ${error}`;
+                    }
+                    console.error(errorMessage);
+                    // Jump back to first output device in the list as it's the default.
+                    audioOutputSelect.selectedIndex = 0;
+                });
+        } else {
+            console.warn('Browser does not support output device selection.');
+        }
+    }
+
+    function changeAudioDestination() {
+        const audioDestination = audioOutputSelect.value;
+        console.warn(`audioDestination=${audioDestination}`);
+        attachSinkId(audioElement, audioDestination);
+    }
+    navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+
+    // Handle record start event
+    document.querySelector('#start-record').onclick = e => {
+        console.log(`audioInputSelect.value=${audioInputSelect.value}`);
+        //return;
+        // Get screen stream
+        navigator.mediaDevices.getDisplayMedia({ video: true }).then(stream => {
+            // Get mic(audio) stream
+            navigator.mediaDevices
+                .getUserMedia({
+                    audio: {
+                        deviceId: {
+                            exact: audioInputSelect.value
+                        },
+                        sampleRate: 48000,
+                        noiseSuppression: false,
+                        echoCancellation: true,
+
+                        channelCount: {
+                            ideal: 2,
+                            min: 1
+                        },
+                        volume: 1.0
+                    }
+                })
+                .then(micStream => {
+                    // Get mic(audio) track if it is existed
+                    const micTrack = micStream.getTracks() && micStream.getTracks()[0]
+
+                    // Add mic track to screen stream
+                    stream.addTrack(micTrack);
+
+
+                    //const sStream = audioElement.captureStream();
+                    //console.log(`sStream=${sStream}`);
+                    //const sTrack = audioElement.getAudioTracks() && audioElement.getAudioTracks()[0];
+                    //const sTrack = audioElement.audioTracks[0];
+                    //console.log(`sTrack=${sTrack}`);
+                    // Add mic track to screen stream
+                    //stream.addTrack(sTrack)
+
+                    const options = {
+                        mimeType: 'video/webm'
+                    }
+                    mediaRecorder = new MediaRecorder(stream, options)
+
+                    let chunks = []
+                    mediaRecorder.ondataavailable = e => {
+                        chunks.push(e.data)
+                    }
+
+                    mediaRecorder.onstop = e => {
+                        const blob = new Blob(chunks, { type: 'video/webm' });
+                        const videoEl = document.querySelector('#video');
+
+                        videoEl.src = URL.createObjectURL(blob);
+
+                        download(blob);
+
+                        chunks = []
+                    }
+
+                    mediaRecorder.start(0.2 * 1000);
+
+                    document.querySelector('#start-record').disabled = true;
+                    document.querySelector('#stop-record').disabled = false;
+                    document.querySelector('#pause-record').disabled = false;
+                })
+                .catch(err => alert(err))
+        });
+
+       
+    }
+
+    // Handle stop record event
+    document.querySelector('#stop-record').onclick = e => {
+                mediaRecorder.stop();
+            document.querySelector('#start-record').disabled = false;
+            document.querySelector('#stop-record').disabled = true;
+            document.querySelector('#pause-record').disabled = true;
+    }
+
+    // Handle pause record event
+    document.querySelector('#pause-record').onclick = e => {
+
+        console.log(`e.target=${e.target}`);
+        if (e.target.textContent === '일시중지') {
+            pauseRecording();
+            e.target.textContent = '다시시작';
+        } else {
+            resumeRecording();
+            e.target.textContent = '일시중지';
+        }
+
+    }
+
+    function download(blob) {
+        //alert('test2.mp4');
+        //const blob = new Blob(recordedBlobs, {type: 'video/webm' });
+        const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'test.webm';
+            document.body.appendChild(a);
+            a.click();
+        setTimeout(() => {
+                document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }, 100);
+    }
+
+    </script>
+</body>
+</html>

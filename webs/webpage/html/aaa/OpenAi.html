@@ -1,0 +1,62 @@
+﻿<!doctype html>
+<head>
+    <title>CodeMirror: HTML completion demo</title>
+    <meta charset="utf-8" />
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?1"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?34"></script>
+    <script src="/aMvc/base/viewLibBase.js?2"></script>
+    <script src="/aMvc/base/erpBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?12"></script>
+
+    <script type="text/javascript">
+        // OpenAI API 엔드포인트
+        const apiEndpoint = 'https://api.openai.com/v1/engines/davinci-codex/completions';
+
+        // 발급받은 OpenAI API 키
+        const apiKey = 'YOUR_API_KEY_HERE';
+
+        // API 요청에 사용할 데이터
+        const data = {
+            prompt: "Translate the following English text to French: 'Hello, how are you?'",
+            temperature: 0.7,
+            max_tokens: 64,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0
+        };
+
+        // Fetch API를 사용하여 OpenAI API에 요청을 보내는 함수
+        async function callOpenAI() {
+            const response = await fetch(apiEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            console.log(result.choices[0].text);
+        }
+
+        // 함수 호출
+        callOpenAI();
+    </script>
+</head>
+<body class="skin-blue center-block" >
+
+</body>

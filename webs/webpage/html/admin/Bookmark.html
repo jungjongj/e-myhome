@@ -1,0 +1,77 @@
+﻿<!doctype html>
+<head>
+    <title>즐겨찿기</title>
+    <meta charset="utf-8" />
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+
+    <script type="text/javascript">
+
+        var _bookm = null;
+
+
+        function sendToWebview2(msg) {
+            //var textboxvalue = document.getElementById('text1').value;
+            //window.external.CallForm(msg, msg2);
+            //alert(msg);
+            window.chrome.webview.postMessage(msg);
+            //$("#cmdresult").val('');
+        }
+        function ReceiveFromWebview2(msg) {
+
+            var msg, ip, port;
+            var arg = Array.prototype.slice.call(arguments);
+
+            if (arg && arg.length == 1) {
+                var msg = arg[0];
+                
+            } else if (arg && arg.length == 2) {
+                if (arg && arg[1]) {
+                    var url = arg[0];
+                    var title = arg[1];
+                    _bookm.setFavo(url, title);
+                    //ReceiveUdpProcess(jsonmsg, ip);
+                }
+            }
+        }
+
+        window.onload = function () {
+
+        };
+
+        $(document).ready(function () {
+            var url = '', title = '';
+            var dec = decodeURI(location.href);
+            var url = unescape(dec);
+            var pm = url.split('?');
+            console.log(url);
+            if (pm && pm[1]) {
+                var params = pm[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var param = params[i].split('=');
+                    if (param && param[1]) {
+                        if (param[0] == "url")
+                            url = param[1];
+                        else if (param[0] == "title")
+                            title = param[1];
+
+                    }
+                }
+            }
+            var elem = document.getElementById('bookmark');
+            _bookm = new BookmarkAjaxBase({ type: 'filelist', code: 'bookmark', filetype: 'file', path: '', url: url, title: title });
+            _bookm.fileList('', elem);
+        });
+
+    </script>
+</head>
+<body class="container">
+    <div id="bookmark"></div>
+</body>

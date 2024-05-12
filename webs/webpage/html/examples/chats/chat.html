@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>챗팅</title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=1231">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?13"></script>
+
+    <script type="text/javascript">
+        
+        var _serverip = null;
+        var _myip = null;
+
+        window.onbeforeunload = function () {
+            alert('window close');
+            //return false;
+        };
+
+        $(document).ready(function () {
+            var elem = document.getElementById('chat');
+            var chat = new ChatView();
+            chat.renderController(elem);
+            //var elem = document.getElementById('chat');
+            //var chat = new ChatView('ws://127.0.0.1:8181/chat');
+            //var chat = new ChatView('ws://jabbu.net:8181/chat');
+            //var chat = new ChatView('ws://' + _serverip + ':7788/chat');
+            //var chat = new ChatView('ws://192.168.200.169:8181/chat');
+           // chat.renderController(elem);
+        });
+    </script>
+</head>
+<!--Coded With Love By Mutiullah Samim-->
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4" id="chat"></div>
+        </div>
+        
+        
+    </div>
+    
+</body>
+</html>

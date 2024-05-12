@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Erp Script</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?1"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?73"></script>
+    <script src="/aMvc/base/viewLibBase.js?78"></script>
+    <script src="/aMvc/base/erpBase.js?9"></script>
+    <script src="/aMvc/base/templateBase.js?1"></script>
+
+    <script type="text/javascript">
+
+        var _code = "", _dbpath = "erp.dadb";
+        window.onload = function () {
+            
+        }
+
+        var elem = null;
+        var empCon = null, workCon = null, maeibCon = null, customerCon = null, rentalCon = null, goodsCon = null;
+        $(document).ready(function () {
+            var main = new MainLayout();
+            var ver = new VerticalLayout();
+            var hor = new HorizontalLayout();
+
+            main.addControl(ver);
+            main.addControl(hor);
+
+            empCon = new ErpController({ type: 'erpview', dbpath: _dbpath, code: 'company', companycode: 'cu4', renderview: 'CompanyView', rendertype: 'selectlist' });
+            ver.addControl(empCon);
+            empCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'employee', renderview: 'EmployeeView', rendertype: 'selectlist_h'});
+            ver.addControl(empCon);
+            companyCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'company', renderview: 'CompanyView', rendertype: 'selectlist_h' });
+            ver.addControl(companyCon);
+            workCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'workday', renderview: 'WorkdayView', rendertype: 'media' });
+            ver.addControl(workCon);
+            maeibCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'maeib_chul', renderview: 'Maeib_chulView', rendertype: 'media' });
+            ver.addControl(maeibCon);
+            customerCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'customer', renderview: 'CustomerView', rendertype: 'media' });
+            ver.addControl(customerCon);
+            rentalCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'rental', renderview: 'RentalView', rendertype: 'media' });
+            ver.addControl(rentalCon);
+            goodsCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'goods', renderview: 'GoodsView', rendertype: 'media' });
+            ver.addControl(goodsCon);
+
+            main.renderController(document.getElementById('script'));
+
+        });
+    </script>
+
+</head>
+<body class="">
+    <da include="/html/module/navbarAdmin.html?"></da>
+
+    <div id="script"></div>
+
+    <da include="/html/module/footer.html"></da>
+</body>
+</html>

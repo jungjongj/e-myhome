@@ -1,0 +1,163 @@
+﻿<div id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light py-0 py-md-0">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/html/admin/Admin.html">Admin</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+
+                    <li class="nav-item">
+                        <a class="nav-item nav-link " href="#" data-toggle="tab" id="editBtn" onclick="onNavbarAdminItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">에디트</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link " href="#" data-toggle="tab" id="memberMBtn" onclick="onNavbarAdminItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">멤버관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link " href="#" data-toggle="tab" id="erpBtn" onclick="onNavbarAdminItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">업무관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link " href="#" data-toggle="tab" id="selfBtn" onclick="onNavbarAdminItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">마이페이지</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#" aria-current="page" id="dbfileBtn" onclick="onNavbarAdminItemClick(this)">디비&파일</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#" aria-current="page" id="configBtn" onclick="onNavbarAdminItemClick(this)">설정</a>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+    <div class="alert alert-info alert-dismissible fade collapse" id="editCollapse" role="alert">
+        
+        <div class="row text-center text-xs-center text-sm-left text-md-left">
+
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <ul class="list-unstyled quick-links">
+                    <li><a href="/html/admin/edit/da-edit.html"><i class="fa fa-angle-double-right"></i>텍스트</a></li>
+                    <li><a href="/html/admin/edit/da-paint.html"><i class="fa fa-angle-double-right"></i>그림판</a></li>
+
+                </ul>
+            </div>
+
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <ul class="list-unstyled quick-links">
+                    <li><a href="/html/admin/edit/homeMaker.html"><i class="fa fa-angle-double-right"></i>홈메이커</a></li>
+                    <li><a href="/html/admin/edit/moduleSetting.html"><i class="fa fa-angle-double-right"></i>모듈셋팅</a></li>
+
+                </ul>
+            </div>
+
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <ul class="list-unstyled quick-links">
+
+                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>블로그</a></li>
+                    <li><a href="/html/examples/templates/blog.html"><i class="fa fa-angle-double-right"></i>블로그</a></li>
+                    <li><a href="/html/examples/templates/mafiagame.html"><i class="fa fa-angle-double-right"></i>마피아게임</a></li>
+                    <li><a href="/html/examples/templates/truthgame.html"><i class="fa fa-angle-double-right"></i>진실게임</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="alert alert-info alert-dismissible fade collapse" id="settingCollapse" role="alert">
+        <strong class="alert-heading">설정</strong>
+        <div href="#" class="pull-right">
+            <button type="button" class="close" onclick="$('#settingCollapse').collapse('toggle');">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="row text-center text-xs-center text-sm-left text-md-left">
+
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <ul class="list-unstyled quick-links">
+                    <li><a href="/html/admin/config/Config.html"><i class="fa fa-angle-double-right"></i>웹설정</a></li>
+                    
+                </ul>
+            </div>
+
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <ul class="list-unstyled quick-links">
+                    <li><a href="/html/admin/config/BoardSetting.html"><i class="fa fa-angle-double-right"></i>게시판설정</a></li>
+                    
+                </ul>
+            </div>
+
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <ul class="list-unstyled quick-links">
+
+                    <li><a href="/html/admin/config/KeyValueSetting.html"><i class="fa fa-angle-double-right"></i>키 값 설정</a></li>
+               </ul>
+            </div>
+        </div>
+
+    </div>
+    <div></div>
+
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        if (location.href.endsWith('Admin.html')){
+
+        } else if (location.href.endsWith('MemberManage.html')){
+            $('#memberMBtn').addClass('active');
+        } else if (location.href.endsWith('ErpHome.html')){
+            $('#erpBtn').addClass('active');
+        } else if (location.href.endsWith('DbandFile.html')) {
+            $('#dbfileBtn').addClass('active');
+        } 
+    });
+
+    function onNavbarAdminItemClick(e) {
+        var id = e.id;
+        var box = e.id;
+        //console.log('self.eventHandler==' + self.eventHandler);
+        if (id == "collapseBtn") {
+            $('#collapseExample').collapse('toggle');
+        } else if (id == "editBtn") {
+            $('#editCollapse').collapse('toggle');
+        } else if (id == "dbfileBtn") {
+            location.href = '/html/admin/config/DbandFile.html';
+        } else if (id == "erpBtn") {
+            location.href = '/html/admin/ErpHome.html';
+        } else if (id == "selfBtn") {
+            location.href = '/html/admin/SelfHome.html';
+        } else if (id == "memberMBtn") {
+            location.href = '/html/admin/MemberManage.html';
+        } else if (id == "configBtn") {
+            $('#settingCollapse').collapse('toggle');
+        } else if (id == "fixedBtn") {
+            if ($('#navbar').hasClass("fixed-bottom") === true) {
+                $('#navbar').removeClass("fixed-bottom");
+                $('#navbar').addClass("fixed-top");
+                $('#navbar').find('.dropup').addClass("dropdown");
+                $('#navbar').find('.dropup').removeClass("dropup");
+
+            } else {
+                $('#navbar').removeClass("fixed-top");
+                $('#navbar').addClass("fixed-bottom");
+                $('#navbar').find('.dropdown').addClass("dropup");
+                $('#navbar').find('.dropdown').removeClass("dropdown");
+            }
+
+        }
+    }
+</script>

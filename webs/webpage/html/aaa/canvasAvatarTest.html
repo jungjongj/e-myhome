@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+    <script src="/aMvc/base/canvasBase.js"></script>
+
+    <script type="text/javascript">
+
+
+        window.onload = function () {
+            includeCanvas('');
+        };
+
+    </script>
+</head>
+<body>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+            Dropdown button
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
+
+    <img src="" onerror="onImgError(this)" width="77" height="77" />
+    <img src="" onerror="onImgError(this)" width="77" height="77" />
+    <div>
+        <canvas include="image" imgtype="db" src="/homepage.file?dbpath=config.dadb&uid=17&type=open&utf8=ok&113"></canvas>
+    </div>
+    <div class="img_error" errortext="t" left="111" top="111" width2="111px" height2="111px">
+
+    </div>
+    <canvas include="workboard" text="집" attr="radius:70;sides:5;rotateangle:45" width="150" height="350"></canvas>
+    <canvas include="awesomeicon" icontext="F1E2" fillstyle="type:canvaspattern;patterntype:line" shadow="color:blue;blur:3;offsetx:5;offsety:7" width="150" height="150"></canvas>
+    <canvas include="awesomeicon" icontext="F1E2" fillstyle="type:imgpattern;src:/app/images/patterns/moroccan-flower.png" shadow="color:blue;blur:3;offsetx:5;offsety:7" width="50" height="50"></canvas>
+    <canvas include="text" text="error" fillstyle="type:canvaspattern;patterntype:hea" shadow="color:blue;blur:3;offsetx:5;offsety:7" width="150" height="50">Text test</canvas>
+    <canvas include="text" text="ddddd test" fillstyle="type:imgpattern;src:/app/images/patterns/moroccan-flower.png" width="550" height="150">Text test</canvas>
+    <canvas include="image" src="/app/appTemplate/pages2/1.jpg"></canvas>
+    <canvas include="ellipse" fillstyle="type:imgpattern;src:/app/images/patterns/moroccan-flower.png" width="100" height="150"></canvas>
+    <canvas include="moon" width="150" height="150"></canvas>
+    <canvas include="heart" fillstyle="type:canvaspattern;patterntype:hea" width="150" height="150"></canvas>
+    <canvas include="heart" fillstyle="type:imgpattern;src:/app/images/patterns/moroccan-flower.png" width="150" height="150"></canvas>
+    <canvas include="gear" fillstyle="type:color;color:red" attr="teath:11;segmentlen:9;curve:6;pitch:9;centerarc:22" shadow="color:blue;blur:3;offsetx:5;offsety:7" width="150" height="150"></canvas>
+    <canvas include="star" attr="spikes:9;outerradius:55;innerradius:22" width="150" height="150"></canvas>
+    <canvas include="polygon" attr="radius:50;sides:5;rotateangle:5" width="150" height="150"></canvas>
+    <canvas include="smile" width="50" height="50"></canvas>
+    <canvas include="spade" width="150" height="150"></canvas>
+    <canvas include="club" width="150" height="150"></canvas>
+    <canvas include="diamond" width="150" height="150"></canvas>
+    <canvas include="diamond2" width="150" height="150"></canvas>
+    <canvas include="smile" lefteye="type:arc;start:190;end:330;direction:top" righteye="type:arc;direction:bottom" width="150" height="150"></canvas>
+    <canvas include="smile" lefteye="type:arc;direction:top" righteye="type:arc;direction:bottom" mouth="type:arc;direction:bottom" width="150" height="150"></canvas>
+    <canvas include="smile" lefteye="type:x" righteye="type:x" mouth="type:arc;direction:bottom" width="50" height="50"></canvas>
+    <canvas include="smile" lefteye="type:moon" righteye="type:x" mouth="type:arc;direction:bottom" width="150" height="150"></canvas>
+    <canvas include="smile" lefteye="type:line" righteye="type:x" mouth="type:moon;direction:bottom" width="150" height="150"></canvas>
+    <canvas include="awesomeicon" icontext="F1E2" fillstyle="red" shadow="color:blue;blur:3;offsetx:5;offsety:7" width="50" height="50"></canvas>
+    <canvas include="image" src="/app/appTemplate/pages2/1.jpg" mask="type:star;spikes:9;outerradius:55;innerradius:22" shadow="color:blue;blur:3;offsetx:5;offsety:7" width="150" height="150"></canvas>
+    <canvas include="image" src="/app/appTemplate/pages2/1.jpg" shadow="color:blue;blur:3;offsetx:5;offsety:7" width="150" height="150"></canvas>
+    <canvas include="image" src="/app/appTemplate/pages2/1.jpg" mask="type:heart;" shadow="color:blue;blur:3;offsetx:5;offsety:7" width="150" height="150"></canvas>
+
+</body>
+</html>

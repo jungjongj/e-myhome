@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?1"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.IO.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Text.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Convert.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.BitConverter.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.IO.BinaryReader.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.BigInt.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Security.Cryptography.SHA1.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Security.Cryptography.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Security.Cryptography.RSA.debug.js"></script>
+
+    <script type="text/javascript">
+        var _code = "", _dbpath = "config.dadb";
+        //var _publicModulus = null;
+        //var _publicExponent = null;
+        var _publicXmlkey = null;
+        $(document).ready(function () {
+            fetch('/rsa.adm?type=pubkey')
+                .then((response) => response.text())
+                .then(data => {
+                    var xmlDoc = $.parseXML(data);
+                    $(xmlDoc).find('Records').each(function (index) {
+                        //_publicModulus = $(this).find('publicModulus').text();
+                        //_publicExponent = $(this).find('publicExponent').text();
+                        _publicXmlkey = $(this).find('publicXmlkey').text();
+                    });
+                })// 에러처리
+                .catch(() => {
+                    alert('RSA 공개키 에러')
+                });
+
+            ////Id 쿠키 저장
+            var userInputId = getCookie("userInputId");
+            $("input[name='id']").val(userInputId);
+            //alert('1');
+            if ($("input[name='id']").val() != "") {
+                $("#idSaveCheck").attr("checked", true);
+                $("#pwdSaveCheck").removeAttr("disabled");
+            }
+
+            $("#idSaveCheck").change(function () {
+                //alert("checkbox check out");
+                if ($("#idSaveCheck").is(":checked")) {
+                    //alert("checkbox check");
+                    //id 저장 클릭시 pwd 저장 체크박스 활성화
+                    $("#pwdSaveCheck").removeAttr("disabled");
+                    $("#pwdSaveCheck").removeClass('no_act');
+                    var userInputId = $("input[name='id']").val();
+                    setCookie("userInputId", userInputId, 365);
+                } else {
+                    deleteCookie("userInputId");
+                    $("#pwdSaveCheck").attr("checked", false);
+                    deleteCookie("userInputPwd");
+                    $("#pwdSaveCheck").attr("disabled", true);
+                    $("#pwdSaveCheck").addClass('no_act');
+                }
+            });
+
+            $("input[name='id']").keyup(function () {
+                if ($("#idSaveCheck").is(":checked")) {
+                    var userInputId = $("input[name='id']").val();
+                    setCookie("userInputId", userInputId, 365);
+                }
+            });
+
+            //Pwd 쿠키 저장
+            var userInputPwd = getCookie("userInputPwd");
+            $("input[name='passwd']").val(userInputPwd);
+
+            if ($("input[name='passwd']").val() != "") {
+                $("#pwdSaveCheck").attr("checked", true);
+                $("#pwdSaveCheck").removeClass('no_act');
+            }
+
+            $("#pwdSaveCheck").change(function () {
+
+                if ($("#pwdSaveCheck").is(":checked")) {
+                    alert('해킹의위험이 있습니다 공동으로사용하는 컴퓨터에서는 절대사용을 금해야됩니다');
+                    var userInputPwd = $("input[name='passwd']").val();
+                    setCookie("userInputPwd", userInputPwd, 365);
+                } else {
+                    deleteCookie("userInputPwd");
+                }
+            });
+
+            $("input[name='passwd']").keyup(function () {
+                if ($("#pwdSaveCheck").is(":checked")) {
+                    var userInputPwd = $("input[name='passwd']").val();
+                    setCookie("userInputPwd", userInputPwd, 365);
+                }
+            });
+        });
+
+        function getCookie(cookieName) {
+            cookieName = cookieName + '=';
+            var cookieData = document.cookie;
+            var start = cookieData.indexOf(cookieName);
+            var cookieValue = '';
+            if (start != -1) {
+                start += cookieName.length;
+                var end = cookieData.indexOf(';', start);
+                if (end === -1) end = cookieData.length;
+                cookieValue = cookieData.substring(start, end);
+            }
+            return unescape(cookieValue);
+        }
+
+        function setCookie(cookieName, value, exdays) {
+            var exdate = new Date();
+            exdate.setDate(exdate.getDate() + exdays);
+            var cookieValue = escape(value) + ((exdays === null) ? "" : "; expires=" + exdate.toGMTString());
+            document.cookie = cookieName + "=" + cookieValue;
+        }
+
+        function deleteCookie(cookieName) {
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() - 1);
+            document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+        }
+
+
+        function RSAEncription(pPlainText) {
+            try {
+
+                var doOaepPadding = false; //패딩
+                var sEncryptData = "";
+                var rsa = new System.Security.Cryptography.RSACryptoServiceProvider();
+                //rsa.FromXmlString(pPublicKey);
+                rsa.FromXmlString(_publicXmlkey);
+                var decryptedBytes = System.Text.Encoding.UTF8.GetBytes(pPlainText);
+                var encryptedBytes = rsa.Encrypt(decryptedBytes, doOaepPadding);
+                sEncryptData = System.Convert.ToBase64String(encryptedBytes); //암호화된
+                //console.log(sEncryptData);
+                sEncryptData = sEncryptData.replace('+', '-').replace('/', '_');//암호화된
+                if (sEncryptData.charAt(sEncryptData.length - 1) === "=") {
+                    sEncryptData = sEncryptData.slice(0, -1);
+                }
+                return sEncryptData;
+            }
+            catch (e) {
+                alert(e.message);
+            }
+        }
+
+        function OnSubmit(form) {
+
+            // prevent default posting of form
+            event.preventDefault();
+
+            var formData = $(form).serializeArray();
+
+            //console.log(`$('#passwd').val()=`, $('#passwd').val());
+            var encrypted = RSAEncription($('#passwd').val());
+
+            //console.log('encrypted=', `${encrypted}`);
+            formData = __changeSerialize(formData, 'passwd', encrypted);
+
+            $.ajax({
+                url: "/login.member?logtype=login&utf8=ok&",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+                    var xmlDoc = $.parseXML(data);
+                    var err = $(xmlDoc).find('Msg').attr('error');
+                    if (err != "ok") {
+                        alert(err);
+                        return false;
+                    }
+                    alert("back");
+                    window.history.back();
+                },
+                complete: function (data) {
+                    // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+
+                },
+                error: function (xhr, status, error) {
+                    alert("에러발생");
+                },
+                cache: false,
+
+            });
+
+
+        };
+
+
+    </script>
+</head>
+<body class="container">
+    <section class="h-100 gradient-form" style="background-color: #eee;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-xl-10">
+                    <div class="card rounded-3 text-black">
+                        <div class="row g-0">
+                            <div class="col-lg-6">
+                                <div class="card-body p-md-5 mx-md-4">
+
+                                    <div class="text-center">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                                             style="width: 185px;" alt="logo">
+                                        <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+                                    </div>
+
+                                    <form method="post" onsubmit="return OnSubmit(this)" class="form-horizontal">
+                                        <input type="hidden" name="code" id="code" value="member" />
+                                        <input type="hidden" name="dbpath" id="dbpath" value="config.dadb" />
+                                        <input type="hidden" name="addtype" value="add" />
+
+                                        <p>Please login to your account</p>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="text" name="id" id="id" class="form-control"
+                                                   placeholder="Phone number or email address" />
+                                            <label class="form-label" for="form2Example11">Username</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="password" name="passwd" id="passwd" class="form-control" />
+                                            <label class="form-label" for="form2Example22">Password</label>
+                                        </div>
+
+                                        <div class="text-center pt-1 mb-5 pb-1">
+                                            <button type="submit" id="subbutton" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">
+                                                Log
+                                                in
+                                            </button>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <p><input type="checkbox" id="idSaveCheck" /> 아이디 저장</p>
+                                            <p><input type="checkbox" id="pwdSaveCheck" class="no_act" /> 비밀번호 저장</p>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-center pb-4">
+                                            <p class="mb-0 me-2">계정이 없으면?</p>
+                                            <a href="/html/member/member.html" class="btn btn-outline-danger">회원가입</a>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                    <h4 class="mb-4">We are more than just a company</h4>
+                                    <p class="small mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

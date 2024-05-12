@@ -1,0 +1,96 @@
+﻿<div id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light py-0 py-md-0">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav mr-auto my-2 my-lg-0  navbar-nav-scroll">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" aria-current="page" id="dbsetBtn" onclick="onNavbarEditItemClick(this)">디비</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" data-toggle="tab" id="editBtn" onclick="onNavbarEditItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">에디트</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link " data-toggle="tab" id="paintBtn" onclick="onNavbarEditItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">그림판</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link " data-toggle="tab" id="homeMakeBtn" onclick="onNavbarEditItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">홈메이커</a>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-danger dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div></div>
+
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        if (location.href.endsWith('Admin.html')){
+
+        } else if (location.href.endsWith('da-edit.html')){
+            $('#editBtn').addClass('active');
+        } else if (location.href.endsWith('da-paint.html')){
+            $('#paintBtn').addClass('active');
+        } else if (location.href.endsWith('homeMaker.html')) {
+            $('#homeMakeBtn').addClass('active');
+        } 
+    });
+
+    function onNavbarEditItemClick(e) {
+        var id = e.id;
+        var box = e.id;
+        //console.log('self.eventHandler==' + self.eventHandler);
+        if (id == "collapseBtn") {
+            $('#collapseExample').collapse('toggle');
+        } else if (id == "select-db-btn") {
+            //var elem = document.getElementById('filelist');
+            var elem = document.createElement('div');
+            var cls = new DbFileAjaxBase({ type: 'filelist', filetype: 'db', path: '', rendertype: 'ta', returntype: 'return', $parent: self });
+            cls.fileList('', elem);
+            //$('#dbsetModal').modal('show');
+            __modal.show('디비셋팅', elem);
+            console.log('$(elem).html()==' + $(elem).html());
+        } else if (id == "paintBtn") {
+            location.href = '/html/edit/da-paint.html';
+        } else if (id == "homeMakeBtn") {
+            location.href = '/html/edit/homeMaker.html';
+        } else if (id == "editBtn") {
+            location.href = '/html/edit/da-edit.html';
+        } else if (id == "return") {
+            window.opener.getReturnValue('keyvalue', `${dbpath}:${kcode}:${kname}:`);
+            window.close();
+        } else if (id == "fixedBtn") {
+            if ($('#navbar').hasClass("fixed-bottom") === true) {
+                $('#navbar').removeClass("fixed-bottom");
+                $('#navbar').addClass("fixed-top");
+                $('#navbar').find('.dropup').addClass("dropdown");
+                $('#navbar').find('.dropup').removeClass("dropup");
+
+            } else {
+                $('#navbar').removeClass("fixed-top");
+                $('#navbar').addClass("fixed-bottom");
+                $('#navbar').find('.dropdown').addClass("dropup");
+                $('#navbar').find('.dropdown').removeClass("dropdown");
+            }
+
+        }
+    }
+</script>

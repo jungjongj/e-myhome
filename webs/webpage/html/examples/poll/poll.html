@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?912"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script type="text/javascript">
+        //var m = new KeyvalueModel();
+        //var v = new KeyvalueView();
+        //var c = new KeyvalueController(m, v);
+        var _dbpath = 'a.dadb', _code = 'da_board';
+
+        window.onload = function () {
+
+        };
+
+        var config = {
+            type: 'polllist',
+            dbpath: _dbpath,
+            code: _code,
+            renderview: "PollView",
+            rendertype: 'full'
+        };
+
+        $(document).ready(function () {
+
+            var elem = document.getElementById('a');
+            var c = new PollController(config);
+            c.renderController(elem);
+        });
+    </script>
+</head>
+<body>
+    <div id="a"></div>
+
+    <da include="polllist.poll" type="polllist" dbpath="a.dadb" code="da_board" renderview="PollView"></da>
+</body>
+</html>

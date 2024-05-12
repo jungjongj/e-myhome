@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>CMD</title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script type="text/javascript">
+        function submitToForm() {
+            var type = $("#cmdtypeSel option:selected").text();
+            alert(type);
+            if (type == "winform") {
+                var textboxvalue = document.getElementById('text1').value;
+                window.external.CallForm(textboxvalue);
+            }
+
+            ajaxCall();
+        }
+        function CallScrript(va1, va2) {
+            alert('Val1 : ' + val1 + ' / Val2 : ' + val2);
+        }
+
+        function ajaxCall(form) {
+            var type = form.type.value;
+            var str = "cmdcmd.adm?";
+
+            //alert(".serializeArray()" + $(form).serialize());
+            var formData = $(form).serialize();
+            $.ajax({
+                url: str + ((/\?/).test(str) ? "&" : "?") + (new Date()).getTime(),
+                async: false,
+                type: "POST",
+                // if(e.type != "open")
+                data: formData,
+                success: function (data) {
+                    // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+                    //alert("data" + data);
+                    var xmlDoc = $.parseXML(data);
+                    var err = $(xmlDoc).find('Msg').attr('error');
+                    if (err != "ok") {
+                        alert("error=" + err);
+                        return;
+                    }
+                    var result = $(xmlDoc).find('Msg').text();
+                    $("#cmdresult").val(result);
+                },
+                complete: function (data) {
+                    // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+
+                },
+                error: function (xhr, status, error) {
+                    alert("에러발생");
+                },
+                cache: false,
+            });
+
+            event.preventDefault();
+        }
+
+        $(document).ready(function () {
+            includeHTML();
+        });
+    </script>
+</head>
+<!--Coded With Love By Mutiullah Samim-->
+<body>
+    <div class="container">
+        <da include="./mo-utilmenu.html?" nohtml=""></da>
+        <div>
+            <form id="cmdform" onsubmit="return ajaxCall(this)">
+                <input type="hidden" name="type" value="connect" />
+
+                <div class="mb-3">
+
+                    <textarea class="form-control" id="connectresult" rows="13"></textarea>
+                    <input class="form-control" name="connect" rows="3">
+                </div>
+                <div class="mb-3">
+
+                    <input type="submit" class="form-control" value="전송">
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    
+</body>
+</html>

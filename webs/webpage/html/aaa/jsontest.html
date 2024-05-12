@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas Smiley Faces</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Canvas Smiley Faces</h1>
+    <p>Drag the circle to resize the smiley face.</p>
+    <canvas id="smileyCanvas" width="400" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById('smileyCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Draw a smiley face
+        function drawSmiley() {
+            ctx.beginPath();
+            ctx.arc(200, 200, 100, 0, Math.PI * 2);
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(200, 200, 50, 0, Math.PI * 2);
+            ctx.fillStyle = 'black';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(200, 200, 30, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+        }
+
+        // Update the smiley face size based on mouse position
+        canvas.addEventListener('mousemove', (event) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            // Calculate new radius based on mouse position
+            const radius = Math.sqrt(Math.pow(x - 200, 2) + Math.pow(y - 200, 2));
+
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Redraw the smiley face with the new size
+            drawSmiley();
+        });
+
+        // Initial drawing
+        drawSmiley();
+    </script>
+</body>
+</html>

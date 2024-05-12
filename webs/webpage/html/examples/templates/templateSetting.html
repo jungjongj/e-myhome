@@ -1,0 +1,664 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> 키 값 셋팅 </title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <link rel="stylesheet" href="/aMvc/lib/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="/aMvc/lib/orgchart/dist/css/jquery.orgchart.min.css" type="text/css">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?4"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+    <script type="text/javascript" src="/aMvc/lib/zTree_v3-master/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/orgchart/dist/js/jquery.orgchart.min.js"></script>
+
+    <script type="text/javascript">
+        var keyCon = null;
+        var _code = "", _dbpath = "";
+        var newWindow;
+        var newWindowInfo = {};
+
+        function openNewWindow(target) {
+
+            newWindow = window.open(target, "OpenToolWindow", "height=800, width=600, scrollbars=yes, resizable=yes");
+            newWindow.focus();
+
+        }
+
+        function getReturnValue() {
+            var type, value;
+            var arg = Array.prototype.slice.call(arguments);
+            if (arg && arg[0])
+                type = arg[0];
+            else
+                return;
+            if (arg && arg[1])
+                value = arg[1];
+            //console.log(`getReturnValue ()==${type}`);
+            //_tempCount++;
+            var info = {};
+            if (type == 'dbset') {
+                
+                __modal.hide();
+                _dbpath = arg[1];
+                _code = arg[2];
+                __modal.hide();
+                $('#dbsetBtn').text(_dbpath + "(" + _code + ")");
+                renderPage();
+            } else if (type == 'tablename') {
+                _code = value;
+                document.getElementById('tableInput').value = _code;
+            } else if (type == 'filepath') {
+                var arr = value.split('/');
+                var str = "/filelist.file?code=" + arr[2] + "&filetype=open&filename=" + arr[1] + "&filepath=" + arr[0] + "&utf8=ok&";
+                //alert(arr + str);
+                FileAjax('fileopen', str);
+
+            } else if (type == 'icon') {
+
+                alert(value);
+            }
+        }
+
+        var listCon, ztreeCon, topmenuCon, tabmenuCon, sidemenuCon, orgcharttreeCon, dynamictreeCon;
+        function renderPage() {
+            var elem = document.getElementById('keyvalueView');
+            mafia = new MafiaGameTemplate();
+            mafia.createMafiaGameTemplate({ dbpath: _dbpath, uid: 1, elem: elem });
+        }
+
+        var keynameselValue = 'aaa';
+        var keycodeselValue = 'bookmark';
+        var selectedLenderCon = null;
+        var mafia = null;
+        $(document).ready(function () {
+
+        });
+    </script>
+</head>
+<body class="container" onfocus="newWindow.close()">
+
+    <div class="row">
+        <div class="col-4">
+            <div class="list-group" role="tablist">
+                <a href="#list-profile" class="list-group-item list-group-item-action active" data-toggle="list">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small>3 days ago</small>
+                    </div>
+                    <p class="mb-1">Some placeholder content in a paragraph.</p>
+                    <small>And some small print.</small>
+                </a>
+                <a href="#list-home" class="list-group-item list-group-item-action" data-toggle="list">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                    </div>
+                    <p class="mb-1">Some placeholder content in a paragraph.</p>
+                    <small class="text-muted">And some muted small print.</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action" data-toggle="list">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                    </div>
+                    <p class="mb-1">Some placeholder content in a paragraph.</p>
+                    <small class="text-muted">And some muted small print.</small>
+                </a>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...home</div>
+                <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...profile</div>
+                <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+                <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="keyvalueView"></div>
+
+    <div id="navbar" class="fixed-bottom">
+        <div class="alert alert-primary collapse" id="collapseDb" role="alert" style="overflow:auto;">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header">디비설정</div>
+                <div class="card-body">
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="alert alert-primary collapse" id="collapseBoard" role="alert" style="overflow:auto;">
+            <div class="card mb-3">
+                <div class="card-header">게시판설정</div>
+                <div class="card-body">
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar scroll</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        <li class="nav-item">
+                            <button class="nav-link active btn-info mr-3" aria-current="page" id="dbsetBtn" onclick="onNavbarItemClick(this)">디비</button>
+                        </li>
+
+                        <li class="nav-item">
+                            <div class="form-inline">
+                                <select id="keycodesel">
+                                </select>
+                                <button class="nav-link active btn-info mr-3" id="groupadd" onclick="onNavbarItemClick(this)">코드추가</button>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="form-inline">
+                                <select id="keynamesel">
+                                </select>
+                                <button class="nav-link active btn-info mr-3" id="nameadd" onclick="onNavbarItemClick(this)">식별자추가</button>
+                            </div>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <button class="nav-item nav-link btn-dark active" data-toggle="tab" id="itemadd" onclick="onNavbarItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">아이템추가</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-item nav-link btn-primary" data-toggle="tab" id="returnBtn" onclick="onNavbarItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">리턴</button>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav pull-right" style="--bs-scroll-height: 100px;">
+                        <li>
+                            <div>
+                                <select id="rendertypesel">
+                                    <option value="list">list</option>
+                                    <option value="ztree">ztree</option>
+                                    <option value="topmenu">topmenu</option>
+                                    <option value="sidemenu">sidemenu</option>
+                                    <option value="tabmenu">tabmenu</option>
+                                    <option value="orgcharttree">orgcharttree</option>
+                                    <option value="dynamictree">dynamictree</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="nav-item dropup">
+                            <a class="nav-link dropdown-toggle active" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-fw fa-cog fa-lg"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+
+                                <li><a class="dropdown-item" id="boardsetBtn" onclick="onNavbarItemClick(this)">게시판셋팅</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" id="keysetBtn" onclick="onNavbarItemClick(this)">키값 셋팅</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" id="fixedBtn" onclick="onNavbarItemClick(this)"><i class="fa fa-arrows-v fa-lg"></i></a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </nav>
+        <script>
+            var keycodeselValue;
+            var keynameselValue;
+            var rendertypeselValue;
+            var self = this;
+            $(document).on("change", "#keycodesel", function () {
+                var elem = document.getElementById('keyvalueView');
+                self.keycodeselValue = $("#keycodesel option:selected").val();
+                console.log("self._dbpath=======" + self._dbpath);
+                self.selectedLenderCon.setController(self._dbpath, self.keycodeselValue, self.keynameselValue, elem);
+            });
+
+            $(document).on("change", "#keynamesel", function () {
+                var elem = document.getElementById('keyvalueView');
+                self.keynameselValue = $("#keynamesel option:selected").val();
+                self.keycodeselValue = $("#keycodesel option:selected").val();
+
+                self.selectedLenderCon.setController(self._dbpath, self.keycodeselValue, self.keynameselValue, elem);
+            });
+
+            $(document).on("change", "#rendertypesel", function () {
+                self.keynameselValue = $("#keynamesel option:selected").val();
+                self.keycodeselValue = $("#keycodesel option:selected").val();
+
+                self.rendertypeselValue = $("#rendertypesel option:selected").val();
+                var elem = document.getElementById('keyvalueView');
+                selectedLenderCon = listCon;
+                if (self.rendertypeselValue == 'list') {
+                    selectedLenderCon = listCon;
+                } else if (self.rendertypeselValue == 'ztree') {
+                    selectedLenderCon = ztreeCon;
+                } else if (self.rendertypeselValue == 'topmenu') {
+                    selectedLenderCon = topmenuCon;
+                } else if (self.rendertypeselValue == 'sidemenu') {
+                    selectedLenderCon = sidemenuCon;
+                } else if (self.rendertypeselValue == 'tabmenu') {
+                    selectedLenderCon = tabmenuCon;
+                } else if (self.rendertypeselValue == 'orgcharttree') {
+                    selectedLenderCon = orgcharttreeCon;
+                } else if (self.rendertypeselValue == 'dynamictree') {
+                    selectedLenderCon = dynamictreeCon;
+                }
+                selectedLenderCon.setController(self._dbpath, self.keycodeselValue, self.keynameselValue, elem);
+            });
+
+            function makeGroupForm() {
+                var m = `<form class="form-horizontal" name="groupSetForm" id="groupSetForm">
+                                    <input type="hidden" name="dbpath" />
+                                    <input type="hidden" name="type" value="groupadd" /><!-- brdadd, groupupdate, brdupdate, groupdel, brddel-->
+
+                                    <div class="controls" id="groupMakeShow22">
+                                        <div class="form-group">
+                                            <label for="levelchk" class="control-label">그룹:</label>
+                                            <div>
+                                                <input type="text" class="form-control" name="kcode" id="groupname" value="" placeholder="그룹이름..." required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                    <div class="controls">
+                                        <div class="form-group">
+                                            <label for="levelchk" class="control-label">설명:</label>
+                                            <div>
+                                                <textarea type="text" class="form-control" name="info" placeholder="설명..." required></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                    <div class="controls">
+                                        <div class="form-group">
+                                            <input type="button" id="groupaddBtn"  class="btn btn-warning btn-send" value="전송">
+                                            <input type="reset" class="btn btn-warning btn-send" value="리셋">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </form>`;
+                return m;
+            }
+
+            function makeNameForm() {
+                var m = `<form class="form-horizontal" name="nameSetForm" id="nameSetForm">
+                                    <input type="hidden" name="dbpath" />
+                                    <input type="hidden" name="type" value="nameadd" />
+                                    <input type="hidden" name="uid" />
+                                    <input type="hidden" name="fid" />
+                                    <input type="hidden" name="did" />
+
+                                    <div class="controls">
+                                        <div class="form-group">
+                                            <label for="levelchk" class="control-label">그룹:</label>
+                                            <div>
+                                                <input type="text" class="form-control" name="kcode" value="" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                    <div class="controls">
+                                        <div class="form-group">
+                                            <label for="levelchk" class="control-label">식별자이름:</label>
+                                            <div>
+                                                <input type="text" class="form-control" name="kname" value="" placeholder="식별자이름이름..." required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                    <div class="controls">
+                                        <div class="form-group">
+                                            <label for="levelchk" class="control-label">설명:</label>
+                                            <div>
+                                                <textarea type="text" class="form-control" name="info" placeholder="설명..." required></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                    <div class="controls">
+                                        <div class="form-group">
+                                           <input type="button" id="nameaddBtn"  class="btn btn-warning btn-send" value="전송">
+                                            <input type="reset" class="btn btn-warning btn-send" value="리셋">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </form>`;
+                return m;
+            }
+
+            function makeKeyvalueForm() {
+                var m = `<form id="keyvalueForm" name="keyvalueForm" method="post" class="form-horizontal white-bg-gradient  text-left">
+
+                                        <input type="hidden" name="type" value="add" />
+                                        <input type="hidden" name="dbpath" />
+                                        <input type="hidden" name="uid" />
+                                        <input type="hidden" name="fid" />
+                                        <input type="hidden" name="did" />
+
+                                        <div class="controls">
+                                            <div class="row">
+
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="code" class="control-label">그룹</label>
+                                                        <div>
+                                                            <input type="text" class="form-control" name="kcode" value="" readonly/>
+                                                        </div>
+                                                        <div class="help-block with-errors"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="code" class="control-label">식별자</label>
+                                                        <div>
+                                                            <input type="text" class="form-control" name="kname" value="" readonly />
+                                                        </div>
+                                                        <div class="help-block with-errors"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="empcode" class="control-label">키</label>
+                                                        <div>
+                                                            <input type="text" class="form-control" name="key" placeholder="키..." required />
+                                                        </div>
+                                                        <div class="help-block with-errors"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="permittype" class="control-label">링크타입</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="form-check form-check-inline ">
+                                                        <input class="form-check-input" type="radio" name="linkTypeRadio" value="link">
+                                                        <label class="form-check-label" for="inlineCheckbox1">링크</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="linkTypeRadio" value="board">
+                                                        <label class="form-check-label" for="inlineCheckbox1">게시판</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="linkTypeRadio" value="self">
+                                                        <label class="form-check-label" for="inlineCheckbox1">셀프</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="date" class="control-label">값</label>
+                                                        <div>
+                                                            <input class="form-control" name="value" placeholder="값..." />
+                                                        </div>
+                                                        <div class="help-block with-errors"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="date" class="control-label">정보</label>
+                                                        <div>
+                                                            <textarea class="form-control" name="info" placeholder="값..." />
+                                                        </div>
+                                                        <div class="help-block with-errors"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="clearfix"></div>
+
+                                        <div class="controls">
+                                            <div class="row">
+
+                                                <div class="col-sm-12">
+                                                    <div class="form-group text-right">
+                                                        <input type="reset" class="btn btn-secondary" data-dismiss="modal" value="리 셋">
+                                                        <input type="button" id="keyvalueaddSubmit" class="btn btn-primary" value="전 송">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="clearfix"></div>
+
+                                    </form>`;
+                return m;
+            }
+
+            function eventHandler(e) {
+                var type = e.data.type;
+                console.log(type);
+                var elem = document.getElementById('keyvalueView');
+                if (type == "groupaddSubmit") {
+                    var form = document.getElementById('groupSetForm');
+
+                    var str = "/mankeyvalue.adm?&utf8=ok&";
+                    //var elem = document.getElementById('keyvalueView');
+                    var arg = { path: str, type: "keyvalue", dbpath: _dbpath, elem: elem };
+                    arg.kcode = form.kcode.value;
+                    //arg.rendertype = $("#rendertypesel option:selected").val();
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+                    arg.formData = formData;
+
+                    //var str = `/mankeyvalue.adm?dbpath=${self.arg.dbpath}&kcode=${self.keycodeselValue}&kname=${self.keynameselValue}&type=${self.arg.type}&utf8=ok&`;
+                    arg.path = str;
+                    arg.dbpath = self._dbpath;
+                    arg.kcode = form.kcode.value;
+                    self.selectedLenderCon.keyvaluePost(arg);
+
+                    __modal.hide();
+                } else if (type == "nameaddSubmit") {
+                    var form = document.getElementById("nameSetForm");
+
+                    var str = "/mankeyvalue.adm?&utf8=ok&";
+                    //var elem = document.getElementById('keyvalueView');
+                    var arg = { path: str, type: "keyvalue", dbpath: _dbpath, elem: elem };
+                    arg.kcode = form.kcode.value;
+                    arg.rendertype = $("#rendertypesel option:selected").val();
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+                    arg.formData = formData;
+                    console.log('form.kcode.value^********************************=' + form.kcode.value);
+                    arg.path = str;
+                    arg.dbpath = self._dbpath;
+                    arg.kcode = form.kcode.value;
+                    arg.kname = form.kname.value;
+                    self.selectedLenderCon.keyvaluePost(arg);
+                    __modal.hide();
+                } else if (type == "keyvalueaddSubmit") {
+                    var form = document.getElementById("keyvalueForm");
+                    var rval = $("input[name='linkTypeRadio']:checked").val();
+
+                    if (rval == 'link') {
+                        form.value.value = `link:${form.value.value}`;
+                    } else if (rval == 'board') {
+                        form.value.value = `board:${form.value.value}`;
+                    } else if (rval == 'self') {
+                        form.value.value = `self:${form.value.value}`;
+                    } else if (rval == 'link') {
+
+                    }
+
+                    var str = "/mankeyvalue.adm?&utf8=ok&";
+                    var elem = document.getElementById('keyvalueView');
+                    var arg = { path: str, type: "keyvalue", dbpath: _dbpath, elem: elem };
+                    arg.kcode = form.kcode.value;
+                    arg.kname = form.kname.value;
+                    arg.rendertype = $("#rendertypesel option:selected").val();
+                    arg.form = form;
+                    var formData = $(form).serializeArray();
+                    //console.log("form.subject.value=======" + form.subject.value);
+                    var b64 = Base64.encode(form.info.value);
+                    formData = self.selectedLenderCon.changeSerialize(formData, 'info', b64);
+                    arg.formData = formData;
+
+                    self.selectedLenderCon.keyvaluePost(arg);
+                    __modal.hide();
+                }
+            }
+
+            function onNavbarItemClick(e) {
+                var id = e.id;
+                var box = e.id;
+                //console.log('self.eventHandler==' + self.eventHandler);
+                if (id == "collapseBtn") {
+                    $('#collapseExample').collapse('toggle');
+                } else if (id == "dbsetBtn") {
+                    //var elem = document.getElementById('filelist');
+                    var elem = document.createElement('div');
+                    var cls = new DbFileAjaxBase({ type: 'db', path: '', rendertype: 'ta', returntype: 'return', $parent: self });
+                    cls.fileList('', elem);
+                    //$('#dbsetModal').modal('show');
+                    __modal.show('디비셋팅', elem);
+                    //$('#collapseDb').collapse('toggle');
+                } else if (id == "boardsetBtn") {
+                    //var elem = document.getElementById('filelist');
+                    if (!_dbpath)
+                        return alert('데이타베이스를선택해야됩니다');
+                    if (!_code)
+                        return alert('테이블을선택해야됩니다');
+                    if (!_code.startsWith('da_'))
+                        return alert('게시판테이블을 선택해야됩니다 게시판테이블은 da_ 로 시작됩니다');
+                    var elem = document.createElement('div');
+                    var c = new BoardConfigController('boardconfig', self._dbpath, self._code, 3, 'table', self);
+                    c.renderController(elem);
+                    //__modal.show('boardset', elem);
+                    __fullscreenView.setContent('boardset', elem);
+                    __fullscreenView.fullscreen('fullscreenwin');
+                } else if (id == "keysetBtn") {
+                    //var elem = document.getElementById('filelist');
+                    var elem2 = document.createElement('div');
+                    //var c = new KeyvalueController('modal', _dbpath, e.data.ltype, 'aaa', 'list');
+                    var c = new KeyvalueController('setting', self._dbpath, null, null, '', self);
+                    c.renderController(elem2);
+                    //__modal.show(e.data.ltype + ' set', elem);
+                    __fullscreenView.setContent(' set', elem2);
+                    __fullscreenView.fullscreen('fullscreenwin');
+                } else if (id == "groupadd") {
+                    if (!_dbpath)
+                        return alert('데이타베이스를선택해야됩니다');
+
+                    __modal.show('그룹추가', self.makeGroupForm());
+                    var form = document.getElementById("groupSetForm");
+                    form.dbpath.value = _dbpath;
+                    $('#groupaddBtn').bind("click", { type: 'groupaddSubmit', self: self }, self.eventHandler);
+                } else if (id == "nameadd") {
+                    __modal.show('식별자이름추가', self.makeNameForm());
+
+                    var form = document.getElementById("nameSetForm");
+
+                    var codeval = $("#keycodesel option:selected").val();
+                    if (codeval == null) {
+                        modal.hide();
+                        return alert('그룹을 선택해야됩니다');
+                    }
+                    form.dbpath.value = _dbpath;
+                    form.kcode.value = codeval;
+                    form.uid.value = $("#keynamesel option:selected").attr('uid');
+                    form.fid.value = $("#keynamesel option:selected").attr('fid');
+                    form.did.value = $("#keynamesel option:selected").attr('did');
+                    console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+                    $('#nameaddBtn').bind("click", { type: 'nameaddSubmit', self: self }, self.eventHandler);
+                } else if (id == "itemadd") {
+                    __modal.show('키추가', self.makeKeyvalueForm());
+
+                    var form = document.getElementById("keyvalueForm");
+                    $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
+                    var codeval = $("#keycodesel option:selected").val();
+                    if (codeval == null) {
+                        __modal.hide();
+                        return alert('그룹을 선택해야됩니다');
+                    }
+                    var nameval = $("#keynamesel option:selected").val();
+                    if (nameval == null) {
+                        __modal.hide();
+                        return alert('식별자이름를 선택해야됩니다');
+                    }
+                    form.dbpath.value = _dbpath;
+                    form.kcode.value = codeval;
+                    form.kname.value = nameval;
+                    form.uid.value = $("#keynamesel option:selected").attr('uid');
+                    form.fid.value = $("#keynamesel option:selected").attr('fid');
+                    form.did.value = $("#keynamesel option:selected").attr('did');
+                    form.type.value = 'add';
+                    console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+                    $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: self }, self.eventHandler);
+                } else if (id == 'itemsubadd') {
+                    __modal.show('키추가', self.makeKeyvalueForm());
+
+                    var form = document.getElementById("keyvalueForm");
+                    $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
+                    var codeval = $("#keycodesel option:selected").val();
+                    if (codeval == null) {
+                        __modal.hide();
+                        return alert('그룹을 선택해야됩니다');
+                    }
+                    var nameval = $("#keynamesel option:selected").val();
+                    if (nameval == null) {
+                        __modal.hide();
+                        return alert('식별자이름를 선택해야됩니다');
+                    }
+                    form.dbpath.value = _dbpath;
+                    form.kcode.value = codeval;
+                    form.kname.value = nameval;
+                    form.uid.value = $("#keynamesel option:selected").attr('uid');
+                    form.fid.value = $("#keynamesel option:selected").attr('fid');
+                    form.did.value = $("#keynamesel option:selected").attr('did');
+                    form.type.value = 'subadd';
+                    console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+                    $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: self }, self.eventHandler);
+                } else if (id == "return") {
+                    window.opener.getReturnValue('keyvalue', `${dbpath}:${kcode}:${kname}:`);
+                    window.close();
+                } else if (id == "fixedBtn") {
+                    if ($('#navbar').hasClass("fixed-bottom") === true) {
+                        $('#navbar').removeClass("fixed-bottom");
+                        $('#navbar').addClass("fixed-top");
+                        $('#navbar').find('.dropup').addClass("dropdown");
+                        $('#navbar').find('.dropup').removeClass("dropup");
+
+                    } else {
+                        $('#navbar').removeClass("fixed-top");
+                        $('#navbar').addClass("fixed-bottom");
+                        $('#navbar').find('.dropdown').addClass("dropup");
+                        $('#navbar').find('.dropdown').removeClass("dropdown");
+                    }
+
+                }
+            }
+        </script>
+    </div>
+
+</body>
+</html>

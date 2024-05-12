@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html style="height:100%">
+<head>
+    <meta charset="UTF-8">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="stylesheet" href="/aMvc/lib/jquery/jquery-ui.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-resizable.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?55"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?64"></script>
+    <script src="/aMvc/base/dbFileAjaxBase.js?64"></script>
+    <script src="/aMvc/base/viewLibBase.js?23"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script src="/aMvc/lib/Fabric/Fabric.4.6.0/js/fabric.min.js"></script>
+    <script src="/aMvc/lib/js/da-paint-controller.js?89"></script>
+    <script type="text/javascript" src="/aMvc/lib/js/timeline.js?13"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            document.title = '그림판';
+
+            //__insertWindow('<div>abc</div>', 'test title', 22,22, 500, 500, 'aqua');
+
+            var elem = document.getElementById('fabricElem');
+
+            var fb = new FabricBase({ elem: elem });
+            //var elem2 = document.getElementById('fabricElem2');
+            //var fb2 = new FabricBase({ elem: elem2 });
+        });
+
+    </script>
+
+</head>
+<body class="body">
+    <da include="/html/module/navbarAdmin.html"></da>
+    <div style="border: 2px solid black; width:100%; height: 100%;">
+        <div id="fabricElem" style="border: 2px solid black; width:100%; height: 100%; "></div>
+    </div>
+    
+    <da include="/html/module/footer.html"></da>
+</body>
+
+</html>
