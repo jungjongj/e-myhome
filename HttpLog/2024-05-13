@@ -76,3 +76,25 @@
 2024-05-13 06:52:09:008:HttpContext..ctor                       peerIp: 127.0.0.1
 2024-05-13 07:54:45:009:HttpContext..ctor                       peerIp: 194.165.16.73
 2024-05-13 09:01:30:001:HttpListener.Stop                       httpListener Stop 
+2024-05-13 12:49:47:001:HttpListener..ctor                      httpListener start 0.0.0.0 7777
+2024-05-13 12:49:49:010:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 12:49:49:011:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 12:49:49:012:HttpParser.ParseFirstLine               GET /aMvc/base/boardAjaxBase.js?3 HTTP/1.1
+2024-05-13 12:49:49:013:HttpParser.ParseFirstLine               GET /aMvc/lib/js/da-globallib.js? HTTP/1.1
+2024-05-13 12:49:49:011:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 12:49:49:010:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?91 HTTP/1.1
+2024-05-13 12:49:49:011:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 12:49:49:011:HttpParser.ParseFirstLine               GET /html/module/navbarIndex.html?1715572189799 HTTP/1.1
+2024-05-13 12:49:49:010:HttpParser.ParseFirstLine               GET /getip.utils?type=pubkey HTTP/1.1
+2024-05-13 12:49:49:012:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-13 12:49:49:011:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715572189842 HTTP/1.1
+2024-05-13 12:51:43:001:HttpListener.Stop                       httpListener Stop 
+2024-05-13 14:14:11:001:HttpListener..ctor                      httpListener start 0.0.0.0 7777
+2024-05-13 14:14:13:007:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 14:14:14:007:HttpParser.ParseFirstLine               GET /getip.utils?type=pubkey HTTP/1.1
+2024-05-13 14:14:14:008:HttpParser.ParseFirstLine               GET /html/module/navbarIndex.html?1715577254564 HTTP/1.1
+2024-05-13 14:14:14:008:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-13 14:14:14:008:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715577254660 HTTP/1.1
+2024-05-13 14:14:14:008:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 14:14:14:008:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 14:14:19:001:HttpListener.Stop                       httpListener Stop 
