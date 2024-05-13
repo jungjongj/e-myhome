@@ -1,0 +1,78 @@
+2024-05-13 00:22:36:001:HttpListener..ctor                      httpListener start 0.0.0.0 7777
+2024-05-13 00:22:40:011:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 00:22:40:010:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 00:22:40:012:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?91 HTTP/1.1
+2024-05-13 00:22:40:011:HttpParser.ParseFirstLine               GET /html/module/navbarIndex.html?1715527360489 HTTP/1.1
+2024-05-13 00:22:40:012:HttpParser.ParseFirstLine               GET /getip.utils?type=pubkey HTTP/1.1
+2024-05-13 00:22:40:011:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-13 00:22:40:011:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715527360536 HTTP/1.1
+2024-05-13 00:22:40:011:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 00:22:40:011:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 01:46:33:001:HttpListener.Stop                       httpListener Stop 
+2024-05-13 01:47:10:001:HttpListener..ctor                      httpListener start 0.0.0.0 7777
+2024-05-13 01:47:14:011:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 01:47:14:012:HttpParser.ParseFirstLine               GET / HTTP/1.1
+2024-05-13 01:47:14:012:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css HTTP/1.1
+2024-05-13 01:47:14:011:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css HTTP/1.1
+2024-05-13 01:47:14:012:HttpParser.ParseFirstLine               GET /aMvc/lib/css/da-style.css?s=31 HTTP/1.1
+2024-05-13 01:47:14:011:HttpParser.ParseFirstLine               GET /aMvc/lib/jquery/jquery-2.1.2.min.js HTTP/1.1
+2024-05-13 01:47:14:012:HttpParser.ParseFirstLine               GET /aMvc/lib/jquery/jquery-ui.min.js HTTP/1.1
+2024-05-13 01:47:14:010:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 01:47:14:013:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js HTTP/1.1
+2024-05-13 01:47:14:011:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js HTTP/1.1
+2024-05-13 01:47:14:013:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js HTTP/1.1
+2024-05-13 01:47:14:010:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 01:47:14:010:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 01:47:14:010:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 01:47:14:010:HttpParser.ParseFirstLine               GET /aMvc/lib/js/da-globallib.js? HTTP/1.1
+2024-05-13 01:47:14:010:HttpParser.ParseFirstLine               GET /aMvc/base/boardAjaxBase.js?3 HTTP/1.1
+2024-05-13 01:47:14:010:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?91 HTTP/1.1
+2024-05-13 01:47:14:011:HttpParser.ParseFirstLine               GET /aMvc/base/templateBase.js? HTTP/1.1
+2024-05-13 01:47:14:013:HttpParser.ParseFirstLine               GET /html/module/navbarIndex.html?1715532434718 HTTP/1.1
+2024-05-13 01:47:14:012:HttpParser.ParseFirstLine               GET /getip.utils?type=pubkey HTTP/1.1
+2024-05-13 01:47:14:013:HttpParser.ParseFirstLine               GET /aMvc/lib/fonts/fontawesome-webfont.woff?v=4.0.3 HTTP/1.1
+2024-05-13 01:47:14:010:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715532434776 HTTP/1.1
+2024-05-13 01:47:14:010:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-13 01:47:19:012:HttpParser.ParseFirstLine               GET /html/admin/Admin.html HTTP/1.1
+2024-05-13 01:47:19:012:HttpParser.ParseFirstLine               GET /aMvc/lib/jquery/jquery-ui.min.css HTTP/1.1
+2024-05-13 01:47:19:010:HttpParser.ParseFirstLine               GET /aMvc/lib/css/da-style.css?s=12 HTTP/1.1
+2024-05-13 01:47:19:013:HttpParser.ParseFirstLine               GET /aMvc/lib/zTree_v3-master/css/zTreeStyle/zTreeStyle.css HTTP/1.1
+2024-05-13 01:47:19:010:HttpParser.ParseFirstLine               GET /aMvc/lib/orgchart/dist/css/jquery.orgchart.min.css HTTP/1.1
+2024-05-13 01:47:19:011:HttpParser.ParseFirstLine               GET /aMvc/lib/js/da-globallib.js?356 HTTP/1.1
+2024-05-13 01:47:19:011:HttpParser.ParseFirstLine               GET /aMvc/base/boardAjaxBase.js?4 HTTP/1.1
+2024-05-13 01:47:19:013:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?35 HTTP/1.1
+2024-05-13 01:47:19:010:HttpParser.ParseFirstLine               GET /aMvc/base/templateBase.js?1 HTTP/1.1
+2024-05-13 01:47:19:013:HttpParser.ParseFirstLine               GET /aMvc/lib/qrcode/qrcode.min.js HTTP/1.1
+2024-05-13 01:47:19:013:HttpParser.ParseFirstLine               GET /aMvc/lib/qrcode/html5-qrcode.min.js HTTP/1.1
+2024-05-13 01:47:20:013:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?1715532440054 HTTP/1.1
+2024-05-13 01:47:20:015:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=&type=keyvalue&utf8=ok&&1715532440056 HTTP/1.1
+2024-05-13 01:47:20:012:HttpParser.ParseFirstLine               GET /getip.utils?type=pubkey HTTP/1.1
+2024-05-13 01:47:20:013:HttpParser.ParseFirstLine               GET /html/module/footer.html?&1715532440160 HTTP/1.1
+2024-05-13 01:47:20:015:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=1111&type=keyvalue&utf8=ok&&1715532440383 HTTP/1.1
+2024-05-13 01:47:24:015:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=1111&type=keyvalue&utf8=ok&&1715532444532 HTTP/1.1
+2024-05-13 01:47:27:015:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=1111&type=keyvalue&utf8=ok&&1715532447540 HTTP/1.1
+2024-05-13 01:48:59:021:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-13 01:48:59:018:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-13 01:49:00:020:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-13 01:49:00:022:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-13 01:49:00:023:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-13 05:14:35:001:HttpListener.Stop                       httpListener Stop 
+2024-05-13 05:15:25:001:HttpListener..ctor                      httpListener start 0.0.0.0 7777
+2024-05-13 05:15:27:007:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 05:15:27:009:HttpParser.ParseFirstLine               GET /aMvc/lib/js/da-globallib.js? HTTP/1.1
+2024-05-13 05:15:27:009:HttpParser.ParseFirstLine               GET /html/module/navbarIndex.html?1715544927830 HTTP/1.1
+2024-05-13 05:15:27:007:HttpParser.ParseFirstLine               GET /getip.utils?type=pubkey HTTP/1.1
+2024-05-13 05:15:27:009:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-13 05:15:27:009:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715544927863 HTTP/1.1
+2024-05-13 05:15:27:008:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 06:43:40:001:HttpListener.Stop                       httpListener Stop 
+2024-05-13 06:52:06:001:HttpListener..ctor                      httpListener start 0.0.0.0 7777
+2024-05-13 06:52:09:008:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 06:52:09:009:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?91 HTTP/1.1
+2024-05-13 06:52:09:009:HttpParser.ParseFirstLine               GET /html/module/navbarIndex.html?1715550729114 HTTP/1.1
+2024-05-13 06:52:09:009:HttpParser.ParseFirstLine               GET /getip.utils?type=pubkey HTTP/1.1
+2024-05-13 06:52:09:010:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-13 06:52:09:010:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715550729140 HTTP/1.1
+2024-05-13 06:52:09:008:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-13 07:54:45:009:HttpContext..ctor                       peerIp: 194.165.16.73
+2024-05-13 09:01:30:001:HttpListener.Stop                       httpListener Stop 

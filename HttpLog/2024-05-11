@@ -1,0 +1,629 @@
+2024-05-11 01:25:48:044:HttpContext..ctor                       peerIp: 194.165.16.73
+2024-05-11 02:21:05:098:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 02:21:05:098:HttpParser.ParseFirstLine               GET /aMvc/base/boardAjaxBase.js?76 HTTP/1.1
+2024-05-11 02:21:05:141:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 02:21:05:098:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715361665973 HTTP/1.1
+2024-05-11 02:21:06:141:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 02:21:06:098:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715361666145 HTTP/1.1
+2024-05-11 02:21:08:098:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 02:21:08:098:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715361668142 HTTP/1.1
+2024-05-11 02:21:08:098:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715361668155 HTTP/1.1
+2024-05-11 02:21:16:098:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 02:21:16:098:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715361676658 HTTP/1.1
+2024-05-11 02:21:16:098:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715361676671 HTTP/1.1
+2024-05-11 02:21:42:098:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 02:21:42:098:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?35 HTTP/1.1
+2024-05-11 02:21:42:098:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715361702434 HTTP/1.1
+2024-05-11 02:21:42:098:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715361702481 HTTP/1.1
+2024-05-11 02:21:48:098:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ddd&type=keyvalue&utf8=ok&&1715361708018 HTTP/1.1
+2024-05-11 02:23:11:138:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 02:23:11:138:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?35 HTTP/1.1
+2024-05-11 02:23:11:138:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715361791764 HTTP/1.1
+2024-05-11 02:23:11:138:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715361791889 HTTP/1.1
+2024-05-11 02:23:12:138:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 02:23:17:138:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ggg&type=keyvalue&utf8=ok&&1715361797731 HTTP/1.1
+2024-05-11 02:24:57:077:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 02:25:01:138:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 02:25:01:134:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 02:25:01:134:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 02:25:01:134:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?35 HTTP/1.1
+2024-05-11 02:25:01:134:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715361901474 HTTP/1.1
+2024-05-11 02:25:01:134:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715361901493 HTTP/1.1
+2024-05-11 02:25:01:134:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 02:25:05:134:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ddd&type=keyvalue&utf8=ok&&1715361905250 HTTP/1.1
+2024-05-11 02:25:07:134:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ggg&type=keyvalue&utf8=ok&&1715361907377 HTTP/1.1
+2024-05-11 02:25:12:134:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ddd&type=keyvalue&utf8=ok&&1715361912529 HTTP/1.1
+2024-05-11 02:25:15:134:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ddd&type=keyvalue&utf8=ok&&1715361915441 HTTP/1.1
+2024-05-11 02:25:18:134:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ggg&type=keyvalue&utf8=ok&&1715361918225 HTTP/1.1
+2024-05-11 02:26:51:134:HttpParser.ParseFirstLine               GET /list.board?code=da_board&dbpath=daboard.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=3&utf8=ok&&1715362011795 HTTP/1.1
+2024-05-11 02:27:06:134:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ddd&type=keyvalue&utf8=ok&&1715362026226 HTTP/1.1
+2024-05-11 02:27:56:134:HttpParser.ParseFirstLine               GET /list.board?code=da_board&dbpath=daboard&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=3&utf8=ok&&1715362076844 HTTP/1.1
+2024-05-11 02:27:58:134:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 02:27:58:126:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html?1715362077978 HTTP/1.1
+2024-05-11 02:27:58:134:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 02:29:38:129:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:18:19:078:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:18:19:092:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html?1715365099498 HTTP/1.1
+2024-05-11 03:18:20:078:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:18:26:078:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ggg&type=keyvalue&utf8=ok&&1715365106793 HTTP/1.1
+2024-05-11 03:20:06:096:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:25:44:100:HttpContext..ctor                       peerIp: 162.142.125.213
+2024-05-11 03:25:44:110:HttpParser.ParseFirstLine               GET / HTTP/1.1
+2024-05-11 03:25:45:100:HttpContext..ctor                       peerIp: 162.142.125.213
+2024-05-11 03:25:45:100:HttpParser.ParseFirstLine               PRI * HTTP/2.0
+2024-05-11 03:25:45:100:HttpContext..ctor                       peerIp: 162.142.125.213
+2024-05-11 03:25:45:100:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-11 03:26:09:100:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:26:09:111:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:26:09:107:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:26:09:107:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?35 HTTP/1.1
+2024-05-11 03:26:09:107:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715365569422 HTTP/1.1
+2024-05-11 03:26:09:107:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715365569441 HTTP/1.1
+2024-05-11 03:26:09:111:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:26:12:111:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ggg&type=keyvalue&utf8=ok&&1715365572616 HTTP/1.1
+2024-05-11 03:26:14:111:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ddd&type=keyvalue&utf8=ok&&1715365574448 HTTP/1.1
+2024-05-11 03:27:54:109:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:28:19:111:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:28:19:111:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:28:19:119:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:28:19:119:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?35 HTTP/1.1
+2024-05-11 03:28:19:119:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715365699200 HTTP/1.1
+2024-05-11 03:28:19:119:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715365699221 HTTP/1.1
+2024-05-11 03:28:19:111:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:29:59:116:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:30:15:111:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:30:15:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:30:15:121:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:30:15:121:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?35 HTTP/1.1
+2024-05-11 03:30:15:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715365815258 HTTP/1.1
+2024-05-11 03:30:15:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715365815279 HTTP/1.1
+2024-05-11 03:30:15:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:31:55:118:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:32:06:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:32:06:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:32:06:044:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:32:06:044:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?35 HTTP/1.1
+2024-05-11 03:32:06:044:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715365926791 HTTP/1.1
+2024-05-11 03:32:06:044:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715365926811 HTTP/1.1
+2024-05-11 03:32:06:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:32:09:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ddd&type=keyvalue&utf8=ok&&1715365929609 HTTP/1.1
+2024-05-11 03:33:14:135:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:33:14:121:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?35 HTTP/1.1
+2024-05-11 03:33:14:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715365994311 HTTP/1.1
+2024-05-11 03:33:14:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715365994330 HTTP/1.1
+2024-05-11 03:33:14:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:33:16:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ddd&type=keyvalue&utf8=ok&&1715365996937 HTTP/1.1
+2024-05-11 03:33:19:121:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:33:19:121:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?35 HTTP/1.1
+2024-05-11 03:33:19:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715365999153 HTTP/1.1
+2024-05-11 03:33:19:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715365999171 HTTP/1.1
+2024-05-11 03:33:20:121:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:33:20:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715366000544 HTTP/1.1
+2024-05-11 03:33:20:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715366000558 HTTP/1.1
+2024-05-11 03:34:07:121:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:34:07:121:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?356 HTTP/1.1
+2024-05-11 03:34:07:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715366047518 HTTP/1.1
+2024-05-11 03:34:07:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715366047617 HTTP/1.1
+2024-05-11 03:34:10:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ddd&type=keyvalue&utf8=ok&&1715366050273 HTTP/1.1
+2024-05-11 03:34:19:121:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:34:19:121:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?356 HTTP/1.1
+2024-05-11 03:34:19:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715366059884 HTTP/1.1
+2024-05-11 03:34:19:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715366059901 HTTP/1.1
+2024-05-11 03:34:20:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:34:21:121:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:34:21:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715366061469 HTTP/1.1
+2024-05-11 03:34:21:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715366061482 HTTP/1.1
+2024-05-11 03:35:50:136:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:35:50:121:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?356 HTTP/1.1
+2024-05-11 03:35:50:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715366150145 HTTP/1.1
+2024-05-11 03:35:50:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715366150162 HTTP/1.1
+2024-05-11 03:35:50:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:35:52:121:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ddd&type=keyvalue&utf8=ok&&1715366152745 HTTP/1.1
+2024-05-11 03:36:43:121:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 03:36:43:125:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 03:36:43:122:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 03:36:44:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:36:44:122:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 03:36:44:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:37:26:122:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:37:26:122:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?356 HTTP/1.1
+2024-05-11 03:37:27:122:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 03:37:27:122:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 03:37:27:122:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715366247096 HTTP/1.1
+2024-05-11 03:37:27:122:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 03:37:27:122:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 03:37:27:122:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715366247118 HTTP/1.1
+2024-05-11 03:37:27:122:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:37:27:122:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:37:27:107:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:37:27:107:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:37:45:107:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:37:45:106:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 03:37:45:107:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:37:47:107:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 03:37:47:107:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 03:37:47:106:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 03:37:47:110:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 03:37:47:107:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 03:37:47:114:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 03:37:47:114:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 03:37:47:106:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 03:37:47:107:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:37:47:110:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:37:47:107:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:37:47:110:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:37:47:107:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 03:37:47:114:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 03:37:47:110:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 03:37:47:114:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 03:37:47:110:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 03:37:48:110:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:37:50:110:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html?1715366270444 HTTP/1.1
+2024-05-11 03:39:25:105:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:39:30:104:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:39:30:103:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:40:22:110:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:40:22:100:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:40:22:100:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:40:22:100:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?356 HTTP/1.1
+2024-05-11 03:40:22:100:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 03:40:22:110:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 03:40:23:100:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:40:23:100:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715366422979 HTTP/1.1
+2024-05-11 03:40:23:100:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 03:40:23:100:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715366423040 HTTP/1.1
+2024-05-11 03:40:23:100:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 03:40:23:100:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:40:23:100:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:40:23:100:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:40:28:100:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:40:28:110:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 03:40:28:100:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:40:30:100:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 03:40:30:100:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 03:40:30:110:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 03:40:30:101:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 03:40:30:100:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 03:40:30:099:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 03:40:30:110:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 03:40:30:100:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:40:30:099:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:40:30:100:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:40:30:099:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 03:40:30:100:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 03:40:30:101:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 03:40:30:110:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:40:30:110:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 03:40:30:101:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 03:40:30:110:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 03:41:17:101:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:41:17:122:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:41:17:125:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 03:41:17:125:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?356 HTTP/1.1
+2024-05-11 03:41:17:125:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 03:41:17:122:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 03:41:17:122:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 03:41:17:101:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 03:41:17:101:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715366477812 HTTP/1.1
+2024-05-11 03:41:17:101:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715366477827 HTTP/1.1
+2024-05-11 03:41:17:101:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:41:18:101:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:41:27:101:HttpParser.ParseFirstLine               POST /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715366487787 HTTP/1.1
+2024-05-11 03:41:33:044:HttpParser.ParseFirstLine               POST /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715366493251 HTTP/1.1
+2024-05-11 03:41:37:044:HttpParser.ParseFirstLine               POST /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715366497627 HTTP/1.1
+2024-05-11 03:42:08:124:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:42:34:044:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:42:34:107:HttpParser.ParseFirstLine               GET /html/admin/Admin.html HTTP/1.1
+2024-05-11 03:42:34:044:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:42:34:044:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:42:34:044:HttpParser.ParseFirstLine               GET /aMvc/base/boardAjaxBase.js?4 HTTP/1.1
+2024-05-11 03:42:35:044:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?1715366555184 HTTP/1.1
+2024-05-11 03:42:35:044:HttpParser.ParseFirstLine               GET /list.board?code=da_board&dbpath=config.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=3&utf8=ok&&1715366555199 HTTP/1.1
+2024-05-11 03:42:35:044:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=&type=keyvalue&utf8=ok&&1715366555226 HTTP/1.1
+2024-05-11 03:42:35:107:HttpParser.ParseFirstLine               GET /getip.utils?type=pubkey HTTP/1.1
+2024-05-11 03:42:35:044:HttpParser.ParseFirstLine               GET /html/module/footer.html?&1715366555271 HTTP/1.1
+2024-05-11 03:42:35:044:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=1111&type=keyvalue&utf8=ok&&1715366555308 HTTP/1.1
+2024-05-11 03:42:42:044:HttpParser.ParseFirstLine               GET /html/admin/Admin.html HTTP/1.1
+2024-05-11 03:42:42:107:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?1715366562804 HTTP/1.1
+2024-05-11 03:42:42:044:HttpParser.ParseFirstLine               GET /list.board?code=da_board&dbpath=config.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=3&utf8=ok&&1715366562804 HTTP/1.1
+2024-05-11 03:42:42:115:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=&type=keyvalue&utf8=ok&&1715366562805 HTTP/1.1
+2024-05-11 03:42:42:107:HttpParser.ParseFirstLine               GET /getip.utils?type=pubkey HTTP/1.1
+2024-05-11 03:42:42:044:HttpParser.ParseFirstLine               GET /html/module/footer.html?&1715366562827 HTTP/1.1
+2024-05-11 03:42:42:044:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=1111&type=keyvalue&utf8=ok&&1715366562845 HTTP/1.1
+2024-05-11 03:42:43:044:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:42:43:044:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:42:46:044:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=2222&type=keyvalue&utf8=ok&&1715366566883 HTTP/1.1
+2024-05-11 03:43:17:113:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:43:21:044:HttpParser.ParseFirstLine               GET /html/admin/Admin.html HTTP/1.1
+2024-05-11 03:43:21:107:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?35 HTTP/1.1
+2024-05-11 03:43:21:107:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?1715366601124 HTTP/1.1
+2024-05-11 03:43:21:044:HttpParser.ParseFirstLine               GET /list.board?code=da_board&dbpath=config.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=3&utf8=ok&&1715366601125 HTTP/1.1
+2024-05-11 03:43:21:125:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=&type=keyvalue&utf8=ok&&1715366601127 HTTP/1.1
+2024-05-11 03:43:21:122:HttpParser.ParseFirstLine               GET /getip.utils?type=pubkey HTTP/1.1
+2024-05-11 03:43:21:125:HttpParser.ParseFirstLine               GET /html/module/footer.html?&1715366601143 HTTP/1.1
+2024-05-11 03:43:21:125:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=1111&type=keyvalue&utf8=ok&&1715366601165 HTTP/1.1
+2024-05-11 03:43:25:122:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=2222&type=keyvalue&utf8=ok&&1715366605161 HTTP/1.1
+2024-05-11 03:43:27:122:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=1111&type=keyvalue&utf8=ok&&1715366607032 HTTP/1.1
+2024-05-11 03:45:01:102:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:45:01:101:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:45:01:100:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:45:08:103:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 03:54:11:118:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:54:11:122:HttpParser.ParseFirstLine               POST /mankeyvalue.adm?dbpath=config.dadb&kcode=_admin&kname=1111&type=keyvalue&utf8=ok&&1715367251356 HTTP/1.1
+2024-05-11 03:54:11:118:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 03:55:51:110:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 04:27:57:119:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 04:27:57:128:HttpParser.ParseFirstLine               GET /html/admin/config/DbandFile.html HTTP/1.1
+2024-05-11 04:27:58:119:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 04:27:58:119:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js HTTP/1.1
+2024-05-11 04:27:58:128:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?3 HTTP/1.1
+2024-05-11 04:27:58:130:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 04:27:58:130:HttpParser.ParseFirstLine               GET /aMvc/base/dbFileAjaxBase.js?23 HTTP/1.1
+2024-05-11 04:27:58:119:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 04:27:58:130:HttpParser.ParseFirstLine               GET /aMvc/base/templateBase.js? HTTP/1.1
+2024-05-11 04:27:58:128:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?1715369278049 HTTP/1.1
+2024-05-11 04:27:58:128:HttpParser.ParseFirstLine               GET /filelist.file?code=db&filepath=&utf8=ok&&1715369278053 HTTP/1.1
+2024-05-11 04:27:58:130:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filepath=/&utf8=ok&&1715369278056 HTTP/1.1
+2024-05-11 04:27:58:128:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715369278087 HTTP/1.1
+2024-05-11 04:27:58:128:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 04:27:58:128:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-11 04:28:01:119:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filetype=d&filename=aMvc&filepath=&utf8=ok&&1715369281327 HTTP/1.1
+2024-05-11 04:28:03:119:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filetype=d&filename=base&filepath=/aMvc&utf8=ok&&1715369282856 HTTP/1.1
+2024-05-11 04:28:11:119:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js HTTP/1.1
+2024-05-11 04:28:11:128:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 04:28:11:128:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js HTTP/1.1
+2024-05-11 04:28:11:119:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 04:28:11:119:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js HTTP/1.1
+2024-05-11 04:29:38:070:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 04:29:38:072:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 04:29:38:127:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 04:29:52:071:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 05:19:30:128:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:19:30:099:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?3 HTTP/1.1
+2024-05-11 05:19:30:099:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?1715372370254 HTTP/1.1
+2024-05-11 05:19:30:128:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:19:30:099:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:19:30:099:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:19:30:099:HttpParser.ParseFirstLine               GET /filelist.file?code=db&filepath=&utf8=ok&&1715372370258 HTTP/1.1
+2024-05-11 05:19:30:122:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filepath=/&utf8=ok&&1715372370260 HTTP/1.1
+2024-05-11 05:19:30:128:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filepath=/&utf8=ok&&1715372370263 HTTP/1.1
+2024-05-11 05:19:30:122:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715372370291 HTTP/1.1
+2024-05-11 05:19:30:122:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-11 05:19:35:099:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:19:35:128:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filetype=d&filename=aMvc&filepath=&utf8=ok&&1715372374832 HTTP/1.1
+2024-05-11 05:19:36:128:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filetype=d&filename=base&filepath=/aMvc&utf8=ok&&1715372376299 HTTP/1.1
+2024-05-11 05:19:49:128:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js HTTP/1.1
+2024-05-11 05:19:49:099:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:19:49:099:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js HTTP/1.1
+2024-05-11 05:19:49:128:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:19:49:128:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js HTTP/1.1
+2024-05-11 05:23:06:099:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:23:06:106:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:23:06:106:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:23:06:106:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?1715372586483 HTTP/1.1
+2024-05-11 05:23:06:106:HttpParser.ParseFirstLine               GET /filelist.file?code=db&filepath=&utf8=ok&&1715372586487 HTTP/1.1
+2024-05-11 05:23:06:106:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:23:06:106:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filepath=/&utf8=ok&&1715372586493 HTTP/1.1
+2024-05-11 05:23:06:106:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-11 05:23:08:106:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715372587992 HTTP/1.1
+2024-05-11 05:23:09:106:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filetype=d&filename=aMvc&filepath=&utf8=ok&&1715372589498 HTTP/1.1
+2024-05-11 05:23:11:106:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filetype=d&filename=base&filepath=/aMvc&utf8=ok&&1715372590732 HTTP/1.1
+2024-05-11 05:23:16:106:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js HTTP/1.1
+2024-05-11 05:23:17:106:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:23:17:106:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js HTTP/1.1
+2024-05-11 05:23:17:099:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 05:23:17:114:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js HTTP/1.1
+2024-05-11 05:24:46:113:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 05:24:46:100:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 05:24:57:115:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 06:55:10:107:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 06:55:10:068:HttpParser.ParseFirstLine               POST /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715378109962 HTTP/1.1
+2024-05-11 06:55:10:107:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 06:55:19:068:HttpParser.ParseFirstLine               POST /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715378119008 HTTP/1.1
+2024-05-11 06:56:59:127:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 06:57:46:074:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 06:57:46:068:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 06:57:46:079:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 06:57:46:079:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?356 HTTP/1.1
+2024-05-11 06:57:46:068:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 06:57:46:068:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 06:57:46:079:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 06:57:46:068:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 06:57:46:068:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 06:57:46:068:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715378266923 HTTP/1.1
+2024-05-11 06:57:46:068:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715378266944 HTTP/1.1
+2024-05-11 06:57:47:068:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 06:57:47:079:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 06:58:06:079:HttpParser.ParseFirstLine               POST /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715378286785 HTTP/1.1
+2024-05-11 06:59:46:086:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 07:09:31:094:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:09:31:094:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html HTTP/1.1
+2024-05-11 07:09:31:094:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?356 HTTP/1.1
+2024-05-11 07:09:31:094:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 07:09:31:109:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:09:31:109:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 07:09:31:117:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 07:09:31:109:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:09:31:117:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:09:31:117:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=&type=keyvalue&utf8=ok&&1715378971268 HTTP/1.1
+2024-05-11 07:09:31:109:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 07:09:31:117:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&type=keyvalue&utf8=ok&&1715378971949 HTTP/1.1
+2024-05-11 07:09:41:117:HttpParser.ParseFirstLine               POST /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=%E3%85%87%E3%85%87%E3%85%87&utf8=ok&&1715378981761 HTTP/1.1
+2024-05-11 07:10:21:117:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 07:10:21:030:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?3 HTTP/1.1
+2024-05-11 07:10:21:030:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?1715379022144 HTTP/1.1
+2024-05-11 07:10:21:117:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 07:10:21:098:HttpParser.ParseFirstLine               GET /filelist.file?code=db&filepath=&utf8=ok&&1715379022148 HTTP/1.1
+2024-05-11 07:10:21:117:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 07:10:21:117:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 07:10:21:117:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filepath=/&utf8=ok&&1715379022151 HTTP/1.1
+2024-05-11 07:10:21:030:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filepath=/&utf8=ok&&1715379022154 HTTP/1.1
+2024-05-11 07:10:21:098:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-11 07:10:23:030:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715379023784 HTTP/1.1
+2024-05-11 07:10:25:030:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filetype=d&filename=aMvc&filepath=&utf8=ok&&1715379026185 HTTP/1.1
+2024-05-11 07:10:27:030:HttpParser.ParseFirstLine               GET /filelist.file?code=root&filetype=d&filename=base&filepath=/aMvc&utf8=ok&&1715379027668 HTTP/1.1
+2024-05-11 07:10:33:030:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js HTTP/1.1
+2024-05-11 07:10:34:117:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 07:10:34:117:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js HTTP/1.1
+2024-05-11 07:10:34:030:HttpContext..ctor                       peerIp: 192.168.200.164
+2024-05-11 07:10:34:098:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js HTTP/1.1
+2024-05-11 07:11:21:063:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 07:12:01:060:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 07:12:01:029:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 07:12:10:058:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:10:098:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ddd&type=keyvalue&utf8=ok&&1715379130556 HTTP/1.1
+2024-05-11 07:12:11:058:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:14:063:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 07:12:19:058:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:19:098:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 07:12:19:058:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:21:058:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 07:12:21:058:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 07:12:21:098:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 07:12:21:058:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:21:098:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 07:12:21:098:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 07:12:21:058:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:21:098:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:21:058:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:21:058:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 07:12:21:119:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 07:12:21:058:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 07:12:21:098:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 07:12:21:058:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:21:058:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:23:058:HttpParser.ParseFirstLine               GET /list.board?code=da_board&dbpath=daboard&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=3&utf8=ok&&1715379143791 HTTP/1.1
+2024-05-11 07:12:25:098:HttpParser.ParseFirstLine               GET /html/examples/keyvalueModule/horizontalListmenu.html?1715379145365 HTTP/1.1
+2024-05-11 07:12:32:098:HttpParser.ParseFirstLine               GET /mankeyvalue.adm?dbpath=a.dadb&kcode=_topmenu&kname=ggg&type=keyvalue&utf8=ok&&1715379152548 HTTP/1.1
+2024-05-11 07:12:37:058:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:37:098:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 07:12:37:058:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:39:058:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 07:12:39:058:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 07:12:39:058:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 07:12:39:058:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 07:12:39:058:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 07:12:39:058:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 07:12:39:058:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 07:12:39:058:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 07:12:39:058:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:39:098:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:39:065:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 07:12:39:113:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 07:12:39:065:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 07:12:39:065:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 07:12:39:098:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:39:065:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:39:113:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:39:113:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 07:12:40:113:HttpParser.ParseFirstLine               GET /list.board?code=da_board&dbpath=daboard.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=3&utf8=ok&&1715379160759 HTTP/1.1
+2024-05-11 07:13:59:064:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 07:14:17:063:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 07:14:20:057:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 07:14:20:060:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 08:14:17:059:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:14:53:103:HttpParser.ParseFirstLine               GET /html/examples/erp/portfolio.html HTTP/1.1
+2024-05-11 08:14:53:050:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?19 HTTP/1.1
+2024-05-11 08:14:53:050:HttpParser.ParseFirstLine               GET /aMvc/base/boardAjaxBase.js?3 HTTP/1.1
+2024-05-11 08:14:53:050:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:14:53:050:HttpParser.ParseFirstLine               GET /aMvc/base/templateBase.js?1 HTTP/1.1
+2024-05-11 08:14:53:050:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?&1715382893880 HTTP/1.1
+2024-05-11 08:14:53:050:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=employee&empcode=%E3%85%82%E3%85%88%E3%85%88%E3%85%82&companycode=&keyfield=&key=undefined&utf8=ok&&1715382893881 HTTP/1.1
+2024-05-11 08:14:53:103:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=company&empcode=&companycode=cu4&keyfield=&key=undefined&utf8=ok&&1715382893882 HTTP/1.1
+2024-05-11 08:14:54:050:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:14:54:103:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715382893903 HTTP/1.1
+2024-05-11 08:14:54:050:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:15:41:050:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?&1715382941010 HTTP/1.1
+2024-05-11 08:15:41:104:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=employee&empcode=%E3%85%82%E3%85%88%E3%85%88%E3%85%82&companycode=&keyfield=&key=undefined&utf8=ok&&1715382941012 HTTP/1.1
+2024-05-11 08:15:41:050:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=company&empcode=&companycode=cu4&keyfield=&key=undefined&utf8=ok&&1715382941017 HTTP/1.1
+2024-05-11 08:15:41:050:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:15:41:121:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715382941048 HTTP/1.1
+2024-05-11 08:15:41:050:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:15:51:121:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 08:15:51:050:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 08:15:51:121:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 08:15:52:050:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:15:52:121:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 08:15:52:050:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:16:59:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:16:59:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:16:59:121:HttpParser.ParseFirstLine               GET /html/examples/erp/erpScript.html HTTP/1.1
+2024-05-11 08:16:59:121:HttpParser.ParseFirstLine               GET /aMvc/base/boardAjaxBase.js?73 HTTP/1.1
+2024-05-11 08:16:59:103:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?78 HTTP/1.1
+2024-05-11 08:16:59:114:HttpParser.ParseFirstLine               GET /aMvc/base/erpBase.js?9 HTTP/1.1
+2024-05-11 08:16:59:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:16:59:121:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?&1715383019423 HTTP/1.1
+2024-05-11 08:16:59:103:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=company&empcode=&companycode=cu4&keyfield=&key=undefined&utf8=ok&&1715383019423 HTTP/1.1
+2024-05-11 08:16:59:114:HttpParser.ParseFirstLine               GET /list.erp?dbpath=erp.dadb&code=employee&keyfield=&key=undefined&utf8=ok&&1715383019424 HTTP/1.1
+2024-05-11 08:16:59:121:HttpParser.ParseFirstLine               GET /list.erp?dbpath=erp.dadb&code=company&keyfield=&key=undefined&utf8=ok&&1715383019424 HTTP/1.1
+2024-05-11 08:16:59:114:HttpParser.ParseFirstLine               GET /list.erp?dbpath=erp.dadb&code=workday&keyfield=&key=undefined&utf8=ok&&1715383019425 HTTP/1.1
+2024-05-11 08:16:59:121:HttpParser.ParseFirstLine               GET /list.erp?dbpath=erp.dadb&code=maeib_chul&keyfield=&key=undefined&utf8=ok&&1715383019425 HTTP/1.1
+2024-05-11 08:16:59:121:HttpParser.ParseFirstLine               GET /list.erp?dbpath=erp.dadb&code=rental&keyfield=&key=undefined&utf8=ok&&1715383019425 HTTP/1.1
+2024-05-11 08:16:59:103:HttpParser.ParseFirstLine               GET /list.erp?dbpath=erp.dadb&code=customer&keyfield=&key=undefined&utf8=ok&&1715383019425 HTTP/1.1
+2024-05-11 08:16:59:121:HttpParser.ParseFirstLine               GET /list.erp?dbpath=erp.dadb&code=goods&keyfield=&key=undefined&utf8=ok&&1715383019425 HTTP/1.1
+2024-05-11 08:16:59:103:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715383019450 HTTP/1.1
+2024-05-11 08:16:59:103:HttpParser.ParseFirstLine               GET /html/examples/erp/... HTTP/1.1
+2024-05-11 08:16:59:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:16:59:103:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:16:59:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:16:59:121:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:17:01:121:HttpParser.ParseFirstLine               GET /view.erp?code=employee&page=undefined&uid=2&fid=undefined&dbpath=erp.dadb&empcode=emp-2&utf8=ok&&1715383021436 HTTP/1.1
+2024-05-11 08:17:01:121:HttpParser.ParseFirstLine               GET /list.board?code=da_employee&dbpath=erp.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=200001&utf8=ok&&1715383021453 HTTP/1.1
+2024-05-11 08:17:01:103:HttpParser.ParseFirstLine               GET /html/examples/erp/... HTTP/1.1
+2024-05-11 08:17:51:103:HttpParser.ParseFirstLine               GET /view.erp?code=employee&page=undefined&uid=1&fid=undefined&dbpath=erp.dadb&empcode=&utf8=ok&&1715383071107 HTTP/1.1
+2024-05-11 08:18:14:061:HttpParser.ParseFirstLine               POST /view.erp?posttype=post&code=employee&dbpath=erp.dadb&utf8=ok&&1715383094030 HTTP/1.1
+2024-05-11 08:18:14:061:HttpParser.ParseFirstLine               GET /list.board?code=da_employee&dbpath=erp.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=200001&utf8=ok&&1715383094197 HTTP/1.1
+2024-05-11 08:18:14:061:HttpParser.ParseFirstLine               GET /html/examples/erp/... HTTP/1.1
+2024-05-11 08:18:36:061:HttpParser.ParseFirstLine               POST /view.erp?posttype=post&code=employee&dbpath=erp.dadb&utf8=ok&&1715383116428 HTTP/1.1
+2024-05-11 08:18:36:061:HttpParser.ParseFirstLine               GET /list.board?code=da_employee&dbpath=erp.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=200001&utf8=ok&&1715383116535 HTTP/1.1
+2024-05-11 08:18:36:061:HttpParser.ParseFirstLine               GET /html/examples/erp/... HTTP/1.1
+2024-05-11 08:19:00:061:HttpParser.ParseFirstLine               GET /view.erp?code=company&page=undefined&uid=2&fid=undefined&dbpath=erp.dadb&companycode=com-2&utf8=ok&&1715383140986 HTTP/1.1
+2024-05-11 08:19:01:061:HttpParser.ParseFirstLine               GET /list.board?code=da_employee&dbpath=erp.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=-9999&utf8=ok&&1715383141008 HTTP/1.1
+2024-05-11 08:19:01:061:HttpParser.ParseFirstLine               GET /html/examples/erp/... HTTP/1.1
+2024-05-11 08:19:01:061:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:19:14:061:HttpParser.ParseFirstLine               POST /list.erp?posttype=post&code=company&dbpath=erp.dadb&utf8=ok&&1715383154395 HTTP/1.1
+2024-05-11 08:19:14:061:HttpParser.ParseFirstLine               GET /html/examples/erp/... HTTP/1.1
+2024-05-11 08:19:22:061:HttpParser.ParseFirstLine               GET /view.erp?code=company&page=undefined&uid=2&fid=undefined&dbpath=erp.dadb&companycode=com-2&utf8=ok&&1715383162265 HTTP/1.1
+2024-05-11 08:19:22:061:HttpParser.ParseFirstLine               GET /list.board?code=da_employee&dbpath=erp.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=-9999&utf8=ok&&1715383162279 HTTP/1.1
+2024-05-11 08:19:22:113:HttpParser.ParseFirstLine               GET /html/examples/erp/... HTTP/1.1
+2024-05-11 08:19:26:061:HttpParser.ParseFirstLine               GET /view.erp?code=company&page=undefined&uid=1&fid=undefined&dbpath=erp.dadb&companycode=&utf8=ok&&1715383166241 HTTP/1.1
+2024-05-11 08:21:02:029:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 08:22:11:061:HttpContext..ctor                       peerIp: 167.248.133.121
+2024-05-11 08:22:11:061:HttpParser.ParseFirstLine               GET / HTTP/1.1
+2024-05-11 08:22:12:061:HttpContext..ctor                       peerIp: 167.248.133.121
+2024-05-11 08:22:12:061:HttpParser.ParseFirstLine               PRI * HTTP/2.0
+2024-05-11 08:22:13:061:HttpContext..ctor                       peerIp: 167.248.133.121
+2024-05-11 08:22:13:061:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-11 08:43:33:048:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:43:33:123:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:43:33:123:HttpParser.ParseFirstLine               GET /html/examples/erp/portfolio.html HTTP/1.1
+2024-05-11 08:43:33:123:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?19 HTTP/1.1
+2024-05-11 08:43:33:123:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 08:43:33:123:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 08:43:33:070:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 08:43:33:070:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 08:43:33:070:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?&1715384613966 HTTP/1.1
+2024-05-11 08:43:33:070:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=employee&empcode=ddd&companycode=&keyfield=&key=undefined&utf8=ok&&1715384613967 HTTP/1.1
+2024-05-11 08:43:33:123:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=company&empcode=&companycode=cu4&keyfield=&key=undefined&utf8=ok&&1715384613968 HTTP/1.1
+2024-05-11 08:43:34:123:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:43:34:123:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715384613984 HTTP/1.1
+2024-05-11 08:43:34:123:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:43:34:123:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:44:30:123:HttpParser.ParseFirstLine               GET /html/examples/erp/portfolio.html HTTP/1.1
+2024-05-11 08:44:30:123:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 08:44:30:074:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 08:44:30:079:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 08:44:30:123:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:44:30:079:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:44:30:123:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:44:30:123:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?&1715384670304 HTTP/1.1
+2024-05-11 08:44:30:079:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=employee&empcode=emp-2&companycode=&keyfield=&key=undefined&utf8=ok&&1715384670305 HTTP/1.1
+2024-05-11 08:44:30:074:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=company&empcode=&companycode=cu4&keyfield=&key=undefined&utf8=ok&&1715384670308 HTTP/1.1
+2024-05-11 08:44:30:081:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 08:44:30:123:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 08:44:30:081:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715384670629 HTTP/1.1
+2024-05-11 08:44:30:074:HttpParser.ParseFirstLine               GET /list.board?code=da_employee&dbpath=erp.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=200001&utf8=ok&&1715384670662 HTTP/1.1
+2024-05-11 08:44:30:081:HttpParser.ParseFirstLine               GET /html/examples/erp/... HTTP/1.1
+2024-05-11 08:45:13:083:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 08:46:10:084:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 08:46:10:084:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 08:46:10:087:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 08:46:10:086:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 09:47:28:090:HttpContext..ctor                       peerIp: 216.218.206.66
+2024-05-11 09:47:28:117:HttpParser.ParseFirstLine               GET / HTTP/1.1
+2024-05-11 09:47:44:117:HttpContext..ctor                       peerIp: 216.218.206.66
+2024-05-11 09:47:44:098:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-11 12:25:58:098:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 12:25:58:085:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 12:25:58:098:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 12:27:38:082:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 13:45:35:098:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 13:45:35:114:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 13:45:35:100:HttpParser.ParseFirstLine               GET /html/examples/erp/portfolio.html HTTP/1.1
+2024-05-11 13:45:35:100:HttpParser.ParseFirstLine               GET /aMvc/base/boardAjaxBase.js?3 HTTP/1.1
+2024-05-11 13:45:35:100:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?19 HTTP/1.1
+2024-05-11 13:45:35:114:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 13:45:35:114:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 13:45:35:100:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 13:45:35:100:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 13:45:35:114:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 13:45:35:114:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?&1715402735405 HTTP/1.1
+2024-05-11 13:45:35:098:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=employee&empcode=emp-2&companycode=&keyfield=&key=undefined&utf8=ok&&1715402735406 HTTP/1.1
+2024-05-11 13:45:35:114:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=company&empcode=&companycode=cu4&keyfield=&key=undefined&utf8=ok&&1715402735406 HTTP/1.1
+2024-05-11 13:45:35:100:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715402735434 HTTP/1.1
+2024-05-11 13:45:35:114:HttpParser.ParseFirstLine               GET /list.board?code=da_employee&dbpath=erp.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=200001&utf8=ok&&1715402735553 HTTP/1.1
+2024-05-11 13:45:35:098:HttpParser.ParseFirstLine               GET /html/examples/erp/... HTTP/1.1
+2024-05-11 13:45:35:114:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 13:45:35:098:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 13:45:35:114:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 13:45:41:114:HttpParser.ParseFirstLine               GET /view.erp?code=employee&page=undefined&uid=2&fid=undefined&dbpath=erp.dadb&empcode=emp-2&utf8=ok&&1715402741178 HTTP/1.1
+2024-05-11 13:45:41:114:HttpParser.ParseFirstLine               GET /list.board?code=da_employee&dbpath=erp.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=200001&utf8=ok&&1715402741204 HTTP/1.1
+2024-05-11 13:45:41:098:HttpParser.ParseFirstLine               GET /html/examples/erp/... HTTP/1.1
+2024-05-11 13:45:43:114:HttpParser.ParseFirstLine               GET /view.erp?code=employee&page=undefined&uid=1&fid=undefined&dbpath=erp.dadb&empcode=&utf8=ok&&1715402743014 HTTP/1.1
+2024-05-11 13:45:45:114:HttpParser.ParseFirstLine               GET /view.erp?code=company&page=undefined&uid=2&fid=undefined&dbpath=erp.dadb&companycode=com-2&utf8=ok&&1715402745992 HTTP/1.1
+2024-05-11 13:45:46:114:HttpParser.ParseFirstLine               GET /list.board?code=da_employee&dbpath=erp.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=-9999&utf8=ok&&1715402746017 HTTP/1.1
+2024-05-11 13:45:46:098:HttpParser.ParseFirstLine               GET /html/examples/erp/... HTTP/1.1
+2024-05-11 13:45:47:114:HttpParser.ParseFirstLine               GET /view.erp?code=company&page=undefined&uid=1&fid=undefined&dbpath=erp.dadb&companycode=&utf8=ok&&1715402747910 HTTP/1.1
+2024-05-11 13:47:26:051:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 13:47:26:050:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 14:18:36:001:HttpListener.Stop                       httpListener Stop 
+2024-05-11 23:45:23:001:HttpListener..ctor                      httpListener start 0.0.0.0 7777
+2024-05-11 23:45:27:011:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:45:27:013:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?91 HTTP/1.1
+2024-05-11 23:45:27:011:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:45:27:013:HttpParser.ParseFirstLine               GET /aMvc/base/boardAjaxBase.js?3 HTTP/1.1
+2024-05-11 23:45:27:011:HttpParser.ParseFirstLine               GET /aMvc/base/templateBase.js? HTTP/1.1
+2024-05-11 23:45:27:011:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:45:28:013:HttpParser.ParseFirstLine               GET /html/module/navbarIndex.html?1715438728030 HTTP/1.1
+2024-05-11 23:45:28:011:HttpParser.ParseFirstLine               GET /getip.utils?type=pubkey HTTP/1.1
+2024-05-11 23:45:28:012:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-11 23:45:55:015:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:45:55:016:HttpParser.ParseFirstLine               GET /html/examples/erp/portfolio.html HTTP/1.1
+2024-05-11 23:45:55:016:HttpParser.ParseFirstLine               GET /aMvc/lib/js/da-globallib.js?1 HTTP/1.1
+2024-05-11 23:45:55:016:HttpParser.ParseFirstLine               GET /aMvc/base/boardAjaxBase.js?3 HTTP/1.1
+2024-05-11 23:45:55:015:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:45:55:015:HttpParser.ParseFirstLine               GET /aMvc/base/viewLibBase.js?19 HTTP/1.1
+2024-05-11 23:45:55:015:HttpParser.ParseFirstLine               GET /aMvc/base/templateBase.js?1 HTTP/1.1
+2024-05-11 23:45:55:015:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?&1715438755769 HTTP/1.1
+2024-05-11 23:45:55:015:HttpParser.ParseFirstLine               GET /favicon.ico HTTP/1.1
+2024-05-11 23:45:55:015:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715438755802 HTTP/1.1
+2024-05-11 23:46:04:015:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 23:46:04:015:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 23:46:04:015:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 23:46:04:016:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 23:47:26:015:HttpParser.ParseFirstLine               GET /html/examples/erp/portfolio.html HTTP/1.1
+2024-05-11 23:47:26:017:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 23:47:26:015:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 23:47:26:018:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 23:47:26:018:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?&1715438846569 HTTP/1.1
+2024-05-11 23:47:26:018:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=employee&empcode=&companycode=&keyfield=&key=undefined&utf8=ok&&1715438846570 HTTP/1.1
+2024-05-11 23:47:26:015:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=company&empcode=&companycode=&keyfield=&key=undefined&utf8=ok&&1715438846574 HTTP/1.1
+2024-05-11 23:47:26:015:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:47:26:018:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:47:26:018:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715438846584 HTTP/1.1
+2024-05-11 23:47:26:018:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:49:06:007:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 23:50:41:018:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:50:41:027:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:50:41:027:HttpParser.ParseFirstLine               GET /html/examples/erp/portfolio.html?empcode=emp-2 HTTP/1.1
+2024-05-11 23:50:41:027:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 23:50:41:027:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css.map HTTP/1.1
+2024-05-11 23:50:41:027:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js.map HTTP/1.1
+2024-05-11 23:50:41:027:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:50:41:018:HttpParser.ParseFirstLine               GET /html/module/navbarAdmin.html?&1715439041697 HTTP/1.1
+2024-05-11 23:50:41:018:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=employee&empcode=emp-2&companycode=&keyfield=&key=undefined&utf8=ok&&1715439041698 HTTP/1.1
+2024-05-11 23:50:41:018:HttpParser.ParseFirstLine               GET /view.erp?dbpath=erp.dadb&code=company&empcode=&companycode=&keyfield=&key=undefined&utf8=ok&&1715439041698 HTTP/1.1
+2024-05-11 23:50:41:027:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:50:41:018:HttpParser.ParseFirstLine               GET /html/module/footer.html?1715439041807 HTTP/1.1
+2024-05-11 23:50:41:018:HttpParser.ParseFirstLine               GET /list.board?code=da_employee&dbpath=erp.dadb&keyfield=&key=undefined&ifkeyfield=&ifkey=undefined&brdid=200001&utf8=ok&&1715439041842 HTTP/1.1
+2024-05-11 23:50:42:027:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:50:42:027:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:50:42:029:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:50:42:028:HttpParser.ParseFirstLine               GET /aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js.map HTTP/1.1
+2024-05-11 23:50:42:027:HttpParser.ParseFirstLine               GET /aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js.map HTTP/1.1
+2024-05-11 23:50:42:027:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:50:42:027:HttpContext..ctor                       peerIp: 127.0.0.1
+2024-05-11 23:52:22:020:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 23:52:22:019:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 23:52:22:017:HttpContext.OnConnectionTimeout         Keep-Alive timeout
+2024-05-11 23:52:22:016:HttpContext.OnConnectionTimeout         Keep-Alive timeout
