@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script src="/aMvc/lib/moment/moment.js"></script>
+
+    <script type="text/javascript">
+
+        var _dbpath = 'daboard.dadb', _code = 'da_board';
+
+        window.onload = function () {
+            //alert('테스트');
+        };
+
+        $(document).ready(function () {
+
+            var e = document.createElement('div');
+            e.setAttribute('id', 'calendar');
+            $('body').append(e);
+            var e = document.createElement('div');
+            e.setAttribute('id', 'b');
+            $('body').append(e);
+
+            var e = document.createElement('div');
+            e.setAttribute('id', 'c');
+            $('body').append(e);
+
+            var e = document.createElement('div');
+            e.setAttribute('id', 'd');
+            $('body').append(e);
+
+            var e = document.createElement('div');
+            e.setAttribute('id', 'e');
+            $('body').append(e);
+
+            var e = document.createElement('div');
+            e.setAttribute('id', 'f');
+            $('body').append(e);
+
+            var e = document.createElement('div');
+            e.setAttribute('id', 'g');
+            $('body').append(e);
+
+            var e = document.createElement('div');
+            e.setAttribute('id', 'h');
+            $('body').append(e);
+
+            //modal.show('입력', 'test');
+            var elem = document.getElementById('calendar');
+            //var c = new SelfController('selflist', 'erp.dadb', 'schedule', new ScheduleView(), 'full');
+            var c = new SelfController({ type: 'selflist', dbpath: 'erp.dadb', code: 'schedule', renderview: new ScheduleView(), rendertype: 'full' });
+            c.renderController(elem);
+            var elem = document.getElementById('b');
+            var c = new SelfController({ type: 'selflist', dbpath: 'erp.dadb', code: 'cardpay', renderview: new CardpayView(), rendertype: 'full' });
+            c.renderController(elem);
+            var elem = document.getElementById('c');
+            var c = new SelfController({ type: 'selflist', dbpath: 'erp.dadb', code: 'in_output', renderview: new In_outputView(), rendertype: 'full' });
+            c.renderController(elem);
+            var elem = document.getElementById('d');
+            var c = new SelfController({ type: 'selflist', dbpath: 'erp.dadb', code: 'creditcard', renderview: new CreditcardView(), rendertype: 'full' });
+            c.renderController(elem);
+            var elem = document.getElementById('e');
+            var c = new SelfController({ type: 'selflist', dbpath: 'erp.dadb', code: 'bank_book', renderview: new Bank_bookView(), rendertype: 'full' });
+            c.renderController(elem);
+            var elem = document.getElementById('f');
+            var c = new SelfController({ type: 'selflist', dbpath: 'erp.dadb', code: 'pay', renderview: new PayView(), rendertype: 'full' });
+            c.renderController(elem);
+            var elem = document.getElementById('g');
+            var c = new SelfController({ type: 'selflist', dbpath: 'erp.dadb', code: 'payclass', renderview: new PayclassView(), rendertype: 'full' });
+            c.renderController(elem);
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

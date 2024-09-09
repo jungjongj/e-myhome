@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transitions - jQuery Mobile Demos</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?12"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?34"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/erpBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?19"></script>
+
+    <script type="text/javascript">
+
+        window.onload = function () {
+           
+        }
+
+        $(document).ready(function () {
+            
+        });
+    </script>
+
+</head>
+<body class="">
+    <da include="/eHome/navbarEHome.html?"></da>
+
+    <div class="row">
+        <div class="col-3">
+            <div id="main-logform"></div>
+
+            <da include="/eHome/sideMenuExample.html?"></da>
+        </div>
+        <div class="col-9">
+            <da include="erplist.erp" type="erpview" dbpath="erp.dadb" code="employee" empcode="emp-2" renderview="EmployeeView" rendertype="media"></da>
+            <da include="erplist.erp" type="erplist" dbpath="erp.dadb" code="employee" renderview="EmployeeView" rendertype="media" viewbody="EmployeeViewbodyTemplate"></da>
+            <da include="erplist.erp" type="erplist" dbpath="erp.dadb" code="company" renderview="CompanyView" rendertype="media" viewbody="EmployeeViewbodyTemplate"></da>
+            <da include="erplist.erp" type="erplist" dbpath="erp.dadb" code="workday" renderview="WorkdayView" rendertype="media" viewbody="EmployeeViewbodyTemplate"></da>
+            <da include="erplist.erp" type="erplist" dbpath="erp.dadb" code="maeib_chul" renderview="Maeib_chulView" rendertype="media" viewbody="EmployeeViewbodyTemplate"></da>
+            <da include="erplist.erp" type="erplist" dbpath="erp.dadb" code="customer" renderview="CustomerView" rendertype="media" viewbody="EmployeeViewbodyTemplate"></da>
+            <da include="erplist.erp" type="erplist" dbpath="erp.dadb" code="rental" renderview="RentalView" rendertype="media" viewbody="EmployeeViewbodyTemplate"></da>
+            <da include="erplist.erp" type="erplist" dbpath="erp.dadb" code="goods" renderview="GoodsView" rendertype="media" viewbody="EmployeeViewbodyTemplate"></da>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+﻿<div id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0 py-md-0">
+        <div class="container-fluid">
+            <a class="navbar-brand" id="indexBtn"  href="/index.html">e 우리집</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#" data-toggle="tab" id="tutorialBtn" onclick="onNavbarIndexItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">학습</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#" data-toggle="tab" id="examplesBtn" onclick="onNavbarIndexItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">예제</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#" data-toggle="tab" id="erpBtn" onclick="onNavbarIndexItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">업무관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" aria-current="page" id="downloadBtn" onclick="onNavbarIndexItemClick(this)">다운로드</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" aria-current="page" id="communityBtn" onclick="onNavbarIndexItemClick(this)">커뮤니티</a>
+                    </li>
+                </ul>
+                <div>
+                    <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">링크</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/">Home</a>
+                                <a class="dropdown-item" href="/html/admin/Admin.html">Admin</a>
+                                <a class="dropdown-item" href="/eHome/eHome.html">eHome</a>
+                                <a class="dropdown-item" href="/html/admin/config/DbandFile.html">Db&File</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/utils/browserPaint.html">그림브라우저</a>
+                                <a class="dropdown-item" href="/utils/qrcodeReaderWrite.html">qr코드</a>
+                                <a class="dropdown-item" href="/utils/rtcCap.html">rtc캡쳐</a>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+    <div class="alert alert-info alert-dismissible fade collapse" id="communityCollapse" role="alert">
+        <strong class="alert-heading">커뮤니티</strong>
+        <div href="#" class="pull-right">
+            <button type="button" class="close" onclick="$('#communityCollapse').collapse('toggle');">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="row text-center text-xs-center text-sm-left text-md-left">
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <h5>Quick links</h5>
+                <ul class="list-unstyled quick-links">
+                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
+                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
+
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <h5>Quick links</h5>
+                <ul class="list-unstyled quick-links">
+
+                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
+                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Videos</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <h5>Quick links</h5>
+                <ul class="list-unstyled quick-links">
+
+                    <li><a href="/html/index/qa.html"><i class="fa fa-angle-double-right"></i>질문 답변</a></li>
+                    <li><a href="/html/index/blog.html"><i class="fa fa-angle-double-right"></i>블로그</a></li>
+                    <li><a href="/html/index/mafiagame.html"><i class="fa fa-angle-double-right"></i>마피아게임</a></li>
+                    <li><a href="/html/index/truthgame.html"><i class="fa fa-angle-double-right"></i>진실게임</a></li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+
+    <div></div>
+
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        if (location.href.endsWith('index.html')){
+
+        } else if (location.href.endsWith('tutorial.html')){
+            $('#tutorialBtn').addClass('active');
+        } else if (location.href.endsWith('examples.html')){
+            $('#examplesBtn').addClass('active');
+        } else if (location.href.endsWith('download.html')) {
+            $('#downloadBtn').addClass('active');
+        } 
+    });
+
+    function onNavbarIndexItemClick(e) {
+        var id = e.id;
+        var box = e.id;
+        //console.log('self.eventHandler==' + self.eventHandler);
+        if (id == "collapseBtn") {
+            $('#collapseExample').collapse('toggle');
+        } else if (id == "indexBtn") {
+            location.href = '/index.html';
+        } else if (id == "tutorialBtn") {
+            location.href = '/html/index/tutorial.html';
+        } else if (id == "examplesBtn") {
+            location.href = '/html/index/examples.html';
+        } else if (id == "downloadBtn") {
+            location.href = '/html/index/download.html';
+        } else if (id == "communityBtn") {
+            $('#communityCollapse').collapse('toggle');
+        } else if (id == "groupadd") {
+            if (!_dbpath)
+                return alert('데이타베이스를선택해야됩니다');
+
+            __modal.show('그룹추가', self.makeGroupForm());
+            var form = document.getElementById("groupSetForm");
+            form.dbpath.value = _dbpath;
+            $('#groupaddBtn').bind("click", { type: 'groupaddSubmit', self: self }, self.eventHandler);
+        } else if (id == "nameadd") {
+            __modal.show('식별자이름추가', self.makeNameForm());
+
+            var form = document.getElementById("nameSetForm");
+
+            var codeval = $("#keycodesel option:selected").val();
+            if (codeval == null) {
+                modal.hide();
+                return alert('그룹을 선택해야됩니다');
+            }
+            form.dbpath.value = _dbpath;
+            form.kcode.value = codeval;
+            form.uid.value = $("#keynamesel option:selected").attr('uid');
+            form.fid.value = $("#keynamesel option:selected").attr('fid');
+            form.did.value = $("#keynamesel option:selected").attr('did');
+            console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+            $('#nameaddBtn').bind("click", { type: 'nameaddSubmit', self: self }, self.eventHandler);
+        } else if (id == "itemadd") {
+            __modal.show('키추가', self.makeKeyvalueForm());
+
+            var form = document.getElementById("keyvalueForm");
+            $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
+            var codeval = $("#keycodesel option:selected").val();
+            if (codeval == null) {
+                __modal.hide();
+                return alert('그룹을 선택해야됩니다');
+            }
+            var nameval = $("#keynamesel option:selected").val();
+            if (nameval == null) {
+                __modal.hide();
+                return alert('식별자이름를 선택해야됩니다');
+            }
+            form.dbpath.value = _dbpath;
+            form.kcode.value = codeval;
+            form.kname.value = nameval;
+            form.uid.value = $("#keynamesel option:selected").attr('uid');
+            form.fid.value = $("#keynamesel option:selected").attr('fid');
+            form.did.value = $("#keynamesel option:selected").attr('did');
+            form.type.value = 'add';
+            console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+            $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: self }, self.eventHandler);
+        } else if (id == 'itemsubadd') {
+            __modal.show('키추가', self.makeKeyvalueForm());
+
+            var form = document.getElementById("keyvalueForm");
+            $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
+            var codeval = $("#keycodesel option:selected").val();
+            if (codeval == null) {
+                __modal.hide();
+                return alert('그룹을 선택해야됩니다');
+            }
+            var nameval = $("#keynamesel option:selected").val();
+            if (nameval == null) {
+                __modal.hide();
+                return alert('식별자이름를 선택해야됩니다');
+            }
+            form.dbpath.value = _dbpath;
+            form.kcode.value = codeval;
+            form.kname.value = nameval;
+            form.uid.value = $("#keynamesel option:selected").attr('uid');
+            form.fid.value = $("#keynamesel option:selected").attr('fid');
+            form.did.value = $("#keynamesel option:selected").attr('did');
+            form.type.value = 'subadd';
+            console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+            $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: self }, self.eventHandler);
+        } else if (id == "return") {
+            window.opener.getReturnValue('keyvalue', `${dbpath}:${kcode}:${kname}:`);
+            window.close();
+        } else if (id == "fixedBtn") {
+            if ($('#navbar').hasClass("fixed-bottom") === true) {
+                $('#navbar').removeClass("fixed-bottom");
+                $('#navbar').addClass("fixed-top");
+                $('#navbar').find('.dropup').addClass("dropdown");
+                $('#navbar').find('.dropup').removeClass("dropup");
+
+            } else {
+                $('#navbar').removeClass("fixed-top");
+                $('#navbar').addClass("fixed-bottom");
+                $('#navbar').find('.dropdown').addClass("dropup");
+                $('#navbar').find('.dropdown').removeClass("dropdown");
+            }
+
+        }
+    }
+</script>

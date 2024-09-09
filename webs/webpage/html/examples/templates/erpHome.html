@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transitions - jQuery Mobile Demos</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?1"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?1"></script>
+    <script src="/aMvc/base/templateBase.js?1"></script>
+
+    <script type="text/javascript">
+
+        var _code = "", _dbpath = "erp.dadb";
+        window.onload = function () {
+            var url = unescape(location.href);
+            var pm = url.split('?');
+            //alert(url);
+            if (pm && pm[1]) {
+                var params = pm[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var param = params[i].split('=');
+                    if (param && param[1]) {
+                        if (param[0] == "dbpath")
+                            _dbpath = param[1];
+                        else if (param[0] == "code")
+                            _code = param[1];
+                    }
+
+                }
+            }
+
+            //re_menu1("board.html");
+        }
+
+        function re_menu1(pageurl) { //alert(pageurl);
+            location.href = pageurl;
+        }
+
+        var file = document.getElementById('fileinput');
+        $(document).on("change", "#fileinput", function (e) {
+            //file.onchange = function (e) {
+            e.preventDefault();
+            //alert('file');
+            var fileobj = file.files[0];
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var str = event.target.result;
+                var str2 = str.substring(str.indexOf(',') + 1);
+
+                var enstr = window.atob(str2);
+                $('#filedata').val(enstr);
+
+                alert(enstr);
+                //$('#filedata').val(str);
+                //document.getElementById('filedata').value = str2;
+                var filename = fileobj.name;
+                var arr = filename.split('.');
+                //document.getElementById('name2').value = filename;
+                //document.getElementById('ext').value = arr[1];
+
+                //file.value = "";
+            };
+
+            reader.readAsDataURL(fileobj);
+        });
+
+        var elem = null;
+        var empCon = null, workCon = null, maeibCon = null, customerCon = null, rentalCon = null, goodsCon = null;
+        $(document).ready(function () {
+            file = document.getElementById('fileinput');
+            //erpList("employee", "#boardlist", '', '', '', '');
+            var elem = document.getElementById('boardlist');
+            empCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'employee', renderview: 'EmployeeView', rendertype: 'media', viewbody:'EmployeeViewbodyTemplate' });
+            companyCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'company', renderview: 'CompanyView', rendertype: 'media', viewbody: 'CompanyViewbodyTemplate'});
+            workCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'workday', renderview: 'WorkdayView', rendertype: 'media' });
+            maeibCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'maeib_chul', renderview: 'Maeib_chulView', rendertype: 'media' });
+            customerCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'customer', renderview: 'CustomerView', rendertype: 'media' });
+            rentalCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'rental', renderview: 'RentalView', rendertype: 'media' });
+            goodsCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'goods', renderview: 'GoodsView', rendertype: 'media' });
+
+            $('#emp-nav-tab a[id="employee"]').trigger('click');
+            $('nav > div a.nav-item.nav-link.active').focus();
+        });
+    </script>
+
+    <style>
+
+        .navtab > .nav.nav-tabs {
+            border: none;
+            color: #fff;
+            background: #272e38;
+            border-radius: 0;
+        }
+
+        .navtab > div a.nav-item.nav-link,
+        .navtab > div a.nav-item.nav-link.active {
+            border: none;
+            padding: 18px 25px;
+            color: #fff;
+            background: #272e38;
+            border-radius: 0;
+        }
+
+            .navtab > div a.nav-item.nav-link.active:after {
+                content: "";
+                position: relative;
+                bottom: -60px;
+                left: -10%;
+                border: 15px solid transparent;
+                border-top-color: #e74c3c;
+            }
+
+        .navtab + div {
+            background: #fdfdfd;
+            line-height: 25px;
+            border: 1px solid #ddd;
+            border-top: 5px solid #e74c3c;
+            border-bottom: 5px solid #e74c3c;
+            padding: 30px 25px;
+        }
+
+        .navtab > div a.nav-item.nav-link:active,
+        .navtab > div a.nav-item.nav-link:hover,
+        .navtab > div a.nav-item.nav-link:focus {
+            border: none;
+            background: #e74c3c;
+            color: #fff;
+            border-radius: 0;
+            transition: background 0.20s linear;
+        }
+
+        .navtab > div a {
+            outline: none
+        }
+    </style>
+</head>
+<body class="container">
+    <da include="/html/module/navbarAdmin.html"></da>
+
+    <div class="bootstrap snippet">
+        <div class="row">
+            <div class="col-sm-10"><h1>User name</h1></div>
+            <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100"></a></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <!--left col-->
+
+                <div class="text-center">
+                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+
+                </div><br>
+
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        <small>이름</small>
+                        <div><strong class="mb-1">정 말로.</strong></div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        <small>이메일</small>
+                        <div><strong class="mb-1">.......@gmail.com</strong></div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        <small>주소</small>
+                        <div><strong class="mb-1">서울시 양천구 신월동 </strong></div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action ">
+                        <small>이름.</small>
+                        <div><strong class="mb-1">Some placeholder content in a paragraph.</strong></div>
+                    </a>
+
+                </div>
+
+                <div class="list-group" role="tablist">
+                    <div href="#" class="list-group-item list-group-item-action active" data-toggle="list" aria-current="true">
+                        <div>
+                            <small>이메일</small>
+                            <div><strong class="mb-1">.......@gmail.com</strong></div>
+                        </div>
+                    </div>
+                    <div href="#" class="list-group-item list-group-item-action" data-toggle="list">A second link item</div>
+                    <div href="#" class="list-group-item list-group-item-action" data-toggle="list">A third link item</div>
+                    <a href="#" class="list-group-item list-group-item-action" data-toggle="list">A fourth link item</a>
+                    <a class="list-group-item list-group-item-action disabled" data-toggle="list">A disabled link item</a>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Social Media</div>
+                    <div class="panel-body">
+                        <i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-1x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
+                    </div>
+                </div>
+
+            </div><!--/col-3-->
+            <div class="col-sm-9">
+
+                <div class="datab">
+                    <nav class="navtab">
+                        <div class="nav nav-tabs nav-fill text-center" id="emp-nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="employee" data-bs-toggle="tab" href="#" role="tab" aria-controls="nav-home" aria-selected="false">인사</a>
+                            <a class="nav-item nav-link" id="company" data-bs-toggle="tab" href="#" role="tab" aria-controls="nav-home" aria-selected="false">회사</a>
+                            <a class="nav-item nav-link" id="workday" data-bs-toggle="tab" href="#" role="tab" aria-controls="nav-profile" aria-selected="false">출퇴근</a>
+                            <a class="nav-item nav-link" id="maeib_chul" data-bs-toggle="tab" href="#" role="tab" aria-controls="nav-profile" aria-selected="false">매입매출</a>
+                            <a class="nav-item nav-link" id="customer" data-bs-toggle="tab" href="#" role="tab" aria-controls="nav-contact" aria-selected="false">거래처</a>
+                            <a class="nav-item nav-link" id="rental" data-bs-toggle="tab" href="#" role="tab" aria-controls="nav-home" aria-selected="true">대여</a>
+                            <a class="nav-item nav-link" id="goods" data-bs-toggle="tab" href="#" role="tab" aria-controls="nav-profile" aria-selected="false">상품</a>
+
+                        </div>
+
+                    </nav>
+
+                    <div class="tab-" id="boardlist">
+
+                    </div>
+
+                    <script type="text/javascript">
+
+                        var selectedEmpTabValue;
+
+                        $(document).on('click', '#emp-nav-tab a', function (e) {
+                            //alert('tab');
+                            e.preventDefault()
+                            $(this).tab('show');
+                            $(this).css('active');
+                            $(this).css('focus');
+
+                            var id = $(this).attr('id');
+
+                            selectedEmpTabValue = id;
+
+                            //console.log(`id==${id}`);
+                            var elem = document.getElementById('boardlist');
+                            if (selectedEmpTabValue == 'employee') {
+                                empCon.renderController(elem);
+                            } else if (selectedEmpTabValue == 'company') {
+                                companyCon.renderController(elem);
+                            } else if (selectedEmpTabValue == 'workday') {
+                                workCon.renderController(elem);
+                            } else if (selectedEmpTabValue == 'maeib_chul') {
+                                maeibCon.renderController(elem);
+                            } else if (selectedEmpTabValue == 'customer') {
+                                customerCon.renderController(elem);
+                            } else if (selectedEmpTabValue == 'rental') {
+                                rentalCon.renderController(elem);
+                            } else if (selectedEmpTabValue == 'goods') {
+                                goodsCon.renderController(elem);
+                            }
+                        });
+
+                    </script>
+                </div>
+
+            </div><!--/col-9-->
+        </div><!--/row-->
+    </div><!--/row-->
+
+</body>
+</html>

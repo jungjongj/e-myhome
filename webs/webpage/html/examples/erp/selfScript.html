@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/erpBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script src="/aMvc/lib/moment/moment.js"></script>
+
+    <script type="text/javascript">
+
+        var _dbpath = 'self.dadb', _code = 'da_board';
+
+        window.onload = function () {
+            //alert('테스트');
+        };
+
+        $(document).ready(function () {
+
+            var main = new MainLayout();
+            var ver = new VerticalLayout();
+            var hor = new HorizontalLayout();
+
+            main.addControl(ver);
+            main.addControl(hor);
+
+            //var c = new SelfController('selflist', 'erp.dadb', 'schedule', new ScheduleView(), 'full');
+            var calendar = new SelfController({ type: 'selflist', dbpath: _dbpath, code: 'schedule', renderview: 'ScheduleView', rendertype: 'full' });
+            ver.addControl(calendar);
+
+            var cardpay = new SelfController({ type: 'selflist', dbpath: _dbpath, code: 'cardpay', renderview: 'CardpayView', rendertype: 'full' });
+            ver.addControl(cardpay);
+
+            var in_output = new SelfController({ type: 'selflist', dbpath: _dbpath, code: 'in_output', renderview: 'In_outputView', rendertype: 'full' });
+            ver.addControl(in_output);
+
+            var creditcard = new SelfController({ type: 'selflist', dbpath: _dbpath, code: 'creditcard', renderview: 'CreditcardView', rendertype: 'full' });
+            ver.addControl(creditcard);
+
+            var bank_book = new SelfController({ type: 'selflist', dbpath: _dbpath, code: 'bank_book', renderview: 'Bank_bookView', rendertype: 'full' });
+            ver.addControl(bank_book);
+
+            var pay = new SelfController({ type: 'selflist', dbpath: _dbpath, code: 'pay', renderview: 'PayView', rendertype: 'full' });
+            ver.addControl(pay);
+
+            var payclass = new SelfController({ type: 'selflist', dbpath: _dbpath, code: 'payclass', renderview: 'PayclassView', rendertype: 'full' });
+            ver.addControl(payclass);
+
+            main.renderController(document.getElementById('script'));
+        });
+    </script>
+</head>
+<body>
+    <da include="/eHome/navbarEHome.html?"></da>
+
+    <div class="row">
+        <div class="col-3">
+            <div id="main-logform"></div>
+
+            <da include="/eHome/sideMenuExample.html?"></da>
+        </div>
+        <div class="col-9">
+            <div id="script"></div>
+        </div>
+    </div>
+
+    <da include="/html/module/footer.html"></da>
+
+</body>
+</html>

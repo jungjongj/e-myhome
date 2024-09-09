@@ -1,0 +1,829 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> 키 값 셋팅 </title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+    <link rel="stylesheet" href="/aMvc/lib/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="/aMvc/lib/orgchart/dist/css/jquery.orgchart.min.css" type="text/css">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?15"></script>
+    <script src="/aMvc/base/dbFileAjaxBase.js?125"></script>
+    <script src="/aMvc/base/viewLibBase.js?7"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script type="text/javascript" src="/aMvc/lib/zTree_v3-master/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/orgchart/dist/js/jquery.orgchart.min.js"></script>
+
+
+    <script type="text/javascript">
+        var self2 = this;
+        var _hm = null;
+        var _keyCon = null;
+        var _boardCon = null;
+        var _code = "", _dbpath = "";
+        var _keynameselValue = null;
+        var _keycodeselValue = null;
+        var _rendertypeselValue = null;
+        var _selectedLenderView = null;
+        var _keyvalueController = null;
+
+        var _listView, _ztreeView, _topmenuView, _tabmenuView, _sidemenuView, _orgcharttreeView, _dynamictreeView;
+
+        var newWindow;
+        function openNewWindow(target) {
+
+            newWindow = window.open(target, "OpenToolWindow", "height=800, width=600, scrollbars=yes, resizable=yes");
+            newWindow.focus();
+
+        }
+
+        window.onload = function () {
+
+        }
+
+        function urlsplit() {
+            var dec = decodeURI(location.href);
+            var url = unescape(dec);
+            var pm = url.split('?');
+            console.log(url);
+            if (pm && pm[1]) {
+                var params = pm[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var param = params[i].split('=');
+                    if (param && param[1]) {
+                        if (param[0] == "dbpath")
+                            _dbpath = param[1];
+                        else if (param[0] == "code")
+                            _code = param[1];
+                        else if (param[0] == "keycode") {
+                            _keycodeselValue = param[1];
+                            //$("#keycodesel").val(_keycodeselValue).prop("selected", true);
+                            //console.log(_keycodeselValue);
+                        }
+                        else if (param[0] == "keyname") {
+                            _keynameselValue = param[1];
+                            //$("#keynamesel").val(_keynameselValue).prop("selected", true);
+                            //console.log(_keynameselValue);
+                        }
+                        else if (param[0] == "rendertype") {
+                            var temp = param[1];
+                            _rendertypeselValue = param[1];
+                            if (temp == 'list')
+                                _selectedLenderView = _listView;
+                            else if (temp == 'ztree')
+                                _selectedLenderView = _ztreeView;
+                            else if (temp == 'topmenu')
+                                _selectedLenderView = _topmenuView;
+                            else if (temp == 'tabmenu')
+                                _selectedLenderView = _tabmenuView;
+                            else if (temp == 'sidemenu')
+                                _selectedLenderView = _sidemenuView;
+                            else if (temp == 'orgcharttree')
+                                _selectedLenderView = _orgcharttreeView;
+                            else if (temp == 'dynamictree')
+                                _selectedLenderView = _dynamictreeView;
+
+                            var rendertypesel = document.getElementById('rendertypesel');
+                            if (_selectedLenderView == null) {
+                                _selectedLenderView = _listView;
+                            }
+
+                            if (rendertypesel) {
+                                $(rendertypesel).val(_rendertypeselValue).prop("selected", true);
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            if (_dbpath)
+                $('#select-db-btn').text(_dbpath);
+
+        }
+
+        var getReturnValue = function () {
+            var type, value;
+            var arg = Array.prototype.slice.call(arguments);
+            if (arg && arg[0])
+                type = arg[0];
+            else
+                return;
+            if (arg && arg[1])
+                value = arg[1];
+            console.log(`getReturnValue ()arg==${arg}`);
+            //_tempCount++;
+            var info = {};
+            if (type == 'dbset') {
+                _dbpath = arg[1];
+                _code = arg[2];
+                __modal.hide();
+                $('#select-db-btn').text(_dbpath + "(" + _code + ")");
+
+                var url = unescape(location.href);
+                var pm = url.split('?');
+                var url2 = `${pm[0]}?dbpath=${_dbpath}&code=${_code}&rendertype=${_rendertypeselValue}`;
+                window.location.assign(`${url2}`);
+            } else if (type == 'grouplist' || type == 'boardlist') {
+                var dbpath = arg[1];
+                var code = arg[2];
+                var brdid = arg[3];
+                var rendertype = arg[4];
+
+                var boardElem = new BoardController({ type: type, dbpath: dbpath, code: code, brdid: brdid, renderview: new BoardView(), rendertype: rendertype });
+                //console.log(`getReturnValue ()this.$selectedItemBox==${this.$selectedItemBox}`); console.log(`getReturnValue () code==${code}`);
+                boardElem.renderController(this.$selectedItemBox);
+
+                //__fullscreenView.fullscreen('fullscreenwin');
+            } else if (type == 'tablename') {
+                _code = value;
+                document.getElementById('tableInput').value = _code;
+            } else if (type == 'filepath') {
+                var arr = value.split('/');
+                var str = "/filelist.file?code=" + arr[2] + "&filetype=open&filename=" + arr[1] + "&filepath=" + arr[0] + "&utf8=ok&";
+                //alert(arr + str);
+                FileAjax('fileopen', str);
+
+            } else if (type == 'icon' || type == 'img') {
+                $('#iconchange_input').val(type + ':' + value);
+                //alert(value);
+            }
+        }
+
+        function makeGroupForm() {
+            var m = `<form class="form-horizontal" name="groupSetForm" id="groupSetForm">
+                                            <input type="hidden" name="dbpath" />
+                                            <input type="hidden" name="type" value="groupadd" /><!-- brdadd, groupupdate, brdupdate, groupdel, brddel-->
+
+                                            <div class="controls" id="groupMakeShow22">
+                                                <div class="form-group">
+                                                    <label for="levelchk" class="control-label">그룹:</label>
+                                                    <div>
+                                                        <input type="text" class="form-control" name="kcode" id="groupname" value="" placeholder="그룹이름..." required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                            <div class="controls">
+                                                <div class="form-group">
+                                                    <label for="levelchk" class="control-label">설명:</label>
+                                                    <div>
+                                                        <textarea type="text" class="form-control" name="info" placeholder="설명..." required></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                            <div class="controls">
+                                                <div class="form-group">
+                                                    <input type="button" id="groupaddBtn"  class="btn btn-warning btn-send" value="전송">
+                                                    <input type="reset" class="btn btn-warning btn-send" value="리셋">
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                        </form>`;
+            return m;
+        }
+
+        function makeNameForm() {
+            var m = `<form class="form-horizontal" name="nameSetForm" id="nameSetForm">
+                                            <input type="hidden" name="dbpath" />
+                                            <input type="hidden" name="type" value="nameadd" />
+                                            <input type="hidden" name="uid" />
+                                            <input type="hidden" name="fid" />
+                                            <input type="hidden" name="did" />
+
+                                            <div class="controls">
+                                                <div class="form-group">
+                                                    <label for="levelchk" class="control-label">그룹:</label>
+                                                    <div>
+                                                        <input type="text" class="form-control" name="kcode" value="" readonly/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                            <div class="controls">
+                                                <div class="form-group">
+                                                    <label for="levelchk" class="control-label">식별자이름:</label>
+                                                    <div>
+                                                        <input type="text" class="form-control" name="kname" value="" placeholder="식별자이름이름..." required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                            <div class="controls">
+                                                <div class="form-group">
+                                                    <label for="levelchk" class="control-label">설명:</label>
+                                                    <div>
+                                                        <textarea type="text" class="form-control" name="info" placeholder="설명..." required></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                            <div class="controls">
+                                                <div class="form-group">
+                                                   <input type="button" id="nameaddBtn"  class="btn btn-warning btn-send" value="전송">
+                                                    <input type="reset" class="btn btn-warning btn-send" value="리셋">
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                        </form>`;
+            return m;
+        }
+
+        function makeKeyvalueForm() {
+            var m = `<form id="keyvalueForm" name="keyvalueForm" method="post" class="form-horizontal white-bg-gradient  text-left">
+
+                                                <input type="hidden" name="type" value="add" />
+                                                <input type="hidden" name="dbpath" />
+                                                <input type="hidden" name="uid" />
+                                                <input type="hidden" name="fid" />
+                                                <input type="hidden" name="did" />
+
+                                                <div class="controls">
+                                                    <div class="row">
+
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="code" class="control-label">그룹</label>
+                                                                <div>
+                                                                    <input type="text" class="form-control" name="kcode" value="" readonly/>
+                                                                </div>
+                                                                <div class="help-block with-errors"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="code" class="control-label">식별자</label>
+                                                                <div>
+                                                                    <input type="text" class="form-control" name="kname" value="" readonly />
+                                                                </div>
+                                                                <div class="help-block with-errors"></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="inputSuccess1">아이콘</label>
+                                                                <div>
+                                                                    <input id="iconchange_input" type="text" class="form-control" name="icon" value="" placeholder="아이콘....." required />
+                                                                    <a onclick="JavaScript: openNewWindow('/html/edit/selectIcon.html?target=iconchange&1234')" data-toggle="modal" type="button" class="btn btn-primary">아이콘</a>
+                                                                    <a id="iconchange"></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="inputSuccess1">이미지</label>
+                                                                <div>
+                                                                    <input id="imagechange_input" type="text" class="form-control" name="image" value="" placeholder="이미지....." required />
+                                                                    <a onclick="JavaScript: openNewWindow('/html/edit/selectFile.html?target=iconchange&1234')" data-toggle="modal" type="button" class="btn btn-primary">이미지</a>
+                                                                    <a id="iconchange"></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="empcode" class="control-label">키</label>
+                                                                <div>
+                                                                    <input type="text" class="form-control" name="key" placeholder="키..." required />
+                                                                </div>
+                                                                <div class="help-block with-errors"></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="date" class="control-label">소제목</label>
+                                                                <div>
+                                                                    <input class="form-control" name="subject" placeholder="소제목..." />
+                                                                </div>
+                                                                <div class="help-block with-errors"></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="permittype" class="control-label">링크타입</label>
+                                                            <div class="clearfix"></div>
+                                                            <div class="form-check form-check-inline ">
+                                                                <input class="form-check-input" type="radio" name="linkTypeRadio" value="link">
+                                                                <label class="form-check-label" for="inlineCheckbox1">링크</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="linkTypeRadio" value="board">
+                                                                <label class="form-check-label" for="inlineCheckbox1">게시판</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="linkTypeRadio" value="self">
+                                                                <label class="form-check-label" for="inlineCheckbox1">셀프</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="date" class="control-label">링크내용</label>
+                                                                <div>
+                                                                    <input class="form-control" name="value" placeholder="링크내용..." />
+                                                                </div>
+                                                                <div class="help-block with-errors"></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="date" class="control-label">정보</label>
+                                                                <div>
+                                                                    <textarea class="form-control" name="info" placeholder="내용..." />
+                                                                </div>
+                                                                <div class="help-block with-errors"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="clearfix"></div>
+
+                                                <div class="controls">
+                                                    <div class="row">
+
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group text-right">
+                                                                <input type="reset" class="btn btn-secondary" data-dismiss="modal" value="리 셋">
+                                                                <input type="button" id="keyvalueaddBtn" class="btn btn-primary" value="전 송">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="clearfix"></div>
+
+                                            </form>`;
+            return m;
+        }
+
+        function eventHandler(e) {
+            var type = e.data.type;
+            console.log(type);
+            var elem = document.getElementById('keyvalueView');
+            if (type == "groupaddSubmit") {
+                var form = document.getElementById('groupSetForm');
+
+                var str = "/mankeyvalue.adm?&utf8=ok&";
+                //var elem = document.getElementById('keyvalueView');
+                var arg = { path: str, type: "keyvalue", dbpath: _dbpath, elem: elem };
+                arg.kcode = form.kcode.value;
+                //arg.rendertype = $("#rendertypesel option:selected").val();
+                arg.form = form;
+                var formData = $(form).serializeArray();
+                arg.formData = formData;
+
+                //var str = `/mankeyvalue.adm?dbpath=${self2.arg.dbpath}&kcode=${self2.keycodeselValue}&kname=${self2.keynameselValue}&type=${self2.arg.type}&utf8=ok&`;
+                arg.path = str;
+                arg.dbpath = self2._dbpath;
+                arg.kcode = form.kcode.value;
+                self2._keyvalueController.keyvaluePost(arg);
+
+                __modal.hide();
+            } else if (type == "nameaddSubmit") {
+                var form = document.getElementById("nameSetForm");
+
+                var str = "/mankeyvalue.adm?&utf8=ok&";
+                //var elem = document.getElementById('keyvalueView');
+                var arg = { path: str, type: "keyvalue", dbpath: _dbpath, elem: elem };
+                arg.kcode = form.kcode.value;
+                arg.rendertype = $("#rendertypesel option:selected").val();
+                arg.form = form;
+                var formData = $(form).serializeArray();
+                arg.formData = formData;
+                console.log('form.kcode.value*******=' + form.kcode.value);
+                arg.path = str;
+                arg.dbpath = self2._dbpath;
+                arg.kcode = form.kcode.value;
+                arg.kname = form.kname.value;
+                self2._keyvalueController.keyvaluePost(arg);
+                __modal.hide();
+            } else if (type == "keyvalueaddSubmit") {
+                var form = document.getElementById("keyvalueForm");
+
+                var value = '';
+
+                var rval = $("input[name='linkTypeRadio']:checked").val();
+
+                if (rval == 'link') {
+                    value = + `&link=${form.value.value}`;
+                } else if (rval == 'board') {
+                    value += `&board=${form.value.value}`;
+                } else if (rval == 'self') {
+                    value += `self=${form.value.value}`;
+                } else if (rval == 'link') {
+
+                }
+                if (form.icon.value)
+                    value += '&icon=' + form.icon.value;
+                if (form.image.value)
+                    value += '&image=' + form.image.value;
+                if (form.subject.value)
+                    value += '&subject=' + form.image.value;
+
+                form.value.value = value;
+
+                var str = "/mankeyvalue.adm?&utf8=ok&";
+                var elem = document.getElementById('keyvalueView');
+                var arg = { path: str, type: "keyvalue", dbpath: _dbpath, elem: elem };
+                arg.kcode = form.kcode.value;
+                arg.kname = form.kname.value;
+                arg.rendertype = $("#rendertypesel option:selected").val();
+                arg.form = form;
+                var formData = $(form).serializeArray();
+                //console.log("form.subject.value=======" + form.subject.value);
+                //var b64 = Base64.encode(form.info.value);
+                //formData = self2.selectedLenderCon.changeSerialize(formData, 'info', b64);
+                arg.formData = formData;
+
+                self2._keyvalueController.keyvaluePost(arg);
+                __modal.hide();
+            }
+        }
+
+        function onNavbarItemClick(e) {
+            var id = e.id;
+            var box = e.id;
+            console.log('self2==' + self2);
+            if (id == "collapseBtn") {
+                $('#collapseExample').collapse('toggle');
+            } else if (id == "select-db-btn") {
+                //var elem = document.getElementById('filelist');
+                var elem = document.createElement('div');
+                var cls = new DbFileAjaxBase({ type: 'filelist', filetype: 'db', path: '', rendertype: 'ta', returntype: 'return', $parent: self2 });
+                cls.fileList('', elem);
+                //$('#dbsetModal').modal('show');
+                __modal.show('디비셋팅', elem);
+                console.log('$(elem).html()==' + $(elem).html());
+            } else if (id == "boardsetBtn") {
+                //var elem = document.getElementById('filelist');
+                if (!_dbpath)
+                    return alert('데이타베이스를선택해야됩니다');
+                if (!_code)
+                    return alert('테이블을선택해야됩니다');
+                if (!_code.startsWith('da_'))
+                    return alert('게시판테이블을 선택해야됩니다 게시판테이블은 da_ 로 시작됩니다');
+                var elem = document.createElement('div');
+                var c = new BoardConfigController({ type: 'boardconfig', dbpath: _dbpath, code: _code, brdid: 3, rendertype: 'table', $parent: self2 });
+                c.renderController(elem);
+                //__modal.show('boardset', elem);
+
+                var f = new FullScreenView();
+                f.setContent('boardset', elem);
+
+            } else if (id == "keysetBtn") {
+                var url = unescape(location.href);
+                var pm = url.split('?');
+                var url2 = `${pm[0]}`;
+                window.location.assign(`${url2}`);
+            } else if (id == "groupadd") {
+                if (!_dbpath)
+                    return alert('데이타베이스를선택해야됩니다');
+
+                __modal.show('그룹추가', self2.makeGroupForm());
+                var form = document.getElementById("groupSetForm");
+                form.dbpath.value = _dbpath;
+                $('#groupaddBtn').bind("click", { type: 'groupaddSubmit', self: self2 }, self2.eventHandler);
+            } else if (id == "nameadd") {
+                __modal.show('식별자이름추가', self2.makeNameForm());
+
+                var form = document.getElementById("nameSetForm");
+
+                var codeval = $("#keycodesel option:selected").val();
+                if (codeval == null) {
+                    modal.hide();
+                    return alert('그룹을 선택해야됩니다');
+                }
+                form.dbpath.value = _dbpath;
+                form.kcode.value = codeval;
+                form.uid.value = $("#keynamesel option:selected").attr('uid');
+                form.fid.value = $("#keynamesel option:selected").attr('fid');
+                form.did.value = $("#keynamesel option:selected").attr('did');
+                console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+                $('#nameaddBtn').bind("click", { type: 'nameaddSubmit', self: self2 }, self2.eventHandler);
+            } else if (id == "itemadd") {
+                __modal.show('키추가', self2.makeKeyvalueForm());
+
+                var form = document.getElementById("keyvalueForm");
+                $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
+                var codeval = $("#keycodesel option:selected").val();
+                if (codeval == null) {
+                    __modal.hide();
+                    return alert('그룹을 선택해야됩니다');
+                }
+                var nameval = $("#keynamesel option:selected").val();
+                if (nameval == null) {
+                    __modal.hide();
+                    return alert('식별자이름를 선택해야됩니다');
+                }
+                form.dbpath.value = _dbpath;
+                form.kcode.value = codeval;
+                form.kname.value = nameval;
+                form.uid.value = $("#keynamesel option:selected").attr('uid');
+                form.fid.value = $("#keynamesel option:selected").attr('fid');
+                form.did.value = $("#keynamesel option:selected").attr('did');
+                form.type.value = 'add';
+                console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+                $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: self2 }, self2.eventHandler);
+            } else if (id == 'itemsubadd') {
+                __modal.show('키추가', self2.makeKeyvalueForm());
+
+                var form = document.getElementById("keyvalueForm");
+                $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
+                var codeval = $("#keycodesel option:selected").val();
+                if (codeval == null) {
+                    __modal.hide();
+                    return alert('그룹을 선택해야됩니다');
+                }
+                var nameval = $("#keynamesel option:selected").val();
+                if (nameval == null) {
+                    __modal.hide();
+                    return alert('식별자이름를 선택해야됩니다');
+                }
+                form.dbpath.value = _dbpath;
+                form.kcode.value = codeval;
+                form.kname.value = nameval;
+                form.uid.value = $("#keynamesel option:selected").attr('uid');
+                form.fid.value = $("#keynamesel option:selected").attr('fid');
+                form.did.value = $("#keynamesel option:selected").attr('did');
+                form.type.value = 'subadd';
+                console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+                $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: self2 }, self2.eventHandler);
+            } else if (id == "return") {
+                window.opener.getReturnValue('keyvalue', `${dbpath}:${kcode}:${kname}:`);
+                window.close();
+            } else if (id == "fixedBtn") {
+                if ($('#navbar').hasClass("fixed-bottom") === true) {
+                    $('#navbar').removeClass("fixed-bottom");
+                    $('#navbar').addClass("fixed-top");
+                    $('#navbar').find('.dropup').addClass("dropdown");
+                    $('#navbar').find('.dropup').removeClass("dropup");
+
+                } else {
+                    $('#navbar').removeClass("fixed-top");
+                    $('#navbar').addClass("fixed-bottom");
+                    $('#navbar').find('.dropdown').addClass("dropup");
+                    $('#navbar').find('.dropdown').removeClass("dropdown");
+                }
+
+            }
+        }
+
+        function renderPage() {
+            var elem = document.getElementById('keyvalueView');
+            //var rendertype = $("#rendertypesel option:selected").val();
+            var config = {
+                dbpath: _dbpath,
+                kcode: _keycodeselValue,
+                kname: _keynameselValue,
+                rendertype: _rendertypeselValue,
+                renderview: _selectedLenderView
+            }
+            _keyvalueController.setController(config, elem);
+            //new KeyvalueController(type, dbpath, kcode, kname, elem, rendertype, keyfield, keykey);
+
+            //console.log("rendertype======" + rendertype);
+        }
+
+        $(document).ready(function () {
+
+            $(document).on("change", "#keycodesel", function () {
+                var elem = document.getElementById('keyvalueView');
+                if (!self2._keynameselValue)
+                    self2._keynameselValue = $("#keynamesel option:selected").val();
+                self2._keycodeselValue = $("#keycodesel option:selected").val();
+                if (!self2._rendertypeselValue)
+                    self2._rendertypeselValue = $("#rendertypesel option:selected").val();
+                console.log("self2._dbpath========" + self2._dbpath);
+                var dec = decodeURI(location.href);
+                var url = unescape(dec);
+                var pm = url.split('?');
+                var url2 = `${pm[0]}?dbpath=${_dbpath}&code=${_code}&keycode=${self2._keycodeselValue}&keyname=${self2._keynameselValue}&rendertype=${_rendertypeselValue}`;
+                window.location.assign(`${url2}`);
+
+                //self2.selectedLenderCon.setController(self2._dbpath, self2._keycodeselValue, self2._keynameselValue, elem);
+            });
+
+            $(document).on("change", "#keynamesel", function () {
+                var elem = document.getElementById('keyvalueView');
+                self2._keynameselValue = $("#keynamesel option:selected").val();
+                if (!self2._keycodeselValue)
+                    self2._keycodeselValue = $("#keycodesel option:selected").val();
+                if (!self2._rendertypeselValue)
+                    self2._rendertypeselValue = $("#rendertypesel option:selected").val();
+                var dec = decodeURI(location.href);
+                var url = unescape(dec);
+                var pm = url.split('?');
+                var url2 = `${pm[0]}?dbpath=${_dbpath}&code=${_code}&keycode=${self2._keycodeselValue}&keyname=${self2._keynameselValue}&rendertype=${_rendertypeselValue}`;
+                window.location.assign(`${url2}`);
+                console.log("url2 =======" + url2);
+                //self2.selectedLenderCon.setController(self2._dbpath, self2._keycodeselValue, self2._keynameselValue, elem);
+            });
+
+            $(document).on("change", "#rendertypesel", function () {
+                if (!self2._keynameselValue)
+                    self2._keynameselValue = $("#keynamesel option:selected").val();
+                if (!self2._keycodeselValue)
+                    self2._keycodeselValue = $("#keycodesel option:selected").val();
+                self2._rendertypeselValue = $("#rendertypesel option:selected").val();
+
+                var elem = document.getElementById('keyvalueView');
+                _selectedLenderView = _listView;
+                if (self2._rendertypeselValue == 'list') {
+                    _selectedLenderView = _listView;
+                } else if (self2._rendertypeselValue == 'ztree') {
+                    _selectedLenderView = _ztreeView;
+                } else if (self2._rendertypeselValue == 'topmenu') {
+                    _selectedLenderView = _topmenuView;
+                } else if (self2._rendertypeselValue == 'sidemenu') {
+                    _selectedLenderView = _sidemenuView;
+                } else if (self2._rendertypeselValue == 'tabmenu') {
+                    _selectedLenderView = _tabmenuView;
+                } else if (self2._rendertypeselValue == 'orgcharttree') {
+                    _selectedLenderView = _orgcharttreeView;
+                } else if (self2._rendertypeselValue == 'dynamictree') {
+                    _selectedLenderView = _dynamictreeView;
+                }
+                var url = unescape(location.href);
+                var pm = url.split('?');
+                var url2 = `${pm[0]}?dbpath=${_dbpath}&code=${_code}&keycode=${self2._keycodeselValue}&keyname=${self2._keynameselValue}&rendertype=${self2._rendertypeselValue}`;
+                window.location.assign(`${url2}`);
+
+                //selectedLenderCon.setController(self2._dbpath, self2.keycodeselValue, self2.keynameselValue, elem);
+            });
+
+            _boardCon = new BoardController({ type: 'boardlist', dbpath: _dbpath, code: _code, brdid: 1, renderview: new BoardView(), rendertype: 'table' });
+
+            _listView = new ListTreeView();
+            _ztreeView = new ZTreeView();
+            _topmenuView = new TopMenuView();
+            _tabmenuView = new TabMenuView();
+            _sidemenuView = new SideMenuView();
+            _orgcharttreeView = new OrgChartTreeView();
+            _dynamictreeView = new DynamicTreeview();
+
+            _keyvalueController = new KeyvalueController({ settype: 'setting', dbpath: _dbpath, kcode: _keycodeselValue, kname: _keynameselValue, rendertype: 'list', renderview: _listView });
+            //_selectedLenderCon = _listCon;
+            urlsplit();
+            renderPage();
+        });
+    </script>
+</head>
+<body class="container" onfocus="newWindow.close()">
+    <da include="/html/module/navbarAdmin.html"></da>
+
+    <nav aria-label="breadcrumb">
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page">
+                <a href="#">Navbar scroll</a>
+
+            </li>
+            <li class="breadcrumb-item" aria-current="page">
+                <a href="#">Navbar scroll</a>
+
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Home</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="container" id="keyvalueView"></div>
+        </div>
+        <div class="col-6"></div>
+    </div>
+
+    <div id="navbar" class="fixed-bottom">
+        <div class="alert alert-primary collapse" id="collapseDb" role="alert" style="overflow:auto;">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header">디비설정</div>
+                <div class="card-body">
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="alert alert-primary collapse" id="collapseBoard" role="alert" style="overflow:auto;">
+            <div class="card mb-3">
+                <div class="card-header">게시판설정</div>
+                <div class="card-body">
+
+                </div>
+            </div>
+
+        </div>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar scroll</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        <li class="nav-item">
+                            <button class="nav-link active btn-info mr-3" aria-current="page" id="select-db-btn" onclick="onNavbarItemClick(this)">디비</button>
+                        </li>
+
+                        <li class="nav-item">
+                            <div class="form-inline">
+                                <select id="keycodesel">
+                                </select>
+                                <button class="nav-link active btn-info mr-3" id="groupadd" onclick="onNavbarItemClick(this)">코드추가</button>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="form-inline">
+                                <select id="keynamesel">
+                                </select>
+                                <button class="nav-link active btn-info mr-3" id="nameadd" onclick="onNavbarItemClick(this)">식별자추가</button>
+                            </div>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <button class="nav-item nav-link btn-dark active" data-toggle="tab" id="itemadd" onclick="onNavbarItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">아이템추가</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-item nav-link btn-primary" data-toggle="tab" id="returnBtn" onclick="onNavbarItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">리턴</button>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav pull-right" style="--bs-scroll-height: 100px;">
+                        <li>
+                            <div>
+                                <select id="rendertypesel">
+                                    <option value="list">list</option>
+                                    <option value="ztree">ztree</option>
+                                    <option value="topmenu">topmenu</option>
+                                    <option value="sidemenu">sidemenu</option>
+                                    <option value="tabmenu">tabmenu</option>
+                                    <option value="orgcharttree">orgcharttree</option>
+                                    <option value="dynamictree">dynamictree</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="nav-item dropup">
+                            <a class="nav-link dropdown-toggle active" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-fw fa-cog fa-lg"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+
+                                <li><a class="dropdown-item" id="boardsetBtn" onclick="onNavbarItemClick(this)">게시판셋팅</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" id="keysetBtn" onclick="onNavbarItemClick(this)">키값 셋팅</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" id="fixedBtn" onclick="onNavbarItemClick(this)"><i class="fa fa-arrows-v fa-lg"></i></a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+        <div></div>
+
+    </div>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+            Dropdown button
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
+
+    <da include="/html/module/footer.html"></da>
+</body>
+</html>

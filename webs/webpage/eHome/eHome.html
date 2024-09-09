@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=1">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?83"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?78"></script>
+    <script src="/aMvc/base/viewLibBase.js?1234"></script>
+    <script src="/aMvc/base/templateBase.js?123"></script>
+
+    <script type="text/javascript">
+
+
+        window.onload = function () {
+            
+        };
+
+    </script>
+</head>
+<body>
+    <da include="/eHome/navbarEHome.html?1"></da>
+    <div class="d-flex">
+        <div style="background-image:url('/files/media/images/images/office-bg.jpg'); background-size:cover; width: 100%; height: 300px">
+
+        </div>
+    </div>
+    <div class="card text-white bg-primary mb-3">
+        <div class="card-body" style="text-align: center;">
+            <h5 class="card-title">eHome 미니 웹서버</h5>
+            <p class="card-text">
+                누구나 집컴퓨터에 홈페이지를 만들고 운영할수있습니다 ehome 에는 웹서버 웹소켓서버 유디피서버 가 포함되어있으며
+                <br />웹서버에는 게시판 채팅 사원관리 등의 기능이 내장되어있어서 자유롭게 게시판을 만들어 커뮤니티를 형성할수있습니다
+            </p>
+        </div>
+    </div>
+
+    <div class="card text-white bg-info mb-3">
+        <div class="card-body" style="text-align: center;">
+            <h5 class="card-title">웹서버 포트와 공유기설정</h5>
+            <p class="card-text">
+                보통 통신사에의해서 http 포트인 80번 포트가 차단되어있는경우가 많습니다
+                그래서 기본적으로 7777 번포트를 사용하도록되어있으며 80번포드가 막혀있지않은경우는 
+                80번포트를 사용하면됩니다 공유기를 사용하는경우는 포트포워딩이나 DMZ 설정을 하여 외부에서 접근이 가능하도록
+                공유기 관리자를 통해서 설정을 해줘야 됩니다
+            </p>
+        </div>
+    </div>
+
+    <div class="card-deck">
+        <div class="card  text-white bg-dark mb-3">
+            <div class="card-body">
+                <h5 class="card-title">디비&파일</h5>
+                <p class="card-text">eHome 은 기본적으로 sqlite 디비를 사용하여 작업합니다</p>
+
+                <a class="btn btn-primary" href="/html/admin/config/DbandFile.html">디비파일작업</a>
+            </div>
+        </div>
+        <div class="card text-white bg-secondary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">기본설정</h5>
+                <p class="card-text">웹서버의 기본설정을 합니다</p>
+
+                <a class="btn btn-primary" href="/html/admin/config/Config.html">설정작업</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-deck">
+        <div class="card  text-white bg-dark mb-3">
+            <div class="card-body">
+                <h5 class="card-title">게시판</h5>
+                <p class="card-text">다양한 형태의 게시판이 기본내장되어있어서 간단하게 홈페이지에 게시판을 추가할수있습니다</p>
+
+                <a class="btn btn-primary" href="/html/examples/boards/boardConfig.html">게시판설정</a>
+                <a class="btn btn-primary" href="/html/examples/boards/boardTag.html">태그게시판</a>
+                <a class="btn btn-primary" href="/html/examples/boards/boardScript.html">스크립트게시판</a>
+            </div>
+        </div>
+        <div class="card text-white bg-secondary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">채팅</h5>
+                <p class="card-text">웹소켓 서버가 구현되어있어서 간단하게 여러가지 채팅프로그램을 웹페이지에 추가할수있습니다</p>
+
+                <a class="btn btn-primary" href="/html/examples/chats/chat.html">채팅</a>
+                <a class="btn btn-primary" href="/html/examples/chats/RtcChat.html">rtc채팅</a>
+                <a class="btn btn-primary" href="/html/examples/chats/RtcAndroidCamera.html">rtc카메라채팅</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-deck">
+        <div class="card bg-light mb-3">
+            <div class="card-body">
+                <h5 class="card-title">ERP</h5>
+                <p class="card-text">간단한 업무관리페이지를 만들기위한 코딩이 구현되어있어서 웹페이지에 쉽게 추가 가능합니다</p>
+
+                <a class="btn btn-primary" href="/html/examples/erp/selfScript.html">self</a>
+                <a class="btn btn-primary" href="/html/examples/erp/erpTag.html">태그erp</a>
+                <a class="btn btn-primary" href="/html/examples/erp/erpScript.html">스크립트erp</a>
+            </div>
+        </div>
+
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">설문</h5>
+                <p class="card-text">다양한 형태의 게시판이 기본내장되어있어서 간단하게 홈페이지에 게시판을 추가할수있습니다</p>
+
+                <a class="btn btn-primary" href="/html/examples/poll/poll.html">설문리스트</a>
+                <a class="btn btn-primary" href="/html/examples/poll/pollView.html">설문뷰</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-deck">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">키 값</h5>
+                <p class="card-text">키 값 설정을 통해서 여러가지 메뉴를 간편하게 만들수있습니다</p>
+
+                <a class="btn btn-primary" href="/html/examples/keyvalueModule/topmenu.html">탭메뉴</a>
+                <a class="btn btn-primary" href="/html/examples/keyvalueModule/sidemenu.html">사이드메뉴</a>
+                <a class="btn btn-primary" href="/html/examples/keyvalueModule/horizontalListmenu.html">계단메뉴</a>
+                <a class="btn btn-primary" href="/html/examples/keyvalueModule/ztree.html">트리메뉴</a>
+                <a class="btn btn-primary" href="/html/examples/keyvalueModule/dynamictree.html">다이나믹트리</a>
+                <a class="btn btn-primary" href="/html/examples/keyvalueModule/orgcharttree.html">org트리</a>
+                <a class="btn btn-primary" href="/html/examples/keyvalueModule/carousel.html">carousel</a>
+            </div>
+        </div>
+
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">템플레이트</h5>
+                <p class="card-text">다양한 형태의 게시판이 기본내장되어있어서 간단하게 홈페이지에 게시판을 추가할수있습니다</p>
+
+                <a class="btn btn-primary" href="/html/examples/templates/chaser.html">추적자</a>
+                <a class="btn btn-primary" href="/html/examples/poll/pollView.html">설문뷰</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card text-white bg-primary mb-3">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+            <h5 class="card-title">미니 웹서버</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+    </div>
+    <div class="card text-white bg-primary mb-3">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+            <h5 class="card-title">미니 웹서버</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+    </div>
+    <da include="/html/module/footer.html"></da>
+</body>
+</html>

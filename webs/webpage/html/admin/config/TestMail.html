@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Smtp Mail Test</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?1"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.IO.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Text.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Convert.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.BitConverter.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.IO.BinaryReader.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.BigInt.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Security.Cryptography.SHA1.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Security.Cryptography.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Security.Cryptography.RSA.debug.js"></script>
+
+    <script type="text/javascript">
+        var _code = "", _dbpath = "config.dadb";
+        //var _publicModulus = null;
+        //var _publicExponent = null;
+        var _publicXmlkey = null;
+        $(document).ready(function () {
+
+            summernoteSet();
+
+            fetch('/rsa.adm?type=pubkey')
+                .then((response) => response.text())
+                .then(data => {
+                    var xmlDoc = $.parseXML(data);
+                    $(xmlDoc).find('Records').each(function (index) {
+                        //_publicModulus = $(this).find('publicModulus').text();
+                        //_publicExponent = $(this).find('publicExponent').text();
+                        _publicXmlkey = $(this).find('publicXmlkey').text();
+                        console.log(_publicXmlkey);
+                    });
+                })// 에러처리
+                .catch(() => {
+                    alert('RSA 공개키 에러')
+                });
+
+        });
+
+        function RSAEncription(pPlainText) {
+            try {
+
+                var doOaepPadding = false; //패딩
+                var sEncryptData = "";
+                var rsa = new System.Security.Cryptography.RSACryptoServiceProvider();
+                //rsa.FromXmlString(pPublicKey);
+                rsa.FromXmlString(_publicXmlkey);
+                var decryptedBytes = System.Text.Encoding.UTF8.GetBytes(pPlainText);
+                var encryptedBytes = rsa.Encrypt(decryptedBytes, doOaepPadding);
+                sEncryptData = System.Convert.ToBase64String(encryptedBytes); //암호화된
+
+                sEncryptData = sEncryptData.replace('+', '-').replace('/', '_');//암호화된
+                if (sEncryptData.charAt(sEncryptData.length - 1) === "=") {
+                    sEncryptData = sEncryptData.slice(0, -1);
+                }
+                return sEncryptData;
+            }
+            catch (e) {
+                alert(e.message);
+            }
+        }
+
+        function OnSubmit(form) {
+
+            // prevent default posting of form
+            event.preventDefault();
+
+            $("#overlay-loadingbar").fadeIn(300);　
+
+            var formData = $(form).serializeArray();
+
+           
+            var encrypted = RSAEncription($('#passwd').val());
+            formData = __changeSerialize(formData, 'passwd', encrypted);
+            console.log(`formData=`, formData);
+            $.ajax({
+                url: "/mailtest.member?logtype=login&utf8=ok&",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+                    var xmlDoc = $.parseXML(data);
+                    var err = $(xmlDoc).find('Msg').attr('error');
+                    if (err != "ok") {
+                        alert(err);
+                        return false;
+                    }
+                    var returnvalue = $(xmlDoc).find('Msg').attr('result');
+                    setTimeout(function () {
+                        $("#overlay-loadingbar").fadeOut(300);
+                    }, 500);
+                    //alert("메일전송에 성공했습니다");
+                },
+                complete: function (data) {
+                    // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+
+                },
+                error: function (xhr, status, error) {
+                    
+                    setTimeout(function () {
+                        $("#overlay-loadingbar").fadeOut(300);
+                    }, 500);
+                    alert("에러발생");
+                },
+                cache: false,
+
+            });
+
+
+        };
+
+        var HelloButton = function (context) {
+            var ui = $.summernote.ui;
+
+            // create button
+            var button = ui.button({
+                contents: '<i class="fa fa-envelope"></i> Hello',
+                tooltip: 'hello',
+                click: function () {
+                    alert("node");
+                    //var node = document.createElement('div');
+                    //node.appendChild(document.createTextNode("abc"));
+                    //var node = $('<div>');
+                    //node.text('abcdefghijk');
+                    //***
+                    var tinfo = {};
+                    tinfo.dragok = "ok";
+                    tinfo.boxtype = "box-default box-solid";
+                    tinfo.rendertype = "general";
+                    //tinfo.remove_btn = "ok";
+                    tinfo.collapse_btn = "ok";
+                    var node = createBox(tinfo);
+                    alert("node");
+                    ///***/
+                    $('#summernote').summernote('insertNode', node[0]);
+                    // invoke insertText method with 'hello' on editor module.
+                    context.invoke('editor.insertText', 'hello');
+
+                    $('#summernote').summernote('insertNode', $('<div>abchhhhhhhhhhhhhhhdefg</div>')[0]);
+                    //return;
+                }
+            });
+
+            return button.render();   // return button as jquery object
+        }
+
+        function summernoteSet() {
+
+            $('#summernote').summernote({
+                toolbar: [
+                    ['mybutton', ['hello']],
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video', 'hr']],
+                    ['view', ['fullscreen', 'codeview']],
+                    ['help', ['help']]
+                ],
+
+                height: 300,
+                minHeight: null,
+                maxHeight: null,
+                focus: true,
+                callbacks: {
+                    onImageUpload: function (files, editor, welEditable) {
+                        for (var i = files.length - 1; i >= 0; i--) {
+                            sendFile(files[i], this);
+                        }
+                    },
+
+                    onInit: function () {
+                        $('#summernote').summernote('insertText', '<div>abchhhhdofdddddddddddffffffffffffffffffsssssssssssssssshdefg</div>');
+                    }
+                }
+            });
+
+        }
+
+    </script>
+
+    <style>
+        
+        #overlay-loadingbar {
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background: rgba(0,0,0,0.6);
+        }
+
+        .cv-spinner {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px #ddd solid;
+            border-top: 4px #2e93e6 solid;
+            border-radius: 50%;
+            animation: sp-anime 0.8s infinite linear;
+        }
+
+        @keyframes sp-anime {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .is-hide {
+            display: none;
+        }
+    </style>
+</head>
+<body class="container">
+    <div id="overlay-loadingbar">
+        <div class="cv-spinner">
+            <span class="spinner"></span>
+        </div>
+    </div>
+
+    <div class="box box-info" style="height:100%">
+        <div class="box-header">
+            <i class="fa fa-envelope"></i>
+
+            <h3 class="box-title">Smtp Mail Test</h3>
+            <!-- tools box -->
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div><!-- /.box-tools -->
+            <!-- /. tools -->
+        </div>
+        <div class="box-body">
+            <form id="wordForm" action="#" method="post" onsubmit="return OnSubmit(this)">
+                <input type="hidden" name="code" id="code" value="board" />
+                <input type="hidden" name="dbpath" id="dbpath" value="daboard.edb" />
+                <input type="hidden" name="brdid" id="brdid" value="1" />
+                <input type="hidden" name="posttype" id="type" value="post" /><!-- brdadd, groupupdate, brdupdate, groupdel, brddel-->
+
+                <div class="form-group form-inline">
+                    <label for="from" class="col-sm-2 control-label">From:</label>
+                    <input type="email" class="form-control" name="emailfrom" placeholder="Email from:" required>
+                    <label for="password" class="col-sm-2 control-label">PASSWORD(gmail 2단계인증시 앱비밀번호입력):</label>
+                    <input type="password" class="form-control" name="passwd" id="passwd" placeholder="password:" required>
+                </div>
+                <div class="form-group">
+                    <label for="to" class="col-sm-2 control-label">To:</label>
+                    <input type="email" class="form-control" name="emailto" placeholder="Email to" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject" class="col-sm-2 control-label">제목:</label>
+                    <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+                </div>
+                <div style="height:100%">
+                    <textarea type="text" name="comment" id="summernote" style="height:100%" required></textarea>
+                </div>
+
+                <div class="form-group has-info">
+                    <label for="subject" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-7">
+                        <button type="reset" class="btn">리셋</button>
+                        <button type="submit" class="btn">전송</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>RSA</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/BoardAjaxBase.js?239"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/TemplateBase.js?"></script>
+   
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.IO.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Text.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Convert.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.BitConverter.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.IO.BinaryReader.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.BigInt.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Security.Cryptography.SHA1.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Security.Cryptography.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Security.Cryptography.RSA.debug.js"></script>
+
+</head>
+<body class="skin-blue">
+    <div class="container">
+        <script type="text/javascript">
+
+            var _publicModulus = null;
+            var _publicExponent = null;
+            var _publicXmlkey = null;
+            $(document).ready(function () {
+                fetch('/rsa.adm?type=pubkey')
+                    .then((response) => response.text())
+                    .then(data => {
+                        var xmlDoc = $.parseXML(data);
+                        $(xmlDoc).find('Records').each(function (index) {
+                            _publicModulus = $(this).find('publicModulus').text();
+                            _publicExponent = $(this).find('publicExponent').text();
+                            _publicXmlkey = $(this).find('publicXmlkey').text();
+                        });
+                    })// 에러처리
+                    .catch(() => {
+                        console.log('에러')
+                    });
+            });
+
+            function RSAEncription(pPlainText) {
+                try {
+                    //페이지 로드 시 서버쪽에서 생성한 공개키
+                    //var pPublicKey = "<RSAKeyValue><Modulus>qcVJiqprbMKyT/xGVB82wrGE3D1uhsNLVplc+l865JZL40RydDx3qe64P2qqSdYeQRpwVELn7yM3RkpHWPWvJBm7gP2aEK2p5K2LoJ6Ht7y0AFs8ahjTqeMnOhI0EygW0bPazH+Py9m9EexiIF81t+F2rgYQHINELIQoWZNAKHk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+                    var doOaepPadding = true; //패딩
+                    var sEncryptData = "";
+                    var rsa = new System.Security.Cryptography.RSACryptoServiceProvider();
+                    //rsa.FromXmlString(pPublicKey);
+                    rsa.FromXmlString(_publicXmlkey);
+                    var decryptedBytes = System.Text.Encoding.UTF8.GetBytes(pPlainText);
+                    var encryptedBytes = rsa.Encrypt(decryptedBytes, doOaepPadding);
+                    sEncryptData = System.Convert.ToBase64String(encryptedBytes); //암호화된 
+                    return sEncryptData;
+                }
+                catch (e) {
+                    alert(e.message);
+                }
+            }
+
+            // Call this code when the page is done loading.
+            $(function () {
+
+                // Run a quick encryption/decryption when they click.
+                $('#testme').click(function () {
+
+                    console.log('_publicModulus=', `${_publicModulus}`);
+                    console.log('_publicExponent=', `${_publicExponent}`);
+                    console.log('_publicXmlkey=', `${_publicXmlkey}`);
+
+                    var word = RSAEncription('i am boy'); //--3. 암호화
+
+                    console.log('word=', `${word}`);
+                    
+                });
+            });
+        </script>
+        
+        <label for="input">Text to encrypt:</label><br />
+        <textarea id="input" name="input" type="text" rows=4 cols=70>This is a test!</textarea><br />
+        <input id="testme" type="button" value="Test Me!!!" /><br />
+    </div>
+</body>
+</html>

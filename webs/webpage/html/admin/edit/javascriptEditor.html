@@ -1,0 +1,115 @@
+﻿<!doctype html>
+<head>
+    <title>CodeMirror: HTML completion demo</title>
+    <meta charset="utf-8" />
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/codemirror-5.65.0/codemirror.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+    <script src="/aMvc/lib/codemirror-5.65.0/codemirror.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <style type="text/css">
+        .CodeMirror {
+            border-top: 1px solid #888;
+            border-bottom: 1px solid #888;
+        }
+
+        html, body {
+            height: 100%
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var te = document.getElementById("codemirror");
+
+            editor = CodeMirror.fromTextArea(te, {
+                mode: {
+                    name: "text/javascript",
+                    version: 3,
+                    singleLineStringErrors: false
+                },
+                lineNumbers: true,
+                indentUnit: 4,
+                extraKeys: {
+                    "Ctrl-Space": "autocomplete"
+                },
+                matchBrackets: true
+            });
+
+            editor.on('inputRead', function onChange(editor, input) {
+                console.log(input.text[0]);
+                if (input.text[0] === ';' || input.text[0] === ' ' || input.text[0] === ":") {
+                    return;
+                }
+                //editor.showHint({
+                //hint: CodeMirror.pythonHint
+                //});
+            });
+
+            CodeMirror.commands.autocomplete = function (cm) {
+                CodeMirror.simpleHint(cm, CodeMirror.pythonHint);
+            }
+        });
+
+    </script>
+</head>
+<body class="skin-blue center-block">
+    <da include="/html/module/navbarAdmin.html"></da>
+    <!-- Main View-->
+    <div class="row center-block" >
+        
+        <div class="col-xs-12 col-md-12 center-block" style="height:100%">
+            
+            <!-- codemirrorCard -->
+            <div class="card" id="codemirrorCard">
+                <div class="card-header">
+
+
+                    <h3 class="card-title"><i class="fa fa-envelope"></i>TEXT Edit</h3>
+
+                </div>
+                <div class="card-body">
+                    <form id="codemirrorForm" onsubmit="return OnSubmit(this)">
+                        <input type="hidden" name="code" id="code" value="board" />
+                        <input type="hidden" name="dbpath" id="dbpath" value="daboard.edb" />
+                        <input type="hidden" name="brdid" id="brdid" value="1" />
+                        <input type="hidden" name="posttype" id="posttype" value="post" />
+                        <input type="hidden" name="type" id="type" value="groupadd" /><!-- brdadd, groupupdate, brdupdate, groupdel, brddel-->
+
+                        <div style="height:100%">
+                            <textarea type="text" id="codemirror" name="codemirror" style="height:100%" required></textarea>
+                        </div>
+
+                        <div class="form-group has-info">
+                            <label for="subject" class="col-sm-2 control-label"></label>
+                            <div class="col-sm-7">
+                                <button type="reset" class="btn">리셋</button>
+                                <button type="submit" class="btn">전송</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>

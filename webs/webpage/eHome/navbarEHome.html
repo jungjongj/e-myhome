@@ -1,0 +1,74 @@
+﻿<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/eHome/eHome.html"><img src="/files/eHome-32.png" />eHome</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+
+                <li class="nav-item">
+                    <a class="nav-item nav-link " href="/eHome/download.html" id="downloadBtn">다운로드</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link " href="/eHome/examples.html" id="examplesBtn" >예제</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link " href="/eHome/lecture.html" id="lectureBtn">학습</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link " href="/eHome/use.html" id="useBtn">사용</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/eHome/community.html" aria-current="page" id="communityBtn">커뮤니티</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/eHome/price.html" aria-current="page" id="priceBtn">가격</a>
+                </li>
+            </ul>
+            <div>
+                <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">링크</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/">Home</a>
+                            <a class="dropdown-item" href="/html/admin/Admin.html">Admin</a>
+                            <a class="dropdown-item" href="/eHome/eHome.html">eHome</a>
+                            <a class="dropdown-item" href="/html/admin/config/DbandFile.html">Db&File</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/utils/browserPaint.html">그림브라우저</a>
+                            <a class="dropdown-item" href="/utils/qrcodeReaderWrite.html">qr코드</a>
+                            <a class="dropdown-item" href="/utils/rtcCap.html">rtc캡쳐</a>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+            
+           
+
+        </div>
+    </div>
+</nav>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            if (location.href.endsWith('eHome.html')) {
+                $('.navbar-brand').addClass('active');
+            } else if (location.href.endsWith('download.html')) {
+                $('#downloadBtn').addClass('active');
+            } else if (location.href.endsWith('examples.html')) {
+                $('#examplesBtn').addClass('active');
+            } else if (location.href.endsWith('lecture.html')) {
+                $('#lectureBtn').addClass('active');
+            } else if (location.href.endsWith('use.html')) {
+                $('#useBtn').addClass('active');
+            } else if (location.href.endsWith('community.html')) {
+                $('#communityBtn').addClass('active');
+            } else if (location.href.endsWith('price.html')) {
+                $('#priceBtn').addClass('active');
+            }
+        });
+
+    </script>

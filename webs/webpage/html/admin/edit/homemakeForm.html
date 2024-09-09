@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html style="height:100%">
+<head>
+    <meta charset="UTF-8">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="stylesheet" href="/aMvc/lib/jquery/jquery-ui.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=">
+    <link rel="stylesheet" href="/aMvc/lib/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="/aMvc/lib/orgchart/dist/css/jquery.orgchart.min.css" type="text/css">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-resizable.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?55"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?64"></script>
+    <script src="/aMvc/base/viewLibBase.js?5"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+    <script src="/aMvc/base/layoutBase.js?9"></script>
+
+    <script src="/aMvc/lib/Fabric/Fabric.4.6.0/js/fabric.min.js"></script>
+    <script src="/aMvc/lib/js/da-paint-controller.js?798"></script>
+    <script type="text/javascript" src="/aMvc/lib/zTree_v3-master/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/orgchart/dist/js/jquery.orgchart.js"></script>
+
+
+    <script type="text/javascript">
+
+        var _dbpath = null, _code = null, _uid = null, _fid = null, _brdid = null;
+        var _homemake = null;
+
+        function urlsplit() {
+            var dec = decodeURI(location.href);
+            var url = unescape(dec);
+            var pm = url.split('?');
+            console.log(url);
+            if (pm && pm[1]) {
+                var params = pm[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var param = params[i].split('=');
+                    if (param && param[1]) {
+                        if (param[0] == "dbpath")
+                            _dbpath = param[1];
+                        else if (param[0] == "code")
+                            _code = param[1];
+                        else if (param[0] == "uid")
+                            _uid = param[1];
+                        else if (param[0] == "fid")
+                            _fid = param[1];
+                        else if (param[0] == "brdid") {
+                            _brdid = param[1];
+                        }
+                    }
+
+                }
+            }
+            if (_dbpath)
+                $('#select-db-btn').text(_dbpath);
+
+        }
+
+        function onsubmit2() {
+            var form = document.getElementById('homeboardpostform');
+            form.dbpath.value = _dbpath;
+            form.code.value = _code;
+            form.uid.value = _uid;
+            form.fid.value = _fid;
+            form.brdid.value = _brdid;
+            form.thumbnail.value = _homemake.ReturnJsonData();
+
+            var formdata = $(form).serializeArray();
+
+            $.ajax({
+                url: "list.board?posttype=post&utf8=ok",
+                async: false,
+                type: "POST",
+                // if(e.type != "open")
+                data: formdata,
+                success: function (data) {
+                    // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+                    //console.log("data" + data);
+                    // var xmlDoc = $.parseXML(data);
+                    // var err = $(xmlDoc).find('Msg').attr('error');
+                    //history.back();
+                    window.location = document.referrer;
+                },
+                complete: function (data) {
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                },
+                failure: function (response) {
+                    console.log(response.responseText);
+                },
+                cache: false
+            });
+
+            event.preventDefault();
+        }
+
+        $(document).ready(function () {
+            document.title = '홈피메이커';
+
+            urlsplit();
+            if (_dbpath == null || _code == null || _brdid == null)
+                alert('디비설정이 되지않았습니다');
+            //__insertWindow('<div>abc</div>', 'test title', 22,22, 500, 500, 'aqua');
+
+            var elem = document.getElementById('homemakeElem');
+            elem.style.width = '100%';
+            elem.style.height = 777;
+            _homemake = new HomepageMaker({ dbpath: _dbpath, code: _code, elem: elem });
+            if (!_homemake)
+                alert('Fabric.js 객체생성에 실패했습니다');
+        });
+
+    </script>
+
+</head>
+<body class="body">
+    <div style="border: 2px solid black; width:100%; height: 100%; ">
+        <form id="homeboardpostform" action="post.board" method="post" class="form-horizontal">
+            <input type="hidden" name="dbpath" />
+            <input type="hidden" name="code" />
+            <input type="hidden" name="posttype" />
+            <input type="hidden" name="brdid" />
+            <input type="hidden" name="uid" />
+            <input type="hidden" name="fid" />
+            <input type="hidden" name="thumbnail" />
+            <input type="hidden" name="comment" value="homemake" />
+            <div class="form-group">
+                <label for="subject" class="col-sm-2 control-label">제목</label>
+                <input type="text" name="subject" class="form-control" placeholder="subject">
+            </div>
+            <div class="form-group">
+                <label for="subject" class="col-sm-2 control-label">요약</label>
+                <textarea type="text" name="summary" class="form-control" placeholder="summary"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="subject" class="col-sm-2 control-label">제목</label>
+                <button type="button" class="btn btn-info brdupdate" onclick="onsubmit2();">전송</button>
+            </div>
+        </form>
+        <div style="border: 2px solid black; width:100%; height: 100%;">
+            <div id="homemakeElem" style="border: 2px solid black; width:100%; height: 100%;"></div>
+        </div>
+        ddddddddddd
+    </div>
+    
+</body>
+
+</html>

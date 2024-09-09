@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> 키 값 셋팅 </title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+    <link rel="stylesheet" href="/aMvc/lib/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="/aMvc/lib/orgchart/dist/css/jquery.orgchart.min.css" type="text/css">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?231"></script>
+    <script src="/aMvc/base/viewLibBase.js?4"></script>
+    <script src="/aMvc/base/templateBase.js?1"></script>
+
+    <script type="text/javascript">
+        var self = this;
+        
+        var _androidControler;
+
+        function sendToWebview2(msg) {
+            //var textboxvalue = document.getElementById('text1').value;
+            //window.external.CallForm(msg, msg2);
+            //alert(msg);
+            return Android.AndroidAppCall(msg);
+        }
+        function ReceiveFromWebview2(msg) {
+            //alert(msg);
+            //var temp = msg.split(':');
+            msg += ' \n';
+            var msg2 = $("#cmdresult").val();
+            msg2 = msg2 + msg;
+            $("#cmdresult").val(msg2);
+        }
+
+        window.onload = function () {
+
+        }
+
+        function adminCheck(url) {
+            if (!url.startsWith('http://localhost')) {
+                alert(url);
+            }
+
+        }
+
+        $(document).ready(function () {
+
+            var main = new MainLayout();
+            var ver = new VerticalLayout();
+            var hor = new HorizontalLayout();
+
+            main.addControl(ver);
+            main.addControl(hor);
+
+            var elem = document.createElement('div');
+            document.body.appendChild(elem);
+            var config = {
+                type: 'memberlist',
+                dbpath: 'config.dadb',
+                code: 'member',
+                rendertype: 'list',
+                renderview: new MemberFcmView(),
+                viewbody: new MemberViewbodyTemplate(),
+                tabthread: [
+                    {
+                        key: '멤버',
+                        value: 'memberlist'
+                    },
+                    {
+                        key: '토픽',
+                        value: 'topiclist'
+                    },
+                    {
+                        key: '관리자',
+                        value: 'adminlist'
+                    },
+                    {
+                        key: 'sms',
+                        value: 'smslist'
+                    }
+                ]
+            };
+
+            _androidControler = new MemberNetworkController(config);
+            _androidControler.renderController(elem);
+        });
+    </script>
+</head>
+<body class="container">
+    
+
+</body>
+</html>

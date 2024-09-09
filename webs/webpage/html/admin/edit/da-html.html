@@ -1,0 +1,354 @@
+﻿<!doctype html>
+<head>
+    <title>CodeMirror: HTML completion demo</title>
+    <meta charset="utf-8" />
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="stylesheet" href="/aMvc/lib/jquery/jquery-ui.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-resizable.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?55"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?64"></script>
+    <script src="/aMvc/base/viewLibBase.js?23"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <style type="text/css">
+        .CodeMirror {
+            border-top: 1px solid #888;
+            border-bottom: 1px solid #888;
+        }
+
+        html, body {
+            height: 100%
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        var dbpath = "config.edb";
+        var code = "board";
+        var brdid = "1";
+        var filetype = "image";
+
+        window.onload = function () {
+            var url = unescape(location.href);
+            var pm = url.split('?');
+
+            if (pm && pm[1]) {
+                var params = pm[1].split('&'); alert(params);
+                for (var i = 0; i < params.length; i++) {
+                    var param = params[i].split('=');
+                    if (param && param[1]) {
+                        if (param[0] == "dbpath")
+                            $('#dbpath').val(param[1]);
+                        else if (param[0] == "code")
+                            $('#code').val(param[1]);
+                        else if (param[0] == "brdid")
+                            $('#brdid').val(param[1]);
+                        else if (param[0] == "filetype")
+                            filetype = param[1];
+                    }
+
+                }
+            }
+
+        }
+
+        /**
+        [usage]
+        var formData = $('#formId').serializeArray();
+        formData = changeSerialize(formData, '변경할inputName', '변경될inputValue'');
+        [function]
+        **/
+        function changeSerialize(values, k) {
+            var found = false;
+            for (i = 0; i < values.length && !found; i++) {
+                if (values[i].name == k) {
+                    values[i].value = Base64.encode(values[i].value);
+                    found = true;
+                    //alert(v);
+                }
+            }
+
+            if (!found) {
+                values.push(
+                    {
+                        name: k,
+                        value: v
+                    }
+                );
+            }
+            return values;
+        }
+
+        function OnSubmit(form) {
+
+            var formData = $(form).serializeArray();
+            //alert(form.subject.value);
+            var b64 = Base64.encode($("#summernote").val());
+            formData = changeSerialize(formData, 'comment', b64);
+            b64 = Base64.encode(form.subject.value);
+            formData = changeSerialize(formData, 'subject', b64);
+
+            $.ajax({
+                url: "post.board",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+                    var xmlDoc = $.parseXML(data);
+                    var err = $(xmlDoc).find('Msg').attr('error');
+                    if (err != "ok") {
+                        alert(err);
+                        return;
+                    }
+                    //location.href = "./da_main.html?code=" + code + "&dbpath=" + dbpath + "&brdid=" + brdid + "&";
+                    //top.location = location.reload(); //새로고침
+                    history.back();
+                },
+                complete: function (data) {
+                    // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+
+                },
+                error: function (xhr, status, error) {
+                    alert("에러발생");
+                },
+                cache: false,
+
+            });
+
+            // prevent default posting of form
+            event.preventDefault();
+        };
+
+        $.extend($.summernote.options, {
+            examplePlugin: {
+                icon: '<i class="note-icon-pencil"/>',
+                tooltip: 'Example Plugin Tooltip'
+            }
+        });
+
+        var HelloButton = function (context) {
+            var ui = $.summernote.ui;
+
+            // create button
+            var button = ui.button({
+                contents: '<i class="fa fa-envelope"></i> Hello',
+                tooltip: 'lang.examplePlugin.tooltip',
+                click: function () {
+                    alert($('.summernote').html());
+                    return;
+                    //var node = document.createElement('div');
+                    //node.appendChild(document.createTextNode("abc"));
+                    //var node = $('<div>');
+                    //node.text('abcdefghijk');
+                    //***
+                    var tinfo = {};
+                    tinfo.dragok = "ok";
+                    tinfo.boxtype = "box-default box-solid";
+                    tinfo.rendertype = "general";
+                    //tinfo.remove_btn = "ok";
+                    tinfo.collapse_btn = "ok";
+                    var node = createBox(tinfo);
+                    alert("node");
+                    ///***/
+                    $('.summernote').summernote('insertNode', node[0]);
+                    // invoke insertText method with 'hello' on editor module.
+                    context.invoke('editor.insertText', 'hello');
+
+                    $('.summernote').summernote('insertNode', $('<div>abchhhhhhhhhhhhhhhdefg</div>')[0]);
+                    //return;
+                }
+            });
+
+            return button.render();   // return button as jquery object
+        }
+
+        $(document).ready(function () {
+
+            /**
+            $('.summernote').summernote({
+                placeholder: 'write here...',
+                height: '500'
+            });
+            alert("summernote");
+            **/
+            //**
+            //alert("summernote");
+            $('.summernote').summernote({
+                toolbar: [
+                    ['mybutton', ['hello']],
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video', 'hr']],
+                    ['view', ['fullscreen', 'codeview']],
+                    ['help', ['help']]
+                ],
+                buttons: {
+                    hello: HelloButton
+                },
+                height: 300,
+                minHeight: null,
+                maxHeight: null,
+                focus: true,
+                callbacks: {
+                    onImageUpload: function (files, editor, welEditable) {
+                        for (var i = files.length - 1; i >= 0; i--) {
+                            sendFile(files[i], this);
+                        }
+                    }
+                }
+            });
+            //**/
+            //var obj = opener.initOpenWindowReturn();
+            //initHeadmenuSetDialog(obj);
+            //alert(obj.type);
+        });
+
+        function sendFile(file, el) {
+            var upurl = "upload.file?code=" + code + "&filetype=" + filetype + "&dbpath=" + dbpath + "&dbin=ok";
+            var form_data = new FormData();
+            form_data.append('file', file);
+            $.ajax({
+                data: form_data,
+                type: "POST",
+                url: upurl,
+                cache: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (data) {
+                    //alert(data);
+                    var xmlDoc = $.parseXML(data);
+                    //alert("data: " + data);
+                    var err = $(xmlDoc).find('Msg').attr('error');
+                    if (err != "ok") {
+                        alert(err);
+                        return;
+                    }
+                    var code = $(xmlDoc).find('Msg').attr('code');
+                    var filename = $(xmlDoc).find('Msg').attr('filename');
+
+                    var filetype = $(xmlDoc).find('Msg').attr('filetype');
+                    var dbuid = $(xmlDoc).find('Msg').attr('dbuid');
+                    var arr;
+                    if (dbuid)
+                        arr = dbuid.split(';');
+                    else
+                        arr = filename.split(';');
+                    var imgurl = "download.file?code=" + code + "&type=open&filetype=" + filetype + "&dbpath=" + dbpath + "&filename=" + arr[0] + "&dbuid=" + arr[0] + "&dbinok";
+                    $(el).summernote('editor.insertImage', imgurl);
+                    $('#imageBoard > ul').append('<li><img src="' + imgurl + '" width="480" height="auto"/></li>');
+                }
+            });
+        }
+
+        var newWindow;
+        var newWindowInfo = {};
+
+        function openNewWindow(target) {
+
+            newWindow = window.open(target, "OpenToolWindow", "height=800, width=600, scrollbars=yes, resizable=yes");
+            newWindow.focus();
+            //newWindow.receiveWindow('start');
+            //$('#' + target).empty();
+
+        }
+
+        function openModalWindow(target, width, height) {
+
+            //returnValue = window.showModalDialog(target, self, "dialogWidth=" + width + "px; dialogHeight:" + height + "px; center:yes, scrollbars=yes, resizable=yes");
+
+            if (window.showModalDialog) {
+
+                returnValue = window.showModalDialog(target, self, "dialogWidth=" + width + "px; dialogHeight:" + height + "px; center:yes, scrollbars=yes, resizable=yes");
+            } else {
+
+                returnValue = window.open(target, self, "dialogWidth=" + width + "px; dialogHeight:" + height + ",toolbar=no,directories=no,status=no, linemenubar=no,scrollbars=no,resizable=no ,modal=yes");
+            }
+        }
+
+        function initOpenWindowReturn() {
+
+            return newWindowInfo;
+        }
+
+        function receiveOpenWindowResult(v) {
+            alert(v);
+            var info = {};
+            info.type = '정말 레시브';
+            return info;
+        }
+
+    </script>
+</head>
+<body class="skin-blue center-block">
+    <da w3-include-html="/app/htmlmodule/menu.html"></da> 
+
+    <!-- Main View-->
+    <div class="row center-block" style="height:100%">
+        <div class="col-xs-12 col-md-4">
+            <da w3-include-html="/app/htmlmodule/dbpage.html?12" nohtml=""></da> 
+        </div>
+        <div class="col-xs-12 col-md-8 center-block" style="height:100%">
+            <!-- quick email widget -->
+            <div class="card" style="height:100%">
+                <div class="card-header">
+                    
+
+                    <h3 class="card-title"><i class="fa fa-envelope"></i>Quick Email</h3>
+                    
+                </div>
+                <div class="card-body">
+                    <form id="wordForm" action="#" method="post" onsubmit="return OnSubmit(this)">
+                        <input type="hidden" name="code" id="code" value="board" />
+                        <input type="hidden" name="dbpath" id="dbpath" value="daboard.edb" />
+                        <input type="hidden" name="brdid" id="brdid" value="1" />
+                        <input type="hidden" name="posttype" id="posttype" value="post" />
+                        <input type="hidden" name="type" id="type" value="groupadd" /><!-- brdadd, groupupdate, brdupdate, groupdel, brddel-->
+
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="emailto" placeholder="Email to:" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" class="col-sm-2 control-label">제목:</label>
+                            <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div style="height:100%">
+                            <textarea type="text" class="summernote" name="comment" style="height:100%" required>
+                            
+                        </textarea>
+                        </div>
+
+                        <div class="form-group has-info">
+                            <label for="subject" class="col-sm-2 control-label"></label>
+                            <div class="col-sm-7">
+                                <button type="reset" class="btn">리셋</button>
+                                <button type="submit" class="btn">전송</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <da w3-include-html="../htmlmodule/footer.html"></da> 
+</body>

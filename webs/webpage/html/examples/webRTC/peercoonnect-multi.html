@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<!--
+ *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree.
+-->
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="description" content="WebRTC code samples">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Client-side WebRTC code samples">
+    <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
+    <meta itemprop="name" content="WebRTC code samples">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
+
+    <base target="_blank">
+
+    <title>Multiple peer connections</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-sm-4">
+            <da w3-include-html="/app/" type="chatboard" server_url="ws://127.0.0.1:8181/chat" rendertype="" nohtml=""></da>
+        </div>
+        <div id="container" class="col-sm-8">
+
+            <h1>
+                <a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">WebRTC samples</a> <span>Multiple peer connections</span>
+            </h1>
+
+            <video id="video1" controls playsinline autoplay muted></video>
+            <video id="video2" playsinline autoplay></video>
+            <video id="video3" playsinline autoplay></video>
+
+            <div>
+                <button id="startButton">Start</button>
+                <button id="callButton">Call</button>
+                <button id="hangupButton">Hang Up</button>
+            </div>
+
+            <p>View the console to see logging and to inspect the <code>MediaStream</code> object <code>localStream</code>.</p>
+
+            <p>
+                For more information about RTCPeerConnection, see <a href="http://www.html5rocks.com/en/tutorials/webrtc/basics/"
+                                                                     title="HTML5 Rocks article about WebRTC by Sam Dutton">
+                    Getting
+                    Started With WebRTC
+                </a>.
+            </p>
+
+
+            <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/peerconnection/multiple"
+               title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
+
+        </div>
+    </div>
+    
+
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+    <script type="text/javascript">
+
+        var signalingChannel1;
+        var signalingChannel2;
+        // Signaling Channel (PubNub, Firebase, Socket.io, etc.)
+        function SignalingChannel(localConnection, remoteConnection, socket) {
+            // Setup the signaling channel here
+            this.socket = socket;
+            this.localConnection = localConnection;
+            this.remoteConnection = remoteConnection;
+        }
+
+        SignalingChannel.prototype.send = function (message) {
+            alert(this.socket);
+            // Send messages using your favorite real-time network
+            this.socket.send(message);
+        };
+
+        SignalingChannel.prototype.onoffer = function (message) {
+            var index = message.IndexOf(":");
+            var id = message.substring(0, index - 1);
+            var sdp = message.substring(index + 1);
+            // If we get a sdp we have to sign and return it
+            if (message.sdp != null) {
+                var that = this;
+
+                this.remoteConnectionn.setRemoteDescription(sdp);
+                // Since the 'remote' side has no media stream we need
+                // to pass in the right constraints in order for it to
+                // accept the incoming offer of audio and video.
+                this.remoteConnectionn.createAnswer().then(function (answer) {
+                    that.remoteConnection.setLocalDescription(answer.sdp);
+                    
+                    var msg = "$" + peerid + ":" + answer.sdp;
+                    signalingChannel.send(msg);
+
+                }, function (answer) {
+
+                });
+                
+            } else {
+                this.remoteConnection.addIceCandidate(new RTCIceCandidate(message.candidate));
+            }
+        };
+
+        SignalingChannel.prototype.onanswer = function (message) {
+            var index = message.IndexOf(":");
+            var id = message.substring(0, index - 1);
+            var sdp = message.substring(index + 1);
+            // If we get a sdp we have to sign and return it
+            if (message.sdp != null) {
+                var that = this;
+
+                this.remoteConnectionn.setRemoteDescription(sdp);
+                // Since the 'remote' side has no media stream we need
+                // to pass in the right constraints in order for it to
+                // accept the incoming offer of audio and video.
+                this.remoteConnectionn.createAnswer().then(function (answer) {
+                    that.remoteConnection.setLocalDescription(answer.sdp);
+
+                    var msg = "$" + peerid + ":" + answer.sdp;
+                    signalingChannel.send(msg);
+
+                }, function (answer) {
+
+                });
+
+            } else {
+                this.remoteConnection.addIceCandidate(new RTCIceCandidate(message.candidate));
+            }
+        };
+        
+        /*
+         *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+         *
+         *  Use of this source code is governed by a BSD-style license
+         *  that can be found in the LICENSE file in the root of the source
+         *  tree.
+         */
+
+        const startButton = document.getElementById('startButton');
+        const callButton = document.getElementById('callButton');
+        const hangupButton = document.getElementById('hangupButton');
+        callButton.disabled = true;
+        hangupButton.disabled = true;
+        startButton.onclick = start;
+        callButton.onclick = call;
+        hangupButton.onclick = hangup;
+
+        const video1 = document.querySelector('video#video1');
+        const video2 = document.querySelector('video#video2');
+        const video3 = document.querySelector('video#video3');
+
+        let pc1Local;
+        let pc1Remote;
+        let pc2Local;
+        let pc2Remote;
+        const offerOptions = {
+            offerToReceiveAudio: 1,
+            offerToReceiveVideo: 1
+        };
+
+        function gotStream(stream) {
+            console.log('Received local stream');
+            video1.srcObject = stream;
+            window.localStream = stream;
+            callButton.disabled = false;
+        }
+
+        function start() {
+            console.log('Requesting local stream');
+            startButton.disabled = true;
+            navigator.mediaDevices
+                .getUserMedia({
+                    audio: true,
+                    video: true
+                })
+                .then(gotStream)
+                .catch(e => console.log('getUserMedia() error: ', e));
+        }
+
+        function call() {
+            callButton.disabled = true;
+            hangupButton.disabled = false;
+            console.log('Starting calls');
+            const audioTracks = window.localStream.getAudioTracks();
+            const videoTracks = window.localStream.getVideoTracks();
+            if (audioTracks.length > 0) {
+                console.log(`Using audio device: ${audioTracks[0].label}`);
+            }
+            if (videoTracks.length > 0) {
+                console.log(`Using video device: ${videoTracks[0].label}`);
+            }
+            // Create an RTCPeerConnection via the polyfill.
+            const servers = {
+                iceServers: [
+                    { 'url': (IS_CHROME ? 'stun:stun.l.google.com:19302' : 'stun:ws://127.0.0.1:8181/chat') }
+                ]
+            };
+            pc1Local = new RTCPeerConnection(servers);
+            pc1Remote = new RTCPeerConnection(servers);
+            pc1Remote.ontrack = gotRemoteStream1;
+            pc1Local.onicecandidate = iceCallback1Local;
+            pc1Remote.onicecandidate = iceCallback1Remote;
+
+            signalingChannel1 = new SignalingChannel(pc1Local, pc1Remote, socket);
+            console.log('pc1: created local and remote peer connection objects');
+            
+            window.localStream.getTracks().forEach(track => pc1Local.addTrack(track, window.localStream));
+            console.log('Adding local stream to pc1Local');
+            pc1Local
+                .createOffer(offerOptions).then(function (offer) {
+                        pc1Local.setLocalDescription(offer);
+
+                        var msg = "#" + peerid + ":" + offer.sdp;
+                        signalingChannel.send(msg);
+
+                    }, function (offer) {
+                        pc1Remote.setLocalDescription(offer);
+                        console.log(`Answer from pc1Remote\n${offer.sdp}`);
+                        pc1Local.setRemoteDescription(offer);
+                    });
+            
+        }
+        
+        function call2() {
+            callButton.disabled = true;
+            hangupButton.disabled = false;
+            console.log('Starting calls');
+            const audioTracks = window.localStream.getAudioTracks();
+            const videoTracks = window.localStream.getVideoTracks();
+            if (audioTracks.length > 0) {
+                console.log(`Using audio device: ${audioTracks[0].label}`);
+            }
+            if (videoTracks.length > 0) {
+                console.log(`Using video device: ${videoTracks[0].label}`);
+            }
+            // Create an RTCPeerConnection via the polyfill.
+            const servers = {
+                iceServers: [
+                    { 'url': (IS_CHROME ? 'stun:stun.l.google.com:19302' : 'stun:ws://127.0.0.1:8181/chat') }
+                ]
+            };
+            
+            pc2Local = new RTCPeerConnection(servers);
+            pc2Remote = new RTCPeerConnection(servers);
+            pc2Remote.ontrack = gotRemoteStream2;
+            pc2Local.onicecandidate = iceCallback2Local;
+            pc2Remote.onicecandidate = iceCallback2Remote;
+            signalingChannel2 = new SignalingChannel(pc2Local, pc2Remote, socket);
+            console.log('pc2: created local and remote peer connection objects');
+            
+            window.localStream.getTracks().forEach(track => pc2Local.addTrack(track, window.localStream));
+            console.log('Adding local stream to pc2Local');
+            pc2Local.createOffer(offerOptions)
+                .then(gotDescription2Local, onCreateSessionDescriptionError);
+        }
+
+        function onCreateSessionDescriptionError(error) {
+            console.log(`Failed to create session description: ${error.toString()}`);
+        }
+
+        function gotDescription2Local(desc) {
+            pc2Local.setLocalDescription(desc);
+            console.log(`Offer from pc2Local\n${desc.sdp}`);
+            pc2Remote.setRemoteDescription(desc);
+            // Since the 'remote' side has no media stream we need
+            // to pass in the right constraints in order for it to
+            // accept the incoming offer of audio and video.
+            pc2Remote.createAnswer().then(gotDescription2Remote, onCreateSessionDescriptionError);
+        }
+
+        function gotDescription2Remote(desc) {
+            pc2Remote.setLocalDescription(desc);
+            console.log(`Answer from pc2Remote\n${desc.sdp}`);
+            pc2Local.setRemoteDescription(desc);
+        }
+
+        function hangup() {
+            console.log('Ending calls');
+            pc1Local.close();
+            pc1Remote.close();
+            pc2Local.close();
+            pc2Remote.close();
+            pc1Local = pc1Remote = null;
+            pc2Local = pc2Remote = null;
+            hangupButton.disabled = true;
+            callButton.disabled = false;
+        }
+
+        function gotRemoteStream1(e) {
+            if (video2.srcObject !== e.streams[0]) {
+                video2.srcObject = e.streams[0];
+                console.log('pc1: received remote stream');
+            }
+        }
+
+        function gotRemoteStream2(e) {
+            if (video3.srcObject !== e.streams[0]) {
+                video3.srcObject = e.streams[0];
+                console.log('pc2: received remote stream');
+            }
+        }
+
+        function iceCallback1Local(event) {
+            handleCandidate(event.candidate, pc1Remote, 'pc1: ', 'local');
+        }
+
+        function iceCallback1Remote(event) {
+            handleCandidate(event.candidate, pc1Local, 'pc1: ', 'remote');
+        }
+
+        function iceCallback2Local(event) {
+            handleCandidate(event.candidate, pc2Remote, 'pc2: ', 'local');
+        }
+
+        function iceCallback2Remote(event) {
+            handleCandidate(event.candidate, pc2Local, 'pc2: ', 'remote');
+        }
+
+        function handleCandidate(candidate, dest, prefix, type) {
+            dest.addIceCandidate(candidate)
+                .then(onAddIceCandidateSuccess, onAddIceCandidateError);
+            console.log(`${prefix}New ${type} ICE candidate: ${candidate ? candidate.candidate : '(null)'}`);
+        }
+
+        function onAddIceCandidateSuccess() {
+            console.log('AddIceCandidate success.');
+        }
+
+        function onAddIceCandidateError(error) {
+            console.log(`Failed to add ICE candidate: ${error.toString()}`);
+        }
+
+        $(document).ready(function () {
+            includeHTML(null);
+
+        });
+
+    </script>
+</body>
+</html>

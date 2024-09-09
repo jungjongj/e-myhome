@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html style="height:100%">
+<head>
+    <meta charset="UTF-8">
+    <title>홈페이지 만들기</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?134"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?9123"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script src="/aMvc/lib/Fabric/Fabric.4.6.0/js/fabric.min.js"></script>
+    <script src="/aMvc/lib/js/da-paint-controller.js?17"></script>
+    <script type="text/javascript" src="/aMvc/lib/js/timeline.js?13"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //var elem = document.createElement('div');
+            var elem = document.getElementById('fab1');
+            var fb = new FabricLoader({ type: 'filefab', path: '/html/module/bbb.fab', width: 353, height: 353 });
+            fb.renderController(elem);
+            //document.body.appendChild(elem);
+
+            var elem2 = document.getElementById('fab2');
+            var fb2 = new FabricLoader({ type:'dbfab', path: `/mankeyvalue.adm?dbpath=config.dadb&kcode=_fab&kname=atest&type=keyvalue&utf8=ok&`, width: 533, height: 533 });
+            fb2.renderController(elem2);
+        });
+
+    </script>
+
+</head>
+<body class="body">
+    <div id="fab2"></div>
+    <div>ddddddddddddddddddddddddddddd</div>
+    <div id="fab1"></div>
+
+    <div class="form-group" style="overflow: auto; width: 200px; height: 300px;">
+        <da include="/scale222.fab" type="fab" width="600" height="700"></da>
+
+    </div>
+    <da include="/ㅁㅁㅁ.daweb" type="fileweb" width="200" height="200"></da>
+    <da include="/html/module/bbb.fab" type="fab" width="200" height="200"></da>
+    <da include="/html/module/ccc.fab" type="fab" width="600" height="700"></da>
+    <da include="/html/module/ccc.fab" type="fab" width="600" height="700"></da>
+    <da include="/html/module/ccc.fab" type="fab" width="600" height="700"></da>
+    <div class="form-group">
+        <da include="/html/module/bbb.fab" type="fab" width="600" height="700"></da>
+
+    </div>
+</body>
+
+</html>

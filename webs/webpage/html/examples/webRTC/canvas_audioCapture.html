@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script type="text/javascript">
+
+
+        window.onload = function () {
+            //includeCanvas('');
+        };
+    </script>
+</head>
+
+<body onload="start();">
+    <canvas id="canvas" width="555" height="333" autoplay controls></canvas>
+    <video id="video" autoplay controls></video>
+    <button id="start-record">녹화시작</button>
+    <button id="stop-record" disabled>녹화끝</button>
+    <button id="pause-record" disabled>일시중지</button>
+
+    <script>
+
+        function pauseRecording() {
+            mediaRecorder.pause();
+        }
+
+        function resumeRecording() {
+            mediaRecorder.resume();
+        }
+
+        let mediaRecorder;
+        const canvas = document.querySelector('canvas');
+        const ctx = this.canvas.getContext("2d");
+        ctx.lineCap = "round";
+        const stream = canvas.captureStream(); // frames per second
+        // Handle record start event
+        document.querySelector('#start-record').onclick = e => {
+
+            // Get mic(audio) stream
+            navigator.mediaDevices
+                .getUserMedia({ audio: true })
+                .then(micStream => {
+                    // Get mic(audio) track if it is existed
+                    const micTrack = micStream.getTracks() && micStream.getTracks()[0]
+
+                    // Add mic track to screen stream
+                    stream.addTrack(micTrack)
+
+                    const options = {
+                        mimeType: 'video/webm'
+                    }
+                    mediaRecorder = new MediaRecorder(stream, options)
+
+                    let chunks = []
+                    mediaRecorder.ondataavailable = e => {
+                        chunks.push(e.data)
+                    }
+
+                    mediaRecorder.onstop = e => {
+                        const blob = new Blob(chunks, { type: 'video/webm' });
+                        const videoEl = document.querySelector('#video');
+
+                        videoEl.src = URL.createObjectURL(blob);
+
+                        download(blob);
+
+                        chunks = []
+                    }
+
+                    mediaRecorder.start(0.2 * 1000)
+                })
+                .catch(err => console.log(err));
+
+            document.querySelector('#start-record').disabled = true;
+            document.querySelector('#stop-record').disabled = false;
+            document.querySelector('#pause-record').disabled = false;
+        }
+
+        // Handle stop record event
+        document.querySelector('#stop-record').onclick = e => {
+            mediaRecorder.stop();
+            document.querySelector('#start-record').disabled = false;
+            document.querySelector('#stop-record').disabled = true;
+            document.querySelector('#pause-record').disabled = true;
+        }
+
+        /////////////////////////////////////////////////////////////
+        function pauseRecording() {
+            mediaRecorder.pause();
+        }
+
+        function resumeRecording() {
+            mediaRecorder.resume();
+        }
+
+        // Handle pause record event
+        document.querySelector('#pause-record').onclick = e => {
+
+            console.log(`e.target=${e.target}`);
+            if (e.target.textContent === '일시중지') {
+                pauseRecording();
+                e.target.textContent = '다시시작';
+            } else {
+                resumeRecording();
+                e.target.textContent = '일시중지';
+            }
+
+        }
+
+        function download(blob) {
+            //const blob = new Blob(recordedBlobs, {type: 'video/webm' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'test.webm';
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 100);
+        }
+
+        function start() {
+
+            canvas.addEventListener("mousedown", listener);
+            canvas.addEventListener("mousemove", listener);
+            canvas.addEventListener("mouseup", listener);
+            canvas.addEventListener("mouseout", listener);
+
+            canvas.addEventListener("touchstart", listener);
+            canvas.addEventListener("touchmove", listener);
+            canvas.addEventListener("touchend", listener);
+            canvas.addEventListener("touchcancel", listener);
+
+        };
+
+        var pos = {
+            drawable: false,
+            del: 0,
+            x: -1,
+            y: -1
+        };
+        var drawBackup = new Array();
+
+        function listener(event) {
+
+            switch (event.type) {
+                case "mousedown":
+                case "touchstart":
+                    initDraw(event);
+                    break;
+
+                case "mousemove":
+                case "touchmove":
+                    if (pos.drawable) {
+                        draw(event);
+                    }
+                    break;
+
+                case "mouseout":
+                case "mouseup":
+                case "touchend":
+                case "touchcancel":
+                    finishDraw();
+                    break;
+            }
+        }
+
+        // 그리기 시작
+        function initDraw(event) {
+            saveCanvas();
+            event.preventDefault();
+            ctx.beginPath();
+            pos.drawable = true;
+            var coors = getPosition(event);
+            pos.x = coors.X;
+            pos.y = coors.Y;
+            ctx.moveTo(pos.X, pos.Y);
+        }
+
+        // 그리기 & 지우기 (펜과 지우개 선택에 따라 달라짐)
+        function draw(event) {
+            event.preventDefault();
+            var coors = getPosition(event);
+
+            // 그리기
+            if (pos.del == 0) {
+                ctx.lineTo(coors.X, coors.Y);
+
+                // 지우기
+            } else if (pos.del == 1) {
+                var lineWidth = (ctx.lineWidth + 5);
+                ctx.clearRect(coors.X - (lineWidth / 2), coors.Y - (lineWidth / 2), lineWidth, lineWidth);
+            }
+
+            pos.x = coors.X;
+            pos.y = coors.Y;
+            ctx.stroke();
+        }
+
+        // 그리기 종료
+        function finishDraw() {
+            pos.drawable = false;
+            pos.x = -1;
+            pos.y = -1;
+        }
+
+        // 마우스,터치 위치 반환
+        function getPosition(event) {
+            var x = -1;
+            var y = -1;
+            if (event.type.startsWith("touch")) { // IE는 startsWith 미지원이므로 따로 정의필요
+                x = event.touches[0].pageX;
+                y = event.touches[0].pageY;
+            } else {
+                x = event.pageX;
+                y = event.pageY;
+            }
+            return { X: (x - $(canvas).offset().left), Y: (y - $(canvas).offset().top) };
+        }
+
+        // 현재 상태 저장
+        function saveCanvas() {
+            drawBackup.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+        }
+
+        // 펜 선택
+        function pen(event, thisObj) {
+            event.preventDefault();
+            pos.del = 0;
+        }
+
+        // 지우개 선택
+        function del(event, thisObj) {
+            event.preventDefault();
+            pos.del = 1;
+        }
+
+        // 되돌리기
+        function prevCanvas(event) {
+            event.preventDefault();
+            if (drawBackup.length > 0) {
+                ctx.putImageData(drawBackup.pop(), 0, 0);
+            }
+        }
+
+        // 모두 지우기
+        function clearCanvas(event) {
+            event.preventDefault();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+        }
+
+        // 두께 설정
+        function setCavasWidth(event, thisObj, width) {
+            event.preventDefault();
+            ctx.lineWidth = width;
+        }
+
+        // 색깔 설정
+        function setCavasColor(event, thisObj) {
+            event.preventDefault();
+            ctx.strokeStyle = $(thisObj).children("i").css("color");
+        }
+    </script>
+
+    <div class="canvas-panel">
+        <ul class="canvas-eraser">
+            <li><a href="#" class="selected" onclick="pen(event, this)"><i class="fas fa-pencil-alt"></i></a></li>
+            <li><a href="#" onclick="del(event, this)"><i class="fas fa-eraser"></i></a></li>
+            <li><a href="#" onclick="prevCanvas(event)"><i class="fas fa-undo-alt"></i></a></li>
+            <li><a href="#" onclick="clearCanvas(event)"><i class="fas fa-trash"></i></a></li>
+        </ul>
+        <ul class="canvas-width">
+            <li><a href="#" class="selected" onclick="setCavasWidth(event,this,1)"><span></span></a></li>
+            <li><a href="#" onclick="setCavasWidth(event,this,5)"><span></span></a></li>
+            <li><a href="#" onclick="setCavasWidth(event,this,10)"><span></span></a></li>
+            <li><a href="#" onclick="setCavasWidth(event,this,30)"><span></span></a></li>
+        </ul>
+        <a href="#" class="canvas-hide-btn" onclick="hideCanvas(event)"><i class="fas fa-times"></i></a>
+        <ul class="canvas-color">
+            <li><a href="#" class="selected" onclick="setCavasColor(event,this)"><i class="fas fa-palette"></i></a></li>
+            <li><a href="#" onclick="setCavasColor(event,this)"><i class="fas fa-palette"></i></a></li>
+            <li><a href="#" onclick="setCavasColor(event,this)"><i class="fas fa-palette"></i></a></li>
+            <li><a href="#" onclick="setCavasColor(event,this)"><i class="fas fa-palette"></i></a></li>
+            <li><a href="#" onclick="setCavasColor(event,this)"><i class="fas fa-palette"></i></a></li>
+            <li><a href="#" onclick="setCavasColor(event,this)"><i class="fas fa-palette"></i></a></li>
+            <li><a href="#" onclick="setCavasColor(event,this)"><i class="fas fa-palette"></i></a></li>
+            <li><a href="#" onclick="setCavasColor(event,this)"><i class="fas fa-palette"></i></a></li>
+            <li><a href="#" onclick="setCavasColor(event,this)"><i class="fas fa-palette"></i></a></li>
+        </ul>
+    </div>
+
+</body>
+</html>

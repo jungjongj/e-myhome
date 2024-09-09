@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/aMvc/lib/jquery/jquery-ui.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=12">
+    <link rel="stylesheet" href="/aMvc/lib/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="/aMvc/lib/orgchart/dist/css/jquery.orgchart.min.css" type="text/css">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?356"></script>
+
+    <script src="/aMvc/base/dbFileAjaxBase.js?456"></script>
+    <script src="/aMvc/base/boardAjaxBase.js?45"></script>
+    <script src="/aMvc/base/viewLibBase.js?3"></script>
+    <script src="/aMvc/base/templateBase.js?1"></script>
+
+    <script src="/aMvc/lib/jsencrypt/jsencrypt.min.js"></script>
+
+    <script type="text/javascript">
+
+        var _publicXmlkey = null;
+
+        function isMobileDevice() {
+            var user = navigator.userAgent;
+            var is_mobile = false;
+            if (user.indexOf("Android_Mobile_Moduda") > -1) {
+                is_mobile = true;
+            }
+            return is_mobile;
+        }
+
+        function sendToWebview2(msg) {
+            //var textboxvalue = document.getElementById('text1').value;
+            //window.external.CallForm(msg, msg2);
+            if (isMobileDevice()) {
+                console.log('is mobile');
+                var str = Android.AndroidAppCall(msg);
+
+            } else {
+                console.log('is windows msg=', msg);
+                window.chrome.webview.postMessage(msg);
+            }
+
+            //$("#cmdresult").val('');
+        }
+
+        function ReceiveFromWebview2(msg) {
+            console.log(msg);
+            msg = msg.trim();
+            if (isMobileDevice()) {
+                //msg = decodeURIComponent(msg);
+            }
+            try {
+                var subtype, sendip, revip, msg2;
+                var arr = msg.split(';');
+                var arr2 = arr[0].split(':');
+                if (arr2 && arr2[0] == 'private') {
+                    _myuuid = arr2[1];
+                    _myname = arr2[2];
+
+                    fetch('/rsa.adm?type=pubkey')
+                        .then((response) => response.text())
+                        .then(data => {
+                            var xmlDoc = $.parseXML(data);
+                            $(xmlDoc).find('Records').each(function (index) {
+
+                                _publicModulus = $(this).find('publicModulus').text();
+                                _publicExponent = $(this).find('publicExponent').text();
+                                _publicXmlkey = $(this).find('publicXmlkey').text();
+
+                                var crypt = new JSEncrypt();
+                                crypt.setPublicKey('-----BEGIN PUBLIC KEY-----\n' + _publicXmlkey + '\n-----END PUBLIC KEY-----');
+                                //var encodedParam = encodeURIComponent(_myuuid);
+                                var myuuid = crypt.encrypt(_myuuid);
+                                myuuid = myuuid.replace('+', '-').replace('/', '_');//암호화된
+                                if (myuuid.charAt(myuuid.length - 1) === "=") {
+                                    myuuid = myuuid.slice(0, -1);
+                                }
+                                var myname = _myname;
+
+                                var url = '/adminautologin.adm?myuuid=' + myuuid + '&myname=' + myname + '&utf8=ok';
+                                console.log(url);
+                                fetch(url)
+                                    .then((response) => response.text())
+                                    .then(data => {
+                                        var xmlDoc = $.parseXML(data);
+                                        $(xmlDoc).find('Records').each(function (index) {
+                                            location.href = '/';
+                                            //console.log(_publicXmlkey);
+                                        });
+                                    })// 에러처리
+                                    .catch((e) => {
+                                        alert('autologin 에러= ' + e);
+                                    });
+                            })// 에러처리
+                        }).catch((e) => {
+                            alert('rsa 에러 = ' + e);
+                                });
+                       
+                }
+            } catch (e) {
+                alert(e);
+            }
+        }
+
+        var crypt = null;
+        $(document).ready(function () {
+
+            sendToWebview2('private');
+
+        });
+
+    </script>
+
+</head>
+<body>
+    <da include="/html/module/navbarAdmin.html"></da>
+
+    <div class="card">
+        <div class="card-header text-white bg-dark custom-card-header">
+            LOGIN
+        </div>
+        <div class="card-body collapse row p-1" id="collapseQrcode">
+
+        </div>
+
+    </div>
+
+    <da include="/html/module/footer.html?"></da>
+</body>
+</html>

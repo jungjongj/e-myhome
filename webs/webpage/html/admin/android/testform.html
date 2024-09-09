@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Registration Page</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script language="JavaScript">
+
+        window.onload = function () {
+            $(document).on("change", "#file", function (e) {
+                console.log('files.length=');
+                //file.onchange = function (e) {
+                e.preventDefault();
+                //console.log(`$(this=`, this, 'self=', self);
+                var files = e.target.files;
+                console.log('files.length=', files.length);
+                for (var i = files.length - 1; i >= 0; i--) {
+                    self.sendFile(files[i], self);
+                }
+            });
+            $("#file").trigger("change");
+            //***
+            var blob = new Blob(['<div>Hello Blob!</div>'], {
+                type: 'text/html',
+                endings: 'native'
+            });
+            document.getElementById('id').value = 'test';
+            const fileInput = document.getElementById('file');
+            var file = new File(['blob'], "fileName.txt", { type: blob.type });
+            console.log('file.length=', file.size);
+            var dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
+            //**/
+        }
+
+    </script>
+
+</head>
+  <body  >
+
+    <div class="register-box">
+      
+      <div class="register-box-body">
+        <p class="login-box-msg">Register a new membership</p>
+        <form action="/regist.member" method="post" enctype="multipart/form-data">
+            <input type="text" name="id" id="id" class="form-control" placeholder="ID">
+            <input type="file" id="file" name="file" class="form-control">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+        </form>
+
+      </div><!-- /.form-box -->
+    </div><!-- /.register-box -->
+
+  </body>
+</html>

@@ -1,0 +1,810 @@
+﻿<!doctype html>
+<head>
+    <title>Html 텍스트편집기</title>
+    <meta charset="utf-8" />
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/codemirror-5.65.0/codemirror.css">
+    <link rel="stylesheet" href="/aMvc/lib/codemirror-5.65.0/hint/show-hint.css">
+    <link rel="stylesheet" href="/aMvc/lib/codemirror-5.65.0/lint/lint.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=2">
+    <link rel="stylesheet" href="/aMvc/lib/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="/aMvc/lib/orgchart/dist/css/jquery.orgchart.min.css" type="text/css">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+    <script src="/aMvc/lib/codemirror-5.65.0/codemirror.js"></script>
+    <script src="/aMvc/lib/codemirror-5.65.0/python-hint.js"></script>
+    <script src="/aMvc/lib/codemirror-5.65.0/python.js"></script>
+    <script src="/aMvc/lib/codemirror-5.65.0/selection-pointer.js"></script>
+    <script src="/aMvc/lib/codemirror-5.65.0/css.js"></script>
+    <script src="/aMvc/lib/codemirror-5.65.0/xml.js"></script>
+    <script src="/aMvc/lib/codemirror-5.65.0/vbscript.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?123"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?1"></script>
+    <script src="/aMvc/base/viewLibBase.js?56"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script src="/aMvc/lib/Fabric/Fabric.4.6.0/js/fabric.min.js"></script>
+    <script src="/aMvc/lib/js/da-paint-controller.js?798"></script>
+    <script type="text/javascript" src="/aMvc/lib/zTree_v3-master/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/orgchart/dist/js/jquery.orgchart.js"></script>
+
+    <script type="text/javascript">
+
+        var dbpath = "config.edb";
+        var code = "board";
+        var _selectedCodemirrorCursor = null;
+        var _editor, _editorResult;
+
+        function sendToWebview2(msg) {
+            //var textboxvalue = document.getElementById('text1').value;
+            //window.external.CallForm(msg, msg2);
+            //alert(msg);
+            window.chrome.webview.postMessage(msg);
+            //$("#cmdresult").val('');
+        }
+        function ReceiveFromWebview2(msg) {
+            alert('msg');
+            alert(msg);
+            var msg, ip, port;
+            var arg = Array.prototype.slice.call(arguments);
+
+            if (arg && arg.length == 1) {
+                alert(arg[0]);
+                msg = arg[0];
+                msg += ' \n';
+                var msg2 = $("#codemirrorPython").val();
+                msg2 = msg2 + msg;
+                $("#codemirrorPython").val(msg2);
+                
+            } else if (arg && arg.length == 2) {
+                if (arg && arg[1]) {
+                    msg = arg[0];
+                    ip = arg[1];
+                    var jsonmsg = JSON.parse(msg);
+
+                    const textarea = document.getElementById('netresult');
+
+                    textarea.value += 'type:' + jsonmsg.type + + '\n';
+                    textarea.value += 'subtype:' + jsonmsg.subtype + '\n';
+                    textarea.value += 'peerip:' + jsonmsg.peerip + '\n';
+                    textarea.value += 'peerport:' + jsonmsg.peerport + '\n';
+                    textarea.value += 'msg:' + jsonmsg.msg + '\n';
+
+                    //ReceiveUdpProcess(jsonmsg, ip);
+                }
+            }
+        }
+
+        function eventHandler(e) {
+            e.stopPropagation();
+            var info = e.data.info;
+            //var arg = e.data.arg;
+            var self = e.data.self;
+            var type = e.data.type;
+            var boxnum = e.data.boxnum;
+
+            //console.log(`eventhandle type + 'set'= ${type + 'set'}`);
+            if (type == 'dbselect') {
+                var elem = document.createElement('div');
+                var cls = new DbFileAjaxBase({ type: 'filelist', filetype: 'db', path: '', rendertype: 'ta', returntype: 'return', $parent: self });
+                cls.fileList('', elem);
+                //$('#dbsetModal').modal('show');
+                __modal.show('디비셋팅', elem);
+                //console.log('$(elem).html()==' + $(elem).html());
+            } else if (type == 'returncodemodule') {
+                var form = document.getElementById(e.data.formid);
+                insertCodeMirrorData(form.comment.value);
+                __modal.hide();
+            }
+        }
+
+        function LoadData(data, arg) {
+            var self = this;
+            //console.log('LoadData data=', data);
+            _editor.getDoc().setValue(data);
+            if (arg.type == 'dbopen')
+                $('#alertfile').text('db: ' + arg.dbpath + ' ' + arg.kcode + ' ' + arg.kname);
+            else
+                $('#alertfile').text('file: ' + arg.filepath + ' ' + arg.filename);
+        }
+
+        function getReturnValue() {
+            var type, value;
+            var arg = Array.prototype.slice.call(arguments);
+            if (arg && arg[0])
+                type = arg[0];
+            else
+                return;
+            if (arg && arg[1])
+                value = arg[1];
+            //console.log(`getReturnValue ()arg==${arg}`);
+            //_tempCount++;
+            var info = {};
+            if (type == 'dbset') {
+                this._dbpath = arg[1];
+                this._code = arg[2];
+                __modal.hide();
+                $('#select-db-btn').text(self._dbpath + "(" + self._code + ")");
+
+            } else if (type == 'tablename') {
+                _code = value;
+                document.getElementById('tableInput').value = _code;
+            } else if (type == 'grouplist' || type == 'boardlist') {
+                var dbpath = arg[1];
+                var code = arg[2];
+                var brdid = '', groupid = '';
+                if (type == 'grouplist')
+                    groupid = arg[3];
+                else
+                    brdid = arg[3];
+                var rendertype = arg[4];
+
+                var tag = `<da include="boardlist.board" type="${type}" dbpath="${dbpath}" code="${code}" title="강좌" groupid="${groupid}" brdid="${brdid}" renderview="BoardView" rendertype="${rendertype}"> </da>`;
+                insertCodeMirrorData(tag);
+                __modal.hide();
+                //__fullscreenView.fullscreen('fullscreenwin');
+            } else if (type == 'poll') {
+                var dbpath = arg[1];
+                var uid = arg[2];
+                var fid = arg[3];
+                var rendertype = arg[4];
+
+                console.log(`getReturnValue uid==${uid}`); console.log(`getReturnValue () fid==${fid}`);
+                var tag = `<da include="pollview.poll" type="pollview" dbpath="${dbpath}" code="${code}" title="강좌" uid="${uid}" fid="${fid}" renderview="PollView" rendertype="${rendertype}"> </da>`;
+                insertCodeMirrorData(tag);
+                __modal.hide();
+                //__fullscreenView.fullscreen('fullscreenwin');
+            } else if (type == 'keyvalue') {
+                var dbpath = arg[1];
+                var kcode = arg[2];
+                var kname = arg[3];
+                var rendertype = arg[4];
+                var renderview = '';
+                console.log(`getReturnValue dbpath==${dbpath}`);
+                console.log(`getReturnValue () kcode==${kcode}`);
+                if (kcode == '_fab') {
+                    if (!self._dbpath)
+                        return alert('디비를 선택해야됩니다');
+                    var tag = `<da include="erp" type="erplist" dbpath="${self._dbpath}" code="employee" renderview="EmployeeView"> </da>`;
+                    insertCodeMirrorData(tag);
+                    __modal.hide();
+                    return;
+                }
+
+                if (kcode == '_list') {
+                    renderview = 'ListTreeView';
+                } else if (kcode == '_ztree') {
+                    renderview = 'ZTreeView';
+                } else if (kcode == '_topmenu') {
+                    renderview = 'TopMenuView';
+                } else if (kcode == '_sidemenu') {
+                    renderview = 'SideMenuView';
+                } else if (kcode == '_tabmenu') {
+                    renderview = 'TabMenuView';
+                } else if (kcode == '_orgcharttree') {
+                    renderview = 'OrgChartTreeView';
+                } else if (kcode == '_dynamictree') {
+                    renderview = 'DynamicTreeview';
+                } else if (kcode == '_carousel') {
+                    renderview = 'CarouselView';
+                } else if (kcode == '_fab') {
+                    renderview = 'FabricLoader';
+                } else if (kcode == '_home') {
+                    renderview = 'HomepageMakerLoader';
+                }
+
+                var tag = `<da include="keyvalue" type="keyvalue" dbpath="${dbpath}" kcode="${kcode}" kname="${kname}" renderview="${renderview}" rendertype="${rendertype}"> </da>`;
+                insertCodeMirrorData(tag);
+                __modal.hide();
+            } else if (type == 'dbopen') {
+                var info = arg[1];
+                var arg = arg[2];
+                console.log(arg);
+                this.LoadData(info.info, arg);
+
+            } else if (type == 'filepath') {
+                var arr = value.split('/');
+                var str = "/filelist.file?code=" + arr[2] + "&filetype=open&filename=" + arr[1] + "&filepath=" + arr[0] + "&utf8=ok&";
+                //alert(arr + str);
+                // FileAjax('fileopen', str);
+
+            } else if (type == 'icon' || type == 'img') {
+                $('#iconchange_input').val(type + ':' + value);
+                //alert(value);
+            }
+        }
+
+        function createFormView() {
+
+            var $writebox = $('<div>');
+
+            var $writeForm = $('<form id="codemoduleform" action="post.board" method="post" class="form-horizontal">');
+
+            $writeInput = $('<textarea cols="40" rows="18" name="comment" id="summernote" class="form-control summernote" placeholder="내 용..." required="" autofocus="" type="text">').val('');
+            $formGroup = $('<div class="form-group">').append($writeInput);
+            $writeForm.append($formGroup);
+
+            var btn1 = $('<button type="button" class="btn btn-info brdupdate" >리턴</button>');
+            $(btn1).bind("click", { type: 'returncodemodule', formid: "codemoduleform", self: this }, this.eventHandler);
+            var $formitem = $('<div class="form-group">').append($(btn1));
+            $writeForm.append($formitem);
+
+            $writebox.append($writeForm);
+
+            //this.summernoteSetting(arg.comment);
+            return $writebox;
+        };
+
+        function startNewDocument() {
+            
+        }
+
+        function insertCodeMirrorData(text, linenum, _editor) {
+            var doc = _editor.getDoc();
+            var cursor = null;
+            if (_selectedCodemirrorCursor)
+                cursor = _selectedCodemirrorCursor;
+            else
+                cursor = doc.getCursor(); // gets the line number in the cursor position
+
+            //var line = doc.getLine(cursor.line); // get the line contents
+            //console.log('line==' + line);
+            //var pos = { // create a new object to avoid mutation of the original selection
+            //line: (doc.size + 5),
+            //ch: line.length - 1 // set the character position to the end of the line
+            //}
+            if (linenum == 1)
+                doc.replaceRange('\n' + text, cursor); // adds a new line
+            else if (linenum == 2)
+                doc.replaceRange(text + '\n', cursor); // adds a new line
+            else if (linenum == 3)
+                doc.replaceRange('\n' + text + '\n', cursor); // adds a new line
+            else
+                doc.replaceRange(text, cursor); // adds a new line
+
+            _editor.focus();
+            setTimeout(() => {
+                cursor.ch += text.length;
+                _editor.setCursor(cursor);
+            }, 0);
+        }
+
+        function popupFileMenuClick() {
+
+            $$('popup-file-menu-Btn').onclick = function (e) {
+
+                //e.defaultPrevented();
+                e.stopPropagation();
+                if ($('#filepopupmenu').is(':visible'))
+                    return $("#filepopupmenu").css('display', 'none');
+                var p = __setPopupMenuPostion(e, $("#filepopupmenu"));
+                $("#filepopupmenu").css({ left: p.x, top: p.y, display: 'block' });
+            };
+
+            $$('select-db-btn').onclick = function () {
+                console.log(`select-db-btn`);
+                var elem = document.createElement('div');
+                var cls = new DbFileAjaxBase({ type: 'filelist', filetype: 'db', path: '', filter: 'fab', rendertype: 'ta', returntype: 'return', $parent: self });
+                cls.fileList('', elem);
+                //$('#dbsetModal').modal('show');
+                __modal.show('디비셋팅', elem);
+                console.log('$(elem).html()==' + $(elem).html());
+
+            };
+
+            $$('save-file-btn').onclick = function () {
+                console.log('$(#alertfile).text()==' + $('#alertfile').text());
+                if ($('#alertfile').text().startsWith('새작업')) {
+                    console.log('새작업==');
+                }
+                const form = document.getElementById('uploaddataform');
+                form.info.value = _editor.getDoc().getValue();
+
+                var elem = document.createElement('div');
+                var cls = new DbFileAjaxBase({ type: 'filelist', filetype: 'file', path: '', filter: 'html', rendertype: 'ta', returntype: 'filesave', $parent: self });
+                cls.fileList('', elem);
+                //$('#dbsetModal').modal('show');
+                __modal.show('디비셋팅', elem);
+                console.log('$(elem).html()==' + $(elem).html());
+            };
+
+            $$('save-db-btn').onclick = function () {
+                if (!self._dbpath)
+                    return alert('디비를 선택해야됩니다');
+
+                //console.log(_editor.getDoc().getValue());
+                //return;
+                var elem = document.createElement('div');
+                var config = {
+                    settype: 'setting',
+                    dbpath: self._dbpath,
+                    kcode: '_html',
+                    kname: ' ',
+                    data: _editor.getDoc().getValue(),
+                    fid: self.fid,
+                    rendertype: 'list',
+                    renderview: 'ListTreeView',
+                    editmode: 'ok',
+                    returntype: 'dbsave',
+                    $parent: self
+                }
+                var cls = new KeyvalueController(config);
+                //var cls = new DbFileAjaxBase({ type: 'filelist', filetype: 'db', path: '', filter: 'fab', rendertype: 'ta', returntype: 'dbsave', $parent: self });
+                cls.renderController(elem);
+
+                //$('#dbsetModal').modal('show');
+                __modal.show('리스트', elem);
+
+            };
+
+            $$('save-home-db-btn').onclick = function () {
+                if (!self._dbpath)
+                    return alert('디비를 선택해야됩니다');
+
+                console.log(_editor.getDoc().getValue());
+                return;
+                var elem = document.createElement('div');
+                var config = {
+                    settype: 'setting',
+                    dbpath: self._dbpath,
+                    kcode: '_html',
+                    kname: '_home',
+                    data: _editor.getDoc().getValue(),
+                    fid: self.fid,
+                    rendertype: 'list',
+                    renderview: 'ListTreeView',
+                    editmode: 'ok',
+                    returntype: 'dbsave',
+                    $parent: self
+                }
+                var cls = new KeyvalueController(config);
+                //var cls = new DbFileAjaxBase({ type: 'filelist', filetype: 'db', path: '', filter: 'fab', rendertype: 'ta', returntype: 'dbsave', $parent: self });
+                cls.renderController(elem);
+
+                //$('#dbsetModal').modal('show');
+                __modal.show('fab 리스트', elem);
+
+            };
+
+            $$('open-file-btn').onclick = function () {
+
+                var elem = document.createElement('div');
+                var cls = new DbFileAjaxBase({ type: 'filelist', filetype: 'file', path: '', filter: 'html', rendertype: 'ta', returntype: 'fileopen', $parent: self });
+                cls.fileList('', elem);
+                //$('#dbsetModal').modal('show');
+                __modal.show('디비셋팅', elem);
+                console.log('$(elem).html()==' + $(elem).html());
+            };
+
+            $$('open-db-btn').onclick = function () {
+
+                if (!self._dbpath)
+                    return alert('디비를 선택해야됩니다');
+
+                var elem = document.createElement('div');
+                var config = {
+                    settype: 'setting',
+                    dbpath: self._dbpath,
+                    kcode: '_html',
+                    kname: ' ',
+                    rendertype: 'list',
+                    renderview: 'ListTreeView',
+                    editmode: 'ok',
+                    returntype: 'dbopen',
+                    $parent: self
+                }
+                var cls = new KeyvalueController(config);
+                //var cls = new DbFileAjaxBase({ type: 'filelist', filetype: 'db', path: '', filter: 'fab', rendertype: 'ta', returntype: 'dbsave', $parent: self });
+                cls.renderController(elem);
+
+                __modal.show('리스트', elem);
+
+            };
+        }
+
+        function popupInsertMenuClick() {
+            $$('popup-insert-menu-Btn').onclick = function (e) {
+                //e.defaultPrevented();
+                e.stopPropagation();
+                if ($('#insertpopupmenu').is(':visible'))
+                    return $("#insertpopupmenu").css('display', 'none');
+                var p = __setPopupMenuPostion(e, $("#insertpopupmenu"));
+                $("#insertpopupmenu").css({ left: p.x, top: p.y, display: 'block' });
+            };
+
+            $$('popup-insert-module-Btn').onclick = function (e) {
+                //e.defaultPrevented();
+                e.stopPropagation();
+                if ($('#insertpopupmodule').is(':visible'))
+                    return $("#insertpopupmodule").css('display', 'none');
+                var p = __setPopupMenuPostion(e, $("#insertpopupmodule"));
+                $("#insertpopupmodule").css({ left: p.x, top: p.y, display: 'block' });
+            };
+
+            $$('insert-code-btn').onclick = function () {
+                self._selectedCodemirrorCursor = _editor.getDoc().getCursor();
+
+                __modal.show('글쓰기', self.createFormView());
+                new SummerNoteSet('summernote');
+            };
+
+            $$('insert-board-btn').onclick = function () {
+                if (!self._dbpath)
+                    return alert('디비를 선택해야됩니다');
+                var config = {
+                    type: 'boardconfig',
+                    dbpath: self._dbpath,
+                    code: self._code,
+                    brdid: ' ',
+                    rendertype: 'board',
+                    renderview: 'BoardConfigView',
+                    returntype: 'return',
+                    $parent: self
+                }
+                console.log('config.dbpath=', config.dbpath);
+                console.log('config.code=', config.code);
+                var elem = document.createElement('div');
+                var c = new BoardConfigController(config);
+                c.renderController(elem);
+                __modal.show('boardset', elem);
+            };
+
+            $$('insert-poll-btn').onclick = function () {
+                if (!self._dbpath)
+                    return alert('디비를 선택해야됩니다');
+
+                console.log(_editor.getDoc().getValue());
+                var config = {
+                    type: 'polllist',
+                    dbpath: self._dbpath,
+                    code: self._code,
+                    rendertype: 'poll',
+                    renderview: 'PollView',
+                    returntype: 'return',
+                    $parent: self
+                }
+
+                var elem = document.createElement('div');
+                var c = new PollController(config);
+                c.renderController(elem);
+                __modal.show('pollset', elem);
+            };
+
+            $$('insert-employee-btn').onclick = function () {
+                if (!self._dbpath)
+                    return alert('디비를 선택해야됩니다');
+                var tag = `<da include="erp" type="erplist" dbpath="${self._dbpath}" code="employee" renderview="EmployeeView"> </da>`;
+                insertCodeMirrorData(tag);
+            };
+
+            $$('insert-company-btn').onclick = function () {
+                if (!self._dbpath)
+                    return alert('디비를 선택해야됩니다');
+                var tag = `<da include="erp" type="erplist" dbpath="${self._dbpath}" code="company" renderview="CompanyView"> </da>`;
+                insertCodeMirrorData(tag);
+            };
+
+            $$('insert-maib-btn').onclick = function () {
+                if (!self._dbpath)
+                    return alert('디비를 선택해야됩니다');
+                var tag = `<da include="erp" type="erplist" dbpath="${self._dbpath}" code="maeib_chul" renderview="Maeib_chulView"> </da>`;
+                insertCodeMirrorData(tag);
+            };
+
+            $$('insert-chat-btn').onclick = function () {
+                var tag = `<da include="chat" type="chat"> </da>`;
+                insertCodeMirrorData(tag);
+            };
+
+            $$('insert-rtcchat-btn').onclick = function () {
+                var tag = `<da include="rtcchat" type="rtcchat"> </da>`;
+                insertCodeMirrorData(tag);
+            };
+
+            $$('insert-login-btn').onclick = function () {
+                var tag = `<div id="main-logform"> </div>`;
+                insertCodeMirrorData(tag);
+            };
+
+        }
+
+        function onPopupModuleBtnClick(e) {
+            var id = e.id;
+
+            var config = {
+                dbpath: self._dbpath,
+                kcode: id,
+                kname: ' ',
+                rendertype: id,
+                returntype: 'return',
+                $parent: self
+            }
+
+            if (id == '_list') {
+                config.renderview = 'ListTreeView';
+            } else if (id == '_ztree') {
+                config.renderview = 'ZTreeView';
+            } else if (id == '_topmenu') {
+                config.renderview = 'TopMenuView';
+            } else if (id == '_sidemenu') {
+                config.renderview = 'SideMenuView';
+            } else if (id == '_tabmenu') {
+                config.renderview = 'TabMenuView';
+            } else if (id == '_orgcharttree') {
+                config.renderview = 'OrgChartTreeView';
+            } else if (id == '_dynamictree') {
+                config.renderview = 'DynamicTreeview';
+            } else if (id == '_carousel') {
+                config.renderview = 'CarouselView';
+            } else if (id == '_fab') {
+                config.renderview = 'ListTreeView';
+            }
+            var elem = document.createElement('div');
+            var kcon = new KeyvalueController(config);
+            kcon.renderController(elem);
+            __modal.show('Module set', elem);
+
+            $("#insertpopupmodule").css('display', 'none');
+        }
+
+        var _temploraryFilename = '';
+        function getTemploraryFile() {
+            console.log("self._temploraryFilename=" + self._temploraryFilename);
+            var url = "/temploraryFile.file?type=post&tempfilename=" + self._temploraryFilename;
+            console.log("url=" + url);
+            const form = document.getElementById('temploraryFileForm');
+            form.tempfiledata.value = _editor.getDoc().getValue();
+            var formdata = $(form).serializeArray();
+
+            $.ajax({
+                url: url,
+                async: false,
+                type: "POST",
+                // if(e.type != "open")
+                data: formdata,
+                success: function (data) {
+
+                    // var xmlDoc = $.parseXML(data);
+                    // var err = $(xmlDoc).find('Msg').attr('error');
+                    //console.log("data=" + data);
+                    self._temploraryFilename = data;
+                    //console.log("self._temploraryFilename=" + self._temploraryFilename);
+                    var src = "/temploraryFile.file?type=get&tempfilename=" + self._temploraryFilename;
+                    document.getElementById('iframeId').src = src;
+                    //console.log("src=" + src);
+                },
+                complete: function (data) {
+                    // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                cache: false
+            });
+
+            // prevent default posting of form
+            event.preventDefault();
+
+        }
+
+        $(document).ready(function () {
+            $(document.body).click(function (e) {
+
+                if ($('#filepopupmenu, #insertpopupmenu, #insertpopupmodule').is(':visible')) {
+                    $("#filepopupmenu").css('display', 'none');
+                    $("#insertpopupmenu").css('display', 'none');
+                    $("#insertpopupmodule").css('display', 'none');
+                }
+                return;
+            })
+
+            popupFileMenuClick();
+            popupInsertMenuClick();
+
+            $$('preview-btn').onclick = function () {
+                //getTemploraryFile();
+                //return;
+                var message_to_send = {
+                    type: 'python',
+                    subtype: '',
+                    msg: _editor.getDoc().getValue()
+                };
+
+                var msg_data_str = JSON.stringify(message_to_send);
+                //console.log(`message_to_send== ${message_to_send}`);
+                sendToWebview2(msg_data_str);
+            };
+
+            $$('module-edit-btn').onclick = function () {
+
+                //var f = new FullScreenView();
+                //f.setContent(`뷰 보기`, w);
+            };
+
+            var mixedMode = {
+                name: "python",
+                scriptTypes: [{
+                    matches: /\/x-handlebars-template|\/x-mustache/i,
+                    mode: null
+                },
+                {
+                    matches: /(text|application)\/(x-)?vb(a|script)/i,
+                    mode: "vbscript"
+                }]
+            };
+
+            var te = document.getElementById("codemirror");
+
+            _editor = CodeMirror.fromTextArea(te, {
+                mode: mixedMode,
+                lineNumbers: true,
+                indentUnit: 4,
+                autoResize: true,
+                selectionPointer: true
+            });
+            //_editor.setSize('100%', '700px');
+            _editor.display.wrapper.style.height = "100%";
+            _editor.on('inputRead', function onChange(editor, input) {
+
+                if (input.text[0] === ';' || input.text[0] === ' ' || input.text[0] === ":") {
+                    return;
+                }
+
+            });
+
+            _editor.on("resize", () => {
+                _editor.setSize(te.clientWidth, te.clientHeight);
+            });
+
+            _editor.on("blur", function () {
+                console.log("onBlur");
+                //self.getTemploraryFile();
+            });
+            startNewDocument();
+
+            var te = document.getElementById("codemirrorPython");
+
+            _editorResult = CodeMirror.fromTextArea(te, {
+                mode: mixedMode,
+                lineNumbers: true,
+                indentUnit: 4,
+                autoResize: true,
+                selectionPointer: true
+            });
+            
+            $('.left').css('width', '80%');
+            $('.splitterH').css('height', self.innerHeight - document.getElementById('topContainer').clientHeight - 100);
+            $('.splitterH #separator').css('width', '15px');
+            __splitterDragElementHorizontal(document.getElementById("separator"));
+
+        });
+
+    </script>
+</head>
+<body onfocus="newWindow.close()">
+    <div class="dropdown">
+        <button type="button" class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false">
+            Action
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+        </div>
+    </div>
+    <da include="/html/module/navbarAdmin.html?1"></da>
+    <div id="topContainer">
+        <!-- Main View-->
+        <nav class="navbar navbar-expand-lg navbar-light py-0 py-md-0" style="background-color: #e3f2fd; border: 1px solid">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">HTML</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="--scroll-height: 100px;">
+                        <li class="nav-item">
+                            <a class="nav-link" id="popup-file-menu-Btn" href="#">파일</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="popup-insert-menu-Btn" href="#">코드추가</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="popup-insert-module-Btn" href="#">모듈추가</a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-outline-success btn-sm" type="submit" id="select-db-btn">디비선택</button>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="module-edit-btn">모듈에디트</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <button class="btn btn-outline-success btn-sm" id="preview-btn" type="button">미리보기</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+    
+
+    <div id="alertfile" style="height: 30px; background-color: #e3f2fd">새작업</div>
+    <div class="splitterH">
+
+        <div class="left container" style="border: 2px solid black">
+            <textarea id="codemirror" name="newfiledata"></textarea>
+        </div>
+
+        <div id="separator">
+        </div>
+
+        <div class="right">
+            <textarea id="codemirrorPython" ></textarea>
+        </div>
+    </div>
+
+
+    <da include="/html/module/footer.html"></da>
+    <div class="btn-group-vertical" id="filepopupmenu" style="width: 18rem; z-index: 1111113; position: absolute; display: none">
+
+        <button type="button" class="btn btn-primary" id="open-file-btn">파일열기</button>
+        <button type="button" class="btn btn-primary" id="save-file-btn">파일저장</button>
+        <button type="button" class="btn btn-primary" id="open-db-btn">디비열기</button>
+        <button type="button" class="btn btn-primary" id="save-db-btn">디비저장</button>
+        <button type="button" class="btn btn-primary" id="save-home-db-btn">디비홈페이지저장</button>
+    </div>
+    <div class="btn-group-vertical" id="insertpopupmenu" style="width: 18rem; z-index: 1111113; position: absolute; display: none">
+
+        <button type="button" class="btn btn-secondary" id="insert-code-btn">코드추가</button>
+        <button type="button" class="btn btn-secondary" id="insert-board-btn">게시판추가</button>
+        <button type="button" class="btn btn-secondary" id="insert-poll-btn">설문조사추가</button>
+        <button type="button" class="btn btn-secondary" id="insert-employee-btn">사원리스트추가</button>
+        <button type="button" class="btn btn-secondary" id="insert-company-btn">회사리스트추가</button>
+        <button type="button" class="btn btn-secondary" id="insert-maib-btn">매입매출추가</button>
+        <button type="button" class="btn btn-secondary" id="insert-chat-btn">채팅추가</button>
+        <button type="button" class="btn btn-secondary" id="insert-rtcchat-btn">RTC채팅추가</button>
+        <button type="button" class="btn btn-secondary" id="insert-login-btn">로그인추가</button>
+    </div>
+
+    <div class="btn-group-vertical" id="insertpopupmodule" style="width: 18rem; z-index: 1111113; position: absolute; display: none">
+        <button type="button" class="btn btn-secondary" id="_list" onclick="onPopupModuleBtnClick(this);">리스트메뉴추가</button>
+        <button type="button" class="btn btn-secondary" id="_ztree" onclick="onPopupModuleBtnClick(this);">ztree메뉴추가</button>
+
+        <button type="button" class="btn btn-secondary" id="_topmenu" onclick="onPopupModuleBtnClick(this);">탑메뉴추가</button>
+        <button type="button" class="btn btn-secondary" id="_sidemenu" onclick="onPopupModuleBtnClick(this);">사이드메뉴추가</button>
+
+        <button type="button" class="btn btn-secondary" id="_tabmenu" onclick="onPopupModuleBtnClick(this);">탬메뉴</button>
+        <button type="button" class="btn btn-secondary" id="_orgcharttree" onclick="onPopupModuleBtnClick(this);">트리차트추가</button>
+        <button type="button" class="btn btn-secondary" id="_dynamictree" onclick="onPopupModuleBtnClick(this);">다이나믹트리</button>
+        <button type="button" class="btn btn-secondary" id="_carousel" onclick="onPopupModuleBtnClick(this);">카로우셀추가</button>
+        <button type="button" class="btn btn-secondary" id="_fab" onclick="onPopupModuleBtnClick(this);">fab추가</button>
+    </div>
+    <form id="temploraryFileForm">
+        <input type="hidden" name="tempfiledata">
+    </form>
+    <form id="uploaddataform">
+        <input type="hidden" name="fid" />
+        <input type="hidden" name="dbcode" />
+        <input type="hidden" name="dbpath" />
+        <input type="hidden" name="type" />
+        <input type="hidden" name="kcode" value="_fab" />
+        <input type="hidden" name="kname" value="" />
+        <input type="hidden" name="key">
+        <input type="hidden" name="info">
+    </form>`;
+</body>

@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>CMD</title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+
+    <script type="text/javascript">
+
+        function sendToWebview2(msg) {
+            //var textboxvalue = document.getElementById('text1').value;
+            //window.external.CallForm(msg, msg2);
+            //alert(msg);
+            var str = Android.AndroidAppCall(msg);
+            alert(str);
+        }
+
+        function ReceiveFromWebview2(msg) {
+            //alert(msg);
+            //var temp = msg.split(':');
+            msg += ' \n';
+            var msg2 = $("#cmdresult").val();
+            msg2 = msg2 + msg;
+            $("#cmdresult").val(msg2);
+        }
+
+        $(document).on("keypress", "#cmdInput", function (e) {
+            e.preventDefault();
+            if (e.which === 13 && !e.shiftKey) {
+                try {
+                    var message_to_send = {
+                        type: 'cmd',
+                        msg: $("#cmdInput").val()
+                    };
+
+                    var msg_data_str = JSON.stringify(message_to_send);
+                    //console.log(`message_to_send== ${message_to_send}`);
+                    sendToWebview2(msg_data_str);
+                    $("#cmdInput").val('');
+                } catch (e) {
+                    console.log('error=', e);
+                }
+
+            } else {
+                //send_user_typing_activity_alert();
+            }
+        });
+
+        $(document).ready(function () {
+        });
+    </script>
+</head>
+<!--Coded With Love By Mutiullah Samim-->
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <form id="cmdform" onsubmit="return ajaxCall(this)">
+                    
+                    <div class="input-group mb-3">
+                        <input class="form-control" id="cmdInput" name="cmd" placeholder="cmd...">
+                        <div class="input-group-append">
+                            <input type="submit" class="form-control" value="전송">
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select class="custom-select mr-sm-2" id="cmdFastSelect">
+                            <option selected>간편명령어...</option>
+                            <option value="ipconfig">ip주소</option>
+                            <option value="systeminfo">시스템정보</option>
+                            <option value="start msconfig">시작 설정</option>
+                            <option value="control">제어판</option>
+                            <option value="regedit">레지스트리</option>
+                            <option value="taskmgr">작업관리자</option>
+                            <option value="devmgmt">장치관리자</option>
+                            <option value="compmgmt">컴퓨터관리자</option>
+                            <option value="diskmgmt">디스크관리</option>
+                            <option value="snippingtool">캡쳐도구</option>
+                            <option value="calc">계산기</option>
+                            <option value="calc">계산기</option>
+                        </select>
+                        <script type="text/javascript">
+
+                            var cmdFastSelValue;
+                            $(document).on("change", "#cmdFastSelect", function () {
+                                
+                                try {
+                                    var message_to_send = {
+                                        type: 'cmd',
+                                        msg: $("#cmdInput").val(cmdFastSelValue)
+                                    };
+
+                                    var msg_data_str = JSON.stringify(message_to_send);
+                                    //console.log(`message_to_send== ${message_to_send}`);
+                                    sendToWebview2(msg_data_str);
+                                    //$("#cmdInput").val('');
+                                } catch (e) {
+                                    console.log('error=', e);
+                                }
+                            });
+
+                        </script>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <form id="cmdform" onsubmit="return ajaxCall(this)">
+                    
+                    <div class="mb-3">
+                        <textarea class="form-control" id="cmdresult" rows="13"></textarea>
+                    </div>
+                    
+                </form>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+</body>
+</html>

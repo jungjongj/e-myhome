@@ -1,0 +1,71 @@
+﻿
+    <div class="sidebar left ">
+        <button> <i class="fa fa fa-th-large"></i></button>
+        <ul class="list-sidebar">
+
+            <li>
+                <a href="#" data-toggle="collapse" data-target="#e-board" class="collapsed active"> <i class="fa fa-fw fa-dashboard"></i> <span class="nav-label"> 게시판 </span> <span class="fa fa-chevron-left pull-right"></span> </a>
+                <ul class="sub-menu collapse" id="e-board">
+                    <li class="active"><a href="/html/examples/boards/boardTag.html">태그게시판</a></li>
+                    <li><a href="/html/examples/boards/boardScript.html">스트립트게시판</a></li>
+                    <li><a href="/html/examples/boards/boardViewbody.html"><i class="fa fa-diamond"></i> <span class="nav-label">뷰게시판</span></a></li>
+                    <li><a href="/html/examples/boards/boardConfig.html">게시판설정</a></li>
+
+                </ul>
+            </li>
+            <li>
+                <a href="#" data-toggle="collapse" data-target="#e-erp" class="collapsed active"> <i class="fa fa-bar-chart-o"></i> <span class="nav-label">ERP</span> <span class="fa fa-chevron-left pull-right"></span> </a>
+                <ul class="sub-menu collapse" id="e-erp">
+                    <li class="active"><a href="/html/examples/erp/erpTag.html">ERP태그</a></li>
+                    <li><a href="/html/examples/erp/erpScript.html">ERP스크립트</a></li>
+                    <li><a href="/html/examples/erp/selfScript.html">SELF스크립트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" data-toggle="collapse" data-target="#e-chat" class="collapsed active"><i class="fa fa-fw fa-comment"></i> <span class="nav-label">채팅</span><span class="fa fa-chevron-left pull-right"></span></a>
+                <ul class="sub-menu collapse" id="e-chat">
+                    <li><a href="/html/examples/chats/chat.html"> 채팅</a></li>
+                    <li><a href="/html/examples/chats/RtcChat.html"> RTC채팅</a></li>
+                    <li><a href="/html/examples/chats/RtcAndroidCamera.html"> RTC Andrid 카메라</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" data-toggle="collapse" data-target="#e-poll" class="collapsed active"><i class="fa fa-fw fa-question-circle"></i> <span class="nav-label">설문</span><span class="fa fa-chevron-left pull-right"></span></a>
+                <ul class="sub-menu collapse" id="e-poll">
+                    <li><a href="/html/examples/poll/poll.html"> 설문리스트</a></li>
+                    <li><a href="/html/examples/poll/pollView.html"> 설문뷰</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" data-toggle="collapse" data-target="#e-template" class="collapsed active"><i class="fa fa-shopping-cart"></i> <span class="nav-label">템플릿</span><span class="fa fa-chevron-left pull-right"></span></a>
+                <ul class="sub-menu collapse" id="e-template">
+                    <li><a href="/html/examples/templates/blog.html"> 블로그</a></li>
+                    <li><a href="/html/examples/templates/cafe.html"> 카페</a></li>
+                    <li><a href="/html/examples/templates/chaser.html"> 추적자</a></li>
+                    <li><a href="/html/examples/templates/Lecture.html"> 강좌</a></li>
+                    <li><a href="/html/examples/templates/Lecture2.html"> 강좌2</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" data-toggle="collapse" data-target="#e-keyvalue" class="collapsed active"><i class="fa fa-fw fa-key"></i> <span class="nav-label">키 값</span><span class="fa fa-chevron-left pull-right"></span></a>
+                <ul class="sub-menu collapse" id="e-keyvalue">
+                    <li><a href="/html/examples/keyvalueModule/topmenu.html"> 탑메뉴</a></li>
+                    <li><a href="/html/examples/keyvalueModule/sidemenu.html"> 사이드메뉴</a></li>
+                    <li><a href="/html/examples/keyvalueModule/horizontalListmenu.html"> 계단메뉴</a></li>
+                    <li><a href="/html/examples/keyvalueModule/ztree.html"> 트리메뉴</a></li>
+                    <li><a href="/html/examples/keyvalueModule/orgcharttree.html"> orgchart</a></li>
+                    <li><a href="/html/examples/keyvalueModule/dynamictree.html"> dynamictree</a></li>
+                    <li><a href="/html/examples/keyvalueModule/carousel.html"> carousel</a></li>
+                </ul>
+            </li>
+            <li> <a href=""><i class="fa fa-pie-chart"></i> <span class="nav-label">Metrics</span> </a></li>
+
+        </ul>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('button').click(function () {
+                $('.sidebar').toggleClass('fliph');
+            });
+        });
+    </script>

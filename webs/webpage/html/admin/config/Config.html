@@ -1,0 +1,441 @@
+﻿<!doctype html>
+<head>
+    <title>웹 설정</title>
+    <meta charset="utf-8" />
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.IO.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Text.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Convert.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.BitConverter.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.IO.BinaryReader.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.BigInt.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Security.Cryptography.SHA1.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Security.Cryptography.debug.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/JsClasses-master/System.Security.Cryptography.RSA.debug.js"></script>
+
+    <script type="text/javascript">
+        var _publicXmlkey = null;
+
+        function RSAEncription(pPlainText) {
+            try {
+
+                var doOaepPadding = false; //패딩
+                var sEncryptData = "";
+                var rsa = new System.Security.Cryptography.RSACryptoServiceProvider();
+                //rsa.FromXmlString(pPublicKey);
+                rsa.FromXmlString(_publicXmlkey);
+                var decryptedBytes = System.Text.Encoding.UTF8.GetBytes(pPlainText);
+                var encryptedBytes = rsa.Encrypt(decryptedBytes, doOaepPadding);
+                sEncryptData = System.Convert.ToBase64String(encryptedBytes); //암호화된
+
+                sEncryptData = sEncryptData.replace('+', '-').replace('/', '_');//암호화된
+                if (sEncryptData.charAt(sEncryptData.length - 1) === "=") {
+                    sEncryptData = sEncryptData.slice(0, -1);
+                }
+                return sEncryptData;
+            }
+            catch (e) {
+                alert(e.message);
+            }
+        }
+
+        window.onload = function () {
+
+        };
+
+        function sendToWebview2(msg, msg2) {
+            alert(msg + msg2);
+            //var textboxvalue = document.getElementById('text1').value;
+            //window.external.CallForm(msg, msg2);
+            window.chrome.webview.postMessage(msg + ':' + msg2);
+        }
+        function ReceiveFromWebview2(msg) {
+            $("#cmdresult").val(msg);
+        }
+
+        function callAjax(form) {
+            event.preventDefault();
+            //alert("form::" + form);
+            var formData = null;
+            if (form == null) {
+                form = document.getElementById("configform");
+                form.type.value = "";
+                formData = $(form).serializeArray();
+            } else {
+                form.type.value = "update";
+                formData = $(form).serializeArray();
+                var encrypted = RSAEncription($('#adminemailpw').val());
+                formData = __changeSerialize(formData, 'adminemailpw', encrypted);
+            }
+
+            var str = "manweb.adm?";
+
+            $.ajax({
+                url: str + ((/\?/).test(str) ? "&" : "?") + (new Date()).getTime(),
+                async: false,
+                type: "POST",
+                // if(e.type != "open")
+                data: formData,
+                success: function (data) {
+                    // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+
+                    var xmlDoc = $.parseXML(data);
+                    //alert("data: " + data);
+                    var err = $(xmlDoc).find('Msg').attr('error');
+                    if (err != "ok") {
+                        alert(err);
+                        return;
+                    }
+
+                    var arr = [];
+                    var count = 0;
+                    //alert(data);
+                    $(xmlDoc).find('Records').each(function (index) {
+
+                        $(form.domainname).val($(this).find('domainname').text());
+                        $(form.adminemail).val($(this).find('adminemail').text());
+                        $(form.adminemailpw).val($(this).find('adminemailpw').text());
+                        $(form.adminid).val($(this).find('adminid').text());
+                        $(form.adminaddress).val($(this).find('adminaddress').text());
+                        $(form.fcmapikey).val($(this).find('fcmapikey').text());
+                        $(form.fcmapiid).val($(this).find('fcmapiid').text());
+                        $(form.httpport).val($(this).find('httpport').text());
+                        $(form.upfileext).val($(this).find('upfileext').text());
+                        $(form.upfilebyte).val($(this).find('upfilebyte').text());
+                        $(form.inputDomain).val($(this).find('domainname').text());
+                        $(form.inputDomain).val($(this).find('domainname').text());
+                        count++;
+                        console.log('$(this).find(fcmapikey).text()=' + $(this).find('fcmapikey').text());
+                        console.log('$(this).find(fcmapiid).text()=' + $(this).find('fcmapiid').text());
+                    });
+                                        //$('.collapse_click').trigger('click');
+                },
+                complete: function (data) {
+                    // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+                },
+                error: function (xhr, status, error) {
+                    alert("에러발생");
+                },
+                cache: false,
+            });
+
+        }
+
+        $(document).ready(function () {
+            fetch('/rsa.adm?type=pubkey')
+                .then((response) => response.text())
+                .then(data => {
+                    var xmlDoc = $.parseXML(data);
+                    $(xmlDoc).find('Records').each(function (index) {
+                        //_publicModulus = $(this).find('publicModulus').text();
+                        //_publicExponent = $(this).find('publicExponent').text();
+                        _publicXmlkey = $(this).find('publicXmlkey').text();
+                    });
+                })// 에러처리
+                .catch(() => {
+                    alert('RSA 공개키 에러')
+                });
+
+            callAjax(null);
+            $("#emailtestBtn").click(function () {
+                $('#passwd').val($('#adminemailpw').val());
+                $('#emailfrom').val($('#adminemail').val());
+                $('#emailto').val($('#adminemail').val());
+                $('#subject').val('test subject');
+                $('#comment').val('comment');
+                $('#emailTestModal').modal('show');
+            });
+        });
+
+        function checkboxclick(f) {
+            alert(f.mailcheck.checked);
+
+        };
+
+        function emailTest(form) {
+            // prevent default posting of form
+            event.preventDefault();
+
+            var formData = $(form).serializeArray();
+
+            
+            //console.log(`$('#passwd').val()=`, $('#passwd').val());
+            var encrypted = RSAEncription($('#passwd').val());
+            formData = __changeSerialize(formData, 'passwd', encrypted);
+
+            $.ajax({
+                url: "/mailtest.member?logtype=login&utf8=ok&",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+                    var xmlDoc = $.parseXML(data);
+                    var err = $(xmlDoc).find('Msg').attr('error');
+                    if (err != "ok") {
+                        alert(err);
+                        return false;
+                    }
+                    var returnvalue = $(xmlDoc).find('Msg').attr('result');
+                    alert(returnvalue);
+                    //window.history.back();
+                },
+                complete: function (data) {
+                    // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+
+                },
+                error: function (xhr, status, error) {
+                    alert("에러발생");
+                },
+                cache: false,
+
+            });
+        };
+
+    </script>
+</head>
+<body class="container">
+    <da include="/html/module/navbarAdmin.html"></da>
+
+    <!-- Main View-->
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+        <hr>
+        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <form id="configform" onsubmit="return callAjax(this)">
+                <input type="hidden" name="code" id="code" value="html_tb" />
+                <input type="hidden" name="dbpath" id="dbpath" value="config.dadb" />
+                <input type="hidden" name="type" value="" />
+
+                <div class="controls">
+                    <div class="form-group">
+                        <div class="form-group has-info">
+                            <label for="domainname" class="control-label">도메인 이름</label>
+                            <div>
+                                <input type="text" class="form-control" name="domainname" style="border:none" placeholder="도메인 이름..." />
+                            </div>
+                        </div>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="controls">
+                    <div class="form-group">
+                        <label for="adminid" class="control-label">관리자아이디</label>
+                        <input type="text" class="form-control" name="adminid" id="adminid" placeholder="관리자아이디..." />
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="controls">
+                    <div class="form-group">
+                        <div class="form-group has-info">
+                            <label for="adminemail" class="control-label">관리자이메일</label>
+                            <div>
+                                <input type="text" class="form-control" name="adminemail" id="adminemail" placeholder="관리자이메일..." />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="controls">
+                    <div class="form-group has-info">
+                        <label for="adminemailpw" class="control-label">관리자이메일 암호(gmail 2단계인증시 앱비밀번호사용)</label>
+                        <div>
+                            <input type="password" class="form-control" name="adminemailpw" id="adminemailpw" placeholder="관리자이메일 암호..." />
+                            <button type="button" id="emailtestBtn" class="btn btn-primary">이메일테스트</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="controls">
+                    <div class="form-group">
+                        <div class="form-group has-info">
+                            <label for="adminaddress" class="control-label">관리자주소</label>
+                            <div>
+                                <input type="text" class="form-control" name="adminaddress" placeholder="관리자주소..." />
+                            </div>
+                        </div>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="controls">
+                    <div class="form-group">
+                        <div class="form-group has-info">
+                            <label for="adminaddress" class="control-label">FCM 푸시 api key</label>
+                            <div>
+                                <input type="text" class="form-control" name="fcmapikey" placeholder="fcm 푸시 api key..." />
+                            </div>
+                            <div>
+                                <input type="text" class="form-control" name="fcmapiid" placeholder="fcm 푸시 발신자 id..." />
+                            </div>
+                        </div>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="controls">
+                    <div class="form-group">
+                        <div class="form-group has-info">
+                            <label for="httpport" class="control-label">서버포트</label>
+                            <div>
+                                <input type="text" class="form-control" name="httpport" placeholder="서버포트..." />
+                            </div>
+                        </div>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="controls">
+                    <div class="form-group has-info">
+                        <label for="upfileext" class="control-label">업로드 확장자</label>
+                        <div>
+                            <input type="text" class="form-control" name="upfileext" placeholder="업로드 확장자..." />
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="controls">
+                    <div class="form-group">
+                        <div class="form-group has-info">
+                            <label for="upfilebyte" class="control-label">업로드 용량</label>
+                            <div>
+                                <input type="number" class="form-control" name="upfilebyte" placeholder="업로드 용량..." />
+                            </div>
+                        </div>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary ">전 송</button>
+                </div>
+
+            </form>
+        </div>
+        <div class="card-footer clearfix">
+
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" id="emailTestModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="emailTestform" onsubmit="return emailTest(this)">
+                        <input type="hidden" name="dbpath" id="dbpath" value="config.dadb" />
+                        <input type="hidden" name="type" value="" />
+
+                        <div class="controls">
+                            <div class="form-group">
+                                <div class="form-group has-info">
+                                    <label for="adminemail" class="control-label">관리자이메일</label>
+                                    <div>
+                                        <input type="text" class="form-control" name="emailfrom" id="emailfrom" placeholder="관리자이메일..." />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="controls">
+                            <div class="form-group has-info">
+                                <label for="adminemailpw" class="control-label">관리자이메일 암호(gmail 2단계인증시 앱비밀번호사용)</label>
+                                <div>
+                                    <input type="password" class="form-control" name="passwd" id="passwd" placeholder="관리자이메일 암호..." />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="controls">
+                            <div class="form-group">
+                                <div class="form-group has-info">
+                                    <label for="adminemail" class="control-label">이메일:</label>
+                                    <div>
+                                        <input type="text" class="form-control" name="emailto" id="emailto" placeholder="to 이메일..." />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="controls">
+                            <div class="form-group">
+                                <div class="form-group has-info">
+                                    <label for="adminemail" class="control-label">제목:</label>
+                                    <div>
+                                        <input type="text" class="form-control" name="subject" id="subject" placeholder="제목..." />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="controls">
+                            <div class="form-group">
+                                <div class="form-group has-info">
+                                    <label for="adminaddress" class="control-label">메일 내용</label>
+                                    <div>
+                                        <textarea type="text" name="comment" id="comment" style="height:100%" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary ">전 송</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <da include="/html/module/footer.html"></da>
+</body>

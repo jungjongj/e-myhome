@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> 모듈 셋팅 </title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=12">
+    <link rel="stylesheet" href="/aMvc/lib/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="/aMvc/lib/orgchart/dist/css/jquery.orgchart.min.css" type="text/css">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?123"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?56"></script>
+    <script src="/aMvc/base/dbFileAjaxBase.js?6"></script>
+    <script src="/aMvc/base/viewLibBase.js?3077"></script>
+    <script src="/aMvc/base/templateBase.js?3"></script>
+
+    <script src="/aMvc/lib/Fabric/Fabric.4.6.0/js/fabric.min.js"></script>
+    <script src="/aMvc/lib/js/da-paint-controller.js?798"></script>
+    <script type="text/javascript" src="/aMvc/lib/zTree_v3-master/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/orgchart/dist/js/jquery.orgchart.js"></script>
+
+    <script type="text/javascript">
+        var self2 = this;
+        var _code = "", _dbpath = "config.dadb";
+        
+        var _code = "da_board", _dbpath = "example.dadb";
+        var _keyvalueController = null;
+        var _kcode = '_ztree';
+        var _kname = '';
+        var _returntype = 'return';
+        var _editmode = 'ok';
+        
+        var newWindow;
+        function openNewWindow(target) {
+
+            newWindow = window.open(target, "OpenToolWindow", "height=800, width=600, scrollbars=yes, resizable=yes");
+            newWindow.focus();
+
+        }
+
+        window.onload = function () {
+
+        }
+
+        function urlsplit() {
+            var dec = decodeURI(location.href);
+            var url = unescape(dec);
+            var pm = url.split('?');
+            console.log(url);
+            if (pm && pm[1]) {
+                var params = pm[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var param = params[i].split('=');
+                    if (param && param[1]) {
+                        if (param[0] == "dbpath")
+                            _dbpath = param[1];
+                        else if (param[0] == "code")
+                            _code = param[1];
+                        else if (param[0] == "kcode") {
+                            _kcode = param[1];
+                            //$("#keycodesel").val(_kcode).prop("selected", true);
+                            //console.log(_kcode);
+                        }
+                        else if (param[0] == "kname") {
+                            _keynameselValue = param[1];
+                            //$("#keynamesel").val(_keynameselValue).prop("selected", true);
+                            //console.log(_keynameselValue);
+                        }
+                        
+                    }
+
+                }
+            }
+        }
+
+        function getReturnValue() {
+            var type, value;
+            var arg = Array.prototype.slice.call(arguments);
+            if (arg && arg[0])
+                type = arg[0];
+            else
+                return;
+            if (arg && arg[1])
+                value = arg[1];
+            console.log(`getReturnValue ()arg==${arg}`);
+            //_tempCount++;
+            var info = {};
+            if (type == 'dbset') {
+                _dbpath = arg[1];
+                _code = arg[2];
+                __modal.hide();
+                $('#select-db-btn').text(_dbpath + "(" + _code + ")");
+
+            } else if (type == 'icon' || type == 'img') {
+                $('#iconchange_input').val(type + ':' + value);
+                //alert(value);
+            } else if (type == 'keyvalue') {
+                console.log(`getReturnValue ()arg[3]==${arg[3]}`);
+                _kname = arg[3]
+                renderPage();
+            }
+        }
+
+        function renderPage() {
+            var elem = document.getElementById('keyvalueView');
+            var config = {
+                elem: elem,
+                settype: 'set',
+                dbpath: _dbpath,
+                kcode: _kcode,
+                kname: '',
+                rendertype: 'self',
+                returntype: _returntype,
+                editmode: _editmode,
+                $parent: self,
+                renderview: 'ZTreeView'
+            };
+
+            if (!_keyvalueController)
+                _keyvalueController = new KeyvalueController(config);
+
+            _keyvalueController.setController(config, elem);
+        }
+
+        $(document).ready(function () {
+            renderPage();
+        });
+    </script>
+</head>
+<body>
+    <da include="/eHome/navbarEHome.html?"></da>
+
+    <div class="row">
+        <div class="col-3">
+            <div id="main-logform"></div>
+
+            <da include="/eHome/sideMenuExample.html?"></da>
+        </div>
+        <div class="col-9">
+            <div id="keyvalueView"></div>
+        </div>
+    </div>
+
+    <da include="/html/module/footer.html"></da>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+﻿<div id="navbar" class="fixed-bottom">
+    <div class="alert alert-primary collapse" id="collapseDb" role="alert" style="overflow:auto;">
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-header">디비설정</div>
+            <div class="card-body">
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="alert alert-primary collapse" id="collapseBoard" role="alert" style="overflow:auto;">
+        <div class="card mb-3">
+            <div class="card-header">게시판설정</div>
+            <div class="card-body">
+
+            </div>
+        </div>
+
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar scroll</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <button class="nav-link active btn-info mr-3" aria-current="page" id="dbsetBtn" onclick="onNavbarItemClick(this)">디비</button>
+                    </li>
+
+                    <li class="nav-item">
+                        <div class="form-inline">
+                            <select id="keycodesel">
+                            </select>
+                            <button class="nav-link active btn-info mr-3" id="groupadd" onclick="onNavbarItemClick(this)">코드추가</button>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="form-inline">
+                            <select id="keynamesel">
+                            </select>
+                            <button class="nav-link active btn-info mr-3" id="nameadd" onclick="onNavbarItemClick(this)">식별자추가</button>
+                        </div>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <button class="nav-item nav-link btn-dark active" data-toggle="tab" id="itemadd" onclick="onNavbarItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">아이템추가</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-item nav-link btn-primary" data-toggle="tab" id="returnBtn" onclick="onNavbarItemClick(this)" role="tab" aria-controls="nav-profile" aria-selected="false">리턴</button>
+                    </li>
+                </ul>
+                <ul class="navbar-nav pull-right" style="--bs-scroll-height: 100px;">
+                    <li>
+                        <div>
+                            <select id="rendertypesel">
+                                <option value="list">list</option>
+                                <option value="ztree">ztree</option>
+                                <option value="topmenu">topmenu</option>
+                                <option value="sidemenu">sidemenu</option>
+                                <option value="tabmenu">tabmenu</option>
+                                <option value="orgcharttree">orgcharttree</option>
+                                <option value="dynamictree">dynamictree</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="nav-item dropup">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-fw fa-cog fa-lg"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+
+                            <li><a class="dropdown-item" id="boardsetBtn" onclick="onNavbarItemClick(this)">게시판셋팅</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" id="keysetBtn" onclick="onNavbarItemClick(this)">키값 셋팅</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" id="fixedBtn" onclick="onNavbarItemClick(this)"><i class="fa fa-arrows-v fa-lg"></i></a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <div></div>
+    <script>
+        console.log('module test');
+    </script>
+</div>

@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html style="height:100%">
+<head>
+    <meta charset="UTF-8">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="stylesheet" href="/aMvc/lib/jquery/jquery-ui.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-resizable.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?558"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?1"></script>
+    <script src="/aMvc/base/viewLibBase.js?23"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script src="/aMvc/lib/Fabric/Fabric.4.6.0/js/fabric.min.js"></script>
+    <script src="/aMvc/lib/js/da-paint-controller.js?94"></script>
+    <script type="text/javascript" src="/aMvc/lib/js/timeline.js?13"></script>
+
+    <script type="text/javascript">
+        _self = this;
+        function getReturnValue() {
+            var type, value;
+            var arg = Array.prototype.slice.call(arguments);
+            console.log('arguments=', arguments);
+            if (arg && arg[0])
+                type = arg[0];
+            else
+                return;
+            if (arg && arg[1])
+                value = arg[1];
+            //console.log(`getReturnValue ()arg==${arg}`);
+            //_tempCount++;
+            var info = {};
+            if (type == 'dbset') {
+                this._dbpath = arg[1];
+                this._code = arg[2];
+                __modal.hide();
+                $('#select-db-btn').text(self._dbpath + "(" + self._code + ")");
+
+            } else if (type == 'tablename') {
+                _code = value;
+                document.getElementById('tableInput').value = _code;
+            } else if (type == 'dbopen') {
+                var info = arg[1];
+                var arg = arg[2];
+                console.log(arg);
+                this.LoadData(info.info, arg);
+
+            } else if (type == 'path') {
+                //var arr = value.split('/');
+                //var str = "/filelist.file?code=" + arr[2] + "&filetype=open&filename=" + arr[1] + "&filepath=" + arr[0] + "&utf8=ok&";
+                //alert(arr + str);
+                // FileAjax('fileopen', str);
+                //location.href = '/' + arg[2] + '/' + arg[1];
+                var protocol = window.location.protocol; // "http:" 또는 "https:"
+                var host = window.location.host; 
+                var baseUrl = protocol + "//" + host + '/' + arg[2] + '/' + arg[1]; 
+                $('iframe').attr('src', baseUrl);
+                console.log(baseUrl);
+            } else if (type == 'icon' || type == 'img') {
+                $('#iconchange_input').val(type + ':' + value);
+                //alert(value);
+            }
+        }
+
+        function onPopupBtnClick(e) {
+            event.preventDefault();
+            var id = e.id;
+            console.log(`onPopupBtnClick id==${id}`);
+            if (id == 'dbselect') {
+                var elem = document.createElement('div');
+                var cls = new DbFileAjaxBase({ type: 'filelist', filetype: 'db', path: '', rendertype: 'ta', returntype: 'return', $parent: self });
+                cls.fileList('', elem);
+                //$('#dbsetModal').modal('show');
+                __modal.show('디비셋팅', elem);
+                //console.log('$(elem).html()==' + $(elem).html());
+            } else if (id == "onpaint") {
+                if ($('#canvasDiv').is(':visible'))
+                    $('#canvasDiv').hide();
+                else
+                    $('#canvasDiv').show();
+            } else if (id == "browser") {
+                var input = $('#browserInput').val();
+                if (!input.startsWith('http'))
+                    input = 'http://' + input;
+                $('iframe').attr('src', input);
+                $('#browserInput').val('');
+            }
+        }
+
+        $(document).ready(function () {
+            document.title = '그림판';
+            
+            $$('bp_open-file-btn').onclick = function () {
+
+                var elem = document.createElement('div');
+                var cls = new DbFileAjaxBase({ type: 'filelist', filetype: 'file', path: '', filter: 'html', rendertype: 'ta', returntype: 'path', $parent: _self });
+                cls.fileList('', elem);
+                //$('#dbsetModal').modal('show');
+                __modal.show('디비셋팅', elem);
+                //console.log('_self==' + _self.getReturnValue);
+            };
+            //__insertWindow(createWindow(), 'test title', 22,22, 500, 500, 'aqua');
+
+            var elem = document.getElementById('fabricElem');
+            var fb = new FabricBase({ elem: elem});
+            //var elem2 = document.getElementById('fabricElem2');
+            //var fb2 = new FabricBase({ elem: elem2 });
+            //$('#canvasDiv').hide();
+            console.log(browserNav.offsetHeight);
+        });
+
+    </script>
+
+</head>
+<body class="body">
+    <nav id="browserNav" class="navbar navbar-expand-lg navbar-light bg-light py-0 py-md-0">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" id="bp_open-file-btn" href="#">파일 <span class="sr-only">(current)</span></a>
+                </li>
+               
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="url" id="browserInput" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" id="browser" onclick="onPopupBtnClick(this);" >Browser</button>
+                <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" id="onpaint" onclick="onPopupBtnClick(this);">그리기</button>
+            </form>
+        </div>
+    </nav>
+    <div>
+        <div style="position: absolute; top: calc(${browserNav.offsetHeight}); left: 0; z-index: 1; width: 100%; height: 100%; ">
+            <iframe src="https://www.daum.net" style="width: 100%; height: 100%;" X-Frame-Options=""></iframe>
+        </div>
+        <div id="canvasDiv" style="position: absolute; top: calc(${browserNav.offsetHeight}); left: 0; z-index: 2; width: 100%; height: 100%; ">
+            <div id="fabricElem" style="border: 2px solid black;"></div>
+        </div>
+    </div>
+    <div>
+
+    </div>
+</body>
+
+</html>

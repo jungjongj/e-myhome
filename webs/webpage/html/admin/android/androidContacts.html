@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> 키 값 셋팅 </title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+    <link rel="stylesheet" href="/aMvc/lib/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="/aMvc/lib/orgchart/dist/css/jquery.orgchart.min.css" type="text/css">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?31"></script>
+    <script src="/aMvc/base/viewLibBase.js?123"></script>
+    <script src="/aMvc/base/templateBase.js?22"></script>
+
+    <script type="text/javascript">
+        var self = this;
+        
+        var _androidControler;
+
+        function sendToWebview2(msg) {
+            //var textboxvalue = document.getElementById('text1').value;
+            //window.external.CallForm(msg, msg2);
+            //alert(msg);
+            return Android.AndroidAppCall(msg);
+        }
+        function ReceiveFromWebview2(msg) {
+            //alert(msg);
+            //var temp = msg.split(':');
+            msg += ' \n';
+            var msg2 = $("#cmdresult").val();
+            msg2 = msg2 + msg;
+            $("#cmdresult").val(msg2);
+        }
+
+        window.onload = function () {
+
+        }
+
+        function adminCheck(url) {
+            if (!url.startsWith('http://localhost')) {
+                alert(url);
+            }
+
+        }
+
+        $(document).ready(function () {
+            var elem = document.createElement('div');
+            document.body.appendChild(elem);
+            var config = {
+                type: 'contactslist',
+                rendertype: 'list',
+                renderview: 'MemberNetworkView',
+                tabthread: [
+                    {
+                        key: '연락처',
+                        value: 'contactslist'
+                    },
+                    {
+                        key: '그룹',
+                        value: 'contactsgroup'
+                    },
+                    {
+                        key: '통화기록',
+                        value: 'callstate'
+                    },
+                    {
+                        key: 'sms',
+                        value: 'smslist'
+                    }
+                ]
+            };
+
+            console.log('MemberNetworkController');
+            _androidControler = new MemberNetworkController(config);
+            _androidControler.renderController(elem);
+            console.log('MemberNetworkController222');
+        });
+    </script>
+</head>
+<body class="container">
+    
+
+</body>
+</html>

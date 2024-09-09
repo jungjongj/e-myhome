@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test Mvc</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var elem = document.createElement('div');
+            $('body').append(elem);
+
+            var main = new MainLayout();
+            var ver = new VerticalLayout();
+            var hor = new HorizontalLayout(2, 4, 6, 7);
+
+            main.addControl(ver);
+            main.addControl(hor);
+
+            var c = new BoardController('main_grouplist', "daboard.dadb", "da_board", 3, 'table', 'full');
+            ver.addControl(c);
+            var c = new KeyvalueController('keyvalue', 'config.dadb', 'bookmark', 'aaa', 'topmenu', '', '');
+            ver.addControl(c);
+            console.log('typeof c.constructor.name=' + c.constructor.name);
+            var c1 = new PollController('polllist', "board.dadb", "da_board", 'table', 'full');
+            var c2 = new ErpController('erplist', 'erp.dadb', 'employee', 'table', 'full', '', '');
+            hor.setControl([c2, 4], [c1, 8]);
+
+            main.renderController(elem);
+
+            //setEditEvent('.home_edit_mode');
+            //offEditEvent();
+        });
+
+
+    </script>
+</head>
+<body id="test">
+    
+</body>
+</html>

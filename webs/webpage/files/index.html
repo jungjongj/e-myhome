@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>우편번호 테스트</title>
+</head>
+
+<body>
+폼네임으로 받기
+<form name="form1">
+우편번호 <input type="text" name="post1" size="3"> - <input type="text" name="post2" size="3">
+				<input type="button" value="우편번호" onClick="window.open('post.php?form_info=form1|post1|post2|addr1|addr2','','scrollbars=yes,width=470,height=400')"><br>
+주소 1 <input type="text" name="addr1" size="50"><br>
+주소 2 <input type="text" name="addr2" size="50"><br>
+</form>
+<br>
+<br>
+id로 받기<br>
+우편번호 <input type="text" name="post1" id="post1" size="3"> - <input type="text" name="post2" id="post2" size="3">
+				<input type="button" value="우편번호" onClick="window.open('post.php?form_info=|post1|post2|addr1|addr2','','scrollbars=yes,width=470,height=400')"><br>
+주소 1 <input type="text" name="addr1" id="addr1" size="50"><br>
+주소 2 <input type="text" name="addr2" id="addr2" size="50"><br>
+<br>
+<br>
+
+<a href="API이용 우편번호찾기.zip">다운로드</a>
+</body>
+</html>

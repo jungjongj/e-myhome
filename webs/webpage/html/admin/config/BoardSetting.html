@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> 키 값 셋팅 </title>
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?12"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script type="text/javascript">
+        var boardConfigCon = null;
+        var _code = "da_board", _dbpath = "daboard.dadb";
+        var newWindow;
+        var newWindowInfo = {};
+
+        function openNewWindow(target) {
+
+            newWindow = window.open(target, "OpenToolWindow", "height=800, width=600, scrollbars=yes, resizable=yes");
+            newWindow.focus();
+
+        }
+
+        function receiveByOpenWindow(type, value) {
+            if (type == 'dbpath') {
+                _dbpath = value;
+                document.getElementById('dbInput').value = _dbpath;
+                keyvalueList('code', "#boardlist", '', '');
+            } else if (type == 'tablename') {
+                _code = value;
+                document.getElementById('tableInput').value = _code;
+            }
+        }
+
+        function onBtnClick(e) {
+            console.log("boardConfigCon=======" + boardConfigCon);
+            var id = e.id;
+            if (id == "groupadd") {
+
+                modal.show('그룹추가', makeGroupForm());
+                var form = document.getElementById("groupSetForm");
+                form.dbpath.value = _dbpath;
+            }
+        }
+
+        var keynameselValue = null;
+        var keycodeselValue = null;
+        $(document).ready(function () {
+            document.title = '게시판 셋팅';
+            var elem = document.getElementById('boardconfigView');
+            //new KeyvalueController(type, dbpath, kcode, kname, elem, rendertype, keyfield, keykey);
+            boardConfigCon = new BoardConfigController({ type: 'boardconfig', dbpath: _dbpath, code: _code, brdid: 3, renderview: new BoardConfigView() });
+            boardConfigCon.renderController(elem);
+        });
+    </script>
+</head>
+<body class="container" onfocus="newWindow.close()">
+    <da include="/html/module/navbarAdmin.html"></da>
+    <div class="container" id="boardconfigView">
+
+    </div><!--/row-->
+    <da include="/html/module/footer.html"></da>
+</body>
+</html>
