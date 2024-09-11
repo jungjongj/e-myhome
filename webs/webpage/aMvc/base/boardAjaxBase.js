@@ -1517,6 +1517,7 @@ class BookmarkAjaxBase {
 
 }
 
+<<<<<<< HEAD
 class DbFileAjaxBase {
     constructor(renderinfo) {
         //console.log(`constructor(renderinfo) renderinfo.rendertype=`, renderinfo.rendertype);
@@ -3616,6 +3617,8 @@ class FileController extends DbFileAjaxBase {
     }
 }
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 class BoardAjaxBase {
 
     constructor() {
@@ -4318,12 +4321,18 @@ class BoardAjaxBase {
                 info.fid = $(this).find('fid').text();
                 info.did = $(this).find('did').text();
                 info.id = $(this).find('id').text();
+<<<<<<< HEAD
                 info.name = $(this).find('name').text();
                 info.nick = $(this).find('nick').text();
                 info.thumbnail = $(this).find('thumbnail').text();
                 if (info.img === "")
                     info.img = "/blankimage.jpg";
                 info.filename = $(this).find('filename').text();
+=======
+                info.img = $(this).find('imagename').text();
+                if (info.img === "")
+                    info.img = "/blankimage.jpg";
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 var date = new Date($(this).find('signdate').text());
                 info.signdate = date.format('yy.MM.dd hh mm');
                 info.ref = $(this).find('ref').text();
@@ -4331,6 +4340,7 @@ class BoardAjaxBase {
                 info.okp = $(this).find('okp').text();
                 info.nop = $(this).find('nop').text();
                 info.thread = $(this).find('thread').text();
+<<<<<<< HEAD
                 info.info = $(this).find('info').text();
                 info.tag = $(this).find('tag').text();
                 info.path = $(this).find('path').text();
@@ -4339,12 +4349,17 @@ class BoardAjaxBase {
                 info.ip = $(this).find('ip').text();
                 info.brdid = $(this).find('brdid').text();
 
+=======
+                info.brdid = $(this).find('brdid').text();
+                //console.log("info.brdid===" + info.brdid);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 info.datcount = $(this).find('datcount').text();
                 info.dbpath = arg.dbpath;
                 info.code = arg.code;
                 info.page = pageinfo.page;
                 info.title = arg.title;
                 //alert("decode");
+<<<<<<< HEAD
                 info.summary = $(this).find('summary').text();
                 //info.summary = Base64.decode(summary);
                 var subject = $(this).find('subject').text();
@@ -4353,6 +4368,15 @@ class BoardAjaxBase {
                 var comment = $(this).find('comment').text();
                 //info.comment = Base64.decode(comment);
                 info.comment = comment;
+=======
+                var summary = $(this).find('summary').text();
+                info.summary = Base64.decode(summary);
+                var subject = $(this).find('subject').text();
+                info.subject = Base64.decode(subject);
+                info.subject = info.subject + "(" + info.datcount + ")";
+                var comment = $(this).find('comment').text();
+                info.comment = Base64.decode(comment);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 //alert("info.subject=" + info.subject);
                 item.arr[item.arr.length] = info;
                 //article_num--;
@@ -4964,8 +4988,11 @@ class BoardAjaxBase {
                 info.busu = $(this).find('busu').text();
 
                 info.nation = $(this).find('nation').text();
+<<<<<<< HEAD
                 info.path = $(this).find('path').text();
                 info.tag = $(this).find('tag').text();
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 info.englishname = $(this).find('englishname').text();
                 info.postnum = $(this).find('postnum').text();
                 info.email = $(this).find('email').text();
@@ -5000,8 +5027,11 @@ class BoardAjaxBase {
                 //recordCount++;
                 var info = {};
                 info.uid = $(this).find('uid').text();
+<<<<<<< HEAD
                 info.path = $(this).find('path').text();
                 info.tag = $(this).find('tag').text();
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 info.companycode = $(this).find('companycode').text();
                 info.companyname = $(this).find('companyname').text();
                 info.dealtype = $(this).find('dealtype').text();
@@ -5350,7 +5380,10 @@ class BoardAjaxBase {
 
                 info.nation = $(this).find('nation').text();
                 info.englishname = $(this).find('englishname').text();
+<<<<<<< HEAD
                 info.path = $(this).find('path').text();
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 info.postnum = $(this).find('postnum').text();
                 info.email = $(this).find('email').text();
                 info.addr = $(this).find('addr').text();
@@ -6248,10 +6281,19 @@ class ErpController extends BoardAjaxBase {
         var code = renderinfo.code;
         //this.tostring = `ErpController;${type};${dbpath};${code};${renderview}`;
         
+<<<<<<< HEAD
         if (!renderinfo.keyfield) {
             renderinfo.keyfield = '';
             renderinfo.key = '';
         }
+=======
+        if (renderinfo.tag) {
+            renderinfo.keyfield = 'tag';
+            renderinfo.key = renderinfo.tag;
+        }
+        else
+            renderinfo.keyfield = '';
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
         var empcode = renderinfo.empcode ? renderinfo.empcode : '';
         var companycode = renderinfo.companycode ? renderinfo.companycode : '';

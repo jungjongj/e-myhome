@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Untitled Page</title>
+
+	<script type="text/javascript" src="../../System.debug.js"></script>
+
+	<script type="text/javascript" src="../../System.Web.UI.ShortKeys.debug.js"></script>
+
+	<script type="text/javascript" src="../../System.Windows.Forms.Keys.debug.js"></script>
+
+	<script type="text/javascript" src="../../System.Web.UI.HtmlControls.debug.js"></script>
+
+	<script type="text/javascript" src="../../System.Globalization.KeyboardLayouts.debug.js"></script>
+
+	<link type="text/css" rel="stylesheet" href="../../System.Web.UI.Interface.debug.css" />
+</head>
+<body>
+	<div id="TraceLog" style="width: 100%; height: 200px;"></div>
+	<input type="checkbox" id="EnableTraceCheckBox" /><label
+		for="EnableTraceCheckBox">Enable Trace</label>
+	<input type="checkbox" id="ShowDetailsCheckBox" /><label
+		for="ShowDetailsCheckBox">Show Details</label>
+
+	<script type="text/javascript">
+
+	//#region Layout Creator Text Box
+
+	var layoutControl;
+	
+	function layoutControl_ShortCutAction(sender,e){
+		var allowDefaultBrowserAction = null;
+		var message = "";
+		if (document.getElementById("ShowDetailsCheckBox").checked){
+			message += "on layoutControl_ShortCutAction(sender,"+e.ToString()+")";
+		}else{
+			message += e.EventName+"[0x"+e.KeyCode.toString(16)+"]";
+			if (e.EventName != "OnKeyPress") message += " - ["+e.EnumName +"].Count = "+e.DownCount;
+			message += " - <span style=\"color: gray;\">KeyName:</span> ["+e.KeyName+"]";
+			message += " - <span style=\"color: gray;\">KeysDownString:</span> ["+e.KeysDownString+"]";
+		}
+		Trace.Write(message);
+		if (e.EventName == "OnKeyDown"){
+			// We can customize special actions for our keys.
+			switch(e.KeyName){
+				case "CTRL+T": alert("CTRL+T was pressed!"); break;
+				case "CTRL+S": alert("CTRL+S was pressed!"); break;
+				case "RETURN": Trace.Write("ENTER was pressed!"); allowDefaultBrowserAction = false; break;
+				default:
+			}
+		}
+		return allowDefaultBrowserAction;
+	}
+	
+	function KeyboardLayoutDropDownList_Change(sender, e){
+		Trace.Write("sender.value = "+sender.value);
+		var layoutTestTextBox = document.getElementById("LayoutTestTextBox");
+		// Disable Previous Layout.
+		if (layoutControl){
+			Trace.Write("Dispose Previous Layout");
+			layoutControl.Dispose();
+		}
+		if (sender.value != ""){
+			layoutControl = new System.Web.UI.ShortKeys.KeysManager("LayoutControl",layoutTestTextBox);
+			layoutControl.KeyboardLayout = new System.Globalization.KeyboardLayouts.Layout(sender.value);
+			// Prevent browser keys "New Tab" and "Save".
+			layoutControl.PreventKeys(["CTRL+T","CTRL+S"]);
+			// Allow "Save" again.
+			layoutControl.AllowKeys(["CTRL+S"]);
+			// a
+			layoutControl.OnShortCutAction = layoutControl_ShortCutAction;
+			layoutControl.Control.focus();
+			
+		}
+	}
+
+	function initLayoutTestTextBox(){
+		/// <summary>
+		/// Init keyboard layouts drop down list.
+		/// </summary>
+		var keyboardLayoutDropDownList = document.getElementById("KeyboardLayoutDropDownList")
+		// Bind keyboard layouts to the drowp down list.
+		var mapsBinder = new System.Web.UI.HtmlControls.DataBinder("MapsBinder", keyboardLayoutDropDownList);
+		mapsBinder.DataSource = System.Globalization.KeyboardLayouts.Maps;
+		mapsBinder.DataTextField = "LayoutName";
+		mapsBinder.DataValueField = "LayoutName";
+		mapsBinder.DataBind();
+		System.Web.UI.HtmlControls.AddSelectOption(keyboardLayoutDropDownList, "Windows Default", "", null, true, 0);
+		Events.Add("KeyboardLayoutDropDownList", "change", new System.EventHandler(this, KeyboardLayoutDropDownList_Change), true);
+	}
+
+	//#endregion
+	
+	//#region Layout Creator Text Box
+
+	function LayoutCreatorTextBox_ShortCutAction(sender,e){
+		if (e.EventName == "OnKeyPress"){
+			Trace.Write("0x"+e.LayoutCode.toString(16)+": 0x"+e.KeyCode.toString(16)+", // "+e.KeysDownString+" - "+String.fromCharCode(e.KeyCode),null,null,false);
+		}
+	}
+
+	function initLayoutCreatorTextBox(){
+		var creatorControl = document.getElementById("LayoutCreatorTextBox");
+		creatorKeys = new System.Web.UI.ShortKeys.KeysManager("CreatorShortKeys",creatorControl);
+		creatorKeys.KeyboardLayout = new System.Globalization.KeyboardLayouts.Layout();
+		creatorKeys.OnShortCutAction = LayoutCreatorTextBox_ShortCutAction;
+	}
+	
+	//#endregion
+	
+	function EnableTraceCheckBox_Click(sender, e){
+		Trace.IsEnabled = sender.checked;
+	}
+	
+	window.onload = function(){
+		Trace.IsEnabled = true;
+		Trace.Write("Show Demo");
+		var enableTraceCheckBox = document.getElementById("EnableTraceCheckBox");
+		Trace.IsEnabled = enableTraceCheckBox.checked;
+		Events.Add(enableTraceCheckBox, "click", new System.EventHandler(this, EnableTraceCheckBox_Click), true);
+		initLayoutTestTextBox();
+		initLayoutCreatorTextBox();
+	}
+	
+	function listVirtualKeys(){
+		for (var i = 0; i < 256; i++){
+			var k = System.Windows.Forms.Keys[i];
+			var kf = System.Windows.Forms.VirtualKeysFx[i];
+			var ki = System.Windows.Forms.VirtualKeys[i];
+			var comment = "";
+			ki = (ki) ? ki : "";
+			if (ki.length == 0 && (kf)){
+				comment = " // FireFox";
+				ki = kf;
+			}
+			Trace.Write("0x"+((i <= 16) ? "0" : "")+i.toString(16)+": \""+ki+"\","+comment);
+		}	
+	}
+	
+	</script>
+
+	<p>
+		You can override windows keyboard layout on web page. This feature is useful for
+		a person who wants to access a multilingual website from a public club but don’t
+		have proper language keyboard layout installed.
+		<br />
+		For example you can choose "Russian (Phonetic UK)" keyboard layout and enter some
+		letters inside "Layout Test" textbox. You will see that your English keyboard will
+		act as Russian Phonetic one. "Lithuanian (UK)" keyboard layout - letters are located
+		on the number line of keyboard.
+	</p>
+	<p>
+		Keyboard Layout:<br />
+		<select id="KeyboardLayoutDropDownList">
+		</select><br />
+		Layout Test:<br />
+		<input type="text" id="LayoutTestTextBox" style="width: 400px;" /><br />
+		<br />
+		Layout Creator Area:<br />
+		<textarea id="LayoutCreatorTextBox" rows="4" style="width: 400px;"></textarea>
+	</p>
+</body>
+</html>

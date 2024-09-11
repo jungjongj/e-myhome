@@ -90,15 +90,24 @@
         }
 
         function ReceiveFromWebview2(msg) {
+<<<<<<< HEAD
             
             msg = msg.trim();
             if (isMobileDevice()) {
                 //msg = decodeURIComponent(msg);
             } 
+=======
+            console.log(msg);
+            msg = msg.trim();
+            if (isMobileDevice()) {
+                //msg = decodeURIComponent(msg);
+            }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             try {
                 var subtype, sendip, revip, msg2;
                 var arr = msg.split(';');
                 var arr2 = arr[0].split(':');
+<<<<<<< HEAD
                 
                 if (arr2 && arr2[0] == 'private') {
                     _myuuid = arr2[1];
@@ -108,6 +117,15 @@
                         .then((response) => response.text())
                         .then(data => {
                             
+=======
+                if (arr2 && arr2[0] == 'private') {
+                    _myuuid = arr2[1];
+                    _myname = arr2[2];
+
+                    fetch('/rsa.adm?type=pubkey')
+                        .then((response) => response.text())
+                        .then(data => {
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                             var xmlDoc = $.parseXML(data);
                             $(xmlDoc).find('Records').each(function (index) {
 
@@ -117,12 +135,20 @@
 
                                 var myuuid = RSAEncription(_myuuid);
                                 var myname = _myname;
+<<<<<<< HEAD
                                 //alert('_myuuid=' + _myuuid);
                                 //alert('myuuid=' + myuuid);
                                 console.log(_publicXmlkey);
                                 //console.log(myname);
                                 var url = '/adminautologin.adm?myuuid=' + myuuid + '&myname=' + myname + '&utf8=ok';
                                 alert('url=' + url);
+=======
+
+                                console.log(_publicXmlkey);
+                                //console.log(myname);
+                                var url = '/adminautologin.adm?myuuid=' + myuuid + '&myname=' + myname + '&utf8=ok';
+                                console.log(url);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                 fetch(url)
                                     .then((response) => response.text())
                                     .then(data => {
@@ -138,7 +164,11 @@
                             });
                         })// 에러처리
                         .catch((e) => {
+<<<<<<< HEAD
                             alert('rsa 에러2=' + e);
+=======
+                            alert('rsa 에러=' + e);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                         });
                 }
             } catch (e) {

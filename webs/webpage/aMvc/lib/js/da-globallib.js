@@ -1134,8 +1134,13 @@ var __keyvalueSplitString = function (str){
         var params = str.split('&');
         //console.log('params.length=', params.length);
         if (params.length == 1) {
+<<<<<<< HEAD
             //splitInfo.subject = str;
             //return splitInfo;
+=======
+            splitInfo.subject = str;
+            return splitInfo;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         }
 
         for (var i = 0; i < params.length; i++) {

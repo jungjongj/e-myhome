@@ -45,11 +45,14 @@
                 var decryptedBytes = System.Text.Encoding.UTF8.GetBytes(pPlainText);
                 var encryptedBytes = rsa.Encrypt(decryptedBytes, doOaepPadding);
                 sEncryptData = System.Convert.ToBase64String(encryptedBytes); //암호화된
+<<<<<<< HEAD
 
                 sEncryptData = sEncryptData.replace('+', '-').replace('/', '_');//암호화된
                 if (sEncryptData.charAt(sEncryptData.length - 1) === "=") {
                     sEncryptData = sEncryptData.slice(0, -1);
                 }
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 return sEncryptData;
             }
             catch (e) {
@@ -269,7 +272,11 @@
                 <div class="clearfix"></div>
                 <div class="controls">
                     <div class="form-group has-info">
+<<<<<<< HEAD
                         <label for="adminemailpw" class="control-label">관리자이메일 암호(gmail 2단계인증시 앱비밀번호사용)</label>
+=======
+                        <label for="adminemailpw" class="control-label">관리자이메일 암호</label>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                         <div>
                             <input type="password" class="form-control" name="adminemailpw" id="adminemailpw" placeholder="관리자이메일 암호..." />
                             <button type="button" id="emailtestBtn" class="btn btn-primary">이메일테스트</button>
@@ -381,7 +388,11 @@
                         <div class="clearfix"></div>
                         <div class="controls">
                             <div class="form-group has-info">
+<<<<<<< HEAD
                                 <label for="adminemailpw" class="control-label">관리자이메일 암호(gmail 2단계인증시 앱비밀번호사용)</label>
+=======
+                                <label for="adminemailpw" class="control-label">관리자이메일 암호</label>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                 <div>
                                     <input type="password" class="form-control" name="passwd" id="passwd" placeholder="관리자이메일 암호..." />
 

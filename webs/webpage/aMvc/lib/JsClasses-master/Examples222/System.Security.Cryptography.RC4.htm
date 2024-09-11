@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<title>System.Security.Cryptography.RC4</title>
+
+    <link type="text/css" rel="stylesheet" href="../System.Web.UI.Interface.debug.css" />
+
+	<script type="text/javascript" src="../System.debug.js"></script>
+
+	<script type="text/javascript" src="../System.BitConverter.debug.js"></script>
+
+	<script type="text/javascript" src="../System.Convert.debug.js"></script>
+
+	<script type="text/javascript" src="../System.Text.debug.js"></script>
+
+	<script type="text/javascript" src="../System.Security.Cryptography.RC4.debug.js"></script>
+
+	<script type="text/javascript">
+
+		// You can remove Trace.Write lines.
+		// Note: 'byte' is number from 0 to 256;
+		// Note: 'bytes' is array of 'bytes'. It is same as bytes[] in C#
+		window.onload = function(){
+			// Define key and data string.
+			var k = "test key";
+			var s = "abc新闻网"; //
+			var kb = System.Text.Encoding.UTF8.GetBytes(k);
+			var sb = System.Text.Encoding.UTF8.GetBytes(s);
+			Trace.IsEnabled = true;
+			Trace.Write("Start Demo");
+			// Test RC4.
+			Trace.Write("// Create RC4 symmetric cipher algorithm class.");
+			var rc4 = new System.Security.Cryptography.RC4();
+			Trace.Write("// Test RC4 Algorithm: If 'rc4.Test() = true' then everything works OK.");
+			Trace.Write("rc4.Test() = "+rc4.Test());
+			var encrypted = rc4.Encrypt(kb, sb);
+			var hex = System.BitConverter.ToString(encrypted);
+			Trace.Write("rc4.Encrypt('"+k+"','"+s+"') = "+encrypted+" // hex: "+hex);
+			var decrypted = rc4.Decrypt(kb, encrypted);
+			var sd = System.Text.Encoding.UTF8.GetString(decrypted);
+			Trace.Write("rc4.Decrypt('"+k+"','"+encrypted+"') = "+sd);
+			
+		}
+
+	</script>
+
+</head>
+<body>
+	<div id="TraceLog" style="width: 100%; height: 200px;"></div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<title>System.Security.Cryptography.AES</title>
+	<script src="../Includes/jquery-3.5.1.js"></script>
+	<link type="text/css" rel="stylesheet" href="../System.Web.UI.Interface.debug.css" />
+	<script type="text/javascript" src="../System.debug.js"></script>
+	<script type="text/javascript" src="../System.IO.debug.js"></script>
+	<script type="text/javascript" src="../System.Text.debug.js"></script>
+	<script type="text/javascript" src="../System.Convert.debug.js"></script>
+	<script type="text/javascript" src="../System.BitConverter.debug.js"></script>
+	<script type="text/javascript" src="../System.Security.Cryptography.debug.js"></script>
+	<script type="text/javascript" src="../System.Security.Cryptography.SHA1.debug.js"></script>
+	<script type="text/javascript" src="../System.Security.Cryptography.HMACSHA1.debug.js"></script>
+	<script type="text/javascript" src="../System.Security.Cryptography.AES.debug.js"></script>
+	<link rel="stylesheet" type="text/css" href="Styles/Default.css" />
+	<!-- SyntaxHighlighter -->
+	<link type="text/css" rel="stylesheet" href="../Documents/SyntaxHighlighter/styles/shCoreDefault.css" />
+	<link type="text/css" rel="stylesheet" href="../Documents/SyntaxHighlighter/styles/shThemeDefault.css" />
+	<script type="text/javascript" src="../Documents/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="../Documents/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
+	<script type="text/javascript" src="../Documents/SyntaxHighlighter/scripts/shBrushCSharp.js"></script>
+	<script type="text/javascript">
+
+		function Window_Load() {
+			Trace.IsEnabled = true;
+			Trace.Write("Start Demo");
+			$("#ResetButton").on('click', ResetButton_Click);
+			$("#EncryptButton").on('click', EncryptButton_Click);
+			$("#DecryptButton").on('click', DecryptButton_Click);
+			$("#EncryptedClearButton").on('click', function () { $("#EncryptedTextBox").val(""); });
+			$("#DecryptedClearButton").on('click', function () { $("#DecryptedTextBox").val(""); });
+			ResetButton_Click();
+			// Syntax Highlighter.
+			var html = $("#ExampleScript").html().replace(/\s*$/, "");
+			$("#ExampleCodePanel").html(html);
+			SyntaxHighlighter.all();
+		}
+
+		function ResetButton_Click(sender, e) {
+			$("#PasswordTextBox").val("password")
+			$("#DecryptedTextBox").val("Encoding-编码-암호화-表現形式");
+		}
+
+		$(Window_Load);
+
+	</script>
+	<script type="text/javascript" id="ExampleScript">
+
+		function EncryptButton_Click(sender, e) {
+			$("EncryptedTextBox").val("");
+			var text = $("#DecryptedTextBox").val();
+			var password = $("#PasswordTextBox").val();
+			Trace.Write("----------------------------");
+			Trace.Write("var base64 = System.Security.Cryptography.AES.Encrypt(text, password);");
+			// Encrypt string with AES- 256 algorithm by using password.
+			var base64 = System.Security.Cryptography.AES.Encrypt(text, password);
+			Trace.Write("// base64: " + base64);
+			$("#EncryptedTextBox").val(base64);
+		}
+
+		function DecryptButton_Click(sender, e) {
+			$("#DecryptedTextBox").val("");
+			var base64 = $("#EncryptedTextBox").val();
+			var password = $("#PasswordTextBox").val();
+			Trace.Write("----------------------------");
+			Trace.Write("var text = System.Security.Cryptography.AES.Decrypt(base64, password);");
+			// Decrypt string with AES- 256 algorithm by using password.
+			var text = System.Security.Cryptography.AES.Decrypt(base64, password);
+			Trace.Write("// text: " + text);
+			$("#DecryptedTextBox").val(text);
+		}
+
+	</script>
+</head>
+<body>
+	<table border="0" cellpadding="0" cellspacing="4">
+		<tbody>
+			<tr>
+				<td>
+					Password:
+				</td>
+				<td>
+					<input id="PasswordTextBox" type="text" />
+				</td>
+				<td valign="top"><input id="ResetButton" value="Reset" type="button" /></td>
+			</tr>
+			<tr>
+				<td>Decrypted:</td>
+				<td>
+					<textarea id="DecryptedTextBox" cols="64" rows="5"></textarea>
+				</td>
+				<td valign="top"><input id="DecryptedClearButton" value="Clear" type="button" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="2">
+					<input id="EncryptButton" value="↓ - Encrypt" type="button" />
+					<input id="DecryptButton" value="↑ - Decrypt" type="button" />
+				</td>
+			</tr>
+			<tr>
+				<td>Encrypted:</td>
+				<td>
+					<textarea id="EncryptedTextBox" cols="64" rows="5"></textarea>
+				</td>
+				<td valign="top"><input id="EncryptedClearButton" value="Clear" type="button" /></td>
+			</tr>
+		</tbody>
+	</table>
+	<div id="TraceLog" style="width: 100%; height: 200px;"></div>
+	<div style="background-color: #cccccc; padding: 16px 4px 4px 16px; margin-top: 16px;">
+		<span style="font-weight: bold;">JavaScript Code</span>
+		<pre id="ExampleCodePanel" class="brush: js;" style="margin: 0 0 0 0;"></pre>
+	</div>
+
+</body>
+</html>

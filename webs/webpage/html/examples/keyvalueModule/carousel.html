@@ -20,6 +20,7 @@
     <script src="/aMvc/lib/js/da-globallib.js?123"></script>
 
     <script src="/aMvc/base/boardAjaxBase.js?56"></script>
+<<<<<<< HEAD
     <script src="/aMvc/base/viewLibBase.js?7569"></script>
     <script src="/aMvc/base/templateBase.js?3"></script>
 
@@ -33,6 +34,23 @@
         var _kname = '';
         var _returntype = 'return';
         var _editmode = 'ok';
+=======
+    <script src="/aMvc/base/dbFileAjaxBase.js?6"></script>
+    <script src="/aMvc/base/viewLibBase.js?7"></script>
+    <script src="/aMvc/base/templateBase.js?3"></script>
+
+    <script src="/aMvc/lib/Fabric/Fabric.4.6.0/js/fabric.min.js"></script>
+    <script src="/aMvc/lib/js/da-paint-controller.js?798"></script>
+    <script type="text/javascript" src="/aMvc/lib/zTree_v3-master/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/orgchart/dist/js/jquery.orgchart.js"></script>
+
+    <script type="text/javascript">
+        var self2 = this;
+        var _code = "", _dbpath = "config.dadb";
+        var _keyvalueController = null;
+        var _kcode = '_carousel';
+        var _kname = '';
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         
         var newWindow;
         function openNewWindow(target) {
@@ -124,8 +142,13 @@
                 kcode: _kcode,
                 kname: _kname,
                 rendertype: '_carousel',
+<<<<<<< HEAD
                 returntype: _returntype,
                 editmode: _editmode,
+=======
+                returntype: 'return',
+                editmode: 'ok',
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 $parent: self,
                 renderview: 'CarouselView'
             };
@@ -137,13 +160,17 @@
         }
 
         $(document).ready(function () {
+<<<<<<< HEAD
             urlsplit();
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             renderPage();
         });
     </script>
 </head>
 <body>
 
+<<<<<<< HEAD
     <da include="/eHome/navbarEHome.html?"></da>
 
     <div class="row">
@@ -159,5 +186,12 @@
 
     <da include="/html/module/footer.html"></da>
 
+=======
+    <da include="/html/module/navbarAdmin.html"></da>
+
+    <div id="keyvalueView"></div>
+
+    <da include="/html/module/footer.html"></da>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 </body>
 </html>

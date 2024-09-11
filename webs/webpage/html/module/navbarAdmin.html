@@ -1,5 +1,9 @@
 ﻿<div id="navbar">
+<<<<<<< HEAD
     <nav class="navbar navbar-expand-lg  navbar-dark bg-dark py-0 py-md-0">
+=======
+    <nav class="navbar navbar-expand-lg navbar-light py-0 py-md-0">
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         <div class="container-fluid">
             <a class="navbar-brand" href="/html/admin/Admin.html">Admin</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,6 +31,7 @@
                         <a class="nav-link " href="#" aria-current="page" id="configBtn" onclick="onNavbarAdminItemClick(this)">설정</a>
                     </li>
                 </ul>
+<<<<<<< HEAD
                 <div>
                     <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                         <li class="nav-item dropdown">
@@ -44,6 +49,19 @@
                         </li>
 
                     </ul>
+=======
+                <div class="dropdown">
+                    <button type="button" class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 </div>
 
             </div>
@@ -135,6 +153,7 @@
     function onNavbarAdminItemClick(e) {
         var id = e.id;
         var box = e.id;
+<<<<<<< HEAD
         
         $('#collapseExample').collapse('hide');
         $('#editCollapse').collapse('hide');
@@ -144,6 +163,13 @@
             $('#collapseExample').collapse('show');
         } else if (id == "editBtn") {
             $('#editCollapse').collapse('show');
+=======
+        //console.log('self.eventHandler==' + self.eventHandler);
+        if (id == "collapseBtn") {
+            $('#collapseExample').collapse('toggle');
+        } else if (id == "editBtn") {
+            $('#editCollapse').collapse('toggle');
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (id == "dbfileBtn") {
             location.href = '/html/admin/config/DbandFile.html';
         } else if (id == "erpBtn") {

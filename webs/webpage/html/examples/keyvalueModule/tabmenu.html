@@ -20,6 +20,10 @@
     <script src="/aMvc/lib/js/da-globallib.js?123"></script>
 
     <script src="/aMvc/base/boardAjaxBase.js?56"></script>
+<<<<<<< HEAD
+=======
+    <script src="/aMvc/base/dbFileAjaxBase.js?6"></script>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     <script src="/aMvc/base/viewLibBase.js?"></script>
     <script src="/aMvc/base/templateBase.js?3"></script>
 
@@ -30,12 +34,19 @@
 
     <script type="text/javascript">
         var self2 = this;
+<<<<<<< HEAD
         var _code = "da_board", _dbpath = "example.dadb";
         var _keyvalueController = null;
         var _kcode = '_tabmenu';
         var _kname = '';
         var _returntype = 'return';
         var _editmode = 'ok';
+=======
+        var _code = "", _dbpath = "config.dadb";
+        var _keyvalueController = null;
+        var _kcode = '_tabmenu';
+        var _kname = '';
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         
         var newWindow;
         function openNewWindow(target) {
@@ -117,8 +128,13 @@
                 kcode: _kcode,
                 kname: '',
                 rendertype: '_tabmenu',
+<<<<<<< HEAD
                 returntype: _returntype,
                 editmode: _editmode,
+=======
+                returntype: 'return',
+                editmode: 'ok',
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 $parent: self,
                 renderview: 'TabMenuView'
             };
@@ -135,6 +151,7 @@
     </script>
 </head>
 <body>
+<<<<<<< HEAD
     <da include="/eHome/navbarEHome.html?"></da>
 
     <div class="row">
@@ -149,6 +166,10 @@
     </div>
 
     <da include="/html/module/footer.html"></da>
+=======
+
+    <div id="keyvalueView"></div>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
 </body>
 </html>

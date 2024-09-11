@@ -1,5 +1,8 @@
 ﻿<!doctype html>
+<<<<<<< HEAD
 <html>
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 <head>
     <title>웹로그</title>
     <meta charset="utf-8" />
@@ -27,7 +30,11 @@
         }
         function ReceiveFromWebview2(msg) {
             appendToTextarea(msg);
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         }
 
         function appendToTextarea(newtext) {
@@ -39,7 +46,11 @@
 
             var jsonmsg = JSON.parse(newtext);
             var level = jsonmsg.entry.level;
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             if (level == 'error') {
                 textarea.value += level + '<br>';
                 textarea.value += jsonmsg.entry.text;
@@ -61,6 +72,7 @@
         };
 
         $(document).ready(function () {
+<<<<<<< HEAD
 
             var elem = document.getElementById('weblog');
 
@@ -90,3 +102,18 @@
 </textarea>
 </body>
 </html>
+=======
+            
+            var elem = document.getElementById('weblog');
+            
+        });
+
+    </script>
+</head>
+<body class="container">
+    <div id="weblog">Weblog</div>
+    <textarea id="log" style="width: 100%; height: 100%">
+
+</textarea>
+</body>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03

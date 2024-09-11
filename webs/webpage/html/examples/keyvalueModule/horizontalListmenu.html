@@ -20,6 +20,7 @@
     <script src="/aMvc/lib/js/da-globallib.js?3594"></script>
 
     <script src="/aMvc/base/boardAjaxBase.js?76"></script>
+<<<<<<< HEAD
     <script src="/aMvc/base/viewLibBase.js?36"></script>
     <script src="/aMvc/base/templateBase.js?3"></script>
 
@@ -34,6 +35,24 @@
         var _returntype = 'return';
         var _editmode = 'ok';
 
+=======
+    <script src="/aMvc/base/dbFileAjaxBase.js?6"></script>
+    <script src="/aMvc/base/viewLibBase.js?356"></script>
+    <script src="/aMvc/base/templateBase.js?3"></script>
+
+    <script src="/aMvc/lib/Fabric/Fabric.4.6.0/js/fabric.min.js"></script>
+    <script src="/aMvc/lib/js/da-paint-controller.js?798"></script>
+    <script type="text/javascript" src="/aMvc/lib/zTree_v3-master/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="/aMvc/lib/orgchart/dist/js/jquery.orgchart.js"></script>
+
+    <script type="text/javascript">
+        var self2 = this;
+        var _code = "", _dbpath = "config.dadb";
+        var _keyvalueController = null;
+        var _kcode = '_hstairtree';
+        var _kname = '';
+        
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var newWindow;
         function openNewWindow(target) {
 
@@ -42,6 +61,13 @@
 
         }
 
+<<<<<<< HEAD
+=======
+        window.onload = function () {
+
+        }
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         function urlsplit() {
             var dec = decodeURI(location.href);
             var url = unescape(dec);
@@ -56,6 +82,7 @@
                             _dbpath = param[1];
                         else if (param[0] == "code")
                             _code = param[1];
+<<<<<<< HEAD
                         else if (param[0] == "topmenu")
                             _topmenu = param[1];
                         else if (param[0] == "sidemenu")
@@ -65,6 +92,21 @@
                         else if (param[0] == "rendertype")
                             _rendertype = param[1];
                     }
+=======
+                        else if (param[0] == "kcode") {
+                            _kcode = param[1];
+                            //$("#keycodesel").val(_kcode).prop("selected", true);
+                            //console.log(_kcode);
+                        }
+                        else if (param[0] == "kname") {
+                            _keynameselValue = param[1];
+                            //$("#keynamesel").val(_keynameselValue).prop("selected", true);
+                            //console.log(_keynameselValue);
+                        }
+                        
+                    }
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 }
             }
         }
@@ -103,12 +145,22 @@
                 elem: elem,
                 settype: 'set',
                 title: 'title',
+<<<<<<< HEAD
                 dbpath: _dbpath,
                 kcode: '_hstair',
                 kname: '',
                 //thread: ['aaa', 'bbb'],
                 returntype: _returntype,
                 editmode: _editmode,
+=======
+                dbpath: 'a.dadb',
+                kcode: '_topmenu',
+                kname: '',
+                thread: ['aaa', 'bbb'],
+                rendertype: '_hstairtree',
+                returntype: 'return',
+                editmode: 'ok',
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 $parent: self,
                 renderview: 'HStairTreeView'
             };
@@ -125,6 +177,7 @@
     </script>
 </head>
 <body>
+<<<<<<< HEAD
     <da include="/eHome/navbarEHome.html?"></da>
 
     <div class="row">
@@ -140,5 +193,10 @@
 
     <da include="/html/module/footer.html"></da>
 
+=======
+
+    <div id="keyvalueView"></div>
+    <div>test</div>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 </body>
 </html>

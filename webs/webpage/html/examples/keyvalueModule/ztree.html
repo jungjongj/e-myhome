@@ -32,6 +32,7 @@
     <script type="text/javascript">
         var self2 = this;
         var _code = "", _dbpath = "config.dadb";
+<<<<<<< HEAD
         
         var _code = "da_board", _dbpath = "example.dadb";
         var _keyvalueController = null;
@@ -39,6 +40,11 @@
         var _kname = '';
         var _returntype = 'return';
         var _editmode = 'ok';
+=======
+        var _keyvalueController = null;
+        var _kcode = '_ztree';
+        var _kname = '';
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         
         var newWindow;
         function openNewWindow(target) {
@@ -116,12 +122,21 @@
             var config = {
                 elem: elem,
                 settype: 'set',
+<<<<<<< HEAD
                 dbpath: _dbpath,
                 kcode: _kcode,
                 kname: '',
                 rendertype: 'self',
                 returntype: _returntype,
                 editmode: _editmode,
+=======
+                dbpath: 'a.dadb',
+                kcode: _kcode,
+                kname: '',
+                rendertype: 'self',
+                returntype: 'return',
+                editmode: 'ok2',
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 $parent: self,
                 renderview: 'ZTreeView'
             };
@@ -138,6 +153,7 @@
     </script>
 </head>
 <body>
+<<<<<<< HEAD
     <da include="/eHome/navbarEHome.html?"></da>
 
     <div class="row">
@@ -152,6 +168,10 @@
     </div>
 
     <da include="/html/module/footer.html"></da>
+=======
+
+    <div id="keyvalueView"></div>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
 </body>
 </html>

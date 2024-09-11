@@ -20,7 +20,12 @@
     <script src="/aMvc/lib/js/da-globallib.js?123"></script>
 
     <script src="/aMvc/base/boardAjaxBase.js?56"></script>
+<<<<<<< HEAD
     <script src="/aMvc/base/viewLibBase.js?567"></script>
+=======
+    <script src="/aMvc/base/dbFileAjaxBase.js?6"></script>
+    <script src="/aMvc/base/viewLibBase.js?5"></script>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     <script src="/aMvc/base/templateBase.js?3"></script>
 
     <script src="/aMvc/lib/Fabric/Fabric.4.6.0/js/fabric.min.js"></script>
@@ -30,12 +35,18 @@
 
     <script type="text/javascript">
         var self2 = this;
+<<<<<<< HEAD
         var _code = "da_board", _dbpath = "example.dadb";
         var _keyvalueController = null;
         var _kcode = '_listtree';
         var _kname = '';
         var _returntype = 'return';
         var _editmode = 'ok';
+=======
+        var _code = "", _dbpath = "config.dadb";
+        var _keynameselValue = null;
+        var _kcode = null;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         
         var newWindow;
         function openNewWindow(target) {
@@ -127,11 +138,150 @@
             }
         }
 
+<<<<<<< HEAD
+=======
+        function makeGroupForm() {
+            var m = `<form class="form-horizontal" name="groupSetForm" id="groupSetForm">
+                                                    <input type="hidden" name="dbpath" />
+                                                    <input type="hidden" name="type" value="groupadd" /><!-- brdadd, groupupdate, brdupdate, groupdel, brddel-->
+
+                                                    <div class="controls" id="groupMakeShow22">
+                                                        <div class="form-group">
+                                                            <label for="levelchk" class="control-label">그룹:</label>
+                                                            <div>
+                                                                <input type="text" class="form-control" name="kcode" id="groupname" value="" placeholder="그룹이름..." required />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="controls">
+                                                        <div class="form-group">
+                                                            <label for="levelchk" class="control-label">설명:</label>
+                                                            <div>
+                                                                <textarea type="text" class="form-control" name="info" placeholder="설명..." required></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="controls">
+                                                        <div class="form-group">
+                                                            <input type="button" id="groupaddBtn"  class="btn btn-warning btn-send" value="전송">
+                                                            <input type="reset" class="btn btn-warning btn-send" value="리셋">
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+
+                                                </form>`;
+            return m;
+        }
+
+        function makeNameForm() {
+            var m = `<form class="form-horizontal" name="nameSetForm" id="nameSetForm">
+                                                    <input type="hidden" name="dbpath" />
+                                                    <input type="hidden" name="type" value="nameadd" />
+                                                    <input type="hidden" name="uid" />
+                                                    <input type="hidden" name="fid" />
+                                                    <input type="hidden" name="did" />
+
+                                                    <div class="controls">
+                                                        <div class="form-group">
+                                                            <label for="levelchk" class="control-label">그룹:</label>
+                                                            <div>
+                                                                <input type="text" class="form-control" name="kcode" value="" readonly/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="controls">
+                                                        <div class="form-group">
+                                                            <label for="levelchk" class="control-label">식별자이름:</label>
+                                                            <div>
+                                                                <input type="text" class="form-control" name="kname" value="" placeholder="식별자이름이름..." required />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="controls">
+                                                        <div class="form-group">
+                                                            <label for="levelchk" class="control-label">설명:</label>
+                                                            <div>
+                                                                <textarea type="text" class="form-control" name="info" placeholder="설명..." required></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="controls">
+                                                        <div class="form-group">
+                                                           <input type="button" id="nameaddBtn"  class="btn btn-warning btn-send" value="전송">
+                                                            <input type="reset" class="btn btn-warning btn-send" value="리셋">
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+
+                                                </form>`;
+            return m;
+        }
+
+        function eventHandler(e) {
+            var type = e.data.type;
+            var arg = e.data.arg;
+            console.log(type);
+            var elem = document.getElementById('keyvalueView');
+            if (type == "groupaddSubmit") {
+                var form = document.getElementById('groupSetForm');
+
+                var str = "/mankeyvalue.adm?&utf8=ok&";
+                var elem = document.getElementById('keyvalueView');
+                var arg = { path: str, type: "keyvalue", dbpath: _dbpath, elem: elem };
+                //arg.path = str;
+                //arg.type = 'keyvalue';
+                arg.kcode = form.kcode.value;
+                //arg.rendertype = $("#rendertypesel option:selected").val();
+                arg.form = form;
+                var formData = $(form).serializeArray();
+                arg.formData = formData;
+
+                //var str = `/mankeyvalue.adm?dbpath=${self.arg.dbpath}&kcode=${self.keycodeselValue}&kname=${self.keynameselValue}&type=${self.arg.type}&utf8=ok&`;
+                //arg.path = str;
+                arg.dbpath = self2._dbpath;
+                arg.kcode = form.kcode.value;
+                self2._keyvalueController.keyvaluePost(arg);
+
+                __modal.hide();
+            } else if (type == "nameaddSubmit") {
+                var form = document.getElementById("nameSetForm");
+
+                var str = "/mankeyvalue.adm?&utf8=ok&";
+                var elem = document.getElementById('keyvalueView');
+                var arg = { path: str, type: "keyvalue", dbpath: _dbpath, elem: elem };
+                //arg.path = str;
+                //arg.type = 'keyvalue';
+                arg.kcode = form.kcode.value;
+                arg.rendertype = $("#rendertypesel option:selected").val();
+                arg.form = form;
+                var formData = $(form).serializeArray();
+                arg.formData = formData;
+                console.log('form.kcode.value*******=' + form.kcode.value);
+                arg.path = str;
+                arg.dbpath = self2._dbpath;
+                arg.kcode = form.kcode.value;
+                arg.kname = form.kname.value;
+                self2._keyvalueController.keyvaluePost(arg);
+                __modal.hide();
+            }
+        }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
         $(document).ready(function () {
             var elem = document.getElementById('keyvalueView');
             var config = {
                 settype: 'setting',
+<<<<<<< HEAD
                 dbpath: _dbpath,
                 kcode: _kcode,
                 kname: '',
@@ -140,6 +290,15 @@
                 editmode: _editmode,
                 $parent: self,
                 renderview: 'ListTreeView'
+=======
+                dbpath: 'config.dadb',
+                kcode: '_list',
+                kname: 'fffffff',
+                rendertype: '_carousel',
+                returntype: 'return',
+                editmode: 'ok',
+                renderview: 'CarouselView'
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             };
             _keyvalueController = new KeyvalueController(config);
             
@@ -149,6 +308,7 @@
 </head>
 <body>
 
+<<<<<<< HEAD
     <da include="/eHome/navbarEHome.html?"></da>
 
     <div class="row">
@@ -164,5 +324,17 @@
 
     <da include="/html/module/footer.html"></da>
 
+=======
+    <da include="/html/module/navbarAdmin.html"></da>
+
+    <div class="row">
+        <div class="col">
+            <div id="keyvalueView"></div>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <da include="/html/module/footer.html"></da>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 </body>
 </html>

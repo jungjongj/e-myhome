@@ -31,12 +31,19 @@
 
     <script type="text/javascript">
         var self2 = this;
+<<<<<<< HEAD
         var _code = "da_board", _dbpath = "example.dadb";
         var _keyvalueController = null;
         var _kcode = '_sidemenu';
         var _kname = '';
         var _returntype = 'return';
         var _editmode = 'ok';
+=======
+        var _code = "", _dbpath = "config.dadb";
+        var _keyvalueController = null;
+        var _kcode = '_sidemenu';
+        var _kname = '';
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         
         var newWindow;
         function openNewWindow(target) {
@@ -114,12 +121,21 @@
             var config = {
                 elem: elem,
                 settype: 'set',
+<<<<<<< HEAD
                 dbpath: _dbpath,
                 kcode: _kcode,
                 kname: '',
                 rendertype: 'self',
                 returntype: _returntype,
                 editmode: _editmode,
+=======
+                dbpath: 'config.dadb',
+                kcode: _kcode,
+                kname: '',
+                rendertype: 'self',
+                returntype: 'return',
+                editmode: 'ok',
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 $parent: self,
                 renderview: 'SideMenuView'
             };
@@ -131,12 +147,16 @@
         }
 
         $(document).ready(function () {
+<<<<<<< HEAD
             urlsplit();
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             renderPage();
         });
     </script>
 </head>
 <body>
+<<<<<<< HEAD
     <da include="/eHome/navbarEHome.html?"></da>
 
     <div class="row">
@@ -153,6 +173,8 @@
     <da include="/html/module/footer.html"></da>
 
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
     <div id="keyvalueView"></div>
 

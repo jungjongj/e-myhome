@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?12"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?"></script>
+    <script src="/aMvc/base/viewLibBase.js?3"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script src="/aMvc/lib/Fabric/Fabric.4.6.0/js/fabric.min.js"></script>
+    <script src="/aMvc/lib/js/da-paint-controller.js?"></script>
+
+    <script type="text/javascript">
+        
+        $(document).ready(function () {
+
+            var main = new MainLayout();
+            var ver = new VerticalLayout();
+            var hor = new HorizontalLayout();
+
+            main.addControl(ver);
+            main.addControl(hor);
+
+            var elem = document.getElementById('mainelem');
+            var config = {
+                type: 'boardlist',
+                dbpath: 'example.dadb',
+                code: 'da_board',
+                brdid: 1,
+                renderview: 'BoardView',
+                rendertype: 'table',
+                title: 'testtable'
+            };
+            var c = new BoardController(config);
+            ver.addControl(c);
+            
+            main.renderController(elem);
+        });
+    </script>
+</head>
+<body onfocus="newWindow.close()">
+    <da include="/html/module/navbarAdmin.html?"></da>
+    <div id="main-logform"></div>
+    <div id="mainelem"></div>
+    <da include="boardlist.board" type="boardlist" dbpath="daboard.dadb" code="da_board" brdid="3" renderview="BoardView" rendertype="table" title="testtable"> </da>
+    <da include="/html/module/footer.html"></da>
+</body>
+</html>

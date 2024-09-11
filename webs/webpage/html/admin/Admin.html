@@ -19,8 +19,14 @@
 
     <script src="/aMvc/lib/js/da-globallib.js?356"></script>
 
+<<<<<<< HEAD
     <script src="/aMvc/base/boardAjaxBase.js?4"></script>
     <script src="/aMvc/base/viewLibBase.js?358"></script>
+=======
+    <script src="/aMvc/base/dbFileAjaxBase.js?456"></script>
+    <script src="/aMvc/base/boardAjaxBase.js?4"></script>
+    <script src="/aMvc/base/viewLibBase.js?35"></script>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     <script src="/aMvc/base/templateBase.js?1"></script>
 
     <script src="/aMvc/lib/qrcode/qrcode.min.js"></script>
@@ -506,11 +512,23 @@
             var config = {
                 elem: elem,
                 settype: 'set',
+<<<<<<< HEAD
                 title: '관리자',
                 dbpath: 'config.dadb',
                 kcode: '_hstair',
                 kname: '',
                 rendertype: '_hstairtree',
+=======
+                title: 'title',
+                dbpath: 'config.dadb',
+                kcode: '_admin',
+                kname: '',
+                thread: ['aaa', 'bbb'],
+                rendertype: '_hstairtree',
+                returntype: 'return',
+                editmode: 'ok',
+                $parent: self,
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 renderview: 'HStairTreeView'
             };
 
@@ -731,6 +749,7 @@
 
 </head>
 <body>
+<<<<<<< HEAD
     <da include="/html/module/navbarAdmin.html?1"></da>
 
     <div class="card ">
@@ -739,6 +758,16 @@
             <div class="pull-right">↕</div>
         </div>
         <div class="card-body " id="collapseChaser">
+=======
+    <da include="/html/module/navbarAdmin.html"></da>
+
+    <div class="card ">
+        <div class="card-header text-white bg-info custom-card-header" data-toggle="collapse" href="#collapseChaser">
+            추적자
+            <div class="pull-right" data-toggle="collapse" href="#collapseChaser">↕</div>
+        </div>
+        <div class="card-body collapse" id="collapseChaser">
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             <div id="chaserView"></div>
         </div>
     </div>

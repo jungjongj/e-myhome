@@ -21,6 +21,7 @@
 
     <script src="/aMvc/base/boardAjaxBase.js?3510"></script>
     <script src="/aMvc/base/viewLibBase.js?213"></script>
+<<<<<<< HEAD
     <script src="/aMvc/base/templateBase.js?35"></script>
 
     <script type="text/javascript">
@@ -109,12 +110,24 @@
         $(document).ready(function () {
             urlsplit();
             var lecture = new LectureTemp({ elem: document.getElementById('lecture') });
+=======
+    <script src="/aMvc/base/templateBase.js?3"></script>
+
+    <script type="text/javascript">
+        document.title = '강좌';
+        var _dbpath = "daboard.dadb", _code = "da_board", _kcode, _kname;
+
+        $(document).ready(function () {
+
+            var lecture = new LectureTemp({ dbpath: _dbpath, code: _code });
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         });
 
 
     </script>
 </head>
 <body>
+<<<<<<< HEAD
     <da include="/eHome/navbarEHome.html?"></da>
 
     <div class="row">
@@ -128,6 +141,10 @@
         </div>
     </div>
 
+=======
+    <da include="/html/module/navbarIndex.html"></da>
+    <div id="mafiagame"></div>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     <da include="/html/module/footer.html"></da>
 </body>
 </html>

@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<title>System.EventArgs</title>
+	<script src="../Includes/jquery-3.5.1.js"></script>
+	<link type="text/css" rel="stylesheet" href="../System.Web.UI.Interface.debug.css" />
+	<link type="text/css" rel="stylesheet" href="Styles/Default.css" />
+	<script type="text/javascript" src="../System.debug.js"></script>
+	<!-- SyntaxHighlighter -->
+	<link type="text/css" rel="stylesheet" href="../Documents/SyntaxHighlighter/styles/shCoreDefault.css" />
+	<link type="text/css" rel="stylesheet" href="../Documents/SyntaxHighlighter/styles/shThemeDefault.css" />
+	<script type="text/javascript" src="../Documents/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="../Documents/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
+	<script type="text/javascript" src="../Documents/SyntaxHighlighter/scripts/shBrushCSharp.js"></script>
+</head>
+<body>
+	<table border="0" cellpadding="0" cellspacing="4">
+		<tbody>
+			<tr>
+				<td>Demo Text Box:</td>
+				<td>
+					<input id="DemoTextBox" type="text" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div id="TraceLog" style="width: 100%; height: 200px;"></div>
+	<div style="background-color: #cccccc; padding: 16px 4px 4px 16px; margin-top: 16px;">
+		<span style="font-weight: bold;">JavaScript Code</span>
+		<pre id="ExampleCodePanel" class="brush: js;" style="margin: 0 0 0 0;"></pre>
+	</div>
+	<div style="background-color: #cccccc; padding: 16px 4px 4px 16px; margin-top: 16px;">
+		<span style="font-weight: bold;">JavaScript Code - How C# syntax was achieved on INPUT element.</span>
+		<pre id="HowToPanel" class="brush: js;" style="margin: 0 0 0 0;"></pre>
+	</div>
+
+	<script type="text/javascript" id="HowToScript">
+
+		var DemoTextBox = {
+			control: $("#DemoTextBox"),
+			get Text() {
+				return this.control.val();
+			},
+			set Text(value) {
+				this.control.val(value);
+				for (property in this.TextChangedHandlers) {
+					this.TextChangedHandlers[property](this, {});
+				}
+			},
+			TextChangedWrappers: {},
+			TextChangedHandlers: {},
+			get TextChanged() {
+				return 0;
+			},
+			set TextChanged(evIndex) {
+				if (evIndex > 0) {
+					Trace.Write("// Add handler to TextChanged event.");
+					var self = this;
+					var h = handlers[evIndex];
+					var w = function () { h(self, {}); }
+					this.TextChangedHandlers[evIndex] = h;
+					this.TextChangedWrappers[evIndex] = w;
+					this.control.on('change input', w);
+				} else {
+					Trace.Write("// Remove handler from TextChanged event.");
+					var h = handlers[-evIndex];
+					var w;
+					for (property in this.TextChangedHandlers) {
+						if (h === this.TextChangedHandlers[property]) {
+							w = this.TextChangedWrappers[property];
+							delete this.TextChangedWrappers[property];
+							delete this.TextChangedHandlers[property];
+						}
+					}
+					this.control.off('change input', w);
+				}
+			},
+		}
+
+		var handlers = new Array();
+
+		var EventHandler = function (handler) {
+			var index = handlers.length + 1;
+			handlers[index] = handler;
+			return index;
+		}
+
+		function Window_Load() {
+			Trace.IsEnabled = true;
+			Trace.Write("Demo Start");
+			// Syntax Highlighter.
+			var html = $("#ExampleScript").html().replace(/\s*$/, "");
+			$("#ExampleCodePanel").html(html);
+			var html = $("#HowToScript").html().replace(/\s*$/, "");
+			$("#HowToPanel").html(html);
+			SyntaxHighlighter.all();
+			// Trigger Page_Load Event.
+			Page_Load(this, {});
+		}
+
+		$(Window_Load);
+
+	</script>
+	<script type="text/javascript" id="ExampleScript">
+
+
+		// Yes, this is JavaScript.
+
+		function DemoTextBox_TextChanged(sender, e) {
+			// Event will fire when 'input' value is changed and focus is taken away.
+			Trace.Write("DemoTextBox Text Changed: " + sender.Text);
+		}
+
+		function Page_Load(sender, e) {
+			// Attach event to 'input' element.
+			DemoTextBox.TextChanged += EventHandler(DemoTextBox_TextChanged);
+			// Change 'input' value.
+			DemoTextBox.Text = "value 1";
+			// Remove event from 'input' element.
+			DemoTextBox.TextChanged -= EventHandler(DemoTextBox_TextChanged);
+			// Change 'input' value (TextChanged event won't fire).
+			DemoTextBox.Text = "value 2";
+			// Attach event to 'input' element again.
+			DemoTextBox.TextChanged += EventHandler(DemoTextBox_TextChanged);
+		}
+
+	</script>
+</body>
+</html>

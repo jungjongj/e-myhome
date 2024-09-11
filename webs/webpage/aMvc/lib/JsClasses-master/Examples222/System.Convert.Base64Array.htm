@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <title>System.Convert.Base64Array</title>
+    <link rel="stylesheet" type="text/css" href="../System.Web.UI.Interface.debug.css" />
+    <link rel="stylesheet" type="text/css" href="Styles/Default.css" />
+
+    <script src="../Includes/jquery-3.5.1.js"></script>
+
+    <script type="text/javascript" src="../System.debug.js"></script>
+
+    <script type="text/javascript" src="../System.Text.debug.js"></script>
+
+    <script type="text/javascript" src="../System.Convert.debug.js"></script>
+
+    <script type="text/javascript" src="../System.Web.UI.debug.js"></script>
+    <!-- SyntaxHighlighter -->
+    <link type="text/css" rel="stylesheet" href="../Documents/SyntaxHighlighter/styles/shCoreDefault.css" />
+    <link type="text/css" rel="stylesheet" href="../Documents/SyntaxHighlighter/styles/shThemeDefault.css" />
+    <script type="text/javascript" src="../Documents/SyntaxHighlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="../Documents/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="../Documents/SyntaxHighlighter/scripts/shBrushCSharp.js"></script>
+
+    <script type="text/javascript">
+
+        function Window_Load() {
+            Trace.IsEnabled = true;
+            Trace.Write("Start Demo");
+            $("#ResetButton").on('click', ResetButton_Click);
+            $("#ClearDecodeedButton").on('click', ClearDecodeedButton_Click);
+            $("#ClearEncodeedButton").on('click', ClearEncodeedButton_Click);
+            $("#EncodeButton").on('click', EncodeButton_Click);
+            $("#DecodeButton").on('click', DecodeButton_Click);
+            $("#EncodeUrlButton").on('click', EncodeUrlButton_Click);
+            $("#DecodeUrlButton").on('click', DecodeUrlButton_Click);
+            ResetButton_Click();
+            SyntaxHighlighter.all();
+        }
+
+        $(Window_Load);
+
+        function ResetButton_Click(sender, e) {
+            $("#DecodeedTextBox").val("abė新闻网");
+        }
+
+        function ClearDecodeedButton_Click(sender, e) {
+            $("#DecodeedTextBox").val("");
+        }
+
+        function ClearEncodeedButton_Click(sender, e) {
+            $("#EncodeedTextBox").val("");
+        }
+
+        //#region base64
+
+        function EncodeButton_Click(sender, e) {
+            $("#EncodeedTextBox").val("");
+            var text = $("#DecodeedTextBox").val();
+            Trace.Write("----------------------------");
+            Trace.Write("var bytes = System.Text.Encoding.UTF8.GetBytes(text);");
+            var bytes = System.Text.Encoding.UTF8.GetBytes(text);
+            Trace.Write("var base64 =  System.Convert.ToBase64String(bytes);");
+            var base64 = System.Convert.ToBase64String(bytes);
+            Trace.Write("// base64: " + base64);
+            $("#EncodeedTextBox").val(base64);
+        }
+
+        function DecodeButton_Click(sender, e) {
+            $("#DecodeedTextBox").val("");
+            var base64 = $("#EncodeedTextBox").val();
+            Trace.Write("----------------------------");
+            Trace.Write("var bytes = System.Convert.FromBase64String(base64);");
+            var bytes = System.Convert.FromBase64String(base64);
+            Trace.Write("var text = System.Text.Encoding.UTF8.GetString(bytes);");
+            var text = System.Text.Encoding.UTF8.GetString(bytes);
+            Trace.Write("// text: " + text);
+            $("#DecodeedTextBox").val(text);
+        }
+
+        //#endregion
+
+        //#region base64url
+
+        function EncodeUrlButton_Click(sender, e) {
+            $("#EncodeedTextBox").val("");
+            var text = $("#DecodeedTextBox").val();
+            Trace.Write("----------------------------");
+            Trace.Write("var bytes = System.Text.Encoding.UTF8.GetBytes(text);");
+            var bytes = System.Text.Encoding.UTF8.GetBytes(text);
+            Trace.Write("var base64 = System.Web.HttpServerUtility.UrlTokenEncode(bytes);");
+            var base64 = System.Web.HttpServerUtility.UrlTokenEncode(bytes);
+            Trace.Write("// base64url: " + base64);
+            $("#EncodeedTextBox").val(base64);
+        }
+
+        function DecodeUrlButton_Click(sender, e) {
+            $("#DecodeedTextBox").val("");
+            var base64 = $("#EncodeedTextBox").val();
+            Trace.Write("----------------------------");
+            Trace.Write("var bytes = System.Web.HttpServerUtility.UrlTokenDecode(base64);");
+            var bytes = System.Web.HttpServerUtility.UrlTokenDecode(base64);
+            Trace.Write("var text = System.Text.Encoding.UTF8.GetString(bytes);");
+            var text = System.Text.Encoding.UTF8.GetString(bytes);
+            Trace.Write("// text: " + text);
+            $("#DecodeedTextBox").val(text);
+        }
+
+        //#endregion
+
+    </script>
+
+</head>
+<body>
+    <table border="0" cellpadding="0" cellspacing="4">
+        <tbody>
+            <tr>
+                <td>Text:</td>
+                <td colspan="2">
+                    <textarea id="DecodeedTextBox" cols="64" rows="10"></textarea>
+                </td>
+                <td valign="top"><input id="ClearDecodeedButton" value="Clear" type="button" /><br /><input id="ResetButton" value="Reset" type="button" style="margin-top: 4px;" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    Base64
+                </td>
+                <td style="float: right;">
+                    Base64URL (URL/Filename safe)
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input id="EncodeButton" value="↓ - Encode" type="button" />
+                    <input id="DecodeButton" value="↑ - Decode" type="button" />
+                </td>
+                <td style="float: right;">
+                    <input id="EncodeUrlButton" value="↓ - Encode" type="button" />
+                    <input id="DecodeUrlButton" value="↑ - Decode" type="button" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Base64:</td>
+                <td colspan="2">
+                    <textarea id="EncodeedTextBox" cols="64" rows="10"></textarea>
+                </td>
+                <td valign="top"><input id="ClearEncodeedButton" value="Clear" type="button" /></td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="TraceLog" style="width: 100%; height: 200px;"></div>
+
+
+    <div style="background-color: #cccccc; padding: 16px 4px 4px 16px; margin-top: 16px;">
+        <span style="font-weight: bold;">C# Notes</span>
+        <pre id="ExampleCodePanel" class="brush: csharp;" style="margin: 0 0 0 0;">// C# static methods for Base64 encoding/decoding:
+public static byte[] System.Convert.FromBase64String(string input);
+public static string System.Convert.ToBase64String(byte[] input);
+// C# static methods for Base64URL (URL and filename safe) encoding/decoding:
+public static byte[] System.Web.HttpServerUtility.UrlTokenDecode(string input);
+public static string System.Web.HttpServerUtility.UrlTokenEncode(byte[] input);</pre>
+    </div>
+
+</body>
+</html>

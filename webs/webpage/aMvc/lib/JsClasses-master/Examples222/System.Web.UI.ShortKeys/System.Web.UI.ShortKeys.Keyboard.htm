@@ -1,0 +1,244 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Untitled Page</title>
+
+	<script type="text/javascript" src="../../System.debug.js"></script>
+
+	<script type="text/javascript" src="../../System.Web.UI.ShortKeys.debug.js"></script>
+
+	<script type="text/javascript" src="../../System.Windows.Forms.Keys.debug.js"></script>
+
+	<script type="text/javascript" src="../../System.Globalization.KeyboardLayouts.debug.js"></script>
+
+	<link type="text/css" rel="stylesheet" href="../../System.Web.UI.Interface.debug.css" />
+
+	<style type="text/css">
+	
+	.Keyboard {
+		float: left;
+	}
+	.KeypadMain {
+		background-color: #000000;
+	}
+	
+	.Key {
+		background-color: #858585;
+		background-image: url(Images/key1-36x36.gif);
+		float: left;
+		width: 36px;
+		height: 36px;
+		margin: 1px 0 0 1px;
+
+	}
+	
+	.KeyEx {
+		float: left;
+		height: 36px;
+		margin: 1px 0 0 1px;
+	}
+
+	.KeyEx p {
+		padding: 3px 0 0 5px;
+		margin: 0;
+		color: #e0e0e0;
+		font-family: Arial;
+		font-size: 9pt;
+		font-weight: bold;
+	}
+	
+	.Key p {
+		padding: 3px 0 0 5px;
+		margin: 0;
+		color: #e0e0e0;
+		font-family: Arial;
+		font-size: 9pt;
+		font-weight: bold;
+	}
+	
+	
+	.KeyWin, .KeyAlt, .KeyAltGr, .KeyMnu, .KeyEsc,
+	.KeyInsert, .KeyHome, .KeyPageUp, .KeyDelete, .KeyEnd, .KeyPageDown,
+	.KeyUp, .KeyDown, .KeyLeft, .KeyRight
+	 {
+		width: 36px;
+		background-image: url(Images/key1-36x36.gif);
+	}
+	
+	.KeyEnter{
+		position: absolute;
+		width: 54px;
+		height: 73px;
+		background-image: url(Images/key1-54x73.gif);
+	}
+	
+	.KeyEmpty, .KeyShift, .KeyTab {
+		width: 54px;
+		background-image: url(Images/key1-36x54.gif);
+	}
+	
+	.KeyBackspace, .KeyCtrl, .KeyCapsLock {
+		width: 72px;
+		background-image: url(Images/key1-36x72.gif);
+	}
+
+	.KeyRShift {
+		width: 91px;
+		background-image: url(Images/key1-36x91.gif);
+
+	}
+
+	.KeySpace {
+		width: 222px;
+		background-image: url(Images/key1-36x222.gif);
+	}
+
+	.Line {
+		height: 36px;
+			float: left;
+	}
+	
+	</style>
+</head>
+<body>
+	<div id="TraceLog" style="width: 100%; height: 200px;"></div>
+	<script type="text/javascript">
+	var shortKeys;
+
+	window.onload = function(){
+		Trace.IsEnabled = true;
+		Trace.Write("Start Demo");
+		ab("Esc","Line0a");
+		ab("F1","Line0b"); ab("F2");  ab("F3");  ab("F4");
+		ab("F5","Line0c"); ab("F6");  ab("F7");  ab("F8");
+		ab("F9","Line0d"); ab("F10");  ab("F11");  ab("F12");
+		// Line 1
+		ab("¬`","Line1");
+		var line = ["!1", "\"2", "£3", "$4", "%5", "^6", "&7", "*8", "(9", ")0", "_-", "+="];
+		for (var i = 0; i < line.length; i++) ab(line[i]);
+		ab("Backspace",null);
+		// Line 2
+		ab("Tab","Line2");
+		line = ["Q","W","E","R","T","Y","U","I","O","P","{[","}]"];
+		for (var i = 0; i < line.length; i++) ab(line[i]);
+		ab("Empty");
+		ab("CapsLock","Line3");
+		line = ["A","S","D","F","G","H","J","K","L",":;","@'","~#"];
+		for (var i = 0; i < line.length; i++) ab(line[i]);
+		ab("Enter");
+		ab("Shift","Line4");
+		line = ["|\\","Z","X","C","V","B","N","M","<,",">.","?/","RShift"];
+		for (var i = 0; i < line.length; i++) ab(line[i]);
+		ab("Ctrl","Line5");
+		line = ["Win","Alt","Space","AltGr","Win","Mnu","Ctrl"];
+		for (var i = 0; i < line.length; i++) ab(line[i]);
+		var keyEmpty = document.getElementById("KeyEmpty");
+		var keyEnter = document.getElementById("KeyEnter");
+		keyEmpty.style.position = "relative";
+		keyEnter.style.top = (keyEmpty.offsetTop-1)+"px";
+		keyEnter.style.left = (keyEmpty.offsetLeft-1)+"px";
+	}
+
+	function ab(keys, parentId){
+		var key1 = keys;
+		var key2 = null;
+		var fnxRegExp = new RegExp("F[0-9]+");
+		if (keys.length == 2 && !keys.match(fnxRegExp)){
+			key1 = keys.charAt(0);
+			key2 = keys.charAt(1);
+		}
+		var keyDiv = document.createElement("div");
+		if (keys.length > 2 && !keys.match(fnxRegExp)){
+			keyDiv.className = "KeyEx Key"+key1;
+			keyDiv.id = "Key"+key1;
+		}else{
+			keyDiv.className = "Key"
+		}
+		var keyP = document.createElement("p");
+		keyP.innerHTML = ((key1) ? key1 : "")+"<br >"+((key2) ? key2 : "");
+		keyDiv.appendChild(keyP);
+		if (parentId) parentDiv = document.getElementById(parentId);
+		parentDiv.appendChild(keyDiv);
+	}
+	
+	</script>
+	<br />
+	<br />
+	<div class="Keyboard">
+		<table class="KeypadMain" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td>
+					<table class="KeypadMain" cellpadding="0" cellspacing="0" border="0" style="width: 100%">
+						<tr>
+							<td>
+								<table class="KeypadMain" cellpadding="0" cellspacing="0" border="0" width="554">
+									<tr>
+										<td id="Line0a" nowrap="nowrap">
+										</td>
+										<td id="Line0b" nowrap="nowrap">
+										</td>
+										<td id="Line0c" nowrap="nowrap">
+										</td>
+										<td id="Line0d" nowrap="nowrap">
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td style="height: 12px;">
+							</td>
+						</tr>
+						<tr>
+							<td id="Line1" nowrap="nowrap" style="height: 19px">
+							</td>
+						</tr>
+						<tr>
+							<td id="Line2" nowrap="nowrap">
+							</td>
+						</tr>
+						<tr>
+							<td id="Line3" nowrap="nowrap">
+							</td>
+						</tr>
+						<tr>
+							<td id="Line4" nowrap="nowrap">
+							</td>
+						</tr>
+						<tr>
+							<td id="Line5" nowrap="nowrap">
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table class="KeypadMain" cellpadding="0" cellspacing="0" border="0" style="width: 100%">
+						<tr>
+							<td id="MLine1" nowrap="nowrap">
+							</td>
+						</tr>
+						<tr>
+							<td id="MLine2" nowrap="nowrap">
+							</td>
+						</tr>
+						<tr>
+							<td id="MLine3" nowrap="nowrap">
+							</td>
+						</tr>
+						<tr>
+							<td id="MLine4" nowrap="nowrap">
+							</td>
+						</tr>
+						<tr>
+							<td id="MLine5" nowrap="nowrap">
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

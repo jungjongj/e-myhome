@@ -21,7 +21,11 @@
 
     <script src="/aMvc/base/boardAjaxBase.js?56"></script>
     <script src="/aMvc/base/dbFileAjaxBase.js?6"></script>
+<<<<<<< HEAD
     <script src="/aMvc/base/viewLibBase.js?62"></script>
+=======
+    <script src="/aMvc/base/viewLibBase.js?36"></script>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     <script src="/aMvc/base/templateBase.js?3"></script>
 
     <script src="/aMvc/lib/Fabric/Fabric.4.6.0/js/fabric.min.js"></script>
@@ -31,12 +35,19 @@
 
     <script type="text/javascript">
         var self2 = this;
+<<<<<<< HEAD
         var _code = "da_board", _dbpath = "example.dadb";
         var _keyvalueController = null;
         var _kcode = '_topmenu';
         var _kname = '';
         var _returntype = 'return';
         var _editmode = 'ok';
+=======
+        var _code = "", _dbpath = "config.dadb";
+        var _keyvalueController = null;
+        var _kcode = '_topmenu';
+        var _kname = '';
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         
         var newWindow;
         function openNewWindow(target) {
@@ -46,6 +57,13 @@
 
         }
 
+<<<<<<< HEAD
+=======
+        window.onload = function () {
+
+        }
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         function urlsplit() {
             var dec = decodeURI(location.href);
             var url = unescape(dec);
@@ -62,11 +80,22 @@
                             _code = param[1];
                         else if (param[0] == "kcode") {
                             _kcode = param[1];
+<<<<<<< HEAD
                         }
                         else if (param[0] == "kname") {
                             _kname = param[1];
                             
                         } 
+=======
+                            //$("#keycodesel").val(_kcode).prop("selected", true);
+                            //console.log(_kcode);
+                        }
+                        else if (param[0] == "kname") {
+                            _keynameselValue = param[1];
+                            //$("#keynamesel").val(_keynameselValue).prop("selected", true);
+                            //console.log(_keynameselValue);
+                        }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                         
                     }
 
@@ -117,11 +146,16 @@
             var config = {
                 elem: elem,
                 settype: 'setting',
+<<<<<<< HEAD
                 dbpath: _dbpath,
+=======
+                dbpath: 'a.dadb',
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 kcode: _kcode,
                 kname: _kname,
                 rendertype: 'h',
                 cls2: 'navbar-dark bg-dark',
+<<<<<<< HEAD
                 returntype: _returntype,
                 editmode: _editmode,
                 $parent: self,
@@ -130,6 +164,14 @@
             console.log(_dbpath);
             console.log(_kcode);
             console.log(_kname);
+=======
+                returntype: 'return',
+                editmode: 'ok',
+                $parent: self,
+                renderview: 'TopMenuView'
+            };
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             if (!_keyvalueController)
                 _keyvalueController = new KeyvalueController(config);
 
@@ -137,13 +179,17 @@
         }
 
         $(document).ready(function () {
+<<<<<<< HEAD
             urlsplit();
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             renderPage();
         });
     </script>
 </head>
 <body>
 
+<<<<<<< HEAD
     <da include="/eHome/navbarEHome.html?"></da>
 
     <div class="row">
@@ -159,5 +205,12 @@
 
     <da include="/html/module/footer.html"></da>
 
+=======
+    <da include="/html/module/navbarAdmin.html"></da>
+
+    <div id="keyvalueView"></div>
+
+    <da include="/html/module/footer.html"></da>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 </body>
 </html>

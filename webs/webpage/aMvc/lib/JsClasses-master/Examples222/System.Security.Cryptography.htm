@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<title>System.Security.Cryptography.AES</title>
+	<link type="text/css" rel="stylesheet" href="../System.Web.UI.Interface.debug.css" />
+	<script type="text/javascript" src="../System.debug.js"></script>
+	<script type="text/javascript" src="../System.IO.debug.js"></script>
+	<script type="text/javascript" src="../System.Text.debug.js"></script>
+	<script type="text/javascript" src="../System.Convert.debug.js"></script>
+	<script type="text/javascript" src="../System.BitConverter.debug.js"></script>
+	<script type="text/javascript" src="../System.Security.Cryptography.debug.js"></script>
+	<script type="text/javascript" src="../System.Security.Cryptography.SHA1.debug.js"></script>
+	<script type="text/javascript" src="../System.Security.Cryptography.HMACSHA1.debug.js"></script>
+	<script type="text/javascript" src="../System.Security.Cryptography.AES.debug.js"></script>
+	<link rel="stylesheet" type="text/css" href="Styles/Default.css" />
+	<script type="text/javascript">
+
+		//#region Init Example
+
+		function Window_Load() {
+			Trace.IsEnabled = true;
+			WriteLog("Start Demo");
+			document.getElementById("TestBlockButton").onclick = TestBlockButton_Click;
+			document.getElementById("TestStreamButton").onclick = TestStreamButton_Click;
+		}
+
+		window.onload = Window_Load;
+
+		//#endregion
+
+		//#region Log Function
+
+		function WriteLog(text) {
+			Trace.Write("<code>" + text + "</code>");
+		}
+
+		function WriteEnc(input, output) {
+			WriteLog("Transform: " + System.BitConverter.ToString(input, '') +
+			" -> " + System.BitConverter.ToString(output, ''));
+		}
+
+		//#endregion
+
+		//#region Shared Objects
+
+		var Cipher;
+		var DataBytes;
+		var SaltBytes;
+		var PassBytes;
+		var Key;
+		var IV;
+
+		function CreateCipher() {
+			/// <summary>
+			/// Create an instance of the symetric algorithm class.
+			/// </summary>
+			Cipher = new System.Security.Cryptography.AesCryptoServiceProvider();
+			//Cipher = new System.Security.Cryptography.RC2CryptoServiceProvider();
+			//Cipher = new System.Security.Cryptography.RC4CryptoServiceProvider();
+			Cipher.Mode = parseInt($("CipherModeDropDownList").value);
+			Cipher.Padding = parseInt($("PaddingModeDropDownList").value);
+			WriteLog("cipher.KeySize: " + Cipher.KeySize + " bits");
+			WriteLog("cipher.BlockSize: " + Cipher.BlockSize + " bits");
+			WriteLog("cipher.Key[" + Cipher.Key.length + "]: " + System.BitConverter.ToString(Cipher.Key, ''));
+			WriteLog("cipher.IV[" + Cipher.IV.length + "]: " + System.BitConverter.ToString(Cipher.IV, ''));
+			WriteLog("cipher.Mode: " + Cipher.Mode);
+			WriteLog("cipher.Padding: " + Cipher.Padding);
+			// Prepare Data;
+			DataBytes = System.Text.Encoding.UTF8.GetBytes($("DataTextBox").value);
+		}
+
+		function CreateKeyAndIv() {
+			/// <summary>
+			/// Use salt and password to create Key and IV.
+			/// </summary>
+			// Convert salt and passsword to bytes.
+			SaltBytes = System.Text.Encoding.UTF8.GetBytes($("SaltTextBox").value);
+			PassBytes = System.Text.Encoding.UTF8.GetBytes($("PasswordTextBox").value);
+			// Generate Secret Key from the password and salt.
+			var secretKey = new System.Security.Cryptography.Rfc2898DeriveBytes(PassBytes, SaltBytes, 5);
+			// 32 bytes (256 bits) for the secret key and
+			// 16 bytes (128 bits) for the initialization vector (IV).
+			Key = secretKey.GetBytes(Cipher.KeySize / 8);
+			IV = secretKey.GetBytes(Cipher.IV.length);
+			Cipher.Key = Key;
+			Cipher.IV = IV;
+			WriteLog("// Update Key and IV.");
+			WriteLog("Key[" + Key.length + "]: " + System.BitConverter.ToString(Key, ''));
+			WriteLog("IV[" + IV.length + "]: " + System.BitConverter.ToString(IV, ''));
+		}
+
+		//#endregion
+
+		//#region Test Block
+
+		function CipherBlock(cryptor, input) {
+			WriteLog("--- Cipher Block:");
+			WriteLog("InputBlockSize: " + cryptor.InputBlockSize);
+			WriteLog("OutputBlockSize: " + cryptor.OutputBlockSize);
+			var finalSize = input.length % cryptor.InputBlockSize;
+			var blockCount = (input.length - finalSize) / cryptor.InputBlockSize;
+			if (finalSize > 0) blockCount += 1;
+			WriteLog("InputLength: " + input.length);
+			WriteLog("BlockCount: " + blockCount);
+			WriteLog("FinalSize: " + finalSize);
+			var len = input.length;
+			var stream = new System.IO.MemoryStream();
+			for (var b = 0; b < blockCount; b++) {
+				var inputBuffer = new System.Byte(cryptor.InputBlockSize);
+				var outputBuffer = new System.Byte(cryptor.OutputBlockSize);
+				// Calculate length of current block:
+				var blockLength = b < blockCount - 1 ? cryptor.InputBlockSize : (len - 1) % cryptor.InputBlockSize + 1;
+				var iPos = b * cryptor.InputBlockSize;
+				// Copy data bytes to input buffers.
+				System.Buffer.BlockCopy(input, iPos, inputBuffer, 0, blockLength);
+				if (b < blockCount - 1) {
+					//WriteLog("Transform Block...");
+					cryptor.TransformBlock(input, iPos, cryptor.InputBlockSize, outputBuffer, 0);
+				} else {
+					WriteLog("Transform final block[" + blockLength + "]...");
+					outputBuffer = cryptor.TransformFinalBlock(input, iPos, blockLength);
+				}
+				WriteEnc(inputBuffer, outputBuffer);
+				stream.Write(outputBuffer, 0, outputBuffer.length);
+			}
+			return stream.ToArray();
+		}
+
+		function TestBlock() {
+			var cryptor;
+			WriteLog("DataBytes String: " + System.Text.Encoding.UTF8.GetString(DataBytes));
+			// -----------------------------------------------------
+			cryptor = Cipher.CreateEncryptor();
+			var encrypted = CipherBlock(cryptor, DataBytes);
+			WriteLog("Encrypted Bytes: " + System.BitConverter.ToString(encrypted, ''));
+			// -----------------------------------------------------
+			//Cipher.Padding = System.Security.Cryptography.PaddingMode.None;
+			cryptor = Cipher.CreateDecryptor();
+			var decrypted = CipherBlock(cryptor, encrypted);
+			// -----------------------------------------------------
+			WriteLog("Decrypted String: " + System.Text.Encoding.UTF8.GetString(decrypted));
+		}
+
+		function TestBlockButton_Click(sender, e) {
+			/// <summary>
+			/// Begin block test.
+			/// </summary>
+			/// <param name="sender">Sender.</param>
+			/// <param name="e">Event arguments.</param>
+			WriteLog("===========================================================");
+			WriteLog("Test Block");
+			WriteLog("===========================================================");
+			CreateCipher();
+			CreateKeyAndIv();
+			TestBlock();
+		}
+
+		//#endregion
+
+		//#region Test Stream
+
+		function CipherStreamWrite(cryptor, input) {
+			/// <summary>
+			/// Encrypt/Decrypt with Write method.
+			/// </summary>
+			/// <param name="cryptor"></param>
+			/// <param name="input"></param>
+			/// <returns></returns>
+			WriteLog("--- Cipher Stream:");
+			WriteLog("InputBlockSize: " + cryptor.InputBlockSize);
+			WriteLog("OutputBlockSize: " + cryptor.OutputBlockSize);
+			var inputBuffer = new System.Byte(input.length);
+			var outputBuffer;
+			// Copy data bytes to input buffer.
+			System.Buffer.BlockCopy(input, 0, inputBuffer, 0, inputBuffer.length);
+			// Create a MemoryStream to hold the output bytes.
+			var stream = new System.IO.MemoryStream();
+			// Create a CryptoStream through which we are going to be processing our data.
+			var cryptoStream = new System.Security.Cryptography.CryptoStream(stream, cryptor, System.Security.Cryptography.CryptoStreamMode.Write);
+			// Start the crypting process.
+			cryptoStream.Write(inputBuffer, 0, inputBuffer.length);
+			// Finish crypting.
+			cryptoStream.FlushFinalBlock();
+			// Convert data from a memoryStream into a byte array.
+			outputBuffer = stream.ToArray();
+			// Close both streams.
+			stream.Close();
+			cryptoStream.Close();
+			WriteEnc(inputBuffer, outputBuffer);
+			return outputBuffer;
+		}
+
+		function CipherStreamRead(cryptor, input) {
+			/// <summary>
+			/// Encrypt/Decrypt with Read method. Recommended for decrypting only.
+			/// </summary>
+			/// <param name="cryptor"></param>
+			/// <param name="input"></param>
+			/// <returns></returns>
+			WriteLog("--- Cipher Stream:");
+			WriteLog("InputBlockSize: " + cryptor.InputBlockSize);
+			WriteLog("OutputBlockSize: " + cryptor.OutputBlockSize);
+			var inputBuffer = new System.Byte(input.length);
+			var outputBuffer = new System.Byte(input.length);
+			// Copy data bytes to input buffer.
+			System.Buffer.BlockCopy(input, 0, inputBuffer, 0, inputBuffer.length);
+			// Create a MemoryStream to hold the input bytes.
+			var stream = new System.IO.MemoryStream(inputBuffer);
+			// Create a CryptoStream through which we are going to be processing our data.
+			var cryptoStream = new System.Security.Cryptography.CryptoStream(stream, cryptor, System.Security.Cryptography.CryptoStreamMode.Read);
+			// Start the crypting process.
+			var length = cryptoStream.Read(outputBuffer, 0, outputBuffer.length);
+			// Finish crypting.
+			cryptoStream.FlushFinalBlock();
+			// Convert data from a memoryStream into a byte array.
+			System.Array.Resize(outputBuffer, length);
+			// Close both streams.
+			stream.Close();
+			cryptoStream.Close();
+			WriteEnc(inputBuffer, outputBuffer);
+			return outputBuffer;
+		}
+
+		function TestStream() {
+			var cryptor;
+			WriteLog("DataBytes String: " + System.Text.Encoding.UTF8.GetString(DataBytes));
+			// -----------------------------------------------------
+			cryptor = Cipher.CreateEncryptor();
+			var encrypted = CipherStreamWrite(cryptor, DataBytes);
+			// -----------------------------------------------------
+			cryptor = Cipher.CreateDecryptor();
+			var decrypted = CipherStreamWrite(cryptor, encrypted);
+			// -----------------------------------------------------
+			WriteLog("Decrypted String: " + System.Text.Encoding.UTF8.GetString(decrypted));
+		}
+
+		function TestStreamButton_Click(sender, e) {
+			/// <summary>
+			/// Begin stream test.
+			/// </summary>
+			/// <param name="sender">Sender.</param>
+			/// <param name="e">Event arguments.</param>
+			WriteLog("===========================================================");
+			WriteLog("Test Stream");
+			WriteLog("===========================================================");
+			CreateCipher();
+			CreateKeyAndIv();
+			TestStream();
+		}
+
+		//#endregion
+
+	</script>
+</head>
+<body>
+	<table border="0" cellpadding="0" cellspacing="4">
+		<tr>
+			<td>
+				Data:
+			</td>
+			<td>
+				<input name="DataTextBox" type="text" value="Encoding-编码-암호화-表現形式"
+					id="DataTextBox" style="width: 500px;" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Salt:
+			</td>
+			<td>
+				<input name="SaltTextBox" type="text" value="saltsalt" id="SaltTextBox" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Password:
+			</td>
+			<td>
+				<input name="PasswordTextBox" type="text" value="password" id="PasswordTextBox" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Cipher Mode
+			</td>
+			<td>
+				<select name="CipherModeDropDownList" id="CipherModeDropDownList">
+					<option selected="selected" value="1">CBC</option>
+					<option value="2">ECB</option>
+					<option value="3">OFB</option>
+					<option value="4">CFB</option>
+					<option value="5">CTS</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Padding Mode
+			</td>
+			<td>
+				<select name="PaddingModeDropDownList" id="PaddingModeDropDownList">
+					<option value="1">None</option>
+					<option selected="selected" value="2">PKCS7</option>
+					<option value="3">Zeros</option>
+					<option value="4">ANSIX923</option>
+					<option value="5">ISO10126</option>
+				</select>
+			</td>
+		</tr>
+	</table>
+	<input type="submit" name="TestBlockButton" value="Test Block" id="TestBlockButton" />
+	<input type="submit" name="TestStreamButton" value="Test Stream" id="TestStreamButton" /><br />
+	<div id="TraceLog" style="width: 100%; height: 400px;"></div>
+</body>
+</html>

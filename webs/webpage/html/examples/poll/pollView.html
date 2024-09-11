@@ -42,13 +42,18 @@
 
         $(document).ready(function () {
 
+<<<<<<< HEAD
             var elem = document.getElementById('pollelem');
+=======
+            var elem = document.getElementById('a');
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             var c = new PollController(config);
             c.renderController(elem);
         });
     </script>
 </head>
 <body>
+<<<<<<< HEAD
     <da include="/eHome/navbarEHome.html?"></da>
 
     <div class="row">
@@ -64,5 +69,10 @@
 
     <da include="/html/module/footer.html"></da>
     
+=======
+    <div id="a"></div>
+
+    <da include="pollview.poll" type="pollview" dbpath="board.dadb" code="da_board" fid="16" renderview="PollView"></da>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 </body>
 </html>

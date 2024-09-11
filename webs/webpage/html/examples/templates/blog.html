@@ -20,6 +20,7 @@
     <script src="/aMvc/lib/js/da-globallib.js?"></script>
 
     <script src="/aMvc/base/boardAjaxBase.js?3510"></script>
+<<<<<<< HEAD
     <script src="/aMvc/base/viewLibBase.js?243"></script>
     <script src="/aMvc/base/templateBase.js?34"></script>
 
@@ -27,6 +28,14 @@
         document.title = '블로그';
         var _dbpath = "example.dadb", _code = "da_board", _topmenu = "_topmenu",
             _sidemenu = "_blog", _carousel = "_blog", _rendertype = "table";
+=======
+    <script src="/aMvc/base/viewLibBase.js?213"></script>
+    <script src="/aMvc/base/templateBase.js?34"></script>
+
+    <script type="text/javascript">
+        document.title = '강좌';
+        var _dbpath = "daboard.dadb", _code = "da_board", _topmenu, _sidemenu, _carousel;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
         function urlsplit() {
             var dec = decodeURI(location.href);
@@ -48,22 +57,31 @@
                             _sidemenu = param[1];
                         else if (param[0] == "carousel")
                             _carousel = param[1];
+<<<<<<< HEAD
                         else if (param[0] == "rendertype")
                             _rendertype = param[1];
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                     }
                 }
             }
         }
 
         class BlogTemp {
+<<<<<<< HEAD
             constructor(arg) {
                 this.arg = arg;
+=======
+            constructor(info) {
+                this.info = info;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 this.init();
             }
 
             init() {
                 var main = new MainLayout();
                 var ver = new VerticalLayout();
+<<<<<<< HEAD
                 var ver2 = new VerticalLayout();
                 var hor = new HorizontalLayout();
 
@@ -117,18 +135,57 @@
                 hor.setControl([ver, 5], [ver2, 7]);
 
                 main.renderController(this.arg.elem);
+=======
+                var hor = new HorizontalLayout();
+
+                main.addControl(ver);
+                main.addControl(hor);
+
+                var config = {
+                    dbpath: 'config.dadb',
+                    kcode: '_topmenu',
+                    kname: 'ㅁㅁㅁㅁ',
+                    rendertype: '_topmenu'
+                }
+
+                console.log(`dbpath=`);
+                //console.log(`kcode=`, kcode);
+                //console.log(`kname=`, kname);
+                var returnElem = new KeyvalueController(config);
+                ver.addControl(returnElem);
+                /*** 
+                var arg = {
+                    type: 'boardlist',
+                    dbpath: this.info.dbpath,
+                    code: this.info.code,
+                    brdid: 3,
+                    renderview: new BoardView(),
+                    rendertype: 'selectlist_v'
+                }
+                var board = new BoardController(arg);
+                //var board = new BoardController({ type: 'boardlist', dbpath: this.info.dbpath, code: this.info.code, brdid: 3, renderview: new BoardView(), rendertype: 'table' });
+                ver.addControl(board);
+                ***/
+                main.renderController(document.body);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             }
         }
 
         $(document).ready(function () {
+<<<<<<< HEAD
             urlsplit();
             var c = new BlogTemp({ elem: document.getElementById('blog') });
+=======
+
+            var lecture = new BlogTemp({ dbpath: _dbpath, code: _code });
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         });
 
 
     </script>
 </head>
 <body>
+<<<<<<< HEAD
     <da include="/eHome/navbarEHome.html?"></da>
     <div id="blog"></div>
     <div class="row">
@@ -144,5 +201,10 @@
 
     <da include="/html/module/footer.html"></da>
 
+=======
+    <da include="/html/module/navbarIndex.html"></da>
+    
+    <da include="/html/module/footer.html"></da>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 </body>
 </html>

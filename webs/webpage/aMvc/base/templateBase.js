@@ -27,6 +27,42 @@
     }
 }
 
+<<<<<<< HEAD
+=======
+class LectureTemp {
+    constructor(info) {
+        this.info = info;
+        this.init();
+    }
+
+    init() {
+        var main = new MainLayout();
+        var ver = new VerticalLayout();
+        var hor = new HorizontalLayout();
+
+        main.addControl(ver);
+        main.addControl(hor);
+
+        //var c = new BoardController('grouplist', "daboard.dadb", "da_board", 3, new BoardView(), { rendertype: 'media' });
+        //ver.addControl(c);
+        
+        var arg = {
+            type: 'boardlist',
+            dbpath: this.info.dbpath,
+            code: this.info.code,
+            brdid: 3,
+            renderview: new BoardView(),
+            rendertype: 'selectlist'
+        }
+        var board = new BoardController(arg);
+        //var board = new BoardController({ type: 'boardlist', dbpath: this.info.dbpath, code: this.info.code, brdid: 3, renderview: new BoardView(), rendertype: 'table' });
+        ver.addControl(board);
+
+        main.renderController(document.body);
+    }
+}
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 class TtsboardTemp {
     constructor() {
     }
@@ -217,6 +253,7 @@ class TtsboardTemp {
     }
 }
 
+<<<<<<< HEAD
 class ChaserTemp {
     constructor(arg) {
         this.arg = arg;
@@ -946,6 +983,10 @@ class ChaserTemp {
         //return $box;
     }
 }
+=======
+
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 class MafiaGameTemp {
     constructor(arg) {
         this.arg = arg;
@@ -1732,7 +1773,11 @@ class CompanyViewbodyTemplate {
         main.renderController($page);
 
         var f = new FullScreenView();
+<<<<<<< HEAD
         f.setContent(`뷰 보기234`, $page);
+=======
+        f.setContent(`뷰 보기2`, $page);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         console.log("info.uid=" + info.uid);
         return main;
     }

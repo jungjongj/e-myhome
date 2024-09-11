@@ -3289,6 +3289,7 @@ class EmployeeView extends ViewBase {
         super();
     }
 
+<<<<<<< HEAD
     getReturnValue() {
         var type, value;
         var arg = Array.prototype.slice.call(arguments);
@@ -3321,6 +3322,8 @@ class EmployeeView extends ViewBase {
         } 
     }
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     eventHandler(e) {
         var info = e.data.info;
         var arg = e.data.arg;
@@ -3328,6 +3331,7 @@ class EmployeeView extends ViewBase {
         var self = e.data.self;
         console.log('type**=' + type );
         if (type == 'erpwrite') {
+<<<<<<< HEAD
 
             //__modal.show('입 력', self.createErpFormView());
             window._fullscreen = new FullScreenView();
@@ -3340,11 +3344,18 @@ class EmployeeView extends ViewBase {
             } else {
                 form.companycode.disabled = true;
             }
+=======
+            __modal.show('입 력', self.createErpFormView());
+
+            var form = document.getElementById("empViewForm");
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.dbpath.value = arg.dbpath;
             $('#empdelSubmit').remove();
             $('#empmodifySubmit').remove();
             $('#empaddSubmit').bind("click", { type: 'empaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
             //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+<<<<<<< HEAD
         } else if (type == 'empImgselBtnClick') {
             self.selectedImageFormId = "empViewForm";
             var c = new FileController({ type: 'filelist', code: 'root', filetype: 'file', path: '/files/media/images/icons/', filter: 'image', returntype: 'return', $parent: self });
@@ -3357,13 +3368,19 @@ class EmployeeView extends ViewBase {
             form.dbpath.value = arg.dbpath;
             form.uid.value = info.uid;
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'empaddSubmit') {
 
             var form = document.getElementById("empViewForm");
             form.dbpath.value = arg.dbpath;
             if (arg.renderinfo.tag)
                 form.tag.value = arg.renderinfo.tag;
+<<<<<<< HEAD
             console.log('form.path.value********=' + form.path.value);
+=======
+            console.log('form.tag.value********=' + form.tag.value);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
             arg.type = "erplist";
             arg.form = form;
@@ -3374,11 +3391,14 @@ class EmployeeView extends ViewBase {
             arg.path = str;
             console.log('EmployeeView arg2.path=' + arg.path);
             arg.self.postAjax(arg);
+<<<<<<< HEAD
 
             if (window._fullscreen) {
                 window._fullscreen.offscreen();
                 window._fullscreen = null;
             }
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'empdelSubmit') {
 
             if (!confirm(`내용을 삭제합니다`)) {
@@ -3476,6 +3496,7 @@ class EmployeeView extends ViewBase {
         } else if (type == 'personalwrite') {
             __modal.show('입 력', self.createEmppersonalFormView());
 
+<<<<<<< HEAD
             var arrarr = info.arrarr;
             var info2 = arrarr[0];
             var personalarr = info.personalarr;
@@ -3505,6 +3526,15 @@ class EmployeeView extends ViewBase {
             $('#emppersonalmodifySubmit').remove();
             $('#emppersonaladdSubmit').bind("click", { type: 'emppersonaladdSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
             
+=======
+            var form = document.getElementById("emppersonalViewForm");
+            form.empcode.value = info.empcode;
+            form.dbpath.value = arg.dbpath;
+            $('#emppersonaldelSubmit').remove();
+            $('#emppersonalmodifySubmit').remove();
+            $('#emppersonaladdSubmit').bind("click", { type: 'emppersonaladdSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+            console.log(`form.empcode.value==${form.empcode.value} info.empcode=${info.empcode}`);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'emppersonaladdSubmit') {
 
             var form = document.getElementById("emppersonalViewForm");
@@ -3607,10 +3637,13 @@ class EmployeeView extends ViewBase {
             form.dbpath.value = arg.dbpath;
             $('#emppersonalmodifySubmit').bind("click", { type: 'emppersonalmodifySubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
 
+<<<<<<< HEAD
         } else if (type == 'familyviewBtn') {
             
             window._fullscreen = new FullScreenView();
             window._fullscreen.setContent(`입력`, self.createFamilyList(info, arg, self.eventHandler));
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'familywrite') {
             __modal.show('입 력', self.createEmpfamilyFormView());
 
@@ -3709,6 +3742,7 @@ class EmployeeView extends ViewBase {
             form.dbpath.value = arg.dbpath;
             $('#empfamilymodifySubmit').bind("click", { type: 'empfamilymodifySubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
 
+<<<<<<< HEAD
         } else if (type == 'careerviewBtn') {
             
             //__modal.show('입 력', self.createEmpcareerFormView());
@@ -3721,6 +3755,10 @@ class EmployeeView extends ViewBase {
             window._fullscreen.setContent(`입력`, self.createEmpcareerFormView());
             $('#careerImgselBtn').bind("click", { type: 'careerImgselBtnClick', self: self, info: info, arg: arg }, e.data.self.eventHandler);
             $('#careerbgImgselBtn').bind("click", { type: 'careerbgImgselBtnClick', self: self, info: info, arg: arg }, e.data.self.eventHandler);
+=======
+        } else if (type == 'careerwrite') {
+            __modal.show('입 력', self.createEmpcareerFormView());
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
             var form = document.getElementById("empcareerViewForm");
 
@@ -3730,6 +3768,7 @@ class EmployeeView extends ViewBase {
             $('#empcareermodifySubmit').remove();
             $('#empcareeraddSubmit').bind("click", { type: 'empcareeraddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
             //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+<<<<<<< HEAD
         } else if (type == 'careerImgselBtnClick') {
             self.selectedImageFormId = "empcareerViewForm";
             var c = new FileController({ type: 'filelist', code: 'root', filetype: 'file', path: '/files/media/images/icons/', filter: 'image', returntype: 'return', $parent: self });
@@ -3767,6 +3806,11 @@ class EmployeeView extends ViewBase {
 
             form.value.value = value;
 
+=======
+        } else if (type == 'empcareeraddSubmit') {
+
+            var form = document.getElementById("empcareerViewForm");
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.dbpath.value = arg.dbpath;
             //console.log('form^********************************=' + form);
             //var arg2 = { type: "erplist", dbpath: arg.dbpath, code: arg.code, elem: arg.elem, renderinfo: arg.renderinfo, self: arg.self };
@@ -3779,10 +3823,13 @@ class EmployeeView extends ViewBase {
             arg.path = str;
             console.log('EmployeeView arg.path=' + arg.path);
             arg.self.postAjax(arg);
+<<<<<<< HEAD
             if (window._fullscreen) {
                 window._fullscreen.offscreen();
                 window._fullscreen = null;
             }
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'empcareerdelSubmit') {
 
             if (!confirm(`내용을 삭제합니다`)) {
@@ -3889,7 +3936,10 @@ class EmployeeView extends ViewBase {
                             <input type="hidden" name="dbpath" />
                             <input type="hidden" name="uid" />
                             <input type="hidden" name="tag" />
+<<<<<<< HEAD
                             <input type="hidden" name="path" />
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
                             <div class="card text-left">
                                 <div class="card-header">
@@ -3901,9 +3951,15 @@ class EmployeeView extends ViewBase {
 
                                             <div class="col-sm-4">
                                                 <div class="text-center">
+<<<<<<< HEAD
                                                     <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" id="avatarimg" alt="avatar">
                                                     
                                                     <button type = "button" class="btn" id="empImgselBtn" >이미지선택</button >
+=======
+                                                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                                                    <h6>사진 업로드...</h6>
+                                                    <input type="file" class="text-center center-block file-upload">
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                                 </div>
 
                                             </div>
@@ -3911,9 +3967,15 @@ class EmployeeView extends ViewBase {
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
+<<<<<<< HEAD
                                                             <label for="companycode" class="control-label">회사코드</label>
                                                             <div>
                                                                 <input type="text" class="form-control" name="companycode" placeholder="회사코드..." />
+=======
+                                                            <label for="empcode" class="control-label">사원코드</label>
+                                                            <div>
+                                                                <input type="text" class="form-control" name="empcode" placeholder="사원코드..." />
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                                             </div>
                                                             <div class="help-block with-errors"></div>
                                                         </div>
@@ -4383,6 +4445,7 @@ class EmployeeView extends ViewBase {
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
+<<<<<<< HEAD
                                 <label for="handtel" class="control-label">종교</label>
                                 <div>
                                     <input type="text" class="form-control" name="jonggyo" placeholder="종교..." required />
@@ -4408,6 +4471,8 @@ class EmployeeView extends ViewBase {
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                 <label for="sedaeju" class="control-label">세대주</label>
                                 <div>
                                     <input type="text" class="form-control" name="sedaeju" placeholder="세대주..." required />
@@ -4688,8 +4753,11 @@ class EmployeeView extends ViewBase {
                         
                     </div>
                 </div>
+<<<<<<< HEAD
                 <button type = "button" class="btn" id="careerImgselBtn" ><img id="careerbtnimg" src="" alt="">이미지선택</button >
                 <button type = "button" class="btn" id="careerbgImgselBtn" ><img id="careerbtnbgimg" src="" alt="">백그라운드이미지선택</button >
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 <div class="clearfix"></div>
 
                 <div class="controls">
@@ -4757,6 +4825,7 @@ class EmployeeView extends ViewBase {
             $box.addClass(cls);
         }
         var $boxBody = null;
+<<<<<<< HEAD
 
         var value2 = null;
         var $img = null;
@@ -4771,6 +4840,20 @@ class EmployeeView extends ViewBase {
 
         if (value && value.value) {
             value2 = value.value;
+=======
+        var $img = null;
+        if (info.img) {
+            $img = info.img;
+        } else {
+            //console.log(info.imgsrc);
+            if (info.imgsrc) {
+                $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+            } else if (info.iconclass) {
+                $img = $(`<i class="${info.iconclass}">`);
+            } else {
+                $img = $(`<img src="..." onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+            }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         }
         //alert("icon" + $boxHeader.html());
         $boxBody = $('<div class="card-body" style="overflow:auto">').css("display", info.display).attr("id", info.boxbodyid);
@@ -4838,6 +4921,7 @@ class EmployeeView extends ViewBase {
         var itemE = $('<div class="list-group-item list-group-item-action" data-toggle="list">');
         var flexItemE = $('<div class="d-flex justify-content-between">');
         var wItemE = $('<div class=" w-100">');
+<<<<<<< HEAD
         console.log(info.path);
         var value2 = null;
         var $img = null;
@@ -4854,6 +4938,24 @@ class EmployeeView extends ViewBase {
             value2 = value.value;
         }
 
+=======
+
+        var $img = null;
+        if (info.img) {
+            $img = info.img;
+        } else {
+           //console.log(info.imgsrc);
+            if (info.imgsrc) {
+                $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+            } else if (info.iconclass) {
+                $img = $(`<i class="${info.iconclass}">`);
+            } else {
+                $img = $(`<img src="..." onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+            }
+        }
+
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var subjectE = $('<h5 class="mb-1">').append(info.empname);
         var summaryE = $('<p class="mb-1">').append(info.jicchak);
         var appendE = $('<small class="text-muted">').append('  ' + info.id + ' ( ' + info.signdate + ' ) ');
@@ -4865,6 +4967,7 @@ class EmployeeView extends ViewBase {
         return itemE;
 
         var $media_box = $('<div class="d-flex border p-3">');
+<<<<<<< HEAD
         var value2 = null;
         var $img = null;
         var value = __keyvalueSplitString(info.path);
@@ -4878,6 +4981,20 @@ class EmployeeView extends ViewBase {
 
         if (value && value.value) {
             value2 = value.value;
+=======
+        var $img = null;
+        if (info.img) {
+            $img = info.img;
+        } else {
+            //console.log(info.imgsrc);
+            if (info.imgsrc) {
+                $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+            } else if (info.iconclass) {
+                $img = $(`<i class="${info.iconclass}">`);
+            } else {
+                $img = $(`<img src="..." onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+            }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         }
 
         var $boxBody = $('<div class="media-body">');
@@ -5124,6 +5241,7 @@ class EmployeeView extends ViewBase {
                     </div>`;
         $temp.append(head);
 
+<<<<<<< HEAD
         var timelineE = $(`<div class="wrapper">`);
         var centerlineE = $(`<div class="center-line">`);
         centerlineE.append('<a href="#" class="scroll-icon"><i class="fa fa-fw  fa-caret-up"></i></a>');
@@ -5180,6 +5298,29 @@ class EmployeeView extends ViewBase {
         }
 
         return $temp;
+=======
+        //console.log(`arg.renderinfo.rendertype=${arg.renderinfo.rendertype}`)
+        if (arg.renderinfo.rendertype == 'media') {
+            if (arrarr && arrarr.length >= 0) {
+                for (var i = 0; i < arrarr.length; i++) {
+                    //cnt++;
+                    var info = arrarr[i];
+                    var arr = arrarr[i].arr;
+
+                    var mediabox = this.createSkillItem(info);
+                    $temp.append(mediabox);
+
+                    $(mediabox).bind("click", { type: 'empviewbody', self: this, info: info, arg: arg }, this.eventHandler);
+                    $(mediabox).attr('style', 'cursor:pointer;cursor: hand;');
+                }
+            }
+
+            $(arg.elem).empty();
+            $(arg.elem).append($temp);
+
+            return $temp;
+        }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
     }
 
@@ -5201,7 +5342,11 @@ class EmployeeView extends ViewBase {
                 var info = arrarr[i];
                 var arr = arrarr[i].arr;
 
+<<<<<<< HEAD
                 var mediabox = this.createJobMediaItem(info);
+=======
+                var mediabox = this.createMediaItem(info);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 $temp.append(mediabox);
 
                 $(mediabox).bind("click", { type: 'empviewbody', self: this, info: info, arg: arg }, this.eventHandler);
@@ -5256,7 +5401,11 @@ class EmployeeView extends ViewBase {
         return $boxcol;
     }
 
+<<<<<<< HEAD
     createThumbnailItemR (info, arg, eventHandler) {
+=======
+    createThumbnailItemR = function (info, arg, eventHandler) {
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var strTag;
         var $boxcol = $('<div class="col mb-8">');
 
@@ -5407,6 +5556,7 @@ class EmployeeView extends ViewBase {
         return $(thumbnailE);
     }
 
+<<<<<<< HEAD
     createJobMediaItem(info, arg, eventHandler) {
         var strTag;
 
@@ -5459,12 +5609,15 @@ class EmployeeView extends ViewBase {
         return $media_box;
     }
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     createMediaItem(info, arg, eventHandler) {
         var strTag;
 
         var $media_box = $('<div class="list-group-item list-group-item-action ">');
         var $media_box_item = $('<div class="d-flex w-100 justify-content-between">');
         $media_box.append($media_box_item);
+<<<<<<< HEAD
         var value2 = null;
         var $img = null;
         var value = __keyvalueSplitString(info.path);
@@ -5478,6 +5631,20 @@ class EmployeeView extends ViewBase {
 
         if (value && value.value) {
             value2 = value.value;
+=======
+        var $img = null;
+        if (info.img) {
+            $img = info.img;
+        } else {
+            //console.log(info.imgsrc);
+            if (info.imgsrc) {
+                $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+            } else if (info.iconclass) {
+                $img = $(`<i class="${info.iconclass}">`);
+            } else {
+                $img = $(`<img src="..." onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+            }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         }
 
         var $boxBody = $('<div class="media-body">');
@@ -5810,6 +5977,7 @@ class EmployeeView extends ViewBase {
         $boxcol.append(head).append($box);
 
         var $boxBody = null;
+<<<<<<< HEAD
         var value2 = null;
         var $img = null;
         var value = __keyvalueSplitString(info.path);
@@ -5823,6 +5991,20 @@ class EmployeeView extends ViewBase {
 
         if (value && value.value) {
             value2 = value.value;
+=======
+        var $img = null;
+        if (info.img) {
+            $img = info.img;
+        } else {
+            //console.log(info.imgsrc);
+            if (info.imgsrc) {
+                $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+            } else if (info.iconclass) {
+                $img = $(`<i class="${info.iconclass}">`);
+            } else {
+                $img = $(`<img src="..." onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+            }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         }
         //alert("icon" + $boxHeader.html());
         $boxBody = $('<div class="card-body" style="overflow:auto">');
@@ -5892,6 +6074,7 @@ class EmployeeView extends ViewBase {
 
         var $write = $("<div>");
         $box.append($write);
+<<<<<<< HEAD
         var $buttonE = $("<input type='button' class='btn btn-primary btn-lg'>");
         $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;').css("float", "right");
         $buttonE.val("개인정보");
@@ -5912,6 +6095,12 @@ class EmployeeView extends ViewBase {
         $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;').css("float", "right");
         $buttonE.val("커리어");
         $buttonE.bind("click", { type: 'careerviewBtn', self: this, info: info2, arg: arg }, this.eventHandler);
+=======
+        var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
+        $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;').css("float", "right");
+        $buttonE.val("개인정보");
+        $buttonE.bind("click", { type: 'personalwrite', self: this, info: info, arg: arg }, this.eventHandler);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         $write.append($buttonE);
         //alert("$box.html()" + $box.html());
         return $boxcol;
@@ -5931,10 +6120,16 @@ class EmployeeView extends ViewBase {
 
         var p = $('<div>');
         var profile = this.createProfile(info2, arg, eventHandler);
+<<<<<<< HEAD
         //var family = this.createFamilyList(info2, arg, eventHandler);
         //var career = this.createCareerList(info2, arg, eventHandler);
         //p.append(profile).append(family).append(career);
         p.append(profile);
+=======
+        var family = this.createFamilyList(info2, arg, eventHandler);
+        var career = this.createCareerList(info2, arg, eventHandler);
+        p.append(profile).append(family).append(career);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
         var main = new MainLayout();
         var ver = new VerticalLayout();
@@ -5962,7 +6157,11 @@ class EmployeeView extends ViewBase {
                 } else if (info.type == 'job') {
                     jobArr.push(info);
                 } else if (info.type == 'award') {
+<<<<<<< HEAD
                     awardArr.push(info);
+=======
+                    jobArr.push(info);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 }
             }
         }
@@ -6176,6 +6375,7 @@ class CompanyView extends ViewBase {
         super();
     }
 
+<<<<<<< HEAD
     getReturnValue() {
         var type, value;
         var arg = Array.prototype.slice.call(arguments);
@@ -6208,6 +6408,8 @@ class CompanyView extends ViewBase {
         }
     }
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     eventHandler(e) {
         var info = e.data.info;
         var arg = e.data.arg;
@@ -6215,6 +6417,7 @@ class CompanyView extends ViewBase {
         var self = e.data.self;
 
         if (type == 'erpwrite') {
+<<<<<<< HEAD
             //__modal.show('입 력', self.createErpFormView());
             window._fullscreen = new FullScreenView();
             window._fullscreen.setContent(`글쓰기`, self.createErpFormView());
@@ -6224,12 +6427,18 @@ class CompanyView extends ViewBase {
             if (arg.renderinfo.keyfield) {
                 form.companycode.value = arg.renderinfo.key;
             } 
+=======
+            __modal.show('입 력', self.createErpFormView());
+
+            var form = document.getElementById("companyViewForm");
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
             form.dbpath.value = arg.dbpath;
             $('#companydelSubmit').remove();
             $('#companymodifySubmit').remove();
             $('#companyaddSubmit').bind("click", { type: 'companyaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
             //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+<<<<<<< HEAD
         } else if (type == 'comImgselBtnClick') {
             self.selectedImageFormId = "companyViewForm";
             var c = new FileController({ type: 'filelist', code: 'root', filetype: 'file', path: '/files/media/images/icons/', filter: 'image', returntype: 'return', $parent: self });
@@ -6242,6 +6451,8 @@ class CompanyView extends ViewBase {
             form.dbpath.value = arg.dbpath;
             form.uid.value = info.uid;
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'companyaddSubmit') {
 
             var form = document.getElementById("companyViewForm");
@@ -6256,11 +6467,14 @@ class CompanyView extends ViewBase {
             arg.path = str;
             console.log('EmployeeView arg.path=' + arg.path);
             arg.self.postAjax(arg);
+<<<<<<< HEAD
 
             if (window._fullscreen) {
                 window._fullscreen.offscreen();
                 window._fullscreen = null;
             }
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'companydelSubmit') {
 
             if (!confirm(`내용을 삭제합니다`)) {
@@ -6444,11 +6658,15 @@ class CompanyView extends ViewBase {
                             <input type="hidden" name="addtype" value="add" />
                             <input type="hidden" name="dbpath"/>
                             <input type="hidden" name="uid" />
+<<<<<<< HEAD
                             <input type="hidden" name="path" />
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
                             <div class="controls">
                                 <div class="row">
                                     <div class="col-sm-4">
+<<<<<<< HEAD
                                         <div class="text-center">
                                             <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" id="comavatarimg" alt="avatar">
                                                     
@@ -6464,6 +6682,8 @@ class CompanyView extends ViewBase {
                                             </div>
                                             <div class="help-block with-errors"></div>
                                         </div>
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                         <div class="form-group">
                                             <label for="sangho" class="control-label">상호</label>
                                             <div>
@@ -6471,6 +6691,11 @@ class CompanyView extends ViewBase {
                                             </div>
                                             <div class="help-block with-errors"></div>
                                         </div>
+<<<<<<< HEAD
+=======
+                                    </div>
+                                    <div class="col-sm-4">
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                         <div class="form-group">
                                             <label for="saupjanum" class="control-label">사업자번호</label>
                                             <div>
@@ -6826,6 +7051,7 @@ class CompanyView extends ViewBase {
         var strTag;
 
         var $media_box = $('<div class="d-flex border p-3">');
+<<<<<<< HEAD
         var value2 = null;
         var $img = null;
         var value = __keyvalueSplitString(info.path);
@@ -6839,6 +7065,20 @@ class CompanyView extends ViewBase {
 
         if (value && value.value) {
             value2 = value.value;
+=======
+        var $img = null;
+        if (info.img) {
+            $img = info.img;
+        } else {
+            //console.log(info.imgsrc);
+            if (info.imgsrc) {
+                $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+            } else if (info.iconclass) {
+                $img = $(`<i class="${info.iconclass}">`);
+            } else {
+                $img = $(`<img src="..." onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+            }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         }
 
         var $boxBody = $('<div class="media-body">');
@@ -6937,6 +7177,7 @@ class CompanyView extends ViewBase {
         var flexItemE = $('<div class="d-flex justify-content-between">');
         var wItemE = $('<div class=" w-100">');
 
+<<<<<<< HEAD
         var value2 = null;
         var $img = null;
         var value = __keyvalueSplitString(info.path);
@@ -6952,6 +7193,23 @@ class CompanyView extends ViewBase {
             value2 = value.value;
         }
 
+=======
+        var $img = null;
+        if (info.img) {
+            $img = info.img;
+        } else {
+            //console.log(info.imgsrc);
+            if (info.imgsrc) {
+                $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+            } else if (info.iconclass) {
+                $img = $(`<i class="${info.iconclass}">`);
+            } else {
+                $img = $(`<img src="..." onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+            }
+        }
+
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var subjectE = $('<h5 class="mb-1">').append(info.companyname);
         var summaryE = $('<p class="mb-1">').append(info.uptae);
         var appendE = $('<small class="text-muted">').append('  ' + info.jongmok + ' ( ' + info.signdate + ' ) ');
@@ -7548,7 +7806,11 @@ class CompanyView extends ViewBase {
         var skillarr = info2.skillarr;
         var careerarr = info2.careerarr;
         var uid = -1;
+<<<<<<< HEAD
         //console.log('arrarr && arrarr.length=', arrarr.length);
+=======
+        console.log('arrarr && arrarr.length=', arrarr.length);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         if (arrarr && arrarr.length >= 0) {
             for (var i = 0; i < arrarr.length; i++) {
                 //cnt++;
@@ -7557,7 +7819,11 @@ class CompanyView extends ViewBase {
                 var arr = arrarr[i].arr;
 
                 var p = this.createProfile(info, arg, eventHandler);
+<<<<<<< HEAD
                 //console.log('p=', p);
+=======
+                console.log('p=', p);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             }
         }
 
@@ -7667,11 +7933,18 @@ class CompanyView extends ViewBase {
                 arg.renderinfo.viewbody.createViewbody(info, arg, eventHandler);
         }
         else {
+<<<<<<< HEAD
             
             var logininfo = info.loginfo;
             var pageinfo = info.pageinfo;
             var arrarr = info.arrarr;
             
+=======
+
+            var logininfo = info.loginfo;
+            var pageinfo = info.pageinfo;
+            var arrarr = info.arrarr;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             var skillarr = info.skillarr;
             var careerarr = info.careerarr;
             var uid = -1;
@@ -7688,6 +7961,7 @@ class CompanyView extends ViewBase {
             main.addControl(ver);
             main.addControl(hor);
 
+<<<<<<< HEAD
             //if (uid == -1)
             //return;
             var vinfo = arrarr[0];
@@ -7707,6 +7981,12 @@ class CompanyView extends ViewBase {
             //var erp = new ErpController('erplist', info.dbpath, 'employee', new EmployeeView(), {} , '');
             hor.setControl([p, 4], [erp, 8]);
 
+=======
+
+
+            //if (uid == -1)
+            //return;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             var brdid = Number(uid.toString().padEnd(6, "0"));
             //console.log(brdid);
 
@@ -7729,7 +8009,12 @@ class CompanyView extends ViewBase {
                 }]
             };
             var board = new BoardController(conf);
+<<<<<<< HEAD
             ver.addControl(board);
+=======
+            //var erp = new ErpController('erplist', info.dbpath, 'employee', new EmployeeView(), {} , '');
+            hor.setControl([p, 4], [board, 8]);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
             var $page = $("<div>");
             //$(arg.elem).empty();
@@ -7745,6 +8030,7 @@ class CompanyView extends ViewBase {
 
             }
 
+<<<<<<< HEAD
             if (arg.renderinfo.viewbodytype == 'full') {
                 
                 var f = new FullScreenView();
@@ -7752,6 +8038,8 @@ class CompanyView extends ViewBase {
 
             }
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             return $page;
 
             //__fullscreenView.setContent(`보기`, this.createErpFormView());
@@ -8185,6 +8473,7 @@ class CarouselView extends ViewBase {
 
     }
 
+<<<<<<< HEAD
     getReturnValue() {
         var type, value;
         var arg = Array.prototype.slice.call(arguments);
@@ -8219,6 +8508,8 @@ class CarouselView extends ViewBase {
         }
     }
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     eventHandler(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -8229,6 +8520,7 @@ class CarouselView extends ViewBase {
         console.log('info=', info);
         if (type == 'keyvalueadd') {
 
+<<<<<<< HEAD
             window._fullscreen = new FullScreenView();
             window._fullscreen.setContent(`보기`, self.createKeyvalueForm());
            
@@ -8240,6 +8532,16 @@ class CarouselView extends ViewBase {
 
             var form = document.getElementById("keyvalueForm");
             console.log(`form.imageinput.value==${form.imageinput.value}`);
+=======
+            //var f = new FullScreenView();
+            //f.setContent(`보기`, self.createKeyvalueForm());
+
+            __modal.show('키추가', self.createKeyvalueForm());
+            $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
+
+            var form = document.getElementById("keyvalueForm");
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.dbpath.value = arg.dbpath;
             form.kcode.value = arg.kcode;
             form.kname.value = arg.kname;
@@ -8248,16 +8550,21 @@ class CarouselView extends ViewBase {
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
             //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
         } else if (type == 'keyvaluemodify') {
+<<<<<<< HEAD
             //__modal.show('수정', self.createKeyvalueForm());
             window._fullscreen = new FullScreenView();
             window._fullscreen.setContent(`수정`, self.createKeyvalueForm());
 
             $('#ImgselBtn').bind("click", { type: 'imgselBtn', self: self, info: info, arg: arg }, self.eventHandler);
 
+=======
+            __modal.show('수정', self.createKeyvalueForm());
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
 
             var form = document.getElementById("keyvalueForm");
             info = self.selectNode;
+<<<<<<< HEAD
             var value = __keyvalueSplitString(info.value);
             if (value.itemtype) {
                 $(`input:radio[name=itemTypeRadio]:radio[value=${value.itemtype}]`).attr("checked", true);
@@ -8284,6 +8591,8 @@ class CarouselView extends ViewBase {
             if (value.value) {
                 form.value.value = value.value;
             }
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.dbpath.value = arg.dbpath;
             form.kcode.value = info.kcode;
             form.kname.value = info.kname;
@@ -8291,10 +8600,15 @@ class CarouselView extends ViewBase {
             form.fid.value = info.fid;
             form.did.value = info.uid;
             form.key.value = info.key;
+<<<<<<< HEAD
+=======
+            form.value.value = info.value;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.info.value = info.info;
             form.type.value = 'update';
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
             //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+<<<<<<< HEAD
         } else if (type == 'imgselBtn') {
             var targetChild = e.target.querySelector('#btnimg');
             var c = new FileController({ type: 'filelist', code: 'root', filetype: 'file', path: '/files/media/images/icons/', filter: 'image', returntype: 'return', $parent: self });
@@ -8302,6 +8616,8 @@ class CarouselView extends ViewBase {
             c.renderController(elem);
             __modal.show(`보기`, elem);
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'keyvalueaddSubmit') {
 
             var form = document.getElementById("keyvalueForm");
@@ -8320,8 +8636,13 @@ class CarouselView extends ViewBase {
 
             }
             
+<<<<<<< HEAD
             if (form.imageinput.value)
                 value = value + '&image=' + form.imageinput.value;
+=======
+            if (form.image.value)
+                value = value + '&image=' + form.image.value;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             if (form.subject.value)
                 value = value + '&subject=' + form.subject.value;
 
@@ -8347,11 +8668,14 @@ class CarouselView extends ViewBase {
 
             arg.form = form;
             arg.self.postAjax(arg);
+<<<<<<< HEAD
 
             if (window._fullscreen) {
                 window._fullscreen.offscreen();
                 window._fullscreen = null;
             }
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'keyvaluedel') {
 
             if (!self.selectNode)
@@ -8552,8 +8876,14 @@ class CarouselView extends ViewBase {
                                                         <div class="form-group">
                                                             <label class="control-label" for="inputSuccess1">이미지</label>
                                                             <div>
+<<<<<<< HEAD
                                                                 <input type="text" name="imageinput" id="imageinput" class="form-control" placeholder="아이콘 이미지 썸네일 경로 ...">
                                                                 <button type = "button" class="btn" id="ImgselBtn" ><img id="btnimg" src="" alt="">이미지선택</button >
+=======
+                                                                <input id="imagechange_input" type="text" class="form-control" name="image" value="" placeholder="이미지....." required />
+                                                                <a onclick="JavaScript: openNewWindow('/html/edit/selectFile.html?target=iconchange&1234')" data-toggle="modal" type="button" class="btn btn-primary">이미지</a>
+                                                                <a id="iconchange"></a>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                                             </div>
                                                         </div>
                                                     </div>
@@ -8647,13 +8977,21 @@ class CarouselView extends ViewBase {
         var grouparr = info.grouparr;
 
         this.keycodeselValue = arg.kcode;
+<<<<<<< HEAD
         this.keynameselValue = arg.renderinfo.kname;
+=======
+        this.keynameselValue = arg.kname;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         this.rendertypeselValue = arg.rendertype;
         if (info == null || info == undefined)
             info = {};
 
         var keynamearr = info.keynamearr;
+<<<<<<< HEAD
         console.log(`arg.renderinfo.kname=${arg.renderinfo.kname}`);
+=======
+        console.log(`arg.kname=${arg.kname}`);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var carousel = $(`<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" style="z-index:5"></div>`);
         
         var carousel_indicator = $(`<ol class="carousel-indicators"></ol>`);
@@ -8670,7 +9008,11 @@ class CarouselView extends ViewBase {
         carousel.append(carousel_indicator, carouselItem, btn1, btn2);
         
         if (arrarr && arrarr.length >= 0) {
+<<<<<<< HEAD
             
+=======
+            console.log(`arrarr.length=${arrarr.length}`);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             for (var k = 0; k < arrarr.length; k++) {
                 
                 var info = arrarr[k];
@@ -8689,19 +9031,32 @@ class CarouselView extends ViewBase {
                 }
 
                 var value = __keyvalueSplitString(info.value);
+<<<<<<< HEAD
                 //console.log(`value.image=${value.image}`);
                 if (value && value.image) {
+=======
+                
+                if (value.image) {
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                     var $img = $(`<img src="${value.image}" onerror="onImgError(this);" class="d-block w-100" imgtype="carousel">`);
                     item.append($img);
                 }
                 
+<<<<<<< HEAD
                 if (value && value.icon) {
+=======
+                if (value.icon) {
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                     var $img = $(`<i class="${value.icon}">`);
                     item.append($img);
                     item.append($img);
                 }
                 
+<<<<<<< HEAD
                 if (value && value.subject) {
+=======
+                if (value.subject) {
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                     var cap = $(`<div class="carousel-caption d-none d-md-block">
                                 <h5>${info.key}</h5>
                                 <p>${value.subject}</p>
@@ -8718,7 +9073,11 @@ class CarouselView extends ViewBase {
 
         $(arg.elem).empty();
         $(arg.elem).append($(carousel));
+<<<<<<< HEAD
         //console.log($(arg.elem).html());
+=======
+        console.log($(arg.elem).html());
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         //console.log($(arg.elem).attr('id'));
         
         if (arg.renderinfo && arg.renderinfo.editmode === "ok") {
@@ -8732,12 +9091,15 @@ class CarouselView extends ViewBase {
             $buttonE2.bind("click", { type: 'keyvaluedel', self: this, info: info, arg: arg }, this.eventHandler);
             $divE.append($label).append($inputE).append($buttonE).append($buttonE2);
             $(arg.elem).append($divE);
+<<<<<<< HEAD
             var $buttonE2 = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE2.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
             $buttonE2.val("수정");
             $buttonE2.bind("click", { type: 'keyvaluemodify', self: this, info: info, arg: arg }, this.eventHandler);
             $divE.append($label).append($inputE).append($buttonE).append($buttonE2);
             $(arg.elem).append($divE);
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
             var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
@@ -9296,10 +9658,16 @@ class TopMenuView extends ViewBase {
             form.fid.value = arg.renderinfo.knamefid;
             form.type.value = 'add';
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+<<<<<<< HEAD
             console.log(`form.fid.value==${form.fid.value}`);
         } else if (type == 'keyvaluesubadd') {
             __modal.show('서브키추가', self.createKeyvalueForm());
             $('input:radio[name=itemTypeRadio]:radio[value=ge]').attr("checked", true);
+=======
+            //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+        } else if (type == 'keyvaluesubadd') {
+            __modal.show('서브키추가', self.createKeyvalueForm());
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
 
             var form = document.getElementById("keyvalueForm");
@@ -9316,6 +9684,7 @@ class TopMenuView extends ViewBase {
             console.log(`form.uid.value==${form.uid.value} `);
         } else if (type == 'keyvaluemodify') {
             __modal.show('수정', self.createKeyvalueForm());
+<<<<<<< HEAD
             
 
             var form = document.getElementById("keyvalueForm");
@@ -9347,6 +9716,12 @@ class TopMenuView extends ViewBase {
             if (value.value) {
                 form.value.value = value.value;
             }
+=======
+            $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
+
+            var form = document.getElementById("keyvalueForm");
+            info = self.selectNode;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.dbpath.value = arg.dbpath;
             form.kcode.value = info.kcode;
             form.kname.value = info.kname;
@@ -9354,6 +9729,10 @@ class TopMenuView extends ViewBase {
             form.fid.value = info.fid;
             form.did.value = info.uid;
             form.key.value = info.key;
+<<<<<<< HEAD
+=======
+            form.value.value = info.value;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.info.value = info.info;
             form.type.value = 'update';
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
@@ -9373,7 +9752,11 @@ class TopMenuView extends ViewBase {
             } else if (rval == 'board') {
                 value = value + `&board=${form.value.value}`;
             } else if (rval == 'self') {
+<<<<<<< HEAD
                 value = value + `&self=${form.value.value}`;
+=======
+                value = value + `self=${form.value.value}`;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             } else if (rval == 'link') {
 
             }
@@ -9473,7 +9856,11 @@ class TopMenuView extends ViewBase {
             if (arg.renderinfo && arg.renderinfo.editmode === "ok") {
                 self.selectNode = info;
                 $('#selectNode').val(info.key);
+<<<<<<< HEAD
                 //return;
+=======
+                return;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             }
             
             var value = __keyvalueSplitString(info.value);
@@ -9905,12 +10292,15 @@ class TopMenuView extends ViewBase {
             $buttonE2.bind("click", { type: 'keyvaluedel', self: this, info: info, arg: arg }, this.eventHandler);
             $divE.append($label).append($inputE).append($buttonE).append($buttonE2);
             $(arg.elem).append($divE);
+<<<<<<< HEAD
             var $buttonE2 = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE2.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
             $buttonE2.val("수정");
             $buttonE2.bind("click", { type: 'keyvaluemodify', self: this, info: info, arg: arg }, this.eventHandler);
             $divE.append($label).append($inputE).append($buttonE).append($buttonE2);
             $(arg.elem).append($divE);
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
             var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
@@ -10168,6 +10558,7 @@ class SideMenuView extends ViewBase {
 
             var form = document.getElementById("keyvalueForm");
             info = self.selectNode;
+<<<<<<< HEAD
 
             var value = __keyvalueSplitString(info.value);
             if (value.itemtype) {
@@ -10195,6 +10586,8 @@ class SideMenuView extends ViewBase {
             if (value.value) {
                 form.value.value = value.value;
             }
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.dbpath.value = arg.dbpath;
             form.kcode.value = info.kcode;
             form.kname.value = info.kname;
@@ -10202,11 +10595,18 @@ class SideMenuView extends ViewBase {
             form.fid.value = info.fid;
             form.did.value = info.uid;
             form.key.value = info.key;
+<<<<<<< HEAD
+=======
+            form.value.value = info.value;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.info.value = info.info;
             form.type.value = 'update';
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
             //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+<<<<<<< HEAD
             
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'keyvalueaddSubmit') {
 
             var form = document.getElementById("keyvalueForm");
@@ -10646,7 +11046,11 @@ class SideMenuView extends ViewBase {
             
             var $temp = $(`<div>`).addClass("d-flex");
             var divElem = $(`<div>`).addClass(`mr-2`);
+<<<<<<< HEAD
             var divElem2 = $(`<div>`).addClass(`ml-2 flex-fill`);
+=======
+            var divElem2 = $(`<div>`).addClass(`ml-2`);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             $temp.append(divElem).append(divElem2);
 
             divElem.append($sideMenuE);
@@ -10675,12 +11079,15 @@ class SideMenuView extends ViewBase {
             $buttonE2.bind("click", { type: 'keyvaluedel', self: this, info: info, arg: arg }, this.eventHandler);
             $divE.append($label).append($inputE).append($buttonE).append($buttonE2);
             $(arg.elem).append($divE);
+<<<<<<< HEAD
             var $buttonE2 = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE2.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
             $buttonE2.val("수정");
             $buttonE2.bind("click", { type: 'keyvaluemodify', self: this, info: info, arg: arg }, this.eventHandler);
             $divE.append($label).append($inputE).append($buttonE).append($buttonE2);
             $(arg.elem).append($divE);
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
             var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
@@ -10937,12 +11344,20 @@ class ListTreeView extends ViewBase {
     }
 
     eventHandler(e) {
+<<<<<<< HEAD
+=======
+        e.preventDefault();
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         e.stopPropagation();
         var info = e.data.info;
         var arg = e.data.arg;
         var type = e.data.type;
         var self = e.data.self;
+<<<<<<< HEAD
         console.log('arg=', arg);
+=======
+       // console.log('type=', type);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         if (type == 'keyvalueadd') {
             __modal.show('키추가', self.createKeyvalueForm());
             $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
@@ -10950,6 +11365,7 @@ class ListTreeView extends ViewBase {
             var form = document.getElementById("keyvalueForm");
 
             form.dbpath.value = arg.dbpath;
+<<<<<<< HEAD
             form.kcode.value = arg.kcode;
             form.kname.value = arg.kname;
             form.fid.value = arg.renderinfo.knamefid;
@@ -10957,13 +11373,25 @@ class ListTreeView extends ViewBase {
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
             console.log(`arg.renderinfo.knamefid=${arg.renderinfo.knamefid}`);
 
+=======
+            form.kcode.value = info.kcode;
+            form.kname.value = info.kname;
+            form.fid.value = arg.renderinfo.knamefid;
+            form.type.value = 'add';
+            $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+            //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'keyvaluesubadd') {
             __modal.show('서브키추가', self.createKeyvalueForm());
             $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
 
             var form = document.getElementById("keyvalueForm");
+<<<<<<< HEAD
             info = self.selectNode;
             console.log('info=', info);
+=======
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.dbpath.value = arg.dbpath;
             form.kcode.value = info.kcode;
             form.kname.value = info.kname;
@@ -10972,12 +11400,17 @@ class ListTreeView extends ViewBase {
             form.did.value = info.uid;
             form.type.value = 'subadd';
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+<<<<<<< HEAD
             console.log(`form.uid.value==${form.uid.value} `);
+=======
+            //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'keyvaluemodify') {
             __modal.show('수정', self.createKeyvalueForm());
             $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
 
             var form = document.getElementById("keyvalueForm");
+<<<<<<< HEAD
             info = self.selectNode;
             var value = __keyvalueSplitString(info.value);
             if (value.itemtype) {
@@ -11005,6 +11438,9 @@ class ListTreeView extends ViewBase {
             if (value.value) {
                 form.value.value = value.value;
             }
+=======
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.dbpath.value = arg.dbpath;
             form.kcode.value = info.kcode;
             form.kname.value = info.kname;
@@ -11012,6 +11448,10 @@ class ListTreeView extends ViewBase {
             form.fid.value = info.fid;
             form.did.value = info.uid;
             form.key.value = info.key;
+<<<<<<< HEAD
+=======
+            form.value.value = info.value;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.info.value = info.info;
             form.type.value = 'update';
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
@@ -11021,7 +11461,11 @@ class ListTreeView extends ViewBase {
             var form = document.getElementById("keyvalueForm");
 
             var value = '';
+<<<<<<< HEAD
 
+=======
+            //console.log('type=', type);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             var rval = $("input[name='linkTypeRadio']:checked").val();
             if (rval == 'link') {
                 value = value + `&link=${form.value.value}`;
@@ -11034,12 +11478,21 @@ class ListTreeView extends ViewBase {
             }
             if (form.icon.value)
                 value = value + '&icon=' + form.icon.value;
+<<<<<<< HEAD
+=======
+            if (form.image.value)
+                value = value + '&image=' + form.image.value;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             if (form.subject.value)
                 value = value + '&subject=' + form.subject.value;
 
             form.value.value = value;
+<<<<<<< HEAD
 
             console.log("form.fid.value=", form.type.value);
+=======
+            console.log("value=", value);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             var str = "/mankeyvalue.adm?&utf8=ok&";
             var elem = document.getElementById('keyvalueView');
             //var arg = { path: str, type: "keyvalue", dbpath: _dbpath, elem: elem };
@@ -11047,7 +11500,10 @@ class ListTreeView extends ViewBase {
             arg.type = 'keyvalue';
             arg.kcode = form.kcode.value;
             arg.kname = form.kname.value;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             arg.rendertype = $("#rendertypesel option:selected").val();
             arg.form = form;
             var formData = $(form).serializeArray();
@@ -11060,17 +11516,24 @@ class ListTreeView extends ViewBase {
             arg.self.postAjax(arg);
         } else if (type == 'keyvaluedel') {
 
+<<<<<<< HEAD
             if (!self.selectNode)
                 return alert('노드를 설택해야됩니다');
 
             info = self.selectNode;
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             if (!confirm(`${info.key} 키 설정을 삭제합니다`)) {
                 // 취소(아니오) 버튼 클릭 시 이벤트
                 return;
             }
 
             var str = `/mankeyvalue.adm?dbpath=${arg.dbpath}&kcode=${info.kcode}&kname=${info.kname}&utf8=ok&`;
+<<<<<<< HEAD
             //console.log(str);
+=======
+            console.log(str);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             //var arg2 = { path: str, type: "keyvalue", dbpath: arg.dbpath, elem: arg.elem, self: arg.self };
             var form = document.getElementById("keyvalueDeleteForm");
             if (form == null) {
@@ -11079,7 +11542,11 @@ class ListTreeView extends ViewBase {
             }
 
             form.dbpath.value = arg.dbpath;
+<<<<<<< HEAD
             form.kcode.value = arg.kcode;
+=======
+            form.kcode.value = info.kcode;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.kname.value = info.kname;
             form.key.value = info.key;
             form.uid.value = info.uid;
@@ -11101,7 +11568,11 @@ class ListTreeView extends ViewBase {
             form.uid.value = $("#keynamesel option:selected").attr('uid');
             form.fid.value = $("#keynamesel option:selected").attr('fid');
             form.did.value = $("#keynamesel option:selected").attr('did');
+<<<<<<< HEAD
             console.log(`$("#keynamesel option:selected").attr('fid')==${$("#keynamesel option:selected").attr('fid')} `);
+=======
+            console.log(`form.fid.value==${form.fid.value} `);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
             $('#nameaddBtn').bind("click", { type: 'nameaddSubmit', self: self, arg: arg }, self.eventHandler);
         } else if (type == "nameaddSubmit") {
@@ -11124,11 +11595,16 @@ class ListTreeView extends ViewBase {
             arg.self.postAjax(arg);
             __modal.hide();
         } else if (type == 'record') {
+<<<<<<< HEAD
             if (arg.renderinfo && arg.renderinfo.editmode === "ok") {
                 self.selectNode = info;
                 $('#selectNode').val(info.key);
             }
 
+=======
+
+            //console.log("info.value", info.value);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             if (arg && arg.renderinfo && arg.renderinfo.viewbody) {
                 var f = new FullScreenView();
                 f.setContent(`보기`, arg.renderinfo.viewbody.createViewbody(info, arg, this.eventHandler));
@@ -11177,6 +11653,38 @@ class ListTreeView extends ViewBase {
         } else if (type == 'return') {
             //console.log('arg.type=', arg.type, ' type=', type, ' arg.filter=', arg.filter);
             arg.renderinfo.$parent.getReturnValue('keyvalue', arg.dbpath, arg.kcode, arg.kname);
+<<<<<<< HEAD
+=======
+        } else if (type == 'dbopen') {
+            __modal.hide();
+            //console.log('arg.type=', arg.type, ' type=', type, ' arg.filter=', arg.filter);
+            arg.type = type;
+            arg.renderinfo.$parent.getReturnValue(type, info, arg);
+        } else if (type == 'dbsave') {
+            var inputkname = $('#savedbinput').val();
+            if (!inputkname)
+                return alert('이름을 입력해야됩니다');
+            const form = document.getElementById('uploadkeyvalueform');
+            console.log('form==' + form);
+            console.log('arg.renderinfo.data==' + arg.renderinfo.data);
+            form.info.value = arg.renderinfo.data;
+            form.type.value = 'nameadd2';
+            form.kcode.value = arg.renderinfo.kcode;
+            form.kname.value = inputkname;
+            form.key.value = arg.renderinfo.kcode;
+            form.dbpath.value = arg.renderinfo.dbpath;
+            form.fid.value = arg.renderinfo.fid;
+            //console.log('arg.renderinfo.fid==' + arg.renderinfo.fid);
+            var str = "/mankeyvalue.adm?&utf8=ok&";
+
+            var formdata = $(form).serializeArray();
+            //console.log("form.subject.value=======" + form.subject.value);
+            //var b64 = Base64.encode(form.info.value);
+            //formData = self.selectedLenderCon.changeSerialize(formData, 'info', b64);
+            // arg.formData = formData;
+            __modal.hide();
+            __saveFileData({ path: str, formdata: formdata });
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         }
     }
 
@@ -11282,7 +11790,11 @@ class ListTreeView extends ViewBase {
                                                             <label class="control-label" for="inputSuccess1">아이콘</label>
                                                             <div>
                                                                 <input id="iconchange_input" type="text" class="form-control" name="icon" value="" placeholder="아이콘....." required />
+<<<<<<< HEAD
                                                                 <a onclick="JavaScript: openNewWindow('/html/admin/edit/selectIcon.html?target=iconchange&1234')" data-toggle="modal" type="button" class="btn btn-primary">아이콘</a>
+=======
+                                                                <a onclick="JavaScript: openNewWindow('/html/edit/selectIcon.html?target=iconchange&1234')" data-toggle="modal" type="button" class="btn btn-primary">아이콘</a>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                                                 <a id="iconchange"></a>
                                                             </div>
                                                         </div>
@@ -11399,6 +11911,7 @@ class ListTreeView extends ViewBase {
         var $dat_media_box = $('<div class="d-flex border">');
         //var $datimg = $(`<img onerror="this.src=images/ blank.gif" src="..." class="mr-3" alt="...">`);
         var value = __keyvalueSplitString(info.value);
+<<<<<<< HEAD
         var $img = null;
         if (value.image) {
             var $img = $(`<img src="${value.image}" onerror="onImgError(this);" class="card-img-top mr-3" imgtype="carousel">`);
@@ -11416,6 +11929,19 @@ class ListTreeView extends ViewBase {
         else
             key = info.brdname;
 
+=======
+        if (value.image) {
+            var $img = $(`<img src="${value.image}" onerror="onImgError(this);" class="card-img-top mr-3" imgtype="carousel">`);
+            $node.append($img);
+        }
+        var $img = $(`<img src="${value.image}" onerror="onImgError(this);" class="card-img-top mr-3" imgtype="carousel">`);
+        $node.append($img);
+        if (value.icon) {
+            //var $img = $(`<i class="${value.icon}">`);
+            $node.append(value.icon);
+        }
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var $datbody = $('<div class="media-body">');
 
         var $bodyhead = $('<div class="row justify-content-between">');
@@ -11469,7 +11995,11 @@ class ListTreeView extends ViewBase {
             if (arr2.length > 0) {
                 var $listItem = $('<li class="list-group-item">');
                 $listItem.append(this.createListTreeBox(info, arg, eventHandler));
+<<<<<<< HEAD
                 $listItem.bind("click", { type: 'record', self: this, info: info, arg: arg }, this.eventHandler, arg, eventHandler);
+=======
+                $listItem.bind("click", { type: 'record', info: info, arg: arg }, eventHandler, arg, eventHandler);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 $listItem.attr('style', 'cursor:pointer;cursor: hand;');
 
                 $treeDropdown.append($listItem);
@@ -11479,7 +12009,11 @@ class ListTreeView extends ViewBase {
                 
                 var $listItem = $('<li class="list-group-item">');
                 $listItem.append(this.createListTreeBox(info, arg, eventHandler));
+<<<<<<< HEAD
                 $listItem.bind("click", { type: 'record', self: this, info: info, arg: arg }, this.eventHandler, arg, eventHandler);
+=======
+                $listItem.bind("click", { type: 'record', info: info, arg: arg }, eventHandler, arg, eventHandler);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 $listItem.attr('style', 'cursor:pointer;cursor: hand;');
 
                 $treeDropdown.append($listItem);
@@ -11527,7 +12061,11 @@ class ListTreeView extends ViewBase {
                     
                     $listItem = $('<li class="list-group-item">');
                     $listItem.append(this.createListTreeBox(info, arg, eventHandler));
+<<<<<<< HEAD
                     $listItem.bind("click", { type: 'record', self: this, info: info, arg: arg }, this.eventHandler);
+=======
+                    $listItem.bind("click", { type: 'record', info: info, arg: arg }, this.eventHandler);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                     $listItem.attr('style', 'cursor:pointer;cursor: hand;');
 
                     $list.append($listItem);
@@ -11538,7 +12076,11 @@ class ListTreeView extends ViewBase {
                     
                     $listItem = $('<li class="list-group-item">');
                     $listItem.append(this.createListTreeBox(info, arg, eventHandler));
+<<<<<<< HEAD
                     $listItem.bind("click", { type: 'record', self: this, info: info, arg: arg }, this.eventHandler);
+=======
+                    $listItem.bind("click", { type: 'record', info: info, arg: arg }, this.eventHandler);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                     $listItem.attr('style', 'cursor:pointer;cursor: hand;');
 
                     $list.append($listItem);
@@ -11553,6 +12095,7 @@ class ListTreeView extends ViewBase {
 
         console.log(`arg.renderinfo.returntype==${arg.renderinfo.returntype}`);
         if (arg.renderinfo && arg.renderinfo.editmode === "ok") {
+<<<<<<< HEAD
             var $divE = $('<div class="form-inline">');
             var $label = $('<label class="selected-node-group">선택한노드:</label>');
             var $inputE = $(`<input type="text" class="form - control" name="selectNode" id="selectNode" placeholder="..." required />`);
@@ -11575,10 +12118,15 @@ class ListTreeView extends ViewBase {
 
             var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
+=======
+            var $buttonE = $("<input type='button' class='btn '>");
+            $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;').css("float", "right");
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             $buttonE.val("아이템추가");
             $buttonE.bind("click", { type: 'keyvalueadd', self: this, info: info, arg: arg }, this.eventHandler);
             var $writeDiv = $('<div>');
             $($writeDiv).append($buttonE);
+<<<<<<< HEAD
             $(arg.elem).append($writeDiv);
 
             //this.setKeyvalueEditContextMenu('.keyvalue_context_menu');
@@ -11606,6 +12154,32 @@ class ListTreeView extends ViewBase {
             }
 
             $divE.append($label).append(keynamesel);
+=======
+            $($listView).append($writeDiv);
+
+            this.setKeyvalueEditContextMenu('.keyvalue_context_menu');
+        }
+
+        if (arg.renderinfo && arg.renderinfo.returntype === "return" || arg.renderinfo.returntype === "dbsave" || arg.renderinfo.returntype === "dbopen") {
+            var $divE = $('<div class="alert">');
+            console.log(`keynamearr==${keynamearr}`);
+            var keynamesel = document.createElement('select');
+            keynamesel.setAttribute('id', "keynamesel");
+            $(keynamesel).empty();
+            for (var i = 0; i < keynamearr.length; i++) {
+                //console.log(`keynamearr[i].kname=${keynamearr[i].kname}`);
+                $(keynamesel).append(`<option value='${keynamearr[i].kname}' uid='${keynamearr[i].uid}' fid='${keynamearr[i].fid}' did='${keynamearr[i].did}'>${keynamearr[i].kname}</option>`);
+                //console.log(`keynamearr[i].kname=${keynamearr[i].kname}`);
+            }
+            //console.log(`this.keynameselValue=${this.keynameselValue}`);
+            if (this.keynameselValue) {
+                $(keynamesel).val(this.keynameselValue).prop("selected", true);
+            } else {
+                this.keynameselValue = $(keynamesel).val();
+            }
+
+            $divE.append(keynamesel);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
             $(document).off("change", "#keynamesel", null);
             $(document).on("change", "#keynamesel", function () {
@@ -11613,6 +12187,7 @@ class ListTreeView extends ViewBase {
                 console.log("$(this).val()====" + $(this).val());
                 arg.renderinfo.kname = $(this).val();
                 arg.renderinfo.knamefid = $("#keynamesel option:selected").attr("fid");
+<<<<<<< HEAD
                 //self.arg.self.listAjax(self.arg.renderinfo)
                 arg.self.setController(arg.renderinfo, arg.elem)
                 //self.selectedLenderCon.setController(self._dbpath, self._kcode, self._keynameselValue, elem);
@@ -11627,6 +12202,29 @@ class ListTreeView extends ViewBase {
             $divE.append($buttonE);
 
             $(arg.elem).append($divE);
+=======
+                arg.self.setController(self.arg.renderinfo, self.arg.elem)
+                //self.selectedLenderCon.setController(self._dbpath, self._kcode, self._keynameselValue, elem);
+            });
+
+            if (arg.renderinfo.returntype === "return" || arg.renderinfo.returntype === "dbopen") {
+                var $buttonE = $("<button type='button' class='btn btn-info'>리턴</button>");
+                $buttonE.bind("click", { type: arg.renderinfo.returntype, self: this, arg: arg, info: returnInfo, name: "" }, this.eventHandler);
+                $divE.append($buttonE);
+
+                $(arg.elem).append($divE);
+            } else if (arg.renderinfo.returntype === "dbsave") {
+                //console.log("arg.renderinfo.data===" + arg.renderinfo.data);
+                var $inputE = $(`<input type="text" class="form - control" name="savedbinput" id="savedbinput" placeholder="저장할이름..." required />`);
+                var $buttonE = $("<button type='button' class='btn btn-info'>디비저장</button>");
+                $buttonE.bind("click", { type: arg.renderinfo.returntype, self: this, arg: arg, info: returnInfo, name: ""}, this.eventHandler);
+                $divE.append($inputE).append($buttonE);
+
+                $(arg.elem).append($divE);
+            }
+
+            
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         }
         //console.log(`argrenderinfo.==${arg.renderinfo.$parent}`);
 
@@ -11658,6 +12256,7 @@ class HStairTreeView extends ViewBase {
         });
     }
 
+<<<<<<< HEAD
     getReturnValue() {
         var type, value;
         var arg = Array.prototype.slice.call(arguments);
@@ -11695,10 +12294,16 @@ class HStairTreeView extends ViewBase {
     eventHandler(e) {
         e.preventDefault();
         //e.stopPropagation();
+=======
+    eventHandler(e) {
+        e.preventDefault();
+        e.stopPropagation();
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var info = e.data.info;
         var arg = e.data.arg;
         var type = e.data.type;
         var self = e.data.self;
+<<<<<<< HEAD
          console.log('type=', type);
         if (type == 'keyvalueadd') {
             window._fullscreen = new FullScreenView();
@@ -11717,10 +12322,24 @@ class HStairTreeView extends ViewBase {
             form.kname.value = arg.kname;
             //form.fid.value = $("#keynamesel option:selected").attr('fid');
             form.fid.value = info.fid;
+=======
+        // console.log('type=', type);
+        if (type == 'keyvalueadd') {
+            __modal.show('키추가', self.createKeyvalueForm());
+            $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
+
+            var form = document.getElementById("keyvalueForm");
+
+            form.dbpath.value = arg.dbpath;
+            form.kcode.value = arg.kcode;
+            form.kname.value = arg.kname;
+            form.fid.value = arg.renderinfo.knamefid;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.type.value = 'add';
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
             //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
         } else if (type == 'keyvaluesubadd') {
+<<<<<<< HEAD
             
             window._fullscreen = new FullScreenView();
             window._fullscreen.setContent(`보기`, self.createKeyvalueForm());
@@ -11733,6 +12352,13 @@ class HStairTreeView extends ViewBase {
 
             var form = document.getElementById("keyvalueForm");
             console.log(`form.imageinput.value==${form.imageinput.value}`);
+=======
+            __modal.show('서브키추가', self.createKeyvalueForm());
+            $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
+
+            var form = document.getElementById("keyvalueForm");
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.dbpath.value = arg.dbpath;
             form.kcode.value = info.kcode;
             form.kname.value = info.kname;
@@ -11741,7 +12367,11 @@ class HStairTreeView extends ViewBase {
             form.did.value = info.uid;
             form.type.value = 'subadd';
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+<<<<<<< HEAD
             //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+=======
+            console.log(`form.fid.value==${form.fid.value} form.uid.value=${form.uid.value}`);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'keyvaluemodify') {
             __modal.show('수정', self.createKeyvalueForm());
             $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
@@ -11760,6 +12390,7 @@ class HStairTreeView extends ViewBase {
             form.type.value = 'update';
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
             //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+<<<<<<< HEAD
         } else if (type == 'imgselBtn') {
             var targetChild = e.target.querySelector('#btnimg');
             var c = new FileController({ type: 'filelist', code: 'root', filetype: 'file', path: '/files/media/images/icons/', filter: 'image', returntype: 'return', $parent: self });
@@ -11767,6 +12398,8 @@ class HStairTreeView extends ViewBase {
             c.renderController(elem);
             __modal.show(`보기`, elem);
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'keyvalueaddSubmit') {
 
             var form = document.getElementById("keyvalueForm");
@@ -11785,8 +12418,13 @@ class HStairTreeView extends ViewBase {
             }
             if (form.icon.value)
                 value = value + '&icon=' + form.icon.value;
+<<<<<<< HEAD
             if (form.imageinput.value)
                 value = value + '&image=' + form.imageinput.value;
+=======
+            if (form.image.value)
+                value = value + '&image=' + form.image.value;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             if (form.subject.value)
                 value = value + '&subject=' + form.subject.value;
 
@@ -11809,10 +12447,13 @@ class HStairTreeView extends ViewBase {
 
             arg.form = form;
             arg.self.postAjax(arg);
+<<<<<<< HEAD
             if (window._fullscreen) {
                 window._fullscreen.offscreen();
                 window._fullscreen = null;
             }
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'keyvaluedel') {
 
             if (!confirm(`${info.key} ${info.uid} 키 설정을 삭제합니다`)) {
@@ -11902,9 +12543,14 @@ class HStairTreeView extends ViewBase {
             arg.self.postAjax(arg);
             __modal.hide();
         } else if (type == 'itemclick') {
+<<<<<<< HEAD
             //console.log('e.target**=' + e.target.innerHTML);
             //$(e.target).siblings().removeClass('active');
             //$(e.target).addClass('active');
+=======
+            $(e.target).siblings().removeClass('active');
+            $(e.target).addClass('active');
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             const $card = $(e.target).closest(".card");
             if ($card.nextAll()) {
                 $card.nextAll().remove();
@@ -11932,7 +12578,11 @@ class HStairTreeView extends ViewBase {
             } else if (value.self) {
                 var div = document.createElement('div');
                 var p = __boardConfigSplitString(value.self);
+<<<<<<< HEAD
                 
+=======
+                console.log('value.self***=' + value.self);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 console.log('p.type***=' + p.type);
                 if (p && p.type != 'content') {
                     var c = new BoardController(p);
@@ -12131,8 +12781,12 @@ class HStairTreeView extends ViewBase {
                                                             <label class="control-label" for="inputSuccess1">아이콘</label>
                                                             <div>
                                                                 <input id="iconchange_input" type="text" class="form-control" name="icon" value="" placeholder="아이콘....." required />
+<<<<<<< HEAD
                                                                 <a onclick="JavaScript: openNewWindow('/html/admin/edit/selectIcon.html?target=iconchange&1234')" data-toggle="modal" type="button" class="btn btn-primary">아이콘</a>
                                                                 <a id="iconchange"></a>
+=======
+                                                                
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                                             </div>
                                                         </div>
                                                     </div>
@@ -12141,8 +12795,13 @@ class HStairTreeView extends ViewBase {
                                                         <div class="form-group">
                                                             <label class="control-label" for="inputSuccess1">이미지</label>
                                                             <div>
+<<<<<<< HEAD
                                                                 <input type="text" name="imageinput" id="imageinput" class="form-control" placeholder="아이콘 이미지 썸네일 경로 ...">
                                                                 <button type = "button" class="btn" id="ImgselBtn" ><img id="btnimg" src="" alt="">이미지선택</button >
+=======
+                                                                <input id="imagechange_input" type="text" class="form-control" name="image" value="" placeholder="이미지....." required />
+                                                                
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                                             </div>
                                                         </div>
                                                     </div>
@@ -12288,6 +12947,7 @@ class HStairTreeView extends ViewBase {
 
                 var arr = arrarr[i].arr;
 
+<<<<<<< HEAD
                 var subject;
                 $listItem = $('<div class="list-group-item list-group-item-action" data-toggle="list" role="tab">');
                 var $item_box = $('<div class="d-flex w-100 justify-content-between">');
@@ -12333,6 +12993,13 @@ class HStairTreeView extends ViewBase {
                 btn3.bind("click", { type: 'keyvaluedel', self: this, info: info, arg: arg }, this.eventHandler);
                 $item_box.append($img).append($boxBody).append(btn3);
 
+=======
+                $listItem = $('<div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-toggle="list">');
+                $listItem.append(info.key);
+                var btn3 = $(`<button type="button" class="btn" title="아이템삭제" ><i class="fa fa-fw fa-trash-o"></i></button>`);
+                btn3.bind("click", { type: 'keyvaluedel', self: this, info: info, arg: arg }, this.eventHandler);
+                $listItem.append(btn3);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 $listItem.bind("click", { type: 'itemclick', self: this, info: info, arg: arg }, this.eventHandler);
                 $listItem.attr('style', 'cursor:pointer;cursor: hand;');
 
@@ -12341,8 +13008,11 @@ class HStairTreeView extends ViewBase {
             }
         }
 
+<<<<<<< HEAD
         // 마지막으로 추가된 카드로 스크롤합니다.
         $box[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         return $box;
     }
 
@@ -12352,10 +13022,17 @@ class HStairTreeView extends ViewBase {
         //var info = info2;
         var loginfo = info.loginfo;
         this.arg = arg;
+<<<<<<< HEAD
         this.selectedNameInfo;
         this.keycodeselValue = arg.kcode;
         this.keynameselValue = arg.kname;
         //console.log(`loginfo.sid=${loginfo.sid}`);
+=======
+        
+        this.keycodeselValue = arg.kcode;
+        this.keynameselValue = arg.kname;
+        console.log(`loginfo.sid=${loginfo.sid}`);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         this.rendertypeselValue = arg.rendertype;
         if (info == null || info == undefined)
             info = {};
@@ -12397,13 +13074,18 @@ class HStairTreeView extends ViewBase {
         $(arg.elem).append($temp);
 
         var $mainbox = $(`<div class="card">`);
+<<<<<<< HEAD
         var $mainboxboxHeader = $('<div class="card-header custom-card-header text-white bg-secondary">');
+=======
+        var $boxHeader = $('<div class="card-header custom-card-header text-white bg-secondary">');
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var $headTitle = $('<h5 class="box-title">').append(arg.renderinfo.title);
         var $headRightTool = $('<div class="pull-right list-inline-item">');
         this.$mainboxBody = $(`<div class="card-body card-group card-group-scroll p-2" id="collapseMainbox">`);
         var $boxFoot = $('<div class="card-footer small">');
         var $footRight = $('<div class="pull-right">');
 
+<<<<<<< HEAD
         var keynamesel = document.createElement('select');
         keynamesel.setAttribute('id', "keynamesel");
         keynamesel.setAttribute('class', "mr-2");
@@ -12464,6 +13146,111 @@ class HStairTreeView extends ViewBase {
 
         divElem.append($mainbox);
 
+=======
+        if (arg.renderinfo.thread && arg.renderinfo.thread.length > 0) {
+            var keycodesel = document.createElement('select');
+            keycodesel.setAttribute('id', "keycodesel");
+            keycodesel.setAttribute('class', "mr-2");
+            $(keycodesel).empty();
+            $(keycodesel).append(`<option value=' '>메뉴선택</option>`);
+            for (var i = 0; i < arg.renderinfo.thread.length; i++) {
+                //console.log(`keynamearr[i].kname=${keynamearr[i].kname}`);
+                $(keycodesel).append(`<option value='${arg.renderinfo.thread[i]}' >${arg.renderinfo.thread[i]}</option>`);
+                //console.log(`keynamearr[i].kname=${keynamearr[i].kname}`);
+            }
+            //console.log(`this.keynameselValue=${this.keynameselValue}`);
+            if (this.keycodeselValue) {
+                $(keycodesel).val(this.keycodeselValue).prop("selected", true);
+            } else {
+                this.keycodeselValue = $(keycodesel).val();
+            }
+
+            $(document).off("change", "#keycodesel", null);
+            $(document).on("change", "#keycodesel", function () {
+
+                console.log("$(this).val()====" + $(this).val());
+                arg.renderinfo.kname = $(this).val();
+                arg.renderinfo.knamefid = $("#keycodesel option:selected").attr("fid");
+                arg.self.setController(self.arg.renderinfo, self.arg.elem)
+                //self.selectedLenderCon.setController(self._dbpath, self._kcode, self._keynameselValue, elem);
+            });
+
+            $headRightTool.append(keycodesel);
+        }
+
+        var $btn = $(`<button class="btn btn-light btn-xs" type="button">추가</button>`);
+        $btn.bind("click", { type: 'groupadd', self: this, info: info, arg: arg }, this.eventHandler);
+        $headRightTool.append($btn);
+
+        var $btn = $(`<button class="btn btn-light btn-xs" type="button" data-toggle="collapse" href="#collapseMainbox">x</button>`);
+        //$btn.bind("click", { type: 'preview', self: this, boxnum: this.boxcount, info: info }, this.eventHandler);
+        $headRightTool.append($btn);
+        //$boxFoot.append($footRight);
+
+        $boxHeader.append($headTitle).append($headRightTool);
+
+        $mainbox.append($boxHeader).append(this.$mainboxBody);//.append($boxFoot);
+
+        divElem.append($mainbox);
+
+        this.boxcount++;
+        var $box = $(`<div class="card mr-2 mb-1" boxnum="${this.boxcount}" style="width: 18rem;">`);
+        var $boxHeader = $('<div class="card-header custom-card-header">');
+        var rand_0_7 = Math.floor(Math.random() * 8);
+        $boxHeader.addClass(this.cardClassArr[rand_0_7]);
+        var $headTitle = $('<h6 class="box-title">').append(arg.kcode);
+        var $headRightTool = $('<div class="pull-right list-inline-item">');
+        var $boxBody = $(`<div class="card-body p-2" style="overflow:auto" id="boxbody${this.boxcount}">`);
+        var $boxFoot = $('<div class="card-footer small">');
+        var $footRight = $('<div class="pull-right">');
+
+        var $btn = $(`<button class="btn btn-light btn-xs" type="button">추가</button>`);
+        $btn.bind("click", { type: 'nameadd', self: this, info: info, arg: arg }, this.eventHandler);
+        $headRightTool.append($btn);
+
+        //$boxFoot.append($footRight);
+
+        $boxHeader.append($headTitle).append($headRightTool);
+
+        $box.append($boxHeader).append($boxBody);//.append($boxFoot);
+
+        this.$mainboxBody.append($box);
+
+        var returnInfo = null;
+        var cnt = 0;
+        //var $listView = $('<div>');
+        var $list = $('<div class="list-group" role="tablist">');
+        var $listItem = null, $treeItemIn = null;
+        //$listView.append($list);
+        $boxBody.append($list);
+        
+        for (var i = 0; i < keynamearr.length; i++) {
+            //$(keynamesel).append(`<option value='${keynamearr[i].kname}' uid='${keynamearr[i].uid}' fid='${keynamearr[i].fid}' did='${keynamearr[i].did}'>${keynamearr[i].kname}</option>`);
+            console.log(`keynamearr[i].kname=${keynamearr[i].kname}`);
+            var nameinfo = keynamearr[i];
+            $listItem = $('<div class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center" data-toggle="list">');
+            $listItem.append(nameinfo.kname);
+            var btn3 = $(`<button type="button" class="btn" title="아이템삭제" ><i class="fa fa-fw fa-trash-o"></i></button>`);
+            btn3.bind("click", { type: 'keyvaluedel', self: this, info: nameinfo, arg: arg }, this.eventHandler);
+            $listItem.attr('style', 'cursor:pointer;cursor: hand;');
+            $listItem.append(btn3);
+            $listItem.bind("click", { type: 'nameclick', self: this, info: nameinfo, arg: arg }, this.eventHandler);
+            $listItem.attr('style', 'cursor:pointer;cursor: hand;');
+            if (this.keynameselValue == nameinfo.kname) {
+                $listItem.addClass('active');
+            }
+
+            $list.append($listItem);
+        }
+
+        if (!this.keynameselValue && keynamearr.length > 0) {
+            arg.renderinfo.kname = keynamearr[0].kname;
+            arg.renderinfo.knamefid = keynamearr[0].fid;
+            //self.arg.self.listAjax(self.arg.renderinfo)
+            arg.self.setController(arg.renderinfo, arg.elem);
+            return;
+        }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         //console.log(`--------------- $boxBody.html()==${$boxBody.html()}`);
         this.boxcount++;
         var $box = $(`<div class="card mr-2 mb-1" boxnum="${this.boxcount}" style="width: 18rem;" >`);
@@ -12477,7 +13264,11 @@ class HStairTreeView extends ViewBase {
         var $footRight = $('<div class="pull-right">');
 
         var $btn = $(`<button class="btn btn-light btn-xs" id="preview-btn" type="button">추가</button>`);
+<<<<<<< HEAD
         $btn.bind("click", { type: 'keyvalueadd', self: this, info: this.selectedNameInfo, arg: arg }, this.eventHandler);
+=======
+        $btn.bind("click", { type: 'keyvalueadd', self: this, info: info, arg: arg }, this.eventHandler);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         $headRightTool.append($btn);
         $boxFoot.append($footRight);
 
@@ -12507,6 +13298,7 @@ class HStairTreeView extends ViewBase {
                     continue;
 
                 var arr = arrarr[i].arr;
+<<<<<<< HEAD
                 var subject;
                 $listItem = $('<div class="list-group-item list-group-item-action" data-toggle="list" role="tab">');
                 var $item_box = $('<div class="d-flex w-100 justify-content-between">');
@@ -12550,6 +13342,15 @@ class HStairTreeView extends ViewBase {
                 btn3.bind("click", { type: 'keyvaluedel', self: this, info: info, arg: arg }, this.eventHandler);
                 btn3.attr('style', 'cursor:pointer;cursor: hand;');
                 $item_box.append($img).append($boxBody).append(btn3);
+=======
+
+                $listItem = $('<div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-toggle="list">');
+                $listItem.append(info.key);
+                var btn3 = $(`<button type="button" class="btn" title="아이템삭제" ><i class="fa fa-fw fa-trash-o"></i></button>`);
+                btn3.bind("click", { type: 'keyvaluedel', self: this, info: info, arg: arg }, this.eventHandler);
+                $listItem.attr('style', 'cursor:pointer;cursor: hand;');
+                $listItem.append(btn3);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
                 $listItem.bind("click", { type: 'itemclick', self: this, info: info, arg: arg }, this.eventHandler);
                 $listItem.attr('style', 'cursor:pointer;cursor: hand;');
@@ -12661,6 +13462,7 @@ class ZTreeView extends ViewBase {
 
             var form = document.getElementById("keyvalueForm");
             info = self.selectNode;
+<<<<<<< HEAD
             var value = __keyvalueSplitString(info.value);
             if (value.itemtype) {
                 $(`input:radio[name=itemTypeRadio]:radio[value=${value.itemtype}]`).attr("checked", true);
@@ -12687,6 +13489,8 @@ class ZTreeView extends ViewBase {
             if (value.value) {
                 form.value.value = value.value;
             }
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.dbpath.value = arg.dbpath;
             form.kcode.value = info.kcode;
             form.kname.value = info.kname;
@@ -12694,6 +13498,10 @@ class ZTreeView extends ViewBase {
             form.fid.value = info.fid;
             form.did.value = info.uid;
             form.key.value = info.key;
+<<<<<<< HEAD
+=======
+            form.value.value = info.value;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.info.value = info.info;
             form.type.value = 'update';
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
@@ -13182,12 +13990,15 @@ class ZTreeView extends ViewBase {
             $buttonE2.bind("click", { type: 'keyvaluedel', self: this, info: info, arg: arg }, this.eventHandler);
             $divE.append($label).append($inputE).append($buttonE).append($buttonE2);
             $(arg.elem).append($divE);
+<<<<<<< HEAD
             var $buttonE2 = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE2.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
             $buttonE2.val("수정");
             $buttonE2.bind("click", { type: 'keyvaluemodify', self: this, info: info, arg: arg }, this.eventHandler);
             $divE.append($label).append($inputE).append($buttonE).append($buttonE2);
             $(arg.elem).append($divE);
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
             var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
@@ -13861,12 +14672,15 @@ class DynamicTreeview extends ViewBase {
             $buttonE2.bind("click", { type: 'keyvaluedel', self: this, info: info, arg: arg }, this.eventHandler);
             $divE.append($label).append($inputE).append($buttonE).append($buttonE2);
             $(arg.elem).append($divE);
+<<<<<<< HEAD
             var $buttonE2 = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE2.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
             $buttonE2.val("수정");
             $buttonE2.bind("click", { type: 'keyvaluemodify', self: this, info: info, arg: arg }, this.eventHandler);
             $divE.append($label).append($inputE).append($buttonE).append($buttonE2);
             $(arg.elem).append($divE);
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
             var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
@@ -13935,6 +14749,7 @@ class OrgChartTreeView extends ViewBase {
         this.selectNode = null;
     }
 
+<<<<<<< HEAD
     getReturnValue() {
         var type, value;
         var arg = Array.prototype.slice.call(arguments);
@@ -13969,6 +14784,8 @@ class OrgChartTreeView extends ViewBase {
         }
     }
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     eventHandler(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -13979,6 +14796,7 @@ class OrgChartTreeView extends ViewBase {
         console.log('info=', info);
         console.log('type=', type);
         if (type == 'keyvalueadd') {
+<<<<<<< HEAD
             window._fullscreen = new FullScreenView();
             window._fullscreen.setContent(`보기`, self.createKeyvalueForm());
 
@@ -14003,6 +14821,22 @@ class OrgChartTreeView extends ViewBase {
             window._fullscreen.setContent(`보기`, self.createKeyvalueForm());
             $('#ImgselBtn').bind("click", { type: 'imgselBtn', self: self, info: info, arg: arg }, self.eventHandler);
 
+=======
+            __modal.show('키추가', self.createKeyvalueForm());
+            $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
+
+            var form = document.getElementById("keyvalueForm");
+
+            form.dbpath.value = arg.dbpath;
+            form.kcode.value = arg.kcode;
+            form.kname.value = arg.kname;
+            form.fid.value = arg.renderinfo.knamefid;
+            form.type.value = 'add';
+            $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
+            //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+        } else if (type == 'keyvaluesubadd') {
+            __modal.show('서브키추가', self.createKeyvalueForm());
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
 
             var form = document.getElementById("keyvalueForm");
@@ -14020,6 +14854,7 @@ class OrgChartTreeView extends ViewBase {
             console.log(`form.uid.value==${form.fid.value} `);
             console.log(`form.uid.value==${form.did.value} `);
         } else if (type == 'keyvaluemodify') {
+<<<<<<< HEAD
             //__modal.show('수정', self.createKeyvalueForm());
 
             window._fullscreen = new FullScreenView();
@@ -14027,10 +14862,14 @@ class OrgChartTreeView extends ViewBase {
             $('#ImgselBtn').bind("click", { type: 'imgselBtn', self: self, info: info, arg: arg }, self.eventHandler);
 
 
+=======
+            __modal.show('수정', self.createKeyvalueForm());
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             $('input:radio[name=linkTypeRadio]:radio[value=link]').attr("checked", true);
 
             var form = document.getElementById("keyvalueForm");
             info = self.selectNode;
+<<<<<<< HEAD
 
             var value = __keyvalueSplitString(info.value);
             if (value.itemtype) {
@@ -14058,6 +14897,8 @@ class OrgChartTreeView extends ViewBase {
             if (value.value) {
                 form.value.value = value.value;
             }
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.dbpath.value = arg.dbpath;
             form.kcode.value = info.kcode;
             form.kname.value = info.kname;
@@ -14065,10 +14906,15 @@ class OrgChartTreeView extends ViewBase {
             form.fid.value = info.fid;
             form.did.value = info.uid;
             form.key.value = info.key;
+<<<<<<< HEAD
+=======
+            form.value.value = info.value;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.info.value = info.info;
             form.type.value = 'update';
             $('#keyvalueaddBtn').bind("click", { type: 'keyvalueaddSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
             //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
+<<<<<<< HEAD
         } else if (type == 'imgselBtn') {
             var targetChild = e.target.querySelector('#btnimg');
             var c = new FileController({ type: 'filelist', code: 'root', filetype: 'file', path: '/files/media/images/icons/', filter: 'image', returntype: 'return', $parent: self });
@@ -14076,6 +14922,8 @@ class OrgChartTreeView extends ViewBase {
             c.renderController(elem);
             __modal.show(`보기`, elem);
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'keyvalueaddSubmit') {
 
             var form = document.getElementById("keyvalueForm");
@@ -14095,8 +14943,13 @@ class OrgChartTreeView extends ViewBase {
             }
             if (form.icon.value)
                 value = value + '&icon=' + form.icon.value;
+<<<<<<< HEAD
             if (form.imageinput.value)
                 value = value + '&image=' + form.imageinput.value;
+=======
+            if (form.image.value)
+                value = value + '&image=' + form.image.value;
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             if (form.subject.value)
                 value = value + '&subject=' + form.subject.value;
 
@@ -14121,11 +14974,14 @@ class OrgChartTreeView extends ViewBase {
 
             arg.form = form;
             arg.self.postAjax(arg);
+<<<<<<< HEAD
 
             if (window._fullscreen) {
                 window._fullscreen.offscreen();
                 window._fullscreen = null;
             }
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else if (type == 'keyvaluedel') {
 
             if (!self.selectNode)
@@ -14347,7 +15203,11 @@ class OrgChartTreeView extends ViewBase {
                                                             <label class="control-label" for="inputSuccess1">아이콘</label>
                                                             <div>
                                                                 <input id="iconchange_input" type="text" class="form-control" name="icon" value="" placeholder="아이콘....." required />
+<<<<<<< HEAD
                                                                 <a onclick="JavaScript: openNewWindow('/html/admin/edit/selectIcon.html?target=iconchange&1234')" data-toggle="modal" type="button" class="btn btn-primary">아이콘</a>
+=======
+                                                                <a onclick="JavaScript: openNewWindow('/html/edit/selectIcon.html?target=iconchange&1234')" data-toggle="modal" type="button" class="btn btn-primary">아이콘</a>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                                                 <a id="iconchange"></a>
                                                             </div>
                                                         </div>
@@ -14357,8 +15217,14 @@ class OrgChartTreeView extends ViewBase {
                                                         <div class="form-group">
                                                             <label class="control-label" for="inputSuccess1">이미지</label>
                                                             <div>
+<<<<<<< HEAD
                                                                 <input type="text" name="imageinput" id="imageinput" class="form-control" placeholder="아이콘 이미지 썸네일 경로 ...">
                                                                 <button type = "button" class="btn" id="ImgselBtn" ><img id="btnimg" src="" alt="">이미지선택</button >
+=======
+                                                                <input id="imagechange_input" type="text" class="form-control" name="image" value="" placeholder="이미지....." required />
+                                                                <a onclick="JavaScript: openNewWindow('/html/edit/selectFile.html?target=iconchange&1234')" data-toggle="modal" type="button" class="btn btn-primary">이미지</a>
+                                                                <a id="iconchange"></a>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                                                             </div>
                                                         </div>
                                                     </div>
@@ -14590,12 +15456,15 @@ class OrgChartTreeView extends ViewBase {
             $buttonE2.bind("click", { type: 'keyvaluedel', self: this, info: info, arg: arg }, this.eventHandler);
             $divE.append($label).append($inputE).append($buttonE).append($buttonE2);
             $(arg.elem).append($divE);
+<<<<<<< HEAD
             var $buttonE2 = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE2.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
             $buttonE2.val("수정");
             $buttonE2.bind("click", { type: 'keyvaluemodify', self: this, info: info, arg: arg }, this.eventHandler);
             $divE.append($label).append($inputE).append($buttonE).append($buttonE2);
             $(arg.elem).append($divE);
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
             var $buttonE = $("<input type='button' class='btn btn-outline-info'>");
             $buttonE.attr("type", "button").attr("id", "write").attr("name", "radio").attr('style', 'cursor:pointer;cursor: hand;');
@@ -15195,12 +16064,15 @@ class LoginView extends ViewBase {
             arg.type = "jjocjyview";
             arg.self.startBoardRequest(arg);
         } else if (type == 'login') {
+<<<<<<< HEAD
             var str = "/html/member/login.html?id=1";
             location.href = str;
 
             console.log("str == " + str);
             return;
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             var form = document.getElementById(e.data.formid);
             
             arg.type = type;
@@ -15209,7 +16081,11 @@ class LoginView extends ViewBase {
             var formData = $(form).serializeArray();
             formData = __changeSerialize(formData, 'passwd', encrypted);
             arg.formData = formData;
+<<<<<<< HEAD
             arg.path = "/login.html?logtype=login&dbpath=config.dadb&utf8=ok&";
+=======
+            arg.path = "/login.member?logtype=login&dbpath=config.dadb&utf8=ok&";
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             arg.self.postAjax(arg);
         } 
     }
@@ -15416,10 +16292,16 @@ class LoginView extends ViewBase {
             $form.append($hidden);
             $hidden = $('<input type="hidden" name="type"/>');
             $form.append($hidden);
+<<<<<<< HEAD
             
             //alert('2');
             var $formitem = $('<div class="form-group">');
             /*** *
+=======
+
+            //alert('2');
+            var $formitem = $('<div class="form-group">');
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             var $label = $('<label class="control-label"></label>').text("아이디:");
             var $input = $('<input type="text" class="form-control" placeholder="아이디" required>').prop("name", "id");
             $formitem.append($label).append($input);
@@ -15430,10 +16312,17 @@ class LoginView extends ViewBase {
             $input = $('<input type="password" class="form-control" placeholder="암호" required>').prop("name", "passwd");
             $formitem.append($label).append($input);
             $form.append($formitem);
+<<<<<<< HEAD
             ***/
             var boxbodyid = "brdid" + info.brdid;
             //alert('3');
             var btn1 = $('<button type="button" class="btn btn-info brdupdate" >Login</button>');
+=======
+
+            var boxbodyid = "brdid" + info.brdid;
+            //alert('3');
+            var btn1 = $('<button type="button" class="btn btn-info brdupdate" >확인</button>');
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             $(btn1).bind("click", { type: "login", formid: "loginform", logformid: info.logformid, self: this, arg: arg }, this.eventHandler);
             $formitem = $('<div class="form-group">').append($(btn1));
             $form.append($formitem);
@@ -15441,7 +16330,11 @@ class LoginView extends ViewBase {
             $form.append('<p><input type="checkbox" id="idSaveCheck" /> 아이디 저장</p>');
             $form.append('<p><input type="checkbox" disabled id="pwdSaveCheck" class="no_act" /> 비밀번호 저장</p>');
             var $a = $('<a >').text("회원가입");
+<<<<<<< HEAD
             $a.attr("href", "/html/member/login.html");
+=======
+            $a.attr("href", "/app/aMvc/html/member.html");
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             $form.append($a);
             //console.log(`createLoginView $form=${$form.html()}`);
             $logformdiv.append($form);
@@ -17082,6 +17975,7 @@ class BoardView extends ViewBase {
 
     }
 
+<<<<<<< HEAD
     getReturnValue() {
         var type, value;
         var arg = Array.prototype.slice.call(arguments);
@@ -17116,6 +18010,8 @@ class BoardView extends ViewBase {
         }
     }
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     eventHandler(e) {
         //console.log("eventHandler(e) type =33333333333= ");
         var info = e.data.info;
@@ -17153,6 +18049,7 @@ class BoardView extends ViewBase {
             arg.path = str;
             arg.type = 'boardlist';
             arg.self.postAjax(arg);
+<<<<<<< HEAD
         } else if (type == 'imgselBtn') {
             var targetChild = e.target.querySelector('#btnimg');
             console.log(self);
@@ -17160,6 +18057,9 @@ class BoardView extends ViewBase {
             var elem = document.createElement('div');
             c.renderController(elem);
             __modal.show(`보기`, elem);
+=======
+        } else if (type == 'list') {
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
         } else if (type == 'boardpost') {
             var form = document.getElementById(e.data.formid);
@@ -17171,7 +18071,10 @@ class BoardView extends ViewBase {
             }
             arg.type = 'boardlist';
             arg.form = form;
+<<<<<<< HEAD
             //form.path.value = 'image=' + form.imageinput.value;
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             var formData = $(form).serializeArray();
             //var b64 = Base64.encode($("#summernote").val());
             //alert("Base64.encode formid==222222" + formid);
@@ -17247,7 +18150,10 @@ class BoardView extends ViewBase {
         } else if (type == 'datpost' || type == "datmodify") {
             var form = document.getElementById(e.data.formid);
             //console.log('form^********************************=' + form);
+<<<<<<< HEAD
             //form.path.value = 'image=' + form.image.value;
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             form.code.value = arg.code;
             form.dbpath.value = arg.dbpath;
             form.uid.value = arg.uid;
@@ -17324,7 +18230,10 @@ class BoardView extends ViewBase {
         $writeForm.append('<input type="hidden" name="uid" value="' + arg.uid + '"  />');
         $writeForm.append('<input type="hidden" name="fid" value="' + arg.fid + '"  />');
         $writeForm.append('<input type="hidden" name="thread" />');
+<<<<<<< HEAD
         $writeForm.append('<input type="hidden" name="path" />');
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
         var $writeLabel = $('<label for="subject" class="col-sm-2 control-label">제목</label>');
         var $writeInput = $('<input type="text" name="subject" class="form-control" placeholder="subject">').val(arg.subject);
@@ -17342,7 +18251,11 @@ class BoardView extends ViewBase {
         $writeForm.append($formGroup);
 
         var $writeLabel = $('<label for="subject" class="col-sm-2 control-label">날짜</label>');
+<<<<<<< HEAD
         var $writeInput = $('<input type="datetime-local" name="time" class="form-control" placeholder="subject">').val(arg.subject);
+=======
+        var $writeInput = $('<input type="date" name="time" class="form-control" placeholder="subject">').val(arg.subject);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var $formGroup = $('<div class="form-group">').append($writeLabel).append($writeInput);
         $writeForm.append($formGroup);
 
@@ -17353,12 +18266,15 @@ class BoardView extends ViewBase {
         var $formGroup = $('<div class="form-group">').append($writeLabel).append($writeInput).append(btn1);
         $writeForm.append($formGroup);
 
+<<<<<<< HEAD
         var $writeInput = $('<input type="text" name="imageinput" id="imageinput" class="form-control" placeholder="아이콘 이미지 썸네일 경로 ...">').val(arg.subject);
         var btn1 = $('<button type = "button" class="btn" id="ImgselBtn" ><img id="btnimg" src="" alt="">이미지선택</button >');
         $(btn1).bind("click", { type: 'imgselBtn', self: this, info: info, arg: arg }, this.eventHandler);
         var $formGroup = $('<div class="form-group form-inline">').append($writeInput).append(btn1);
         $writeForm.append($formGroup);
 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var btn1 = $('<button type="button" class="btn btn-info brdupdate" >전송</button>');
         $(btn1).bind("click", { type: 'boardpost', formid: 'boardpostform', info: info, arg: arg }, this.eventHandler);
         var $formitem = $('<div class="form-group">').append($(btn1));
@@ -17692,7 +18608,11 @@ class BoardView extends ViewBase {
 
     createThumbnailItem(info, arg, eventHandler) {
         var strTag;
+<<<<<<< HEAD
         var $boxcol = $('<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">');
+=======
+        var $boxcol = $('<div class="col mb-8">');
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var $box = $('<div class="card">');  //ex: box-default box-danger box-warning box-success box-solid
         $boxcol.append($box);
         if (info.cls) {
@@ -17705,6 +18625,7 @@ class BoardView extends ViewBase {
             $box.addClass(cls);
         }
         var $boxBody = null;
+<<<<<<< HEAD
         
         var $img = null;
         var value = __keyvalueSplitString(info.path);
@@ -17722,6 +18643,21 @@ class BoardView extends ViewBase {
             //item.append($img);
         }
 
+=======
+        var $img = null;
+        if (info.img) {
+            $img = info.img;
+        } else {
+            //console.log(info.imgsrc);
+            if (info.imgsrc) {
+                $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+            } else if (info.iconclass) {
+                $img = $(`<i class="${info.iconclass}">`);
+            } else {
+                $img = $(`<img src="..." onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+            }
+        }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         //alert("icon" + $boxHeader.html());
         $boxBody = $('<div class="card-body" style="overflow:auto">').css("display", info.display).attr("id", info.boxbodyid);
 
@@ -17765,6 +18701,7 @@ class BoardView extends ViewBase {
             $box.addClass(cls);
         }
         var $boxBody = null;
+<<<<<<< HEAD
         
         var $img = null;
         var value = __keyvalueSplitString(info.path);
@@ -17778,6 +18715,20 @@ class BoardView extends ViewBase {
 
         if (value && value.icon) {
             $img = $(`<i class="${value.icon}">`);
+=======
+        var $img = null;
+        if (info.img) {
+            $img = info.img;
+        } else {
+            //console.log(info.imgsrc);
+            if (info.imgsrc) {
+                $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+            } else if (info.iconclass) {
+                $img = $(`<i class="${info.iconclass}">`);
+            } else {
+                $img = $(`<img src="..." onerror="onImgError(this);" class="card-img-top mr-3" imgtype="thumbnail" >`);
+            }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         }
         //alert("icon" + $boxHeader.html());
         $boxBody = $('<div class="card-body" style="overflow:auto">').css("display", info.display).attr("id", info.boxbodyid);
@@ -17852,7 +18803,11 @@ class BoardView extends ViewBase {
                     </div>`;
         $temp.append(head);
 
+<<<<<<< HEAD
         var thumbnailE = $(`<div class="row ">
+=======
+        var thumbnailE = $(`<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                         </div>`);
         $temp.append(thumbnailE);
 
@@ -17987,6 +18942,7 @@ class BoardView extends ViewBase {
         $temp.append(timelineE);
 
         if (arrarr && arrarr.length >= 0) {
+<<<<<<< HEAD
             // name 기준으로 정렬
             arrarr.sort(function (a, b) {
                 var nameA = a.time.toUpperCase(); // ignore upper and lowercase
@@ -18001,6 +18957,8 @@ class BoardView extends ViewBase {
                 // 이름이 같을 경우
                 return 0;
             });
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             for (var i = 0; i < arrarr.length; i++) {
                 var info = arrarr[i];
 
@@ -18010,7 +18968,10 @@ class BoardView extends ViewBase {
                 
                 var sectionItemE = $('<section>');
                 var iconE = $('<i class="icon fa fa-fw  fa-home">');
+<<<<<<< HEAD
                 var timeDetailE = $('<div class="t-details ribbon">');
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 var detailE = $('<div class="t-details">');
                 var bottomE = $('<div class="bottom">');
                 var idE = $('<i>').append(info.id);
@@ -18021,6 +18982,7 @@ class BoardView extends ViewBase {
                 }
 
 
+<<<<<<< HEAD
                 var timeE = $('<h5 class="title">').append(info.time);
                 var subjectE = $('<h5 class="title">').append(info.subject);
                 var appendE = $('<span>').append('  ' + info.id + ' ( ' + info.signdate + ' ) ');
@@ -18029,6 +18991,14 @@ class BoardView extends ViewBase {
                 timeDetailE.append(timeE);
                 detailE.append(subjectE).append(appendE);
                 sectionItemE.append(iconE).append(timeDetailE).append(detailE).append(summaryE).append(bottomE);
+=======
+                var subjectE = $('<h5 class="title">').append(info.subject);
+                var appendE = $('<span>').append('  ' + info.id + ' ( ' + info.signdate + ' ) ');
+                var summaryE = $('<p>').append(info.summary);
+                
+                detailE.append(subjectE).append(appendE);
+                sectionItemE.append(iconE).append(detailE).append(summaryE).append(bottomE);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 itemE.append(sectionItemE);
 
                 itemE.bind("click", { type: 'boardrecord', info: info, loginfo: loginfo, self: this, arg: arg }, eventHandler);
@@ -18072,6 +19042,7 @@ class BoardView extends ViewBase {
         var $media_box_item = $('<div class="d-flex w-100 justify-content-between">');
         $media_box.append($media_box_item);
         var $img = null;
+<<<<<<< HEAD
         var value = __keyvalueSplitString(info.path);
         console.log(`info.path=${info.path}`);
         if (value && value.image) {
@@ -18086,6 +19057,21 @@ class BoardView extends ViewBase {
             $img = $(`<i class="${value.icon}">`);
         }
         
+=======
+        if (info.img) {
+            $img = info.img;
+        } else {
+            //console.log(info.imgsrc);
+            if (info.imgsrc) {
+                $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+            } else if (info.iconclass) {
+                $img = $(`<i class="${info.iconclass}">`);
+            } else {
+                $img = $(`<img src="..." onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+            }
+        }
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var $boxBody = $('<div class="media-body">');
         //alert('info.subject=' + info.subject);
         if (info.subject) {
@@ -18240,6 +19226,7 @@ class BoardView extends ViewBase {
                 var wItemE = $('<div class=" w-100">');
 
                 var $img = null;
+<<<<<<< HEAD
                 var value = __keyvalueSplitString(info.path);
                 console.log(`info.path=${info.path}`);
                 if (value && value.image) {
@@ -18252,6 +19239,19 @@ class BoardView extends ViewBase {
 
                 if (value && value.icon) {
                     $img = $(`<i class="${value.icon}">`);
+=======
+                if (info.img) {
+                    $img = info.img;
+                } else {
+                    //console.log(info.imgsrc);
+                    if (info.imgsrc) {
+                        $img = $(`<img src="${info.imgsrc}" onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+                    } else if (info.iconclass) {
+                        $img = $(`<i class="${info.iconclass}">`);
+                    } else {
+                        $img = $(`<img src="..." onerror="onImgError(this);" class="mr-3" imgtype="media" width="50" height="50" >`);
+                    }
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 }
 
                 
@@ -18792,6 +19792,7 @@ class BoardView extends ViewBase {
 class BoardViewBody extends ViewBase {
     constructor() {
         super();
+<<<<<<< HEAD
 
         this.selectedImageFormId = null;
     }
@@ -18831,6 +19832,8 @@ class BoardViewBody extends ViewBase {
             __modal.hide();
             //console.log(value);
         } 
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     }
 
     eventHandler(e) {
@@ -18838,11 +19841,19 @@ class BoardViewBody extends ViewBase {
         var arg = e.data.arg;
         var type = e.data.type;
         var self = e.data.self;
+<<<<<<< HEAD
         console.log(type);
         if (type == 'datform') {
             //__modal.show('입 력', self.createDatForm(info, arg, self.eventHandler));
             $('.collapse').children().remove();
             $('#datform' + e.data.datuid).append(self.createSubDatForm(info, arg, self.eventHandler));
+=======
+
+        if (type == 'datform') {
+            //__modal.show('입 력', self.createDatForm(info, arg, self.eventHandler));
+            $('.collapse').children().remove();
+            $('#datform' + e.data.datuid).append(self.createSubDatForm());
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             $('#datform' + e.data.datuid).collapse('show');
             var form = document.getElementById("datForm");
 
@@ -18850,6 +19861,7 @@ class BoardViewBody extends ViewBase {
             $('#subdatformSubmit').bind("click", { type: 'subdatformSubmit', self: this, info: info, arg: arg }, e.data.self.eventHandler);
             //console.log(`form.fid.value==${form.fid.value} codeval=${codeval}`);
         } else if (type == 'datImgselBtnClick') {
+<<<<<<< HEAD
             self.selectedImageFormId = "datForm";
             var c = new FileController({ type: 'filelist', code: 'root', filetype: 'file', path: '/files/media/images/icons/', filter: 'image' , returntype: 'return', $parent: self });
             var elem = document.createElement('div');
@@ -18869,6 +19881,13 @@ class BoardViewBody extends ViewBase {
             c.renderController(elem);
             __modal.show(`보기`, elem);
             console.log(self);
+=======
+            var c = new FileController('file', '/files/icons/', 'table');
+            var elem = document.createElement('div');
+            c.renderController(elem);
+            __modal.show(`보기`, elem);
+
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             var form = document.getElementById("datSubForm");
             form.code.value = arg.code;
             form.dbpath.value = arg.dbpath;
@@ -18897,6 +19916,34 @@ class BoardViewBody extends ViewBase {
 
             arg.path = "/view.board?posttype=datpost&code=" + arg.code + "&dbpath=" + arg.dbpath + "&brdid=" + arg.brdid + "&uid=" + info.uid + "&fid=" + info.fid + "&datuid=" + arg.datuid + "&utf8=ok&";
             console.log(` handle datpost arg.path=${arg.path}**** arg.type=${arg.type}****************************=`);
+<<<<<<< HEAD
+=======
+
+            arg.self.postAjax(arg);
+        } else if (type == 'subdatformSubmit') {
+
+            var form = document.getElementById("datSubForm");
+            form.code.value = arg.code;
+            form.dbpath.value = arg.dbpath;
+            form.uid.value = info.uid;
+            form.did.value = info.did;
+            form.fid.value = info.fid;
+            form.datuid.value = info.datuid;
+
+            arg.type = 'viewbody';
+            arg.form = form;
+            var formData = $(form).serializeArray();
+            //var b64 = Base64.encode(form.comment.value);
+            //alert("Base64.encode formid==222222" + formid);
+            //formData = arg.self.changeSerialize(formData, 'comment', b64);
+            //console.log("form.subject.value=======" + form.subject.value);
+            //b64 = Base64.encode(form.subject.value);
+            //formData = arg.self.changeSerialize(formData, 'subject', b64);
+            arg.formData = formData;
+
+            arg.path = "/view.board?posttype=datpost&code=" + arg.code + "&dbpath=" + arg.dbpath + "&brdid=" + arg.brdid + "&uid=" + info.uid + "&fid=" + info.fid + "&datuid=" + arg.datuid + "&utf8=ok&";
+            console.log(` handle datpost arg.path=${arg.path}**** arg.type=${arg.type}****************************=`);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             
             arg.self.postAjax(arg);
         } else if (type == 'datformSubmit') {
@@ -19083,6 +20130,7 @@ class BoardViewBody extends ViewBase {
     createDatMediaBox(info, arg, eventHandler) {
 
         var $dat_media_box = $('<div class="d-flex p-3" style="border:2px solid gold;border-round: 50x">');
+<<<<<<< HEAD
         var $img = null;
         var value = __keyvalueSplitString(info.path);
         console.log(`info.path=${info.path}`);
@@ -19098,6 +20146,9 @@ class BoardViewBody extends ViewBase {
             //item.append($img);
         }
 
+=======
+        var $datimg = $('<img onerror=\'this.src=images/ blank.gif\'" src="..." class="mr-3" alt="...">');
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         var $datbody = $('<div class="media-body">');
 
         var $bodyhead = $('<div class="row justify-content-between">');
@@ -19111,7 +20162,11 @@ class BoardViewBody extends ViewBase {
         $datbody.append($bodyhead);
         $datbody.append($bodybody);
 
+<<<<<<< HEAD
         $dat_media_box.append($img).append($datbody);
+=======
+        $dat_media_box.append($datimg).append($datbody);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         //console.log(info.okp);
         const okp = info.okp ? info.okp : '';
         const nop = info.nop ? info.nop : '';
@@ -19161,6 +20216,7 @@ class BoardViewBody extends ViewBase {
         return $dat_media_box;
     };
 
+<<<<<<< HEAD
     createSubDatForm(info, arg, eventHandler) {
 
         var $dat_media_box = $('<div class="d-flex w-100 justify-content-between">');
@@ -19201,6 +20257,11 @@ class BoardViewBody extends ViewBase {
 
         var mo = `<div class="d-flex w-100 justify-content-between">
                     <button type = "button" class="btn" id="subdatImgselBtn" ><img id="btnimg" src="" alt="">이미지선택</button >
+=======
+    createSubDatForm() {
+        var mo = `<div class="d-flex w-100 justify-content-between">
+                    <button type = "button" class="btn" id="subdatImgselBtn" >이미지선택</button >
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                     <div class="media-body">
                         <form id="datSubForm" method="post" class="form-horizontal">
                             <input type="hidden" name="code">
@@ -19211,7 +20272,10 @@ class BoardViewBody extends ViewBase {
                             <input type="hidden" name="did">
                             <input type="hidden" name="fid">
                             <input type="hidden" name="datuid">
+<<<<<<< HEAD
                             <input type="hidden" name="path">
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                             <div class="form-group">
                                 <input type="text" name="subject" id="dat_subject" class="form-control" placeholder="제목">
                             </div>
@@ -19230,7 +20294,11 @@ class BoardViewBody extends ViewBase {
 
     createDatForm() {
         var mo = `<div class="d-flex w-100 justify-content-between">
+<<<<<<< HEAD
                     <button type = "button" class="btn" id="datImgselBtn" ><img id="btnimg" src="" alt="">이미지선택</button >
+=======
+                    <button type = "button" class="btn" id="datImgselBtn" >이미지선택</button >
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                     <div class="media-body">
                         <form id="datForm" method="post" class="form-horizontal">
                             <input type="hidden" name="code">
@@ -19241,7 +20309,10 @@ class BoardViewBody extends ViewBase {
                             <input type="hidden" name="did">
                             <input type="hidden" name="fid">
                             <input type="hidden" name="datuid">
+<<<<<<< HEAD
                             <input type="hidden" name="path">
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                             <div class="form-group">
                                 <input type="text" name="subject" id="dat_subject" class="form-control" placeholder="제목">
                             </div>
@@ -19297,6 +20368,7 @@ class BoardViewBody extends ViewBase {
         var $tempBox = $('<div>');
         var divElem;
         var divElem2;
+<<<<<<< HEAD
         if (arg.renderinfo.viewbodytype == 'full') {
             divElem = $(`<div>`);
             divElem2 = $(`<div>`);
@@ -19305,6 +20377,9 @@ class BoardViewBody extends ViewBase {
             f.setContent(`뷰 보기255`, $tempBox);
             
         } else if (arg.renderinfo.viewbodytype == 'h') {
+=======
+        if (arg.renderinfo.viewbodytype == 'h') {
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
             $tempBox.addClass("row");
             divElem = $(`<div>`).addClass(`col-md-4`);
@@ -19457,9 +20532,12 @@ class BoardViewBody extends ViewBase {
         if (arg.viewelem) {
             $(arg.viewelem).empty();
             $(arg.viewelem).append($tempBox);
+<<<<<<< HEAD
         } else if (arg.renderinfo.linktype == "full") {
             window._fullscreen = new FullScreenView();
             window._fullscreen.setContent(`글쓰기`, $tempBox);
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         } else {
             $(arg.elem).empty();
             $(arg.elem).append($tempBox);

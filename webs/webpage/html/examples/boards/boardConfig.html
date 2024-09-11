@@ -79,6 +79,15 @@
             $('#main').append(f);
 
             var e = document.createElement('div');
+<<<<<<< HEAD
+=======
+            e.setAttribute('id', 'd');
+            $('#main').append(e);
+
+            
+
+            var e = document.createElement('div');
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             e.setAttribute('id', 'a');
             $('#main').append(e);
             var e = document.createElement('div');
@@ -89,6 +98,7 @@
             $('#main').append(e);
 
             var elem = document.getElementById('a');
+<<<<<<< HEAD
             var c = new BoardConfigController({ type: 'boardconfig', dbpath: _dbpath, code: _code, brdid: 3, renderview: 'BoardConfigView' });
             c.renderController(elem);
 
@@ -96,10 +106,25 @@
             var c = new BoardController({ type: 'grouplist', dbpath: _dbpath, code: _code, brdid: 1, renderview: 'BoardView', rendertype: 'table' });
             c.renderController(elem);
 
+=======
+            var c = new BoardConfigController({ type: 'boardconfig', dbpath: _dbpath, code: _code, brdid: 3, renderview: new BoardConfigView() });
+            c.renderController(elem);
+
+            var elem = document.getElementById('d');
+            var c = new BoardController({ type: 'grouplist', dbpath: _dbpath, code: _code, brdid: 1, renderview: new BoardView(), rendertype: 'table' });
+            c.renderController(elem);
+
+            var elem = document.getElementById('b');
+            //var c = new BoardController({ type: 'boardlist', dbpath: _dbpath, code: _code, brdid: 3, renderview: new BoardView(), rendertype: 'table' });
+            var c = new BoardController({ type: 'boardlist', dbpath: _dbpath, code: _code, brdid: 3, renderview: 'BoardView', rendertype: 'thumbnailR' });
+            
+            c.renderController(elem);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         });
     </script>
 </head>
 <body onfocus="newWindow.close()">
+<<<<<<< HEAD
 
     <da include="/eHome/navbarEHome.html?"></da>
 
@@ -142,5 +167,18 @@
 
     <da include="/html/module/footer.html"></da>
 
+=======
+    <div id="main-logform"></div>
+    <div class="row">
+        <div class="col-md-4">
+            4444444444
+        </div>
+        <div class="col-md-8">
+            <div id="main"></div>
+        </div>
+    </div>
+    
+    <da include="/html/module/footer.html"></da>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 </body>
 </html>

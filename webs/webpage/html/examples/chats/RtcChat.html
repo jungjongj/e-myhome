@@ -22,6 +22,7 @@
 
 </head>
 <body class="container" id="a">
+<<<<<<< HEAD
 
     <da include="/eHome/navbarEHome.html?"></da>
 
@@ -38,6 +39,21 @@
 
     <da include="/html/module/footer.html"></da>
 
+=======
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" id="close"  onclick="onBtnClick(this)">Close<span class="sr-only">(current)</span></a>
+                <a class="nav-link active" id="offer" onclick="onBtnClick(this)">Offer</a>
+            </div>
+        </div>
+    </nav>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     <script type="text/javascript">
         var _serverip = null;
         var signaling = null;
@@ -49,10 +65,17 @@
                 signaling.rtcOffer();
                 console.log("keyCon=======" + keyCon);
             }
+<<<<<<< HEAD
 
         }
 
 
+=======
+            
+        }
+
+        
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         $(document).ready(function () {
             var url = unescape(location.href);
             console.log('url == ', url);
@@ -89,9 +112,14 @@
 
                                 console.log('_myip=' + _myip);
                                 console.log('_serverip=' + _serverip);
+<<<<<<< HEAD
                                 var elem = document.getElementById('chat');
                                 signaling = new RtcSignalingChat({ server_url: null });
                                 signaling.renderController(elem);
+=======
+                                signaling = new RtcSignalingChat({ server_url: null });
+                                signaling.renderController(document.body);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                             });
                         })// 에러처리
                         .catch(() => {
@@ -99,7 +127,11 @@
                         });
                 }
             }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         });
     </script>
 </body>

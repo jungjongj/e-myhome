@@ -51,7 +51,10 @@
                         //_publicModulus = $(this).find('publicModulus').text();
                         //_publicExponent = $(this).find('publicExponent').text();
                         _publicXmlkey = $(this).find('publicXmlkey').text();
+<<<<<<< HEAD
                         console.log(_publicXmlkey);
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                     });
                 })// 에러처리
                 .catch(() => {
@@ -112,7 +115,11 @@
                     setTimeout(function () {
                         $("#overlay-loadingbar").fadeOut(300);
                     }, 500);
+<<<<<<< HEAD
                     //alert("메일전송에 성공했습니다");
+=======
+                    alert("메일전송에 성공했습니다");
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 },
                 complete: function (data) {
                     // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
@@ -272,7 +279,11 @@
                 <div class="form-group form-inline">
                     <label for="from" class="col-sm-2 control-label">From:</label>
                     <input type="email" class="form-control" name="emailfrom" placeholder="Email from:" required>
+<<<<<<< HEAD
                     <label for="password" class="col-sm-2 control-label">PASSWORD(gmail 2단계인증시 앱비밀번호입력):</label>
+=======
+                    <label for="password" class="col-sm-2 control-label">PASSWORD:</label>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                     <input type="password" class="form-control" name="passwd" id="passwd" placeholder="password:" required>
                 </div>
                 <div class="form-group">

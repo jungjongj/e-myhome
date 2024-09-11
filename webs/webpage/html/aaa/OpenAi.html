@@ -22,6 +22,7 @@
     <script src="/aMvc/base/templateBase.js?12"></script>
 
     <script type="text/javascript">
+<<<<<<< HEAD
 
         $(document).ready(function () {
             var items = [
@@ -67,5 +68,43 @@
     </script>
 </head>
 <body class="skin-blue center-block">
+=======
+        // OpenAI API 엔드포인트
+        const apiEndpoint = 'https://api.openai.com/v1/engines/davinci-codex/completions';
+
+        // 발급받은 OpenAI API 키
+        const apiKey = 'YOUR_API_KEY_HERE';
+
+        // API 요청에 사용할 데이터
+        const data = {
+            prompt: "Translate the following English text to French: 'Hello, how are you?'",
+            temperature: 0.7,
+            max_tokens: 64,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0
+        };
+
+        // Fetch API를 사용하여 OpenAI API에 요청을 보내는 함수
+        async function callOpenAI() {
+            const response = await fetch(apiEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            console.log(result.choices[0].text);
+        }
+
+        // 함수 호출
+        callOpenAI();
+    </script>
+</head>
+<body class="skin-blue center-block" >
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
 </body>

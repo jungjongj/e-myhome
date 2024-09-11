@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transitions - jQuery Mobile Demos</title>
+
+    <link rel="stylesheet" href="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.css">
+    <link rel="stylesheet" href="/aMvc/lib/css/da-style.css?s=31">
+
+    <script src="/aMvc/lib/jquery/jquery-2.1.2.min.js"></script>
+    <script src="/aMvc/lib/jquery/jquery-ui.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/aMvc/lib/bootstrap/bootstrap-4.6.1-dist/js/bootstrap.min.js"></script>
+    <script src="/aMvc/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+
+    <script src="/aMvc/lib/js/da-globallib.js?"></script>
+
+    <script src="/aMvc/base/boardAjaxBase.js?3"></script>
+    <script src="/aMvc/base/viewLibBase.js?91"></script>
+    <script src="/aMvc/base/templateBase.js?"></script>
+
+    <script type="text/javascript">
+
+        var _code = "", _dbpath = "";
+        window.onload = function () {
+            var url = unescape(location.href);
+            var pm = url.split('?');
+            //alert(url);
+            if (pm && pm[1]) {
+                var params = pm[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var param = params[i].split('=');
+                    if (param && param[1]) {
+                        if (param[0] == "dbpath")
+                            _dbpath = param[1];
+                        else if (param[0] == "code")
+                            _code = param[1];
+                    }
+
+                }
+            }
+
+            //re_menu1("board.html");
+        }
+
+        function re_menu1(pageurl) { //alert(pageurl);
+            location.href = pageurl;
+        }
+
+        $(document).ready(function () {
+            includeHTML();
+
+        });
+    </script>
+
+</head>
+    <body class="container">
+        <da include="./mo-utilmenu.html?" nohtml=""></da>
+        <div class="container bootstrap snippet">
+
+        </div><!--/row-->
+        
+        <!-- fullscreen end-->>
+        <div id='controls' class="card" style="background-color:green; overflow:auto;" align="center" onclick="fullscreen(this.id)">
+            <div class="card-body">
+
+            </div>
+        </div>
+        <!-- fullscreen end-->>
+    </body>
+</html>

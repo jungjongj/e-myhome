@@ -18,8 +18,13 @@
 
     <script src="/aMvc/lib/js/da-globallib.js?1"></script>
 
+<<<<<<< HEAD
     <script src="/aMvc/base/boardAjaxBase.js?"></script>
     <script src="/aMvc/base/viewLibBase.js?89"></script>
+=======
+    <script src="/aMvc/base/boardAjaxBase.js?73"></script>
+    <script src="/aMvc/base/viewLibBase.js?78"></script>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
     <script src="/aMvc/base/erpBase.js?9"></script>
     <script src="/aMvc/base/templateBase.js?1"></script>
 
@@ -40,6 +45,7 @@
             main.addControl(ver);
             main.addControl(hor);
 
+<<<<<<< HEAD
             empCon = new ErpController({
                 type: 'erpview',
                 dbpath: _dbpath,
@@ -104,6 +110,23 @@
                 renderview: 'GoodsView',
                 rendertype: 'media'
             });
+=======
+            empCon = new ErpController({ type: 'erpview', dbpath: _dbpath, code: 'company', companycode: 'cu4', renderview: 'CompanyView', rendertype: 'selectlist' });
+            ver.addControl(empCon);
+            empCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'employee', renderview: 'EmployeeView', rendertype: 'selectlist_h'});
+            ver.addControl(empCon);
+            companyCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'company', renderview: 'CompanyView', rendertype: 'selectlist_h' });
+            ver.addControl(companyCon);
+            workCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'workday', renderview: 'WorkdayView', rendertype: 'media' });
+            ver.addControl(workCon);
+            maeibCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'maeib_chul', renderview: 'Maeib_chulView', rendertype: 'media' });
+            ver.addControl(maeibCon);
+            customerCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'customer', renderview: 'CustomerView', rendertype: 'media' });
+            ver.addControl(customerCon);
+            rentalCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'rental', renderview: 'RentalView', rendertype: 'media' });
+            ver.addControl(rentalCon);
+            goodsCon = new ErpController({ type: 'erplist', dbpath: _dbpath, code: 'goods', renderview: 'GoodsView', rendertype: 'media' });
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             ver.addControl(goodsCon);
 
             main.renderController(document.getElementById('script'));
@@ -113,6 +136,7 @@
 
 </head>
 <body class="">
+<<<<<<< HEAD
     <da include="/eHome/navbarEHome.html?"></da>
 
     <div class="row">
@@ -125,6 +149,11 @@
             <div id="script"></div>
         </div>
     </div>
+=======
+    <da include="/html/module/navbarAdmin.html?"></da>
+
+    <div id="script"></div>
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
 
     <da include="/html/module/footer.html"></da>
 </body>

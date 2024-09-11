@@ -229,11 +229,17 @@
     createCanvasEventHandle() {
         var self = this;
         this.canvas = this.__canvas = new fabric.Canvas('fabcanvas', {
+<<<<<<< HEAD
             selection: true, // 다중 선택을 활성화
             centeredRotation: false,
             centeredScaling: false,
             isDrawingMode: false,
             preserveObjectStacking: true // 객체 쌓임 순서 유지
+=======
+            centeredRotation: false,
+            centeredScaling: false,
+            isDrawingMode: true
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         });
         
         //console.log('this.canvas222222222222 =', this.canvas);
@@ -249,6 +255,7 @@
         $$('drawing-mode-selector').dispatchEvent(event);
 
         this.canvas.on({
+<<<<<<< HEAD
             'selection:created': function (e) {
                 if (e)
                     console.log(e);
@@ -259,6 +266,16 @@
                 self.setSelectionHandle();
             },
             'selection:cleared': function (e) {
+=======
+            'selection:created': function () {
+                self.setSelectionHandle();
+            },
+            'selection:updated': function () {
+                //console.log('selection:updated');
+                self.setSelectionHandle();
+            },
+            'selection:cleared': function () {
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
                 //console.log('selection:cleared');
                 
                 //alert('selection:cleared');
@@ -302,11 +319,14 @@
         });
 
         this.canvas.on('mouse:down', (options) => {
+<<<<<<< HEAD
             console.log(options.e.shiftKey);
             if (options.e.shiftKey) {
                 console.log('options.shiftKey');
                 this.selection.add(options.target); // 선택 영역에 포함된 오브젝트 추가
             }
+=======
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
             //console.log('mouse:down');
             if (options.target && options.target.down) {
                 options.target.set(options.target.down);
@@ -3505,6 +3525,11 @@ class Shape {
     }
 
     updateShape(options) { //: mouse move
+<<<<<<< HEAD
+=======
+        //polygon mode
+        console.log('this.isDragging=', this.isDragging);
+>>>>>>> 559d578f738e1570358e9f175294452477d6fc03
         
         if (this.polygonDrawMode) {
             if (this.isDragging) {
